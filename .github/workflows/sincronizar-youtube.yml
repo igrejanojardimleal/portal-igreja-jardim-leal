@@ -2,6 +2,7 @@ name: Sincronizar vídeos da igreja
 on:
   schedule:
     - cron: '27 */6 * * *'
+    - cron: '12 8 * * 0'
   workflow_dispatch:
   push:
     branches: [main]
@@ -15,10 +16,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Preparar importação gratuita de vídeos antigos
+        run: python3 -m pip install --disable-pip-version-check --quiet yt-dlp || true
       - name: Buscar os vídeos recentes e atualizar catálogo
         env:
           YOUTUBE_HANDLE: igrejanojardimlealobradare8130
-          YOUTUBE_CHANNEL_ID: ${{ vars.YOUTUBE_CHANNEL_ID }}
+          YOUTUBE_CHANNEL_ID: UCvLSuAW-QkwyTYiU7ilvoRw
+          YOUTUBE_BACKFILL: ${{ github.event_name == 'workflow_dispatch' || github.event.schedule == '12 8 * * 0' }}
         run: python3 tools/sync_youtube.py
       - name: Salvar mudanças no repositório
         run: |
