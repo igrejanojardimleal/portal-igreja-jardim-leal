@@ -18,9 +18,21 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: Conferir JavaScript e importação do YouTube
+        run: |
+          node --check assets/app.js
+          node --check assets/videos.js
+          python3 -m py_compile tools/sync_youtube.py
+      - name: Preparar somente arquivos públicos
+        run: |
+          mkdir -p dist
+          cp ./*.html ./config.js ./sitemap.xml dist/
+          cp -R assets dist/assets
+          touch dist/.nojekyll
+          find . -maxdepth 1 -type f -name 'google*.html' -exec cp {} dist/ \;
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
-          path: '.'
+          path: 'dist'
       - id: deployment
         uses: actions/deploy-pages@v4
