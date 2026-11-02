@@ -31,5 +31,10 @@ jobs:
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
             git add assets/videos.json assets/videos.js
             git commit -m 'Atualiza vídeos do canal da igreja'
-            git push
+            for tentativa in 1 2 3; do
+              git pull --rebase origin main
+              if git push origin main; then exit 0; fi
+              sleep 4
+            done
+            exit 1
           fi
