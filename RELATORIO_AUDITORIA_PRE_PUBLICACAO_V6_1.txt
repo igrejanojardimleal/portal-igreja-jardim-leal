@@ -1,0 +1,77 @@
+PORTAL IGREJA NO JARDIM LEAL — AUDITORIA PRÉ-PUBLICAÇÃO V6.1
+Data: 02/11/2026
+
+ESCOPO INSPECIONADO
+- 10 páginas HTML independentes.
+- Assets JavaScript/CSS, dados locais, hinário, estudos, minutas, scripts SQL,
+  rotina de sincronização do YouTube e workflow do GitHub Actions.
+- Repositório-alvo: igrejanojardimleal/portal-igreja-jardim-leal (privado e vazio
+  na última verificação).
+
+INVENTÁRIO VALIDADO
+- 11 páginas HTML.
+- 71 hinos em assets/data.js.
+- 19 roteiros bíblicos em assets/estudos-iniciais.js.
+- 5 temas de História da Fé.
+- SQL de instalação V4, migração V4 para banco V3 já existente e migração V6.
+- Configuração Supabase sem URL e sem chave; não foram encontrados segredos
+  service_role, tokens ou senhas nos arquivos inspecionados.
+
+TESTES LOCAIS/ESTÁTICOS EXECUTADOS NESTA AUDITORIA
+- node --check em todos os arquivos JavaScript: aprovado.
+- Verificação de referências locais src/href nas 11 páginas: sem referências
+  locais ausentes.
+- Contagens do conteúdo: 129 louvores (71 + 58), 14 cifras do Volume 2 e 0 estudos bíblicos publicados.
+- Revisão visual automatizada em navegador real: NÃO executada nesta etapa.
+- Teste contra Supabase real, upload real, RLS em execução e GitHub Pages:
+  NÃO executados.
+
+CORREÇÃO DE PREPARAÇÃO
+- Removido do rodapé das páginas o endereço antigo "Rua Castro Rabelo, 831..."
+  até que a liderança confirme oficialmente que continua sendo o endereço público
+  atual. Substituído por aviso de confirmação pendente.
+- Arquivos alterados: mural.html, agenda.html, canal.html, historia.html, enviar-cifra.html, contribuir.html, estudos-biblicos.html, index.html, louvores.html, administracao.html
+
+PENDÊNCIAS OBRIGATÓRIAS ANTES DO LANÇAMENTO
+1. Criar projeto Supabase da igreja e informar URL + chave publicável (anon/
+   publishable). Nunca enviar service_role, senha ou token privado.
+2. Confirmar se o Supabase é instalação nova ou já possui schema/migrações.
+   Instalação nova: seguir INSTALACAO_COMPLETA_V4.sql e depois a migração V6.
+   Banco já migrado para V3: aplicar v4_conteudo_agenda_midias.sql e depois V6.
+   Não executar scripts indiscriminadamente.
+3. Criar conta do administrador no Supabase Auth e inserir o UUID em
+   public.site_admins. O login atual é por link mágico enviado por e-mail;
+   não existe senha administrativa pré-configurada no site.
+4. Implementar/validar antispam no servidor (ex.: Edge Function + Turnstile),
+   política de retenção e aviso de privacidade/LGPD.
+5. Testar RLS com visitante anônimo, usuário autenticado comum e administrador.
+6. Validar direitos de publicação das letras do hinário (o próprio arquivo-fonte
+   reserva direitos aos compositores/departamento) e autorizações das imagens.
+7. Confirmar nome do beneficiário e cidade antes de ativar QR Pix. A chave
+   informada pode ser exibida/copiada; QR não deve ser gerado com dados presumidos.
+8. Confirmar endereço, fotos, horários, dados institucionais e conteúdo histórico.
+9. Confirmar disponibilidade de GitHub Pages para o repositório privado ou
+   autorizar expressamente tornar o repositório/conteúdo público. Não tornar
+   públicos hinos, imagens ou dados sem as autorizações correspondentes.
+
+ADMINISTRAÇÃO
+- O painel administracao.html depende de Supabase real e da função is_site_admin()
+  + RLS. Sem isso, não há login administrativo funcional.
+- O fluxo de autenticação implementado usa link mágico por e-mail (OTP), não
+  usuário/senha fixos. Não criar nem divulgar credenciais fictícias.
+
+STATUS
+- Pacote preparado para avaliação local.
+- NÃO enviado ao GitHub nesta etapa.
+- NÃO publicado no GitHub Pages.
+- NÃO existe URL pública de teste nem administrador ativo enquanto Supabase
+  e hospedagem não forem configurados.
+
+
+ATUALIZAÇÃO SOLICITADA PELA IGREJA — 02/11/2026
+- Retirada a seção pública História da Fé.
+- Estudos Bíblicos marcados como "Em elaboração"; os roteiros anteriores foram removidos da apresentação pública.
+- Incorporados 58 louvores únicos do arquivo "novo hinário volume 2.docx".
+- 14 músicas com acordes já existentes no documento foram incluídas na aba Cifras.
+- A aba Cifras foi ajustada para listar apenas músicas com acordes cadastrados ou PDF aprovado.
+- Antes de publicar letras/cifras na internet, confirmar as autorizações de reprodução dos compositores e responsáveis.

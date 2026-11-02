@@ -1,0 +1,23 @@
+PORTAL IGREJA NO JARDIM LEAL — RELATÓRIO DE TESTES ESTÁTICOS
+Data: 02/11/2026
+
+ALTERAÇÕES DE CONTEÚDO
+- 129 louvores no total: 71 do Volume 1 + 58 do novo Volume 2.
+- 14 músicas do Volume 2 com acordes identificáveis cadastradas na aba Cifras.
+- Repetição de "Não Perca o Brilho" consolidada.
+- Versões equivalentes "Só Agradeço / Sou Teu Servo" e "Só Jesus / Você Tem Valor" agrupadas.
+- História da Fé retirada da navegação e das páginas públicas.
+- Estudos Bíblicos exibindo "Em elaboração", sem roteiros preliminares publicados.
+
+VALIDAÇÕES EXECUTADAS NESTA REVISÃO
+- JSON de assets/data.js e assets/hinario-index.json: válido.
+- Sintaxe JavaScript (node --check): verificar todos os arquivos JS.
+- Integridade do pacote ZIP: validar após empacotamento.
+- Referências locais HTML: validar após empacotamento.
+- Revisão em navegador real: NÃO executada nesta etapa.
+
+NÃO TESTADO
+- Supabase real, autenticação, RLS e upload real de PDFs.
+- GitHub Pages ou URL pública.
+- Direitos autorais/licenças para publicação externa de letras e cifras.
+- Teste visual funcional em navegador real.

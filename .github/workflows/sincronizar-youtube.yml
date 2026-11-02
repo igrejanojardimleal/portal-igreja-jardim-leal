@@ -1,0 +1,31 @@
+name: Sincronizar vídeos da igreja
+on:
+  schedule:
+    - cron: '27 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/sync_youtube.py'
+      - '.github/workflows/sincronizar-youtube.yml'
+permissions:
+  contents: write
+jobs:
+  atualizar-galeria:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Buscar os vídeos recentes e atualizar catálogo
+        env:
+          YOUTUBE_HANDLE: igrejanojardimlealobradare8130
+          YOUTUBE_CHANNEL_ID: ${{ vars.YOUTUBE_CHANNEL_ID }}
+        run: python3 tools/sync_youtube.py
+      - name: Salvar mudanças no repositório
+        run: |
+          if ! git diff --quiet -- assets/videos.json assets/videos.js; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add assets/videos.json assets/videos.js
+            git commit -m 'Atualiza vídeos do canal da igreja'
+            git push
+          fi

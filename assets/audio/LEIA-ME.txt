@@ -1,0 +1,1 @@
+Coloque aqui somente áudios com autorização da igreja. Edite assets/midias.js para relacionar o arquivo ao número do hino.

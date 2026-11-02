@@ -1,0 +1,4 @@
+Coloque aqui fotos autorizadas da igreja e logotipo.
+Exemplos de caminhos: assets/fotos/logo.png, assets/fotos/culto.jpg, assets/fotos/historia.jpg.
+No painel administrativo > Identidade e história informe o caminho exato.
+Nenhuma imagem oficial foi inventada ou copiada de terceiros nesta versão.

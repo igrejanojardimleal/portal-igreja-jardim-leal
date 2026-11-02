@@ -1,0 +1,31 @@
+PROMPT DE CONTINUIDADE — PORTAL IGREJA NO JARDIM LEAL
+
+Projeto: Igreja no Jardim Leal — Obra da Restauração.
+Repositório GitHub: https://github.com/igrejanojardimleal/portal-igreja-jardim-leal.git
+Status: projeto local preparado; não enviado ao GitHub; Supabase não configurado; sem URL pública de teste e sem administrador ativo.
+
+ESTRUTURA ATUAL
+- 10 páginas HTML: início, hinário, agenda, história da igreja, estudos bíblicos, canal, mural, envio de cifra, contribuição e administração.
+- 129 louvores: 71 do Volume 1 + 58 incorporados do documento "novo hinário volume 2.docx".
+- 14 músicas do Volume 2 já possuem acordes identificáveis e aparecem na aba Cifras.
+- A aba Cifras deve listar somente músicas com acordes cadastrados ou PDF aprovado.
+- A seção História da Fé foi retirada do portal.
+- Estudos Bíblicos permanece com o aviso "Em elaboração". A liderança enviará os estudos gradualmente, um por vez; não criar conteúdo doutrinário sem receber o material e sem revisão.
+
+REGRAS IMPORTANTES
+- Não publicar no GitHub até autorização expressa.
+- Antes de tornar letras/cifras públicas, confirmar direitos e autorização dos compositores e responsáveis.
+- Não inventar letras, acordes, autores, horários, fotos, dados bancários ou informações da igreja.
+- Comentários e PDFs enviados permanecem pendentes até aprovação administrativa.
+- O QR Pix depende da confirmação do beneficiário e da cidade.
+- Não colocar chaves secretas do Supabase no frontend ou no repositório.
+- Supabase, autenticação, RLS, uploads e painel administrativo não estão ativos até configurar e testar um projeto real.
+- Login administrativo é por link mágico/OTP por e-mail; não existe senha predefinida.
+- O portal não foi publicado e ainda não existe URL pública de teste.
+
+PRÓXIMOS PASSOS
+1. Conferir com a liderança os títulos e as cifras identificadas no Volume 2.
+2. Receber e cadastrar os estudos bíblicos, estudo por estudo.
+3. Configurar Supabase e testar RLS, autenticação, moderação e upload.
+4. Confirmar autorização de publicação de letras, cifras e imagens.
+5. Só então enviar ao GitHub e configurar hospedagem de teste.
