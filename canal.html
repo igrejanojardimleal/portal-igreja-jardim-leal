@@ -18,9 +18,19 @@
 <div class="container">
 <div class="section-heading split-heading">
 <div><span class="overline">03 / NOSSO CANAL</span><h2>Canal da <em>igreja.</em></h2></div>
-<p>Cultos, mensagens e louvores publicados no canal oficial. Assista diretamente aqui ou abra cada vídeo no YouTube. As publicações entram na galeria após sincronização automática.</p>
+<p>Cultos, mensagens e louvores publicados no canal oficial. Assista diretamente aqui ou abra cada vídeo no YouTube. Navegue por Lives, Músicas e Outros vídeos. Novas publicações são sincronizadas automaticamente.</p>
 </div>
 <div class="youtube-topline"><div><span class="youtube-live-dot"></span><span id="youtube-count">Carregando vídeos...</span><span class="youtube-updated" id="youtube-updated"></span></div><a class="btn btn-outline" href="https://www.youtube.com/@igrejanojardimlealobradare8130" id="youtube-cta" rel="noopener noreferrer" target="_blank">Ver canal no YouTube <span aria-hidden="true">↗</span></a></div>
+<div class="youtube-browser" aria-label="Navegar pelos vídeos">
+  <div class="youtube-filters" id="youtube-filters" role="group" aria-label="Tipo de vídeo">
+    <button type="button" class="youtube-filter" data-youtube-filter="todos" aria-pressed="true">Todos <span id="count-todos"></span></button>
+    <button type="button" class="youtube-filter" data-youtube-filter="lives" aria-pressed="false">🔴 Lives <span id="count-lives"></span></button>
+    <button type="button" class="youtube-filter" data-youtube-filter="musicas" aria-pressed="false">♫ Músicas <span id="count-musicas"></span></button>
+    <button type="button" class="youtube-filter" data-youtube-filter="outros" aria-pressed="false">▶ Outros vídeos <span id="count-outros"></span></button>
+  </div>
+  <label class="youtube-search-label" for="youtube-search">Pesquisar vídeos pelo título</label>
+  <input type="search" id="youtube-search" placeholder="Ex.: culto, louvor, festividade..." autocomplete="off" aria-label="Pesquisar vídeos pelo título"/>
+</div>
 <div aria-live="polite" class="youtube-video-grid" id="youtube-videos"></div>
 <div class="youtube-more"><button class="btn btn-outline" hidden="" id="youtube-more" type="button">Mostrar mais vídeos</button><p id="youtube-status" role="status"></p></div>
 </div>
