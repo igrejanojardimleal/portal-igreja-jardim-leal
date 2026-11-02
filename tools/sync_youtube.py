@@ -56,7 +56,7 @@ def categoria(titulo, origem=''):
 
 def buscar_historico(channel):
     """Tentativa gratuita de importar históricos públicos. Pode falhar por limites do YouTube."""
-    if os.getenv('YOUTUBE_BACKFILL', '0') != '1':
+    if os.getenv('YOUTUBE_BACKFILL', '0').lower() not in ('1','true','yes'):
         return []
     if not shutil.which('yt-dlp'):
         print('yt-dlp indisponível: sincronização continua pelo feed RSS.')
