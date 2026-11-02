@@ -312,3 +312,19 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 #celebration-form input,#celebration-form select,#admin-agenda-panel input,#admin-agenda-panel select,#admin-agenda-panel textarea{min-height:44px;font-size:16px}
 #celebration-form .btn,#admin-agenda-panel .btn{min-height:44px}
 @media(max-width:650px){.celebrations-grid{grid-template-columns:1fr}.celebration-card{min-height:94px}.agenda-columns{grid-template-columns:1fr}.event-card{padding:16px}}
+
+/* Biblioteca de vídeos: controles grandes, acessíveis e legíveis em celulares. */
+.youtube-browser{display:grid;gap:15px;margin:18px 0 26px}
+.youtube-filters{display:flex;gap:10px;flex-wrap:wrap}
+.youtube-filter{appearance:none;background:#fff;border:2px solid #ded7ce;border-radius:14px;color:#443e45;min-height:52px;padding:13px 18px;font:800 15px/1.3 'DM Sans',sans-serif;cursor:pointer;transition:background .15s,border-color .15s}
+.youtube-filter.is-active,.youtube-filter[aria-pressed="true"]{background:#315c46;border-color:#315c46;color:#fff}
+.youtube-filter span{font-size:12px;opacity:.8}
+.youtube-filter:focus-visible,.youtube-search:focus-visible{outline:3px solid #b67455;outline-offset:3px}
+.youtube-search-label{font-size:15px;font-weight:800;color:#4d4148}
+#youtube-search{width:100%;max-width:650px;min-height:52px;padding:12px 18px;border:2px solid #ded7ce;background:#fff;border-radius:13px;font:600 16px 'DM Sans',sans-serif}
+.youtube-category-tag{display:inline-flex;align-items:center;align-self:start;font-size:11px;font-weight:800;color:#345642;background:#eef4ec;padding:6px 10px;border-radius:999px}
+.youtube-cover .youtube-play{border:0;cursor:pointer;min-width:56px;min-height:44px;font-size:22px}
+.youtube-cover iframe{display:block;width:100%;height:100%;border:0;position:absolute;inset:0}
+.youtube-video-body h3{font-size:17px;line-height:1.45}
+.youtube-link-label{font-size:14px;display:inline-flex;min-height:44px;align-items:center}
+@media(max-width:600px){.youtube-filter{flex:1 1 calc(50% - 10px);font-size:14px;padding:10px 11px}.youtube-video-grid{grid-template-columns:1fr}.youtube-video-body{padding:17px}.youtube-topline{gap:14px}}
