@@ -336,3 +336,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .brand-icon .igreja-logo{width:100%;height:100%;object-fit:contain;border-radius:50%}
 .brand-icon.has-official-logo .igreja-logo{display:block}
 .brand-icon.has-official-logo svg{display:none}
+
+
+/* IGJAL: marca textual provisória até o recebimento do logotipo oficial */
+.brand-icon:not(.has-official-logo){background:#e9e5e0;color:#34364a}
+.brand-icon:not(.has-official-logo) svg{display:none!important}
+.brand-icon:not(.has-official-logo)::before{content:"IGJAL";font-family:Manrope,"DM Sans",Arial,sans-serif;font-size:11px;letter-spacing:-.045em;font-weight:800;line-height:1}
+.brand-icon.has-official-logo::before{content:none}
+@media(max-width:600px){.brand-icon:not(.has-official-logo)::before{font-size:10px}}
