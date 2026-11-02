@@ -328,3 +328,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .youtube-video-body h3{font-size:17px;line-height:1.45}
 .youtube-link-label{font-size:14px;display:inline-flex;min-height:44px;align-items:center}
 @media(max-width:600px){.youtube-filter{flex:1 1 calc(50% - 10px);font-size:14px;padding:10px 11px}.youtube-video-grid{grid-template-columns:1fr}.youtube-video-body{padding:17px}.youtube-topline{gap:14px}}
+
+
+/* Logotipo oficial: mantém o símbolo original até que o PNG seja carregado. */
+.brand-icon{overflow:hidden;flex-shrink:0}
+.brand-icon.has-official-logo{background:#fff}
+.brand-icon .igreja-logo{width:100%;height:100%;object-fit:contain;border-radius:50%}
+.brand-icon.has-official-logo .igreja-logo{display:block}
+.brand-icon.has-official-logo svg{display:none}
