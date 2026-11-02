@@ -8,6 +8,8 @@ import json
 import os
 import re
 import sys
+import subprocess
+import shutil
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -18,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'assets' / 'videos.json'
 OUT_JS = ROOT / 'assets' / 'videos.js'
 HANDLE = os.getenv('YOUTUBE_HANDLE', 'igrejanojardimlealobradare8130').strip().lstrip('@')
-CHANNEL = os.getenv('YOUTUBE_CHANNEL_ID', '').strip()
+CHANNEL = os.getenv('YOUTUBE_CHANNEL_ID', 'UCvLSuAW-QkwyTYiU7ilvoRw').strip()
 UA = 'Mozilla/5.0 (compatible; IGJALVideoFeed/1.0; GitHubActions)'
 
 def read_url(url):
@@ -42,6 +44,53 @@ def find_channel_id():
             return match.group(1)
     raise ValueError('Não foi possível descobrir o channel ID. Configure a variável YOUTUBE_CHANNEL_ID no repositório (ID UC...).')
 
+def categoria(titulo, origem=''):
+    titulo = str(titulo or '').casefold()
+    normal = __import__('unicodedata').normalize('NFD',titulo)
+    normal = ''.join(ch for ch in normal if __import__('unicodedata').category(ch) != 'Mn')
+    if origem == 'streams' or re.search(r'ao vivo|transmissao|live|stream|vigilia', normal):
+        return 'lives'
+    if re.search(r'playback|medley|musica|hino|louvor|coral|cantico|canto|adoracao|instrumental|banda|solo', normal):
+        return 'musicas'
+    return 'outros'
+
+def buscar_historico(channel):
+    """Tentativa gratuita de importar históricos públicos. Pode falhar por limites do YouTube."""
+    if os.getenv('YOUTUBE_BACKFILL', '0') != '1':
+        return []
+    if not shutil.which('yt-dlp'):
+        print('yt-dlp indisponível: sincronização continua pelo feed RSS.')
+        return []
+    achados = {}
+    for aba in ('videos','streams','shorts'):
+        url = f'https://www.youtube.com/channel/{channel}/{aba}'
+        cmd = ['yt-dlp','--flat-playlist','--skip-download','--ignore-errors',
+               '--no-warnings','--no-progress','--dump-single-json','--socket-timeout','15',url]
+        try:
+            proc = subprocess.run(cmd,capture_output=True,text=True,timeout=110,check=False)
+            if proc.returncode != 0:
+                print(f'Histórico da aba {aba} indisponível: {proc.stderr[-300:]}',file=sys.stderr)
+                continue
+            data = json.loads(proc.stdout)
+            for video in (data.get('entries') or []):
+                if not isinstance(video,dict):
+                    continue
+                ident = str(video.get('id') or '')
+                if not re.fullmatch(r'[a-zA-Z0-9_-]{11}',ident):
+                    continue
+                titulo = str(video.get('title') or 'Vídeo da igreja').strip()
+                data_upload = str(video.get('upload_date') or video.get('release_date') or '')
+                data_iso = data_upload[:4]+'-'+data_upload[4:6]+'-'+data_upload[6:8] if re.fullmatch(r'\d{8}',data_upload) else ''
+                achados[ident] = {
+                    'id': ident, 'title': titulo,
+                    'published': data_iso,
+                    'category': categoria(titulo,aba)
+                }
+        except (subprocess.TimeoutExpired,ValueError,OSError) as exc:
+            print(f'Histórico da aba {aba} não carregado: {exc}',file=sys.stderr)
+    print(f'Histórico encontrado: {len(achados)} vídeos únicos via listas do canal.')
+    return list(achados.values())
+
 def main():
     channel = find_channel_id()
     xml = read_url('https://www.youtube.com/feeds/videos.xml?channel_id=' + channel)
@@ -62,8 +111,15 @@ def main():
     except (OSError,ValueError):
         old = {'videos':[]}
     catalog = {v['id']:v for v in old.get('videos',[]) if re.fullmatch(r'[a-zA-Z0-9_-]{11}',str(v.get('id','')))}
+    for v in buscar_historico(channel):
+        anterior = catalog.get(v['id'],{})
+        # Não perde datas e títulos completos previamente conferidos no RSS.
+        catalog[v['id']] = {**v, **{k:val for k,val in anterior.items() if val}, 'category': v['category'] if v['category']=='lives' else anterior.get('category') or v['category']}
     for v in items:
-        catalog[v['id']] = v
+        anterior = catalog.get(v['id'],{})
+        catalog[v['id']] = {**anterior, **v, 'category': categoria(v['title']) if anterior.get('category')!='lives' else 'lives'}
+    for v in catalog.values():
+        v['category'] = v.get('category') if v.get('category') in ('lives','musicas','outros') else categoria(v.get('title',''))
     videos = sorted(catalog.values(),key=lambda v:v.get('published',''),reverse=True)
     # Só altera o arquivo quando novos vídeos ou metadados mudarem; evita commits inúteis.
     if videos == old.get('videos', []):
