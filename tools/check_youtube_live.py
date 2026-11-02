@@ -40,14 +40,33 @@ def main():
   current=api_live()
   if current is None:current=yt_live()
  except Exception as e:
-  print("Falha no detector:",str(e)[:180])
+  error=str(e)
+  if "not currently live" in error.lower():
+   print("Canal offline: não há transmissão ativa.")
+  else:
+   print("Falha no detector:",error[:180])
+   source="falha-na-consulta"
   current={}
-  source="falha-na-consulta"
  now=dt.datetime.now(dt.timezone.utc).isoformat().replace("+00:00","Z")
  payload={"checked_at":now,"channel_id":CHANNEL,"live":current or None,"source":source}
  if old.get("live") and not current:
   payload["last_ended"]={"id":old["live"].get("id"),"title":old["live"].get("title","Gravação da igreja"),
                          "published":now,"category":"lives"}
+  # Inclui o vídeo encerrado no catálogo comum, mesmo que o RSS ainda não tenha atualizado.
+  catalog=ROOT/"assets"/"videos.json"
+  try:
+   body=json.loads(catalog.read_text(encoding="utf-8"))
+   videos=body.get("videos",[])
+   if isinstance(videos,list) and not any(v.get("id")==payload["last_ended"]["id"] for v in videos):
+    videos.append(payload["last_ended"])
+    videos.sort(key=lambda v:v.get("published",""),reverse=True)
+    body["videos"]=videos
+    body["updated_at"]=now
+    catalog.write_text(json.dumps(body,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    (ROOT/"assets"/"videos.js").write_text("window.IGREJA_PREVIEW_VIDEOS = "+json.dumps(body,ensure_ascii=False)+";\n",encoding="utf-8")
+    print("Gravação adicionada ao catálogo de vídeos.")
+  except (OSError,ValueError,TypeError) as e:
+   print("Catálogo não pôde ser atualizado:",str(e)[:150])
  elif old.get("last_ended"):payload["last_ended"]=old["last_ended"]
  # Enquanto offline evita commits em toda verificação; ao vivo renova checked_at.
  if not current and not old.get("live") and OUT.exists():
