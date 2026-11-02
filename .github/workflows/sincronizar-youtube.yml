@@ -22,7 +22,7 @@ jobs:
         env:
           YOUTUBE_HANDLE: igrejanojardimlealobradare8130
           YOUTUBE_CHANNEL_ID: UCvLSuAW-QkwyTYiU7ilvoRw
-          YOUTUBE_BACKFILL: ${{ github.event_name == 'workflow_dispatch' || github.event.schedule == '12 8 * * 0' }}
+          YOUTUBE_BACKFILL: '1' # Primeira importação histórica, depois volta à atualização semanal
         run: python3 tools/sync_youtube.py
       - name: Salvar mudanças no repositório
         run: |
