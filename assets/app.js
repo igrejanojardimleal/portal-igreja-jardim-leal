@@ -282,6 +282,8 @@
     const more=$('youtube-more');
     if(more)more.addEventListener('click',()=>{youtubeShown+=12;renderYoutube();});
     const fallback=window.IGREJA_PREVIEW_VIDEOS||{videos:[]};
+    youtubeVideos=(Array.isArray(fallback.videos)?fallback.videos:[]).filter(v=>/^[a-zA-Z0-9_-]{11}$/.test(String(v.id||'')));
+    renderYoutube(); // Exibe imediatamente os vídeos já armazenados enquanto verifica atualização.
     let body=fallback;
     if(location.protocol!=='file:'){
       try {
