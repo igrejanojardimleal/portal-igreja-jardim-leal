@@ -22,7 +22,9 @@
   let isAdmin = false;
   let isEventManager = false;
   let youtubeVideos = [];
-  let youtubeShown = 9;
+  let youtubeShown = 12;
+  let youtubeFilter = 'todos';
+  let youtubeSearch = '';
   const LOCAL_KEY = 'igreja-no-jardim-leal-mural-demo-v1';
   const media = window.IGREJA_MEDIA || {};
   let cifrasPublicadas = new Map();
@@ -184,77 +186,109 @@
     const d = new Date(raw);
     return Number.isNaN(d.valueOf()) ? '' : new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'short', year: 'numeric' }).format(d);
   }
+  function videoCategory(video) {
+    const given=String(video.category || '').toLowerCase();
+    if (['lives','musicas','outros'].includes(given)) return given;
+    const name=String(video.title||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    if (/ao vivo|transmissao|live|stream|vigilia/.test(name)) return 'lives';
+    if (/playback|medley|musica|hino|louvor|coral|cantico|canto|adoracao|instrumental|banda|solo/.test(name)) return 'musicas';
+    return 'outros';
+  }
   function renderYoutube() {
     const grid = $('youtube-videos');
     if (!grid) return;
     grid.replaceChildren();
-    setText('youtube-count', youtubeVideos.length ? `${youtubeVideos.length} vídeo${youtubeVideos.length === 1 ? '' : 's'} no canal` : 'Canal oficial da igreja');
-    $('youtube-more').hidden = youtubeVideos.length <= youtubeShown;
-    if (!youtubeVideos.length) {
-      const notice = el('div','youtube-empty');
-      notice.append(el('h3','','Em breve, vídeos da nossa comunidade aqui!'), el('p','','A galeria será preenchida automaticamente após a sincronização com o YouTube. Enquanto isso, visite o canal oficial da igreja.'));
-      const link = el('a','btn btn-primary','Visitar canal no YouTube ↗');
-      link.href = config.youtube || 'https://www.youtube.com/';
-      link.target = '_blank'; link.rel = 'noopener noreferrer';
-      notice.append(link);
-      grid.append(notice);
+    const labels={lives:'Live / transmissão',musicas:'Música e louvor',outros:'Vídeo da igreja'};
+    const categories={todos:youtubeVideos.length,lives:0,musicas:0,outros:0};
+    youtubeVideos.forEach(video=>{categories[videoCategory(video)]++;});
+    for(const kind of Object.keys(categories)){
+      setText('count-'+kind,categories[kind] ? '('+categories[kind]+')' : '(0)');
+    }
+    document.querySelectorAll('[data-youtube-filter]').forEach(button=>{
+      const active=button.dataset.youtubeFilter===youtubeFilter;
+      button.setAttribute('aria-pressed',String(active));
+      button.classList.toggle('is-active',active);
+    });
+    const term=normalize(youtubeSearch);
+    const filtered=youtubeVideos.filter(video=>{
+      if(youtubeFilter!=='todos' && videoCategory(video)!==youtubeFilter)return false;
+      if(term && !normalize(video.title).includes(term))return false;
+      return true;
+    });
+    setText('youtube-count',youtubeVideos.length ? youtubeVideos.length+' vídeos no catálogo • '+filtered.length+' nesta seleção' : 'Canal oficial da igreja');
+    const more=$('youtube-more');
+    if(more)more.hidden=filtered.length<=youtubeShown;
+    if(!filtered.length){
+      const box=el('div','youtube-empty');
+      box.append(el('h3','',youtubeVideos.length?'Nenhum vídeo encontrado nesta categoria.':'Os vídeos estarão disponíveis aqui.'),
+                 el('p','',youtubeVideos.length?'Experimente outra categoria ou procure por outra palavra.':'A sincronização do canal será feita automaticamente. Você pode assistir diretamente pelo YouTube.'));
+      const link=el('a','btn btn-primary','Abrir o canal no YouTube ↗');
+      link.href=config.youtube||'https://www.youtube.com/@igrejanojardimlealobradare8130';
+      link.target='_blank';link.rel='noopener noreferrer';box.append(link);grid.append(box);
       return;
     }
-    for (const video of youtubeVideos.slice(0, youtubeShown)) {
-      const id = String(video.id || '');
-      if (!/^[a-zA-Z0-9_-]{11}$/.test(id)) continue;
-      const card = el('article','youtube-video-card');
-      card.setAttribute('aria-label', `Vídeo: ${video.title}`);
-      const cover = el('span','youtube-cover');
-      const img = el('img');
-      img.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
-      img.alt = `Miniatura: ${video.title}`;
-      img.loading = 'lazy';
-      img.referrerPolicy = 'no-referrer';
-      const play = el('button','youtube-play','▶');
-      play.type='button';
-      play.setAttribute('aria-label',`Reproduzir aqui: ${video.title}`);
-      play.addEventListener('click', () => {
-        const frame = document.createElement('iframe');
-        frame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
-        frame.title = `Reprodução: ${String(video.title || 'Vídeo da igreja')}`;
-        frame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-        frame.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+    for(const video of filtered.slice(0,youtubeShown)){
+      const id=String(video.id||'');
+      if(!/^[a-zA-Z0-9_-]{11}$/.test(id))continue;
+      const card=el('article','youtube-video-card');
+      const cover=el('div','youtube-cover');
+      const image=el('img');
+      image.src='https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';
+      image.alt='Miniatura do vídeo '+String(video.title||'da igreja');
+      image.loading='lazy'; image.decoding='async';
+      const play=el('button','youtube-play','▶');
+      play.type='button'; play.setAttribute('aria-label','Assistir aqui: '+String(video.title||'Vídeo'));
+      play.addEventListener('click',()=>{
+        const frame=document.createElement('iframe');
+        frame.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
+        frame.title='Vídeo da igreja: '+String(video.title||'');
+        frame.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        frame.referrerPolicy='strict-origin-when-cross-origin';
         frame.setAttribute('allowfullscreen','');
         frame.loading='lazy';
-        cover.replaceChildren(frame);
-        cover.classList.add('playing');
+        cover.replaceChildren(frame);cover.classList.add('playing');
       });
-      cover.append(img, play);
-      const body = el('div','youtube-video-body');
-      const link=el('a','youtube-link-label','Abrir no YouTube ↗');
-      link.href=`https://www.youtube.com/watch?v=${id}`;
-      link.target='_blank';link.rel='noopener noreferrer';
-      body.append(el('h3','',String(video.title||'Vídeo da igreja')), el('p','',videoDate(video.published)), link);
-      card.append(cover, body);
-      grid.append(card);
+      cover.append(image,play);
+      const body=el('div','youtube-video-body');
+      const kind=el('span','youtube-category-tag',labels[videoCategory(video)]);
+      const watch=el('a','youtube-link-label','Assistir no YouTube ↗');
+      watch.href='https://www.youtube.com/watch?v='+id;
+      watch.target='_blank';watch.rel='noopener noreferrer';
+      body.append(kind,el('h3','',video.title||'Vídeo da igreja'),el('p','',videoDate(video.published)),watch);
+      card.append(cover,body);grid.append(card);
     }
   }
   async function initYoutube() {
     if (!$('youtube-videos')) return;
-    $('youtube-more').addEventListener('click', () => { youtubeShown += 9; renderYoutube(); });
-    try {
-      let body;
-      if (window.IGREJA_PREVIEW_VIDEOS?.videos?.length || location.protocol === 'file:') {
-        body = window.IGREJA_PREVIEW_VIDEOS || {videos:[]};
-      } else {
-        const response = await fetch('assets/videos.json', {cache:'no-store'});
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        body = await response.json();
-      }
-      youtubeVideos = (Array.isArray(body.videos) ? body.videos : [])
-        .filter(v => /^[a-zA-Z0-9_-]{11}$/.test(String(v.id||'')))
-        .sort((a,b) => new Date(b.published)-new Date(a.published));
-      setText('youtube-updated', body.updated_at ? `Atualizado em ${videoDate(body.updated_at)}` : 'Atualização automática preparada');
-      setText('youtube-status', youtubeVideos.length ? 'Novos vídeos entram no catálogo após a próxima sincronização do canal.' : 'A sincronização será ativada na publicação do repositório.');
-    } catch (err) {
-      setText('youtube-status', 'Abra o site pelo servidor local para carregar o catálogo de vídeos; o canal oficial permanece acessível.');
+    document.querySelectorAll('[data-youtube-filter]').forEach(button=>button.addEventListener('click',()=>{
+      youtubeFilter=button.dataset.youtubeFilter||'todos';
+      youtubeShown=12;
+      renderYoutube();
+    }));
+    const search=$('youtube-search');
+    if(search)search.addEventListener('input',()=>{
+      youtubeSearch=search.value||'';
+      youtubeShown=12;
+      renderYoutube();
+    });
+    const more=$('youtube-more');
+    if(more)more.addEventListener('click',()=>{youtubeShown+=12;renderYoutube();});
+    const fallback=window.IGREJA_PREVIEW_VIDEOS||{videos:[]};
+    let body=fallback;
+    if(location.protocol!=='file:'){
+      try {
+        const response=await fetch('assets/videos.json',{cache:'no-store'});
+        if(response.ok){
+          const fresh=await response.json();
+          if(Array.isArray(fresh.videos)&&fresh.videos.length>=(fallback.videos||[]).length)body=fresh;
+        }
+      } catch(_) { /* Usa os vídeos embutidos no JS quando a rede falhar. */ }
     }
+    youtubeVideos=(Array.isArray(body.videos)?body.videos:[])
+      .filter(v=>/^[a-zA-Z0-9_-]{11}$/.test(String(v.id||'')))
+      .sort((a,b)=>(Date.parse(b.published)||0)-(Date.parse(a.published)||0));
+    setText('youtube-updated',body.updated_at?'Catálogo atualizado: '+videoDate(body.updated_at):'Atualização automática');
+    setText('youtube-status',youtubeVideos.length?'Novos vídeos são incluídos automaticamente. Para ver o histórico anterior, usamos também a importação do canal.':'Acesse nosso canal enquanto preparamos o catálogo.');
     renderYoutube();
   }
 
@@ -915,6 +949,7 @@
 
   async function start() {
     initBrand();
+    initYoutube();
     initNavigation();
     initHistory();
     initSongs();
@@ -922,7 +957,6 @@
     initComments();
     initLogin();
     initModeration();
-    initYoutube();
     initCifraSubmission();
     await initBackend();
     if (window.IGREJA_V4?.init) await window.IGREJA_V4.init({
