@@ -128,7 +128,15 @@
     return String(text || '?').trim().slice(0, 1).toLocaleUpperCase('pt-BR');
   }
 
+  function initOfficialLogo() {
+    document.querySelectorAll('.brand-icon .igreja-logo').forEach(img=>{
+      const reveal=()=>{if(img.naturalWidth>0){img.hidden=false;img.parentElement?.classList.add('has-official-logo');}};
+      if(img.complete)reveal();
+      else img.addEventListener('load',reveal,{once:true});
+    });
+  }
   function initBrand() {
+    initOfficialLogo();
     const name = String(config.name || 'Nossa Igreja').trim();
     setText('brand-name', name.toLocaleUpperCase('pt-BR'));
     setText('brand-subtitle', String(config.subtitle || 'FÉ • COMUNIDADE • AMOR'));
