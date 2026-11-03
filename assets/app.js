@@ -73,7 +73,17 @@
       ? 'Acordes alterados em tempo real. A letra, a qualidade dos acordes e o PDF original são preservados.'
       : 'A cifra digital precisa ter tom original válido e acordes reconhecíveis. Informe a equipe da igreja.');
     if(canTranspose) {
-      setText('song-dialog-content',transposer.transpose(selectedSong.chords,selectedSong.key,select.value));
+      const aligned=transposer.transpose(selectedSong.chords,selectedSong.key,select.value);
+      if(aligned===null){
+        // Uma transposição que mudaria as sílabas deve ser recusada.
+        rememberTone(selectedSong.number,transposer.NOTES[original.index]);
+        if(select)select.value=transposer.NOTES[original.index];
+        setText('song-dialog-content',selectedSong.chords);
+        setText('transpose-status','Este tom precisa de revisão musical: alguns acordes não cabem nas colunas originais sem mudar a sílaba. Mantivemos a cifra no tom original.');
+        setText('song-dialog-subtitle',`Tom original: ${transposer.LABELS[original.index]} • ${selectedSong.author}`);
+        return;
+      }
+      setText('song-dialog-content',aligned);
       setText('song-dialog-subtitle',`Tom original: ${transposer.LABELS[original.index]} • Tocando em: ${transposer.LABELS[selected.index]} • ${selectedSong.author}`);
     }
   }
