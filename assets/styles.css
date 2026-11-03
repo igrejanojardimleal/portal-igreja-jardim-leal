@@ -585,3 +585,63 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   tab-size:4;
   overflow-x:auto;
 }
+
+/* Aniversariantes IGJAL — calendário por mês e dia */
+.celebration-month-toolbar{display:flex;align-items:flex-end;flex-wrap:wrap;gap:12px 16px;padding:18px 20px;background:#f5f9f8;border:1px solid #dae6df;border-radius:16px}
+.celebration-month-toolbar label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:800;color:#244f44;min-width:200px}
+.celebration-month-toolbar select{font-size:15px;min-height:43px;padding:9px 13px;border:1px solid #b7cfc4;border-radius:10px;background:#fff}
+.celebration-month-toolbar .btn{min-height:43px}
+.celebration-month-toolbar p{flex-basis:100%;font-size:13px;font-weight:650;color:#3b6253;margin:0}
+.celebration-selected-month{font-size:clamp(23px,3vw,31px);margin:27px 0 17px;color:#163d70}
+.celebration-month-sections{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:22px}
+.celebration-month-sections>section{background:#fff;border:1px solid #dce6ee;border-radius:20px;padding:22px;min-width:0}
+.celebration-month-sections h4{font-size:19px;font-weight:800;margin:0 0 18px;color:#193c64}
+.celebration-day-groups{display:flex;flex-direction:column;gap:15px}
+.celebration-day-group{display:grid;grid-template-columns:58px minmax(0,1fr);gap:13px;align-items:start;padding:15px;background:#f9fbfa;border:1px solid #e3ece7;border-radius:15px}
+.celebration-day-badge{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;background:#e2eee7;border-radius:13px;padding:8px 4px;color:#2d644f}
+.celebration-day-badge strong{font-size:26px;font-weight:850;line-height:1.1;font-variant-numeric:tabular-nums}
+.celebration-day-badge span{font-size:10px;letter-spacing:.08em;font-weight:800}
+.celebration-day-people{display:flex;flex-direction:column;gap:9px}
+.celebration-person{display:flex;align-items:center;gap:11px;min-width:0;padding:5px 0}
+.celebration-person+.celebration-person{border-top:1px solid #e7ede9;padding-top:11px}
+.celebration-avatar{height:42px;width:42px;object-fit:cover;flex:0 0 42px;border-radius:50%}
+.celebration-avatar-placeholder{display:grid;place-items:center;background:#e4edf5;color:#28517e;font-size:19px}
+.celebration-person-details{display:flex;flex-direction:column;gap:3px;min-width:0}
+.celebration-person-details strong{font-size:15px;color:#193c64;line-height:1.4;overflow-wrap:anywhere}
+.celebration-person-details small{font-size:12px;color:#667884}
+.home-celebrations #home-celebrations{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.home-celebration-item{display:flex;gap:10px;align-items:center;min-width:0;border:1px solid #e0e8eb;border-radius:13px;background:white;padding:12px}
+.home-celebration-date{flex:0 0 45px;display:grid;place-items:center;width:45px;height:45px;border-radius:11px;background:#eaf1eb;color:#2f644e;font-size:22px;font-variant-numeric:tabular-nums}
+.home-celebration-item>div{min-width:0;display:flex;flex-direction:column;gap:3px}
+.home-celebration-item>div strong{font-size:14px;color:#153e73;overflow-wrap:anywhere}
+.home-celebration-item>div small{font-size:11px;color:#637384}
+.celebration-admin-filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0}
+.celebration-admin-filters label{display:flex;flex-direction:column;gap:6px}
+.celebration-admin-filters input,.celebration-admin-filters select{min-height:44px;max-width:100%;padding:9px 12px;border:1px solid #cbd7de;border-radius:10px}
+.celebration-admin-card{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;border:1px solid #e0e8ec;border-radius:13px;background:#fff}
+.celebration-admin-info{min-width:0;display:flex;flex-direction:column;gap:4px}
+.celebration-admin-info strong{font-size:15px;color:#173c66;overflow-wrap:anywhere}
+.celebration-admin-info small{font-size:12px;color:#607483;line-height:1.4}
+.celebration-admin-actions{display:flex;gap:8px;flex:0 0 auto}
+.celebration-admin-actions .btn{min-height:38px;font-size:12px}
+#celebration-form{scroll-margin-top:100px}
+#celebration-form-mode{margin:24px 0 4px;font-weight:800;color:#1c4d78}
+@media(max-width:860px){
+ .celebration-month-sections{grid-template-columns:1fr}
+ .celebration-admin-filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px){
+ .celebration-month-toolbar{padding:15px}
+ .celebration-month-toolbar label{width:100%}
+ .celebration-month-toolbar select{width:100%}
+ .celebration-month-toolbar .btn{width:100%}
+ .celebration-month-sections>section{padding:15px}
+ .celebration-day-group{grid-template-columns:51px minmax(0,1fr);gap:10px;padding:11px}
+ .celebration-day-badge strong{font-size:22px}
+ .celebration-person-details strong{font-size:14px}
+ .home-celebrations #home-celebrations{grid-template-columns:1fr}
+ .celebration-admin-filters{grid-template-columns:1fr}
+ .celebration-admin-card{align-items:flex-start;flex-direction:column}
+ .celebration-admin-actions{width:100%}
+ .celebration-admin-actions .btn{flex:1}
+}
