@@ -11,7 +11,7 @@ window.IGREJA_KITS = (()=>{
     return n;
   };
   let ctx=null,musicas=[],faixas=[],inited=false,activePlayer=null,searchTerm='';
-  const isAdmin=()=>ctx?.isAdmin?.()===true&&!!ctx?.db?.();
+  const canManage=()=>!!ctx?.db?.() && (ctx?.isAdmin?.()===true||ctx?.hasArea?.('kits')===true);
   const clean=v=>String(v??'').trim().replace(/\s+/g,' ');
   const norm=v=>clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   const note=(id,message,bad=false)=>{const n=$(id);if(n){n.textContent=message;n.style.color=bad?'#a63b44':'';}};
@@ -213,7 +213,7 @@ window.IGREJA_KITS = (()=>{
   function renderAdmin(){
     const panel=$('admin-kits-panel');
     if(!panel)return;
-    if(!isAdmin()){panel.hidden=true;return;}
+    if(!canManage()){panel.hidden=true;return;}
     const songSelect=$('kits-admin-song-id'),trackSong=$('kits-admin-track-song'),trackSelect=$('kits-admin-track-id');
     const oldSong=songSelect.value,oldTrackSong=trackSong.value,oldTrack=trackSelect.value;
     const sorted=[...musicas].sort((a,b)=>a.titulo.localeCompare(b.titulo,'pt-BR'));
@@ -255,7 +255,7 @@ window.IGREJA_KITS = (()=>{
   }
   async function saveSong(event){
     event.preventDefault();
-    if(!isAdmin())return;
+    if(!canManage())return;
     const titulo=clean($('kits-song-title').value);
     const descricao=clean($('kits-song-description').value);
     if(titulo.length<2||titulo.length>180||descricao.length>1200){note('kits-admin-status','Confira o título e a descrição.',true);return;}
@@ -272,7 +272,7 @@ window.IGREJA_KITS = (()=>{
     note('kits-admin-status','Música salva. Agora adicione as vozes no formulário de faixas.');
   }
   async function removeSong(){
-    if(!isAdmin())return;
+    if(!canManage())return;
     const id=$('kits-admin-song-id').value,m=musicas.find(s=>String(s.id)===id);
     if(!m||!window.confirm('Excluir '+m.titulo+' e TODOS os kits de voz vinculados?'))return;
     const {data,error}=await ctx.db().from('site_kits_musicas').delete().eq('id',id).select('id').maybeSingle();
@@ -281,7 +281,7 @@ window.IGREJA_KITS = (()=>{
   }
   async function saveTrack(event){
     event.preventDefault();
-    if(!isAdmin())return;
+    if(!canManage())return;
     const musica_id=Number($('kits-admin-track-song').value),voz=clean($('kits-track-voice').value),
       tipo=$('kits-track-type').value,url=canonicalLink(tipo,$('kits-track-url').value),
       observacao=clean($('kits-track-note').value),ordem=Number($('kits-track-order').value);
@@ -304,7 +304,7 @@ window.IGREJA_KITS = (()=>{
     note('kits-track-status','Faixa cadastrada. A gravação permanece hospedada fora do portal.');
   }
   async function removeTrack(){
-    if(!isAdmin())return;
+    if(!canManage())return;
     const id=$('kits-admin-track-id').value,t=faixas.find(x=>String(x.id)===id);
     if(!t||!window.confirm('Excluir a faixa '+t.voz+'?'))return;
     const {data,error}=await ctx.db().from('site_kits_faixas').delete().eq('id',id).select('id').maybeSingle();
