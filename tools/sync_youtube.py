@@ -45,12 +45,19 @@ def find_channel_id():
     raise ValueError('Não foi possível descobrir o channel ID. Configure a variável YOUTUBE_CHANNEL_ID no repositório (ID UC...).')
 
 def categoria(titulo, origem=''):
+    """Classifica pelo título, com prioridade para formações musicais."""
     titulo = str(titulo or '').casefold()
     normal = __import__('unicodedata').normalize('NFD',titulo)
     normal = ''.join(ch for ch in normal if __import__('unicodedata').category(ch) != 'Mn')
-    if origem == 'streams' or re.search(r'ao vivo|transmissao|live|stream|vigilia', normal):
+    if re.search(r'\borquestra\b|\borchestra\b', normal):
+        return 'orquestra'
+    if re.search(r'\bquarteto\b|\bquartette\b', normal):
+        return 'quarteto'
+    if re.search(r'\bcoral\b|\bchoir\b', normal):
+        return 'coral'
+    if origem == 'streams' or re.search(r'ao vivo|transmissao|\blive\b|\bstream\b|vigilia', normal):
         return 'lives'
-    if re.search(r'playback|medley|musica|hino|louvor|coral|cantico|canto|adoracao|instrumental|banda|solo', normal):
+    if re.search(r'playback|medley|musica|hino|louvor|cantico|canto|adoracao|instrumental|banda|solo', normal):
         return 'musicas'
     return 'outros'
 
@@ -114,12 +121,12 @@ def main():
     for v in buscar_historico(channel):
         anterior = catalog.get(v['id'],{})
         # Não perde datas e títulos completos previamente conferidos no RSS.
-        catalog[v['id']] = {**v, **{k:val for k,val in anterior.items() if val}, 'category': v['category'] if v['category']=='lives' else anterior.get('category') or v['category']}
+        catalog[v['id']] = {**v, **{k:val for k,val in anterior.items() if val}, 'category': categoria(titulo,'streams' if aba=='streams' else '')}
     for v in items:
         anterior = catalog.get(v['id'],{})
-        catalog[v['id']] = {**anterior, **v, 'category': categoria(v['title']) if anterior.get('category')!='lives' else 'lives'}
+        catalog[v['id']] = {**anterior, **v, 'category': categoria(v['title']) if anterior.get('category') not in ('lives','orquestra','quarteto','coral') else categoria(v['title']) if categoria(v['title']) in ('orquestra','quarteto','coral') else anterior.get('category')}
     for v in catalog.values():
-        v['category'] = v.get('category') if v.get('category') in ('lives','musicas','outros') else categoria(v.get('title',''))
+        v['category'] = categoria(v.get('title','')) if categoria(v.get('title','')) in ('orquestra','quarteto','coral') else v.get('category') if v.get('category') in ('lives','musicas','outros') else categoria(v.get('title',''))
     videos = sorted(catalog.values(),key=lambda v:v.get('published',''),reverse=True)
     # Só altera o arquivo quando novos vídeos ou metadados mudarem; evita commits inúteis.
     if videos == old.get('videos', []):

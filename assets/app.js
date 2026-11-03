@@ -195,19 +195,23 @@
     return Number.isNaN(d.valueOf()) ? '' : new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'short', year: 'numeric' }).format(d);
   }
   function videoCategory(video) {
-    const given=String(video.category || '').toLowerCase();
-    if (['lives','musicas','outros'].includes(given)) return given;
     const name=String(video.title||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-    if (/ao vivo|transmissao|live|stream|vigilia/.test(name)) return 'lives';
-    if (/playback|medley|musica|hino|louvor|coral|cantico|canto|adoracao|instrumental|banda|solo/.test(name)) return 'musicas';
+    // Canais musicais têm prioridade mesmo quando o vídeo veio da aba histórica de lives.
+    if (/\borquestra\b|\borches[t]?ra\b/.test(name)) return 'orquestra';
+    if (/\bquarteto\b|\bquartette\b/.test(name)) return 'quarteto';
+    if (/\bcoral\b|\bchoir\b/.test(name)) return 'coral';
+    const given=String(video.category||'').toLowerCase();
+    if (['lives','musicas','outros'].includes(given)) return given;
+    if (/ao vivo|transmissao|\blive\b|\bstream\b|vigilia/.test(name)) return 'lives';
+    if (/playback|medley|musica|hino|louvor|cantico|canto|adoracao|instrumental|banda|solo/.test(name)) return 'musicas';
     return 'outros';
   }
   function renderYoutube() {
     const grid = $('youtube-videos');
     if (!grid) return;
     grid.replaceChildren();
-    const labels={lives:'Live / transmissão',musicas:'Música e louvor',outros:'Vídeo da igreja'};
-    const categories={todos:youtubeVideos.length,lives:0,musicas:0,outros:0};
+    const labels={lives:'Live / transmissão',musicas:'Música e louvor',orquestra:'Orquestra',quarteto:'Quarteto',coral:'Coral',outros:'Outros vídeos'};
+    const categories={todos:youtubeVideos.length,lives:0,musicas:0,orquestra:0,quarteto:0,coral:0,outros:0};
     youtubeVideos.forEach(video=>{categories[videoCategory(video)]++;});
     for(const kind of Object.keys(categories)){
       setText('count-'+kind,categories[kind] ? '('+categories[kind]+')' : '(0)');
