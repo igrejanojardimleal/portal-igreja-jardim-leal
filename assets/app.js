@@ -70,6 +70,38 @@
       localStorage.setItem(marker,'ok');
     }catch(error){console.warn('Preferências do hinário não migradas:',error);}
   })();
+  // Versões reais da regência: primeira edição e segunda edição em tons próprios.
+  const VOCAL_LABELS=Object.freeze({
+    tenor_baixo_contralto:'Tenor / Baixo / Contralto',
+    baritono_soprano:'Barítono / Soprano',
+    sem_definicao:'Sem definição'
+  });
+  const VOICE_KEY='igjal-versoes-vocais-v1';
+  const chosenVocalVersions=new Map();
+  try {
+    const saved=JSON.parse(localStorage.getItem(VOICE_KEY)||'{}');
+    if(saved&&typeof saved==='object'&&!Array.isArray(saved)){
+      for(const [num,style] of Object.entries(saved)){
+        if(/^\d{1,3}$/.test(num) && Object.prototype.hasOwnProperty.call(VOCAL_LABELS,style)){
+          chosenVocalVersions.set(Number(num),style);
+        }
+      }
+    }
+  }catch(_){}
+  function rememberVocalVersion(num,style){
+    chosenVocalVersions.set(num,style);
+    try{localStorage.setItem(VOICE_KEY,JSON.stringify(Object.fromEntries(chosenVocalVersions)));}catch(_){}
+  }
+  function getActiveChordVersion(song){
+    const options=song?.voiceVariants;
+    const requested=chosenVocalVersions.get(song?.number)||'tenor_baixo_contralto';
+    const chosen=options?.[requested]||options?.tenor_baixo_contralto;
+    return {
+      chords:String(chosen?.chords||song?.chords||''),
+      key:String(chosen?.key||song?.key||''),
+      label:chosen?(VOCAL_LABELS[requested]||VOCAL_LABELS.tenor_baixo_contralto):''
+    };
+  }
   const selectedTones = new Map();
   const TONES_KEY = 'igjal-tons-escolhidos-v1';
   try {
@@ -84,44 +116,64 @@
     selectedTones.set(Number(num),tone);
     try { localStorage.setItem(TONES_KEY,JSON.stringify(Object.fromEntries(selectedTones))); } catch (_) {}
   }
-  function chosenTone(song) {
+  function chosenTone(song,originalKey) {
     const raw=selectedTones.get(song?.number);
-    return transposer?.keyInfo(raw) ? raw : (song?.key || '');
+    return transposer?.keyInfo(raw) ? raw : (originalKey || song?.key || '');
   }
   function applyToneToDialog() {
     const box=$('transpose-panel');if(!box||!selectedSong)return;
-    const available=dialogMode==='cifra' && Boolean(selectedSong.chords?.trim());
+    const current=getActiveChordVersion(selectedSong);
+    const available=dialogMode==='cifra' && Boolean(current.chords.trim());
     box.hidden=!available;
+    const selector=$('voice-version-selector');
+    const variants=selectedSong.voiceVariants;
+    const two=Boolean(variants?.tenor_baixo_contralto?.chords?.trim() &&
+      variants?.baritono_soprano?.chords?.trim() &&
+      variants.tenor_baixo_contralto.key!==variants.baritono_soprano.key);
+    if(selector){
+      selector.hidden=!available||!two;
+      if(available&&two){
+        const selected=chosenVocalVersions.get(selectedSong.number)||'tenor_baixo_contralto';
+        for(const button of selector.querySelectorAll('[data-voice-variant]')){
+          const kind=button.dataset.voiceVariant;
+          button.classList.toggle('active',kind===selected);
+          button.setAttribute('aria-pressed',String(kind===selected));
+          const note=button.querySelector('.voice-choice-key');
+          if(note)note.textContent='Tom '+(variants?.[kind]?.key||'');
+        }
+      }
+    }
     if(!available)return;
-    const original=transposer?.keyInfo(selectedSong.key);
-    const count=transposer?.countChords(selectedSong.chords)||0;
-    const selected=transposer?.keyInfo(chosenTone(selectedSong));
+    const original=transposer?.keyInfo(current.key);
+    const count=transposer?.countChords(current.chords)||0;
+    const selected=transposer?.keyInfo(chosenTone(selectedSong,current.key));
     const canTranspose=Boolean(original && count && selected);
     const select=$('transpose-key');
     if(select){
       select.disabled=!canTranspose;
       select.value=canTranspose?transposer.NOTES[selected.index]:'';
     }
-    $('transpose-original').textContent='Tom original: '+(original ? transposer.LABELS[original.index]+(original.minor?' menor':'') : 'a confirmar');
+    $('transpose-original').textContent='Tom da versão: '+(original ? transposer.LABELS[original.index]+(original.minor?' menor':'') : 'a confirmar');
     for(const id of ['transpose-down','transpose-up','transpose-reset']) $(id).disabled=!canTranspose;
     setText('transpose-status',canTranspose
-      ? 'Acordes alterados em tempo real. A letra, a qualidade dos acordes e o PDF original são preservados.'
-      : 'A cifra digital precisa ter tom original válido e acordes reconhecíveis. Informe a equipe da igreja.');
+      ? 'Cifra preparada pela regência. O transpositor evita deslocar acordes das sílabas originais.'
+      : 'Para transpor, é necessário um tom válido e acordes reconhecíveis.');
     if(canTranspose) {
-      const aligned=transposer.transpose(selectedSong.chords,selectedSong.key,select.value);
+      const aligned=transposer.transpose(current.chords,current.key,select.value);
       if(aligned===null){
-        // Uma transposição que mudaria as sílabas deve ser recusada.
         rememberTone(selectedSong.number,transposer.NOTES[original.index]);
         if(select)select.value=transposer.NOTES[original.index];
-        setText('song-dialog-content',selectedSong.chords);
-        setText('transpose-status','Este tom precisa de revisão musical: alguns acordes não cabem nas colunas originais sem mudar a sílaba. Mantivemos a cifra no tom original.');
-        setText('song-dialog-subtitle',`Tom original: ${transposer.LABELS[original.index]} • ${selectedSong.author}`);
+        setText('song-dialog-content',current.chords);
+        setText('transpose-status','Este tom deslocaria algum acorde da sílaba original. A cifra do maestro foi mantida no tom da versão.');
+        setText('song-dialog-subtitle','Tom '+current.key+' • '+(current.label?current.label+' • ':'')+selectedSong.author);
         return;
       }
       setText('song-dialog-content',aligned);
-      setText('song-dialog-subtitle',`Tom original: ${transposer.LABELS[original.index]} • Tocando em: ${transposer.LABELS[selected.index]} • ${selectedSong.author}`);
+      const changed=original.index!==selected.index;
+      setText('song-dialog-subtitle','Tom '+current.key+(changed?' → '+transposer.NOTES[selected.index]:'')+' • '+(current.label?current.label+' • ':'')+selectedSong.author);
     }
   }
+
   function initTransposition() {
     const select=$('transpose-key');if(!select||!transposer)return;
     for(let i=0;i<12;i++){
@@ -136,22 +188,34 @@
       demo.addEventListener('change',()=>{setText('transpose-demo-content',transposer.transpose(demoText,'C',demo.value));});
     }
     select.addEventListener('change',()=>{
-      if(!selectedSong||!transposer.keyInfo(selectedSong.key))return;
+      if(!selectedSong||!transposer.keyInfo(getActiveChordVersion(selectedSong).key))return;
       rememberTone(selectedSong.number,select.value);
       renderSongDialog();
     });
     for(const [id,delta] of [['transpose-down',-1],['transpose-up',1]]){
       $(id)?.addEventListener('click',()=>{
         if(!selectedSong)return;
-        const current=transposer.keyInfo(chosenTone(selectedSong));if(!current)return;
+        const current=transposer.keyInfo(chosenTone(selectedSong,getActiveChordVersion(selectedSong).key));if(!current)return;
         const next=transposer.NOTES[(current.index+delta+12)%12];rememberTone(selectedSong.number,next);renderSongDialog();
       });
     }
     $('transpose-reset')?.addEventListener('click',()=>{
       if(!selectedSong)return;
-      const key=transposer.keyInfo(selectedSong.key);if(!key)return;
+      const key=transposer.keyInfo(getActiveChordVersion(selectedSong).key);if(!key)return;
       rememberTone(selectedSong.number,transposer.NOTES[key.index]);renderSongDialog();
     });
+    // Apenas hinos com DUAS cifras de tons diferentes recebem estas opções.
+    for(const btn of document.querySelectorAll('[data-voice-variant]')){
+      btn.addEventListener('click',()=>{
+        if(!selectedSong)return;
+        const style=btn.dataset.voiceVariant;
+        const candidate=selectedSong.voiceVariants?.[style];
+        if(!candidate?.chords?.trim()||!transposer?.keyInfo(candidate.key))return;
+        rememberVocalVersion(selectedSong.number,style);
+        rememberTone(selectedSong.number,candidate.key);
+        renderSongDialog();
+      });
+    }
   }
 
   function el(tag, className, value) {
@@ -423,9 +487,10 @@
       const transposed=$('song-dialog-content')?.textContent||'';
       setText('print-song-text',transposed);
       $('print-song-text').classList.toggle('is-chords',dialogMode==='cifra');
-      const selected=$('transpose-key')?.value||selectedSong.key||'';
-      setText('print-song-tone',dialogMode==='cifra'&&selectedSong.key
-        ? 'Tom original: '+selectedSong.key+' • Tom selecionado: '+selected
+      const activeCifra=getActiveChordVersion(selectedSong);
+      const selected=$('transpose-key')?.value||activeCifra.key||'';
+      setText('print-song-tone',dialogMode==='cifra'&&activeCifra.key
+        ? 'Tom da versão: '+activeCifra.key+' • Tom selecionado: '+selected
         : '');
       sheet.classList.add('print-ready');
       window.print();
@@ -517,10 +582,11 @@
   }
   function renderSongDialog() {
     if (!selectedSong) return;
+    const activeCifra=getActiveChordVersion(selectedSong);
     setText('song-dialog-title', `${String(selectedSong.number).padStart(2,'0')} — ${selectedSong.title}`);
     setText('song-dialog-eyebrow', dialogMode === 'cifra' ? 'CIFRA DO LOUVOR' : 'LETRA DO LOUVOR');
-    setText('song-dialog-subtitle', dialogMode === 'cifra' ? (selectedSong.chords ? `Tom ${selectedSong.key || 'a confirmar'} • ${selectedSong.author}` : (cifrasPublicadas.has(selectedSong.number) ? 'PDF aprovado pela equipe da igreja' : 'Cifra em preparação • envie a cifra para a equipe')) : `Hinário Pedacinho do Céu • ${selectedSong.author}`);
-    setText('song-dialog-content', dialogMode === 'cifra' ? selectedSong.chords || (cifrasPublicadas.has(selectedSong.number) ? 'A cifra aprovada está disponível no PDF original abaixo. Para mudar de tom, a equipe precisa cadastrar a cifra digital revisada.' : 'Ainda não recebemos a cifra deste hino.\n\nA letra está disponível na aba “Letra”.\n\nAs cifras serão adicionadas gradualmente pela equipe da igreja.') : selectedSong.lyrics || 'Letra ainda não cadastrada.');
+    setText('song-dialog-subtitle', dialogMode === 'cifra' ? (activeCifra.chords ? `Tom ${activeCifra.key || 'a confirmar'} • ${selectedSong.author}` : (cifrasPublicadas.has(selectedSong.number) ? 'PDF aprovado pela equipe da igreja' : 'Cifra em preparação • envie a cifra para a equipe')) : `Hinário Pedacinho do Céu • ${selectedSong.author}`);
+    setText('song-dialog-content', dialogMode === 'cifra' ? activeCifra.chords || (cifrasPublicadas.has(selectedSong.number) ? 'A cifra aprovada está disponível no PDF original abaixo. Para mudar de tom, a equipe precisa cadastrar a cifra digital revisada.' : 'Ainda não recebemos a cifra deste hino.\n\nA letra está disponível na aba “Letra”.\n\nAs cifras serão adicionadas gradualmente pela equipe da igreja.') : selectedSong.lyrics || 'Letra ainda não cadastrada.');
     applyToneToDialog();
     $('song-dialog-content').classList.toggle('is-chords', dialogMode === 'cifra');
     $('song-dialog-content').style.fontSize = `${window.IGREJA_V4?.isCulto?.() ? Math.min(Math.max(readingFont+10,22),42) : readingFont}px`;
