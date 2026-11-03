@@ -497,7 +497,8 @@ window.IGREJA_DATA = {
       "category": "Hinário Pedacinho do Céu",
       "key": "",
       "time": "",
-      "author": "Filemom Cesar Villas Murro",      "lyrics": "Quero te dizer, como vai ser a volta do filho de Deus,\nNão vai demorar, perto Ele está e levará sua noiva amada.\nA noiva é a Igreja, o noivo é o cordeiro,\nE o casamento em breve se realizará.\nAssim como Ele disse: noiva santa e prudente,\nSempre preparada tem que me esperar.\n\nCORO\n\nEis que vem o Esposo. Eis que vem o meu Noivo,\nSomos a igreja, a noiva do Cordeiro, adornada,\nPreparada pra subir.\n\nVai voltar, o Noivo vai voltar, azeite nas lamparinas\nVai ter que apresentar.\nVai voltar, o Noivo vai voltar, guarda o que tens, pois um clamor\nEm breve se ouvirá.",
+      "author": "Filemom Cesar Villas Murro",
+      "lyrics": "Quero te dizer, como vai ser a volta do filho de Deus,\nNão vai demorar, perto Ele está e levará sua noiva amada.\nA noiva é a Igreja, o noivo é o cordeiro,\nE o casamento em breve se realizará.\nAssim como Ele disse: noiva santa e prudente,\nSempre preparada tem que me esperar.\n\nCORO\n\nEis que vem o Esposo. Eis que vem o meu Noivo,\nSomos a igreja, a noiva do Cordeiro, adornada,\nPreparada pra subir.\n\nVai voltar, o Noivo vai voltar, azeite nas lamparinas\nVai ter que apresentar.\nVai voltar, o Noivo vai voltar, guarda o que tens, pois um clamor\nEm breve se ouvirá.",
       "chords": "",
       "source": "Hinário Pedacinho do Céu — Vol. 1 (2021)"
     },
@@ -996,7 +997,8 @@ window.IGREJA_DATA = {
     {
       "id": "hino-v2-11",
       "number": 82,
-      "title": "Missionário De Cristo",      "category": "Hinário — Volume 2",
+      "title": "Missionário De Cristo",
+      "category": "Hinário — Volume 2",
       "key": "",
       "time": "",
       "author": "F.C.V.M",
@@ -1023,8 +1025,8 @@ window.IGREJA_DATA = {
       "category": "Hinário — Volume 2",
       "key": "",
       "time": "",
-      "author": "Não informado no documento",
-      "lyrics": "Vem contra nós uma grande multidão, Os inimigos aumentaram, próximos estão\nNaquele momento Jeosafá temeu, Clamou ao seu Senhor e instaurou um jejum judeu\nJudá se ajuntou para buscar ajuda, Sabiam que é do alto que o socorro vem\nSenhor, Deus de meus pais, o que nunca muda, Tu És Dominador, não pode resistir ninguém\nFalado:\nPorventura, Oh Deus, não lançastes fora os inimigos e destes esta terra a Abraão?\nNela edificaram um santuário ao Teu Nome.\nNenhum mal nos sobrevirá pois Teu nome está sobre esta casa. E clamaremos a Ti e Tu nos livrarás.\nEm nós não há força, contra a multidão , Só Nele há saída, Ele é a solução\nAssim diz o Senhor: Não temas, essa peleja não é sua não!\nEntão Jeosafá chama os cantores, e coloca ante a guerra para louvar\nEnquanto cantavam, O Senhor pelejava,\nEnquanto cantavam, Caíram moabitas e amonitas pelo poder de Deus\nCORO\nÉ assim, quando Deus entra na guerra a peleja não é sua, a peleja é do grande Jeová.\nNão importam as muralhas, não importa a multidão, Ao toque da trombeta o muro cairá.\nE se levantar o gigante o teu Deus é quem garante, A peleja é do Grande Jeová.\nNessa peleja não tens que pelejar.\nEntão Jeosafá chama os cantores e coloca ante a guerra para louvar\nEnquanto cantamos, Com o Senhor pelejamos,\nEnquanto cantamos, Parai, estai em pé e vedes o poder de Deus.\nANA SILVA / F.C.V.M",
+      "author": "Ana Silva",
+      "lyrics": "Vem contra nós uma grande multidão, Os inimigos aumentaram, próximos estão\nNaquele momento Jeosafá temeu, Clamou ao seu Senhor e instaurou um jejum judeu\nJudá se ajuntou para buscar ajuda, Sabiam que é do alto que o socorro vem\nSenhor, Deus de meus pais, o que nunca muda, Tu És Dominador, não pode resistir ninguém\nFalado:\nPorventura, Oh Deus, não lançastes fora os inimigos e destes esta terra a Abraão?\nNela edificaram um santuário ao Teu Nome.\nNenhum mal nos sobrevirá pois Teu nome está sobre esta casa. E clamaremos a Ti e Tu nos livrarás.\nEm nós não há força, contra a multidão , Só Nele há saída, Ele é a solução\nAssim diz o Senhor: Não temas, essa peleja não é sua não!\nEntão Jeosafá chama os cantores, e coloca ante a guerra para louvar\nEnquanto cantavam, O Senhor pelejava,\nEnquanto cantavam, Caíram moabitas e amonitas pelo poder de Deus\nCORO\nÉ assim, quando Deus entra na guerra a peleja não é sua, a peleja é do grande Jeová.\nNão importam as muralhas, não importa a multidão, Ao toque da trombeta o muro cairá.\nE se levantar o gigante o teu Deus é quem garante, A peleja é do Grande Jeová.\nNessa peleja não tens que pelejar.\nEntão Jeosafá chama os cantores e coloca ante a guerra para louvar\nEnquanto cantamos, Com o Senhor pelejamos,\nEnquanto cantamos, Parai, estai em pé e vedes o poder de Deus.\nANA SILVA",
       "chords": "",
       "source": "Novo Hinário Volume 2 (documento enviado pela igreja)"
     },
@@ -1245,18 +1247,6 @@ window.IGREJA_DATA = {
       "source": "Novo Hinário Volume 2 (documento enviado pela igreja)"
     },
     {
-      "id": "hino-v2-32",
-      "number": 103,
-      "title": "Casa Do Senhor",
-      "category": "Hinário — Volume 2",
-      "key": "",
-      "time": "",
-      "author": "F.C.V.M",
-      "lyrics": "Meu irmão não importa a tua luta, que pensas não ter solução\nSe a paz está difícil olhe para Cristo, Ele é a solução\nVocê tem um amigo, que é teu abrigo, e tem a solução\nQuando eu vivia triste, recebi um convite, saí mundo de ilusão,\nCORO\nAlegrei-me quando me disseram, vamos a casa do Senhor   2x\nPois na sua casa, a fartura de água e pão\nO necessitado se reanima, com paz no seu coração.",
-      "chords": "",
-      "source": "Novo Hinário Volume 2 (documento enviado pela igreja)"
-    },
-    {
       "id": "hino-v2-33",
       "number": 104,
       "title": "O Tempo",
@@ -1413,18 +1403,6 @@ window.IGREJA_DATA = {
       "source": "Novo Hinário Volume 2 (documento enviado pela igreja)"
     },
     {
-      "id": "hino-v2-46",
-      "number": 117,
-      "title": "Vem Senhor",
-      "category": "Hinário — Volume 2",
-      "key": "",
-      "time": "",
-      "author": "F.C.V.M.",
-      "lyrics": "Senhor estou aqui como vaso em suas mãos\nGuarda-me do mal\nFaz o Teu querer em mim\nCORO\nVem Senhor, enche-nos, como vaso quero ser cheio da sua unção\nVem Senhor, enche-nos , a tua sombra é o meu descanso. Eu descanso!",
-      "chords": "",
-      "source": "Novo Hinário Volume 2 (documento enviado pela igreja)"
-    },
-    {
       "id": "hino-v2-47",
       "number": 118,
       "title": "A Vitória É Nossa",
@@ -1495,7 +1473,8 @@ window.IGREJA_DATA = {
       "lyrics": "Deus, como eu poderia nunca mais te servir\nComo eu poderia nunca mais te adorar\nPois o mundo estava prestes a me abraçar\nDeus, foi por pouco que eu não me afastei\nFoi por pouco que a cruz eu quase larguei\nPois fraquinho estava eu no caminhar.\nNo caminhar, pensei até mesmo em parar\nCheguei a ouvir vozes pra te deixar\nJesus, o mundo só queria me tragar, me tragar\nMas olhei só para Ti, e continuei.\nCORO\nSó continuei, olhando pra Ti\nSó continuei, mantendo minha fé\nSó continuei, sem pra trás olhar\nSó eu e Deus.\nSó continuei, sofrendo calado\nSó continuei, avante por fé\nSó por Deus hoje estou de pé.",
       "chords": "",
       "source": "Novo Hinário Volume 2 (documento enviado pela igreja)"
-    },    {
+    },
+    {
       "id": "hino-v2-53",
       "number": 124,
       "title": "Vivendo Pra Cristo",
