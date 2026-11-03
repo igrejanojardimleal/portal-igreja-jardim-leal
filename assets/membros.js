@@ -83,7 +83,7 @@ window.IGREJA_MEMBROS = (() => {
         <label for="member-signup-password-confirm">Repita a senha</label>
         <input id="member-signup-password-confirm" type="password" autocomplete="new-password" required minlength="8">
         <button class="btn btn-primary full-width" type="submit">Cadastrar e confirmar e-mail</button>
-        <small>A confirmação será enviada para seu e-mail. Apenas contas confirmadas poderão participar.</small>
+        <small>A confirmação será enviada para seu e-mail. Seu nome e sobrenome aparecerão junto às mensagens, comentários e estudos que forem publicados. Apenas contas confirmadas poderão participar.</small>
       </form>
       <form id="member-recovery" data-member-form="recuperar" hidden>
         <label for="member-recovery-email">E-mail cadastrado</label><input id="member-recovery-email" type="email" autocomplete="email" required>
