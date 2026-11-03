@@ -34,6 +34,27 @@ def main():
                     if width<=768:
                         if page.locator(".igjal-mobile-quicknav").is_visible() is False:
                             errors.append(f"{width}px {path}: atalhos móveis não visíveis")
+                    if width==390 and path=="index.html":
+                        page.locator("#login-button").click()
+                        if not page.locator("#member-password-login").is_visible():
+                            errors.append("Login: formulário com senha não foi exibido")
+                        page.locator('[data-member-mode="cadastro"]').click()
+                        if not page.locator("#member-signup").is_visible():
+                            errors.append("Cadastro: formulário para novo membro indisponível")
+                        page.locator('[data-member-mode="recuperar"]').click()
+                        if not page.locator("#member-recovery").is_visible():
+                            errors.append("Conta: recuperação de senha não aparece")
+                        page.locator('[data-close="login-dialog"]').click()
+                    if width==390 and path=="mural.html":
+                        if not page.locator("#send-comment").is_disabled():
+                            errors.append("Mural: envio deve estar bloqueado a visitantes")
+                        if not page.locator("#mural-member-notice").is_visible():
+                            errors.append("Mural: não mostra instruções de cadastro")
+                    if width==390 and path=="administracao.html":
+                        if not page.locator("#admin-locked").is_visible():
+                            errors.append("Administração: visitantes não devem ver painel")
+                        if not page.locator("#admin-tab-usuarios").is_hidden():
+                            errors.append("Administração: aba de acessos está pública")
                     if width==390 and path=="canal.html":
                         page.locator('[data-youtube-filter="orquestra"]').click()
                         page.wait_for_timeout(250)
@@ -46,6 +67,10 @@ def main():
                         if page.locator(".youtube-video-card").count()==0:
                             errors.append("Canal: filtro Coral não exibiu vídeos")
                     if width==390 and path=="louvores.html":
+                        if page.locator("#hino-member-form").count()!=1:
+                            errors.append("Hinário: formulário de comentários não carregou")
+                        if not page.locator("#hino-member-prompt").is_visible():
+                            errors.append("Hinário: convite de cadastro aos visitantes não aparece")
                         page.locator("#song-search").fill("Jesus")
                         if page.locator(".song-card").count()==0:
                             errors.append("Hinário: busca por texto não produziu resultados")
