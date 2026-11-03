@@ -100,8 +100,17 @@ def buscar_historico(channel):
 
 def main():
     channel = find_channel_id()
-    xml = read_url('https://www.youtube.com/feeds/videos.xml?channel_id=' + channel)
-    root = ET.fromstring(xml)
+    feed_url = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + channel
+    try:
+        xml = read_url(feed_url)
+        root = ET.fromstring(xml)
+    except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, ET.ParseError) as exc:
+        # Falhas temporárias do YouTube (incluindo HTTP 500) não devem derrubar o
+        # trabalho nem apagar as gravações que já estão catalogadas.
+        if OUT.exists() and OUT.stat().st_size > 100:
+            print(f'AVISO: Feed do YouTube temporariamente indisponível ({exc}); catálogo preservado.')
+            return
+        raise
     ns = {'atom':'http://www.w3.org/2005/Atom','yt':'http://www.youtube.com/xml/schemas/2015'}
     items = []
     for entry in root.findall('atom:entry', ns):
