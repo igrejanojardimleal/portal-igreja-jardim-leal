@@ -12,6 +12,8 @@ window.IGREJA_ESTUDOS = (() => {
   let ctx = null, area = null, filter = 'Todos', publicItems = [], editableItems = [];
   const norm = text => String(text||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   const isAdmin = () => ctx?.isAdmin?.() === true;
+  const isReviewer = () => isAdmin() || ctx?.isStudyReviewer?.() === true;
+  const isTeacher = () => isAdmin() || ctx?.isStudyTeacher?.() === true;
   const sourceLinks = text => String(text||'').split(/[\r\n]+/).map(s=>s.trim()).filter(s=>/^https:\/\/[^\s<>"']{4,500}$/.test(s)).slice(0,8);
   const catalog = a => [...(starter[a]||[])].map(x=>({...x, publicado:false}));
   const setStatus=(message,error=false)=>{const node=$('estudo-status');if(node){node.textContent=message;node.classList.toggle('error',error);}};
@@ -21,7 +23,7 @@ window.IGREJA_ESTUDOS = (() => {
     const base = catalog(a), db = ctx?.db?.();
     if (!db) return base;
     try {
-      const {data,error}=await db.from('site_estudos').select('slug,area,titulo,categoria,resumo,questao,referencias,corpo,fontes,publicado').eq('area',a).eq('publicado',true).order('titulo');
+      const {data,error}=await db.from('site_estudos').select('slug,area,titulo,categoria,resumo,questao,referencias,corpo,fontes,publicado,autor_nome').eq('area',a).eq('publicado',true).order('titulo');
       if(error){console.warn('Estudos ainda não configurados:',error.message);return base;}
       const map = new Map(base.map(x=>[x.slug,x]));
       for(const row of data||[]) map.set(row.slug,{...row,publicado:true});
@@ -32,7 +34,7 @@ window.IGREJA_ESTUDOS = (() => {
   function openDetail(item){
     const dlg=$('library-dialog');if(!dlg)return;
     $('library-dialog-title').textContent=item.titulo;
-    $('library-dialog-category').textContent=item.categoria;
+    $('library-dialog-category').textContent=item.categoria+(item.autor_nome?' • Por '+item.autor_nome:'');
     $('library-dialog-badge').textContent=item.publicado?'ESTUDO PUBLICADO':'ROTEIRO INICIAL';
     $('library-dialog-summary').textContent=item.resumo;
     $('library-dialog-question').textContent=item.questao||'Perguntas e pontos de estudo serão detalhados pela liderança.';
@@ -50,13 +52,15 @@ window.IGREJA_ESTUDOS = (() => {
     const grid=$('library-grid');if(!grid)return;
     grid.replaceChildren();
     const q=norm($('library-search')?.value);
-    const items=publicItems.filter(x=>(filter==='Todos'||x.categoria===filter)&&norm([x.titulo,x.categoria,x.resumo,x.questao,x.referencias].join(' ')).includes(q));
+    const items=publicItems.filter(x=>(filter==='Todos'||x.categoria===filter)&&norm([x.titulo,x.categoria,x.resumo,x.questao,x.referencias,x.corpo,x.autor_nome].join(' ')).includes(q));
     $('library-count').textContent=items.length===1?'1 assunto encontrado':`${items.length} assuntos encontrados`;
     if(!items.length){grid.append(E('p','Nenhum resultado. Experimente outra palavra ou categoria.','empty-state'));return;}
     for(const item of items){
       const card=E('article',undefined,'library-card');
       card.append(E('span',item.publicado?'Estudo completo':'Roteiro para estudo','library-kind'));
-      card.append(E('h3',item.titulo),E('p',item.resumo));
+      card.append(E('h3',item.titulo));
+      if(item.autor_nome)card.append(E('p','Por '+item.autor_nome,'library-author'));
+      card.append(E('p',item.resumo));
       if(item.referencias)card.append(E('div',item.referencias,'library-ref'));
       const b=E('button',item.publicado?'Abrir estudo →':'Ver roteiro →');b.type='button';b.addEventListener('click',()=>openDetail(item));card.append(b);grid.append(card);
     }
@@ -69,6 +73,9 @@ window.IGREJA_ESTUDOS = (() => {
   async function refreshPage(){
     if(!area)return;
     publicItems=await fetchArea(area);renderFilters();render();
+    const note=$('library-empty-note'),publicSection=$('library-public-section');
+    if(note)note.hidden=publicItems.length>0;
+    if(publicSection)publicSection.hidden=publicItems.length===0;
     const slug=new URLSearchParams(location.search).get('estudo');
     if(slug){const found=publicItems.find(x=>x.slug===slug);if(found && !$('library-dialog').open)openDetail(found);}
   }
@@ -92,7 +99,14 @@ window.IGREJA_ESTUDOS = (() => {
   }
   async function refreshAdmin(nextCtx){
     if(nextCtx)ctx=nextCtx;
-    if(!$('estudo-lista') || !isAdmin() || !ctx?.db?.())return;
+    if(!isReviewer() || !ctx?.db?.())return;
+    await refreshReviews();
+    if(!isAdmin()){
+      if($('admin-estudo-form'))$('admin-estudo-form').hidden=true;
+      if($('estudo-registros'))$('estudo-registros').hidden=true;
+      return;
+    }
+    if(!$('estudo-lista'))return;
     try {
       const {data,error}=await ctx.db().from('site_estudos').select('*').order('titulo');
       if(error)throw error;
@@ -122,6 +136,104 @@ window.IGREJA_ESTUDOS = (() => {
       }catch(e){setStatus('Erro ao salvar: '+e.message,true);}
     });
   }
+
+  const validName=()=>window.IGREJA_MEMBROS?.displayName?.(ctx?.user?.())||'';
+  function onAuthChange(){
+    const teacher=$('study-teacher-panel');if(teacher)teacher.hidden=!isTeacher();
+    const adminEditor=$('admin-estudo-form');if(adminEditor)adminEditor.hidden=!isAdmin();
+    const adminRecords=$('estudo-registros');if(adminRecords)adminRecords.hidden=!isAdmin();
+    if(isTeacher())void refreshMyStudies();
+    if(isReviewer())void refreshReviews();
+  }
+  async function refreshMyStudies(){
+    const host=$('study-my-submissions');if(!host||!ctx?.db?.()||!ctx?.user?.())return;
+    const {data,error}=await ctx.db().from('site_estudo_envios')
+      .select('titulo,status,criado_em,parecer').eq('user_id',ctx.user().id).order('criado_em',{ascending:false}).limit(50);
+    host.replaceChildren();
+    if(error){host.append(E('p','Não foi possível carregar seus envios.','muted'));return;}
+    if(!data?.length){host.append(E('p','Você ainda não enviou nenhum estudo.','muted'));return;}
+    for(const row of data){
+      const card=E('article',undefined,'moderation-item');
+      card.append(E('h4',row.titulo),E('p','Situação: '+({pendente:'Aguardando revisão',aprovado:'Publicado',rejeitado:'Não aprovado'}[row.status]||row.status),'muted'));
+      if(row.parecer)card.append(E('p','Comentário do revisor: '+row.parecer));
+      host.append(card);
+    }
+  }
+  function studyInput(field,label,value,large=false){
+    const wrap=E('label',undefined,'');
+    wrap.append(document.createTextNode(label));
+    const el=E(large?'textarea':'input');el.value=value||'';el.dataset.studyField=field;
+    if(large)el.rows=field==='corpo'?10:3;else el.type='text';
+    wrap.append(el);return wrap;
+  }
+  async function refreshReviews(){
+    const host=$('study-review-list');if(!host||!ctx?.db?.()||!isReviewer())return;
+    const status=$('study-review-status');if(status)status.textContent='Carregando estudos para análise...';
+    const {data,error}=await ctx.db().from('site_estudo_envios')
+     .select('id,autor_nome,titulo,categoria,referencias,resumo,corpo,fontes,criado_em,status')
+     .eq('status','pendente').order('criado_em',{ascending:true}).limit(100);
+    host.replaceChildren();
+    if(error){if(status)status.textContent='Falha ao consultar: '+error.message;return;}
+    if(status)status.textContent=data.length+' estudo(s) aguardando análise.';
+    if(!data.length){host.append(E('p','Nenhum estudo aguardando revisão.','muted'));return;}
+    for(const row of data){
+      const card=E('article',undefined,'moderation-item');
+      card.append(E('h3',row.titulo));
+      card.append(E('p','Enviado por '+(row.autor_nome||'Membro da igreja')+' • '+new Date(row.criado_em).toLocaleDateString('pt-BR'),'muted'));
+      const form=E('form',undefined,'admin-form-grid');
+      for(const [field,label,large] of [
+        ['titulo','Título',false],['categoria','Categoria',false],['referencias','Passagens bíblicas',true],
+        ['resumo','Resumo',true],['corpo','Estudo completo (pode revisar e editar)',true],
+        ['fontes','Fontes e referências (um URL HTTPS por linha)',true]
+      ]){const labelNode=studyInput(field,label,row[field],large);if(large)labelNode.classList.add('form-span');form.append(labelNode);}
+      const parecer=studyInput('parecer','Comentário para o autor (opcional)','',true);parecer.classList.add('form-span');form.append(parecer);
+      const buttons=E('div',undefined,'admin-actions form-span');
+      for(const [decision,label,css] of [['aprovado','Aprovar e publicar','btn btn-primary'],['rejeitado','Não aprovar','btn btn-outline']]){
+        const button=E('button',label,css);button.type='button';
+        button.addEventListener('click',async()=>{
+          if(!isReviewer())return;
+          const get=k=>String(form.querySelector('[data-study-field="'+k+'"]')?.value||'').trim();
+          const args={p_envio_id:row.id,p_decisao:decision,
+            p_titulo:get('titulo'),p_categoria:get('categoria'),p_referencias:get('referencias'),
+            p_resumo:get('resumo'),p_corpo:get('corpo'),p_fontes:get('fontes'),p_parecer:get('parecer')};
+          if(!window.confirm((decision==='aprovado'?'Publicar':'Não aprovar')+' o estudo de '+(row.autor_nome||'este autor')+'?'))return;
+          const all=[...buttons.querySelectorAll('button')];all.forEach(b=>b.disabled=true);
+          const {data:ok,error:err}=await ctx.db().rpc('revisar_estudo_enviado',args);
+          if(err||ok!==true){if(status)status.textContent='Não foi possível concluir: '+(err?.message||'resposta inválida');all.forEach(b=>b.disabled=false);return;}
+          if(status)status.textContent=decision==='aprovado'?'Estudo revisado e publicado com o nome do autor.':'Estudo não aprovado; o autor poderá ver o parecer.';
+          await refreshReviews();
+        });
+        buttons.append(button);
+      }
+      form.append(buttons);card.append(form);host.append(card);
+    }
+  }
+  function initTeacher(){
+    const form=$('study-teacher-form');if(!form)return;
+    form.addEventListener('submit',async event=>{
+      event.preventDefault();const status=$('study-teacher-status');
+      if(!ctx?.db?.()||!ctx?.user?.()||!isTeacher()){status.textContent='Somente professores autorizados podem enviar estudos.';return;}
+      if(!validName()){status.textContent='Complete seu nome e sobrenome em Minha conta antes de enviar.';return;}
+      const valId=id=>String($(id)?.value||'').trim();
+      const record={
+        user_id:ctx.user().id,titulo:valId('study-send-title'),categoria:valId('study-send-category'),
+        referencias:valId('study-send-references'),resumo:valId('study-send-summary'),
+        corpo:valId('study-send-body'),fontes:valId('study-send-sources'),status:'pendente'
+      };
+      if(record.titulo.length<2||record.resumo.length<5||record.corpo.length<20){status.textContent='Preencha título, resumo e estudo completo.';return;}
+      if(sourceLinks(record.fontes).length!==record.fontes.split(/[\r\n]+/).filter(x=>x.trim()).length){status.textContent='Utilize somente links HTTPS, um por linha.';return;}
+      status.textContent='Enviando para análise...';
+      const submit=form.querySelector('button[type=submit]');submit.disabled=true;
+      try{
+        const {error}=await ctx.db().from('site_estudo_envios').insert(record);
+        if(error)throw error;
+        status.textContent='Estudo enviado! Aguarde a análise da equipe pastoral antes da publicação.';
+        form.reset();await refreshMyStudies();
+      }catch(e){status.textContent='Falha ao enviar: '+e.message;}
+      finally{submit.disabled=false;}
+    });
+  }
+
   async function init(context){
     ctx=context;
     const page=document.body.dataset.page||'';
@@ -132,7 +244,10 @@ window.IGREJA_ESTUDOS = (() => {
       await refreshPage();
     }
     initializeAdmin();
-    if($('admin-estudo-form') && isAdmin())await refreshAdmin();
+    initTeacher();
+    $('study-review-refresh')?.addEventListener('click',refreshReviews);
+    onAuthChange();
+    if($('admin-estudo-form') && isReviewer())await refreshAdmin();
   }
-  return {init,refreshAdmin};
+  return {init,refreshAdmin,onAuthChange,refreshReviews};
 })();
