@@ -1266,3 +1266,26 @@ body[data-page="louvores"] .songs-panel{
 @media print{
   #song-dialog #song-dialog-content.is-chords.mobile-cifra{display:none!important}
 }
+
+/* No celular, controles de voz e tom ficam recolhidos; cifra permanece visível. */
+.mobile-chord-panel-toggle{display:none}
+@media(max-width:700px){
+ #song-dialog .transpose-panel{position:relative;margin:8px 0 10px;padding:6px 8px;max-width:100%;min-width:0;z-index:auto;box-shadow:none;flex:none}
+ #song-dialog .mobile-chord-panel-toggle{display:flex;width:100%;min-height:53px;align-items:center;justify-content:space-between;gap:12px;text-align:left;border:0;border-radius:12px;background:#e5f1e9;color:#25533c;padding:10px 12px;white-space:normal}
+ #song-dialog .mobile-chord-toggle-text{display:flex;flex-direction:column;min-width:0;gap:3px}
+ #song-dialog .mobile-chord-toggle-text strong{font-size:14px;line-height:1.25}
+ #song-dialog .mobile-chord-toggle-text small{font-size:11px;line-height:1.35;color:#4c705a;overflow-wrap:anywhere}
+ #song-dialog .mobile-chord-toggle-chevron{flex:none;font-size:22px;line-height:1;transition:transform .18s}
+ #song-dialog .transpose-panel.mobile-panel-open .mobile-chord-toggle-chevron{transform:rotate(180deg)}
+ #song-dialog .mobile-chord-settings-body{display:none!important}
+ #song-dialog .transpose-panel.mobile-panel-open .mobile-chord-settings-body{display:block!important;max-height:min(46dvh,410px);overflow-y:auto;overscroll-behavior:contain;padding:12px 4px 4px}
+ #song-dialog .transpose-panel .voice-version-selector{margin-bottom:12px;padding-bottom:12px}
+ #song-dialog.modo-culto .transpose-panel.mobile-panel-open .mobile-chord-settings-body{max-height:min(32dvh,270px)}
+ #song-dialog .modal-head{flex-direction:column-reverse;align-items:stretch;gap:8px}
+ #song-dialog .modal-head>div:first-child{min-width:0;width:100%;flex:auto}
+ #song-dialog .modal-head .modal-head-actions{align-self:flex-end;max-width:100%}
+ #song-dialog .modal-head h2{font-size:clamp(21px,6vw,28px);line-height:1.2;overflow-wrap:anywhere}
+ #song-dialog .modal-head p{overflow-wrap:anywhere}
+ #song-dialog.modo-culto #song-dialog-content.is-chords.mobile-cifra{position:relative;z-index:auto;flex:1 1 auto;min-height:110px;max-height:none;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain;padding:10px 2px 18px}
+ #song-dialog:not(.modo-culto) #song-dialog-content.is-chords.mobile-cifra{max-height:min(55dvh,560px);overflow-y:auto!important;overscroll-behavior:contain}
+}

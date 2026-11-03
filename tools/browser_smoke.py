@@ -90,6 +90,17 @@ def main():
                             errors.append(f"Hino 1: cifra ultrapassa tela: {widths}")
                         if content.locator(".mobile-cifra-word").count()==0:
                             errors.append("Hino 1: acordes não foram distribuídos nas palavras")
+                        toggle=page.locator("#mobile-chord-panel-toggle")
+                        if not toggle.is_visible() or toggle.get_attribute("aria-expanded")!="false":
+                            errors.append("Hino 1: painel verde deve iniciar recolhido")
+                        if not content.is_visible():
+                            errors.append("Hino 1: cifra não visível no celular")
+                        toggle.click()
+                        if toggle.get_attribute("aria-expanded")!="true":
+                            errors.append("Hino 1: não abriu ajustes de voz e tom")
+                        toggle.click()
+                        if toggle.get_attribute("aria-expanded")!="false":
+                            errors.append("Hino 1: não recolheu ajustes de voz e tom")
                         page.locator("#transpose-key").select_option("A")
                         after=content.inner_text()
                         if not ("A" in after and content.locator(".mobile-cifra-verse").count()>0):
@@ -103,10 +114,10 @@ def main():
                         original=page.locator("#transpose-original").inner_text()
                         if "Dó" not in original:
                             errors.append(f"Hino 73: tom original incorreto: {original}")
-                        original_text=page.locator("#song-dialog-content").inner_text()
+                        original_chords=page.locator("#song-dialog-content .mobile-cifra-chord").all_text_contents()
                         page.locator("#transpose-key").select_option("D")
-                        transposed=page.locator("#song-dialog-content").inner_text()
-                        if original_text==transposed or not transposed.strip().startswith("D"):
+                        transposed_chords=page.locator("#song-dialog-content .mobile-cifra-chord").all_text_contents()
+                        if original_chords==transposed_chords or "D" not in transposed_chords:
                             errors.append("Hino 73: transposição C → D não funcionou")
                         page.evaluate("window.print = () => {window.__igjal_print_called = true;}")
                         page.locator("#print-song").click()

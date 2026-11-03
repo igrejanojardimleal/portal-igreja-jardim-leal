@@ -16,6 +16,8 @@
   let readingFont = 16;
   let selectedSong = null;
   let dialogMode = 'letra';
+  let mobilePanelExpanded=false;
+  let lastMobileHino=null;
   let db = null;
   let user = null;
   let refreshingComments = false;
@@ -148,6 +150,7 @@
         }
       }
     }
+    updateMobileChordPanel();
     if(!available){
       setText('transpose-status',pdfTwo?'Escolha a versão em PDF. A transposição manual depende de acordes digitais.':'');
       return;
@@ -259,8 +262,20 @@
     }
   }
 
+  function updateMobileChordPanel(){
+    const panel=$('transpose-panel'),toggle=$('mobile-chord-panel-toggle');
+    if(!panel||!toggle)return;
+    panel.classList.toggle('mobile-panel-open',mobilePanelExpanded);
+    toggle.setAttribute('aria-expanded',String(mobilePanelExpanded));
+    const text=$('mobile-chord-toggle-current');
+    if(text&&selectedSong){
+      const version=getActiveChordVersion(selectedSong);
+      text.textContent=(version.label?version.label+' • ':'')+(version.key?'Tom '+version.key:'Escolher versão');
+    }
+  }
   function initTransposition() {
     const select=$('transpose-key');if(!select||!transposer)return;
+    $('mobile-chord-panel-toggle')?.addEventListener('click',()=>{mobilePanelExpanded=!mobilePanelExpanded;updateMobileChordPanel();});
     for(let i=0;i<12;i++){
       const op=el('option','',`${transposer.LABELS[i]} (${transposer.NOTES[i]})`);
       op.value=transposer.NOTES[i];select.append(op);
@@ -300,6 +315,7 @@
         if(!digital&&!pdf)return;
         rememberVocalVersion(selectedSong.number,style);
         if(digital)rememberTone(selectedSong.number,candidate.key);
+        mobilePanelExpanded=false;
         renderSongDialog();
       });
     }
@@ -672,6 +688,7 @@
   }
   function renderSongDialog() {
     if (!selectedSong) return;
+    if(lastMobileHino!==selectedSong.number){mobilePanelExpanded=false;lastMobileHino=selectedSong.number;}
     const activeCifra=getActiveChordVersion(selectedSong);
     setText('song-dialog-title', `${String(selectedSong.number).padStart(2,'0')} — ${selectedSong.title}`);
     setText('song-dialog-eyebrow', dialogMode === 'cifra' ? 'CIFRA DO LOUVOR' : 'LETRA DO LOUVOR');
