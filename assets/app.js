@@ -734,6 +734,7 @@
       updateAdminPanelAccess();
       refreshAdminLinks();
       window.IGREJA_LIVE?.onAuthChange?.();
+      window.IGREJA_KITS?.onAuthChange?.();
       if($('moderation-list'))$('moderation-list').replaceChildren();
       if($('cifra-admin-list'))$('cifra-admin-list').replaceChildren();
       return;
@@ -747,6 +748,7 @@
       isStudyTeacher=isAdmin || (!studyResult.error && studyResult.data===true);
       isStudyReviewer=isAdmin || (!reviewResult.error && reviewResult.data===true);
       window.IGREJA_LIVE?.onAuthChange?.();
+      window.IGREJA_KITS?.onAuthChange?.();
       window.IGREJA_V4?.onAuthChange?.();
       window.IGREJA_CELEBRACOES?.onAuthChange?.();
       $('open-moderation').hidden=true;
@@ -1050,6 +1052,7 @@
     initCifraSubmission();
     await initBackend();
     window.IGREJA_LIVE?.init?.({db:()=>db,isAdmin:()=>isAdmin});
+    window.IGREJA_KITS?.init?.({db:()=>db,isAdmin:()=>isAdmin});
     window.IGREJA_COMUNIDADE?.init?.({db:()=>db,user:()=>user,canModerate:()=>isAdmin||isMuralModerator,selectedSong:()=>selectedSong});
     window.IGREJA_ACESSOS?.init?.({db:()=>db,isAdmin:()=>isAdmin});
     if (window.IGREJA_V4?.init) await window.IGREJA_V4.init({
