@@ -18,6 +18,6 @@ window.IGREJA_CONFIG = {
   },
   supabase: {
     url: "https://tzexkzhygvmtbggjglxg.supabase.co", // URL pública do projeto Supabase da igreja
-    anonKey: "" // Somente chave ANON/PUBLISHABLE; JAMAIS inserir service_role/secret
+    anonKey: "sb_publishable_MxFRYFKRQQ7covPWwqJtbg_qSg6m8A7" // Somente chave ANON/PUBLISHABLE; JAMAIS inserir service_role/secret
   }
 };
