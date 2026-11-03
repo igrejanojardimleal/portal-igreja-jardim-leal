@@ -39,6 +39,37 @@
   const cifraBucketPublic = 'cifras-publicadas';
   const page = document.body.dataset.page || 'home';
   const transposer = window.IGREJA_TRANSPOSE || null;
+
+  // Migra favoritos e tons selecionados uma única vez, acompanhando o hino
+  // correto após a mudança oficial dos 123 números. Hinos excluídos não migram.
+  (function migrateHymnalPreferences(){
+    const mapping=data?.numberingMigration?.oldToNew;
+    if(!mapping||data?.numberingMigration?.version!=='2026-11-03-123-hinos')return;
+    const marker='igjal-numeracao-123-migrada-20261103-v1';
+    try{
+      if(localStorage.getItem(marker)==='ok')return;
+      const favoritesKey='igjal-hinos-favoritos-v1';
+      const favorites=JSON.parse(localStorage.getItem(favoritesKey)||'[]');
+      if(Array.isArray(favorites)){
+        const changed=[...new Set(favorites
+          .filter(Number.isInteger)
+          .map(n=>mapping[String(n)])
+          .filter(n=>Number.isInteger(n)&&n>=1&&n<=123))];
+        localStorage.setItem(favoritesKey,JSON.stringify(changed));
+      }
+      const tonesKey='igjal-tons-escolhidos-v1';
+      const tones=JSON.parse(localStorage.getItem(tonesKey)||'{}');
+      if(tones&&typeof tones==='object'&&!Array.isArray(tones)){
+        const changed={};
+        for(const [old,tone] of Object.entries(tones)){
+          const n=mapping[old];
+          if(Number.isInteger(n)&&n>=1&&n<=123)changed[n]=tone;
+        }
+        localStorage.setItem(tonesKey,JSON.stringify(changed));
+      }
+      localStorage.setItem(marker,'ok');
+    }catch(error){console.warn('Preferências do hinário não migradas:',error);}
+  })();
   const selectedTones = new Map();
   const TONES_KEY = 'igjal-tons-escolhidos-v1';
   try {
