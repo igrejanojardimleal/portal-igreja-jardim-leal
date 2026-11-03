@@ -34,3 +34,84 @@
 }
 
 [hidden]{display:none!important}
+
+/* Minha Conta: cadastro expansível, sem ocupar a tela inteira */
+#logged-in-panel{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:stretch;
+}
+#logged-in-panel #logged-in-user{
+  margin:4px 0 6px;
+  padding:14px 16px;
+  border:1px solid #e3eaf0;
+  border-radius:12px;
+  background:linear-gradient(120deg,#f6fbf7,#fbfcff);
+  font-size:14px;
+  line-height:1.55;
+}
+#logged-in-panel #member-admin-link,
+#logged-in-panel #member-study-link{
+  align-self:stretch;
+  justify-content:center;
+  text-decoration:none;
+  min-height:43px;
+}
+.member-registration-details{
+  border:1px solid #d8e4ed;
+  border-radius:14px;
+  overflow:hidden;
+  background:#fff;
+}
+.member-registration-summary{
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:15px 17px;
+  font-size:15px;
+  font-weight:800;
+  color:#21466d;
+  list-style:none;
+}
+.member-registration-summary::-webkit-details-marker{display:none}
+.member-registration-summary::after{
+  content:"⌄";font-size:22px;
+  color:#5b83a6;line-height:1;
+  transition:transform .2s ease;
+}
+.member-registration-details[open]>.member-registration-summary::after{
+  transform:rotate(180deg);
+}
+.member-registration-summary:hover{background:#f3f9fc}
+.member-registration-summary:focus-visible{
+  outline:3px solid #7fa6c1;outline-offset:-4px;
+}
+.member-registration-details[open]>.member-registration-summary{
+  border-bottom:1px solid #e2e8ef;background:#f8fbfd;
+}
+.member-registration-content{padding:9px 17px 21px}
+.member-registration-content>.muted{font-size:13px;line-height:1.5}
+.member-registration-content .member-change-password{
+  border-top:1px solid #e5ebf1;
+  padding-top:17px;
+}
+#logged-in-panel #logout-button{
+  align-self:flex-start;
+  margin-top:1px;
+}
+.access-user-heading{display:flex;flex-direction:column;gap:4px}
+.access-permissions-details{margin-top:14px;border:1px solid #d8e4ef;border-radius:12px;overflow:hidden;background:#fff}
+.access-permissions-summary{padding:14px;cursor:pointer;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;font-weight:700;color:#244569}
+.access-permissions-summary:hover{background:#f6f9fc}
+.access-permissions-counter{color:#586f84;font-size:12px;font-weight:700}
+.access-current-roles{font-size:12px;color:#44697e;line-height:1.5}
+.access-role-section{padding:14px 16px;border-top:1px solid #e7edf3}
+.access-role-section h4{font-size:14px;color:#25456a;margin:0 0 11px}
+.access-role-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.access-role-grid .btn{min-height:41px;white-space:normal;text-align:left;padding:8px 10px;line-height:1.3}
+.access-role-grid .btn.is-granted{border-color:#79b597;background:#eff8f2;color:#31674b}
+@media(max-width:650px){.access-role-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.member-registration-summary::after{transition:none}}
