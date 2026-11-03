@@ -502,3 +502,71 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 @media(prefers-reduced-motion:reduce){
  .youtube-cover-link img,.igjal-live-cover img{transition:none}
 }
+
+
+/* IGJAL: Modo Culto limpo — o louvor usa toda a área disponível.
+   Comentários e formulários permanecem apenas no modo normal. */
+#song-dialog.modo-culto .hino-comunidade,
+#song-dialog.modo-culto #hino-download-actions,
+#song-dialog.modo-culto #hino-member-form,
+#song-dialog.modo-culto #hino-member-prompt,
+#song-dialog.modo-culto .song-pdf-area,
+#song-dialog.modo-culto .song-media-area,
+#song-dialog.modo-culto .modal-footer,
+#song-dialog.modo-culto .modal-tabs,
+#song-dialog.modo-culto #favorite-song,
+#song-dialog.modo-culto .song-donate-mini,
+#song-dialog.modo-culto #copy-hino-link{
+  display:none!important;
+}
+#song-dialog.modo-culto{
+  height:100dvh;
+  max-height:100dvh;
+  overflow:hidden;
+}
+#song-dialog.modo-culto>.modal-inner{
+  box-sizing:border-box;
+  height:100%;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+#song-dialog.modo-culto .modal-head,
+#song-dialog.modo-culto .transpose-panel,
+#song-dialog.modo-culto .culto-tools,
+#song-dialog.modo-culto .reading-controls{
+  flex-shrink:0;
+}
+#song-dialog.modo-culto #song-dialog-content{
+  display:block;
+  flex:1 1 auto;
+  min-height:0;
+  max-height:none;
+  overflow:auto;
+  margin:0;
+  padding:18px 12px 24px;
+  line-height:1.7;
+  overscroll-behavior:contain;
+}
+#song-dialog.modo-culto .culto-tools{
+  position:relative;
+  bottom:auto;
+  margin-top:0;
+  padding:10px 0 6px;
+  background:#fffcf5;
+  border-top:1px solid #e7e0d5;
+}
+#song-dialog.modo-culto .reading-controls{
+  margin:3px 0 0;
+}
+@media(max-width:650px){
+  #song-dialog.modo-culto>.modal-inner{padding:12px 13px 8px}
+  #song-dialog.modo-culto #song-dialog-content{padding:12px 4px 16px}
+  #song-dialog.modo-culto .culto-tools{gap:7px;flex-wrap:wrap}
+  #song-dialog.modo-culto .culto-tools .btn{flex:1 1 135px;min-width:0}
+}
+@media print{
+  #song-dialog.modo-culto #song-dialog-content{overflow:visible;max-height:none}
+  #song-dialog.modo-culto .reading-controls{display:none!important}
+}
