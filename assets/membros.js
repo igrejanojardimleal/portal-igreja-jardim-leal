@@ -149,6 +149,24 @@ window.IGREJA_MEMBROS = (() => {
           <button class="btn btn-outline" type="submit">Salvar minha senha</button>
           <p class="form-status" id="member-password-status" role="status"></p>
         </form>`);
+      // Após o login, exibir apenas o essencial; dados pessoais e senha ficam recolhidos.
+      const section=document.createElement('details');
+      section.id='member-registration-details';
+      section.className='member-registration-details';
+      const heading=document.createElement('summary');
+      heading.className='member-registration-summary';
+      heading.textContent='🪪 Cadastro e configurações';
+      const explanation=document.createElement('p');
+      explanation.className='muted';
+      explanation.textContent='Atualize seu nome, sobrenome ou senha quando precisar.';
+      const content=document.createElement('div');
+      content.className='member-registration-content';
+      content.append(explanation,$('member-profile-form'),$('member-password-change'));
+      section.append(heading,content);
+      loggedIn.append(section);
+      // O botão de saída permanece visível, abaixo das ações principais.
+      const logout=$('logout-button');
+      if(logout)loggedIn.append(logout);
       $('member-profile-form').addEventListener('submit',async event=>{
         event.preventDefault();
         const first=cleanName($('member-profile-first').value),last=cleanName($('member-profile-last').value);
