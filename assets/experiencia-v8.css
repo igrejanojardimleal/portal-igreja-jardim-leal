@@ -1,0 +1,138 @@
+/* IGJAL — Identidade visual V8. Foco em leitura, acessibilidade e navegação móvel. */
+:root {
+  --ink:#253148; --deep:#153e73; --deep-2:#102f59;
+  --muted:#566476; --sand:#f8f9f7; --paper:#fff;
+  --line:#e0e6eb; --coral:#a45c40; --green:#2f6855;
+  --shadow:0 13px 34px rgba(17,44,76,.075); --radius:22px;
+}
+*,*::before,*::after {box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:92px}
+body{background:var(--sand);color:var(--ink);font-size:16px;line-height:1.65;overflow-x:clip}
+img,video,iframe{max-width:100%} img{height:auto}
+a,button,input,select,textarea{touch-action:manipulation}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #1c70b2;outline-offset:3px}
+.container{width:min(1170px,calc(100% - 48px));margin-inline:auto;min-width:0}
+.announcement{min-height:36px;height:auto;padding:7px 12px;text-align:center;line-height:1.45;font-size:11px;letter-spacing:.045em;background:var(--deep-2)}
+.site-header{height:86px;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);box-shadow:0 4px 18px rgba(16,47,89,.035)}
+.header-content{min-width:0;gap:16px}.brand{gap:11px;min-width:0;flex-shrink:1}.brand-text{min-width:0}
+.brand-text strong{color:var(--deep-2);font-size:clamp(12px,1.1vw,15px);letter-spacing:.01em;line-height:1.25}
+.brand-text small{font-size:9px;letter-spacing:.09em;color:#55657d;line-height:1.65}
+.brand-icon{width:60px!important;height:60px!important;flex:0 0 60px!important;background:#fff!important;border:1px solid #e5e9ed!important;box-shadow:0 2px 13px rgba(20,50,83,.05);border-radius:50%!important}
+.brand-icon .igreja-logo{display:block!important;position:relative;z-index:2;object-fit:contain!important;width:100%!important;height:100%!important;opacity:1!important;visibility:visible!important;background:transparent!important}
+.brand-icon:has(.igreja-logo)::before{display:none!important}
+.desktop-nav{gap:clamp(7px,.9vw,15px);margin-left:auto}
+.desktop-nav .nav-link{font-size:clamp(11px,.9vw,12.5px);color:#34445b;line-height:1.4;white-space:nowrap}
+.desktop-nav .nav-link:hover,.desktop-nav .nav-link.current,.desktop-nav .nav-link[aria-current="page"]{color:var(--deep);text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px}
+.header-actions{gap:9px}
+.btn,.tab,.youtube-filter{font-size:14px;line-height:1.3;letter-spacing:0}
+.btn{min-height:49px;border-radius:13px;padding:12px 17px;gap:10px;white-space:normal;text-align:center;max-width:100%;box-shadow:none}
+.btn-primary{background:var(--deep);border-color:var(--deep);color:#fff}
+.btn-primary:hover{background:var(--deep-2);border-color:var(--deep-2);box-shadow:0 9px 22px rgba(16,47,89,.18)}
+.btn-outline{border:1.5px solid #cbd7e0;color:var(--deep-2);background:#fff}
+.btn-outline:hover{background:#eff4f9}
+.btn-sm{min-height:44px;font-size:12.5px;padding:10px 13px}
+.menu-button{min-width:48px;min-height:48px;border:1px solid var(--line);border-radius:13px;background:#fff}
+.mobile-nav{top:100%;padding:13px max(18px,calc((100vw - 700px)/2)) 20px;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 18px 29px rgba(12,47,89,.11);max-height:calc(100dvh - 115px);overflow:auto;overscroll-behavior:contain}
+.mobile-nav:not([hidden]){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:12px;row-gap:6px}
+.mobile-nav a{display:flex;align-items:center;min-height:54px;padding:10px 13px;border:1px solid #e4e9ec;border-radius:12px;color:var(--deep-2);background:#f8fafb;font-weight:750;font-size:14px;text-decoration:none}
+.mobile-nav a.current,.mobile-nav a[aria-current="page"]{border-color:#bed6e6;background:#ebf4fa}
+.crumb{font-size:14px;padding-top:23px;color:#516176;flex-wrap:wrap}.crumb a{color:var(--deep);font-weight:700}
+body[data-page]:not([data-page="home"]) main>.section{padding-top:45px;padding-bottom:75px}
+h1,h2,h3,h4{color:var(--deep-2);letter-spacing:-.035em;overflow-wrap:break-word}
+.section-heading{gap:22px;margin-bottom:30px}.section-heading h1,.section-heading h2{font-size:clamp(27px,3.7vw,43px);line-height:1.18;letter-spacing:-.045em}
+.section-heading p{font-size:16px;line-height:1.7;color:var(--muted)}
+.overline,.eyebrow{letter-spacing:.11em;color:#9c533c;font-size:12px}
+.hero-section{overflow:clip;background:radial-gradient(circle at 83% 20%,rgba(224,236,249,.62),transparent 38%),var(--sand)}
+.hero-layout{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(24px,4vw,64px);min-height:0;padding-block:clamp(34px,5vw,70px) clamp(42px,5vw,70px);align-items:center}
+.hero-content{min-width:0;padding-bottom:0}.home-hero-welcome h1{font-size:clamp(34px,4.7vw,59px)!important;line-height:1.14!important;max-width:680px}
+.home-hero-welcome .hero-description{font-size:clamp(16px,1.5vw,19px);max-width:610px;color:#4b5a6b;line-height:1.75}
+.igjal-welcome-invite{font-size:16.5px;color:var(--green);font-weight:750}
+.home-hero-welcome .hero-cta{gap:12px;display:flex;flex-wrap:wrap}.home-hero-welcome .hero-cta .btn{min-height:54px}
+.igjal-home-quicklinks{display:flex;flex-wrap:wrap;gap:12px 22px;margin-top:21px}
+.igjal-home-quicklinks a{font-size:15px;min-height:36px;display:inline-flex;align-items:center;line-height:1.4;text-decoration:underline;text-underline-offset:4px;color:var(--deep);font-weight:750}
+.igjal-home-welcome-card{border:1px solid #e3e8ed;border-radius:28px;box-shadow:0 18px 56px rgba(18,51,86,.1);background:#fff;padding:clamp(19px,2.5vw,33px);max-width:500px;margin:0 auto;min-width:0}
+.igjal-home-emblem{max-width:210px;width:56%;height:auto;margin:0 auto 10px;display:block}
+.igjal-home-welcome-text h2{font-size:clamp(23px,2.6vw,29px);margin:5px 0 7px}
+.igjal-home-cultos{border-color:#e4e9ee}.igjal-home-cultos>div{font-size:15px;padding:12px 14px;gap:12px}
+.igjal-home-location{line-height:1.55;font-size:14px;overflow-wrap:anywhere}
+.hero-bottom{gap:15px;flex-wrap:wrap;padding-block:15px;font-size:11px;letter-spacing:.08em}
+.home-navigation{background:#fff;padding:clamp(50px,6vw,83px) 0}
+.home-card-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.home-nav-card{min-width:0;border:1px solid #e1e7ed;border-radius:22px;background:#fff;box-shadow:0 9px 20px rgba(23,53,87,.035);padding:24px;min-height:210px;gap:10px}
+.home-nav-card h3{font-size:19px;line-height:1.3}.home-nav-card p{font-size:15px;color:var(--muted);line-height:1.58}.home-nav-card span:last-child{color:var(--deep);font-size:14px}
+.home-nav-card:hover{transform:translateY(-2px);border-color:#a8c4da;box-shadow:0 15px 30px rgba(23,53,87,.1)}
+.home-emoji{color:var(--deep)}
+.notice-section{background:var(--sand)}
+.notice-grid{gap:15px}
+.site-footer{background:#f0f4f8;border-top:1px solid #dfe7ed;color:var(--ink)}
+.footer-top{gap:24px;padding-block:55px 43px}.footer-brand p,.footer-links a,.footer-links span{color:#4e5f73;font-size:14px;line-height:1.55}
+.footer-links strong{font-size:14px;color:var(--deep-2)}
+.igjal-footer-map,.igjal-footer-whatsapp{color:var(--deep)!important;font-size:14px;min-height:35px;display:inline-flex;align-items:center}
+.footer-bottom{color:#5c6b7c;font-size:13px}
+.songs-panel,.submission-panel,.submission-steps,.comment-form-wrap,.pix-card{border-radius:22px;border:1px solid #e1e6ec;box-shadow:var(--shadow)}
+.songs-panel{padding:clamp(17px,2.5vw,30px)}.songs-toolbar{gap:14px}.search-field{max-width:none;min-width:0;min-height:51px;background:#fff;border-color:#bfcdda}
+.search-field input{min-height:34px;font-size:16px;color:var(--ink)}.pill-tabs{background:#edf2f5}.pill-tabs .tab{min-height:47px;font-size:15px}
+.songs-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.song-card{min-width:0;min-height:152px;border-color:#dde4ea;background:#fff;padding:20px}
+.song-card:hover{border-color:#a6c5dc}.song-card h3{font-size:17px;line-height:1.3}
+.reading-controls button{min-height:46px;min-width:46px;color:var(--deep);background:#eff4f8;border-color:#d3e1e9}
+.modal{width:calc(100% - 24px);max-height:90dvh;border-radius:22px}.modal-inner{padding:clamp(18px,3vw,35px)}.modal-head p{font-size:14px;color:var(--muted)}.icon-button{width:47px;height:47px}
+.song-content{font-size:16px;line-height:1.85;overflow-wrap:break-word;overflow-x:auto;max-height:50dvh}
+.youtube-browser{gap:15px}.youtube-filter{min-height:49px;font-size:15px;padding:11px 15px}.youtube-video-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.youtube-video-card{border-radius:20px;border-color:#e2e8ed;box-shadow:0 7px 16px rgba(18,51,86,.04)}
+.youtube-video-body{padding:17px}.youtube-video-body h3{font-size:17px;line-height:1.35}
+.igjal-live-card{border-radius:22px}
+.agenda-columns{gap:24px}.igjal-regular-schedule{background:#fff;border-color:#dfe7ed;box-shadow:var(--shadow);padding:clamp(19px,3vw,34px)}
+.igjal-schedule-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.igjal-schedule-day{background:#f8fafb;border-color:#e1e9ee}.igjal-schedule-day h4{font-size:17px}
+.donation-section{background:linear-gradient(135deg,#103762,#153d70);color:#fff}
+.donation-copy h1,.donation-copy h2{color:#fff;line-height:1.18}.donation-copy>p{color:#e4edf6;font-size:17px}
+.donation-layout{grid-template-columns:minmax(0,1fr) minmax(0,430px);gap:clamp(28px,5vw,65px);align-items:start}
+.pix-card{padding:clamp(19px,2.8vw,31px);min-width:0;color:var(--ink)}
+.pix-key{overflow-wrap:anywhere;word-break:break-word;font-size:clamp(17px,2vw,23px)}
+.pix-beneficiary{font-size:15px}.btn-pix{min-height:54px;font-size:16px;width:100%}
+.igjal-bible-verse{border:1px solid #dae5ed;border-radius:20px;background:#fff;padding:clamp(20px,3vw,30px);box-shadow:0 12px 32px rgba(15,48,89,.055);margin:0 auto}
+.igjal-bible-verse .verse-kicker{font-size:11px;letter-spacing:.13em;font-weight:800;color:#9d533f;text-transform:uppercase}
+.igjal-bible-verse blockquote{font-family:Georgia,"Times New Roman",serif;font-size:clamp(19px,2.7vw,28px);line-height:1.5;margin:12px 0;color:var(--deep-2)}
+.igjal-bible-verse p{font-size:14px;color:var(--muted);margin:7px 0 0}
+.igjal-bible-verse cite{font-style:normal;font-weight:800;color:var(--deep)}
+.igjal-bible-verse a{color:var(--deep);text-decoration:underline;text-underline-offset:3px}
+.igjal-home-scripture{max-width:1170px;margin:0 auto;padding:0 0 38px}
+.igjal-home-scripture .igjal-bible-verse{border-left:5px solid #a98562}
+.donation-copy .igjal-bible-verse{background:#fffdf9;border-color:#eedfcc;margin-top:26px;max-width:550px}
+.donation-copy .igjal-bible-verse blockquote{font-size:clamp(19px,2.3vw,24px)}
+.igjal-bible-verse .verse-source{display:block;margin-top:12px;font-size:14px}
+input:not([type="checkbox"]):not([type="radio"]),select,textarea{max-width:100%;min-height:48px;border-radius:11px;font-size:16px}
+textarea{min-height:115px;resize:vertical}
+label{font-size:15px;line-height:1.4}
+form button[type="submit"]{min-height:52px}
+.admin-tabs{gap:8px}.admin-tabs button{min-height:46px}
+.floating-donate{border-color:#b1d9c8;background:#24614d;box-shadow:0 6px 19px rgba(8,68,45,.24);min-height:49px}
+.floating-donate:hover{background:#194d3e}
+@media(max-width:1200px){.desktop-nav{display:none!important}.menu-button{display:flex!important}.header-actions{margin-left:auto}.header-content{justify-content:space-between}}
+@media(max-width:950px){.hero-layout{grid-template-columns:minmax(0,1fr);gap:25px;padding-block:39px 49px}.hero-content{text-align:left}.home-hero-welcome .hero-cta{justify-content:flex-start}.igjal-home-welcome-card{max-width:650px;margin:0}.home-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.youtube-video-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.donation-layout{grid-template-columns:1fr;gap:26px}.donation-copy .igjal-bible-verse{max-width:none}.footer-top{grid-template-columns:repeat(2,minmax(0,1fr))}.footer-brand{grid-column:1/-1}}
+@media(max-width:650px){html{scroll-padding-top:81px}.container{width:calc(100% - 32px)}.site-header{height:75px}.brand-icon{width:52px!important;height:52px!important;flex-basis:52px!important}.brand-text strong{font-size:12px}.brand-text small{font-size:8px}.mobile-nav{padding:12px 16px 19px;max-height:calc(100dvh - 105px)}.header-actions .btn-sm{min-height:44px;padding:7px 9px;font-size:12px}.header-actions .btn-sm svg{display:none}.home-hero-welcome h1{font-size:clamp(32px,8.5vw,44px)!important;line-height:1.14!important}.hero-layout{padding-top:34px}.hero-description{line-height:1.7}.home-hero-welcome .hero-cta{display:grid;grid-template-columns:1fr;gap:10px}.home-hero-welcome .hero-cta .btn{width:100%}.igjal-home-quicklinks{display:grid;gap:5px}.igjal-home-welcome-card{padding:18px;width:100%}.igjal-home-emblem{max-width:180px}.igjal-home-cultos>div{align-items:flex-start;flex-direction:column;gap:3px}.igjal-home-cultos span{text-align:left}.hero-bottom{justify-content:center;text-align:center;gap:8px;padding:15px 0}.hero-bottom span{font-size:10px}.home-card-grid{grid-template-columns:1fr;gap:12px}.home-nav-card{min-height:0;padding:20px}.home-navigation{padding:48px 0}.section-heading.split-heading{display:block}.section-heading p{margin-top:12px}.songs-toolbar{flex-direction:column;align-items:stretch}.search-field{width:100%;flex:unset}.pill-tabs{width:100%;justify-content:center}.pill-tabs .tab{flex:1}.songs-grid{grid-template-columns:1fr;gap:10px}.song-card{min-height:0;padding:18px}.youtube-video-grid{grid-template-columns:1fr}.youtube-filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.youtube-filter{width:100%;font-size:14px}.agenda-columns{grid-template-columns:1fr}.igjal-schedule-grid{grid-template-columns:1fr}.igjal-contact-banner{display:block}.igjal-contact-actions{display:flex;flex-wrap:wrap}.igjal-contact-actions .btn{min-width:0;flex:1}.footer-top{grid-template-columns:1fr;padding-block:44px 33px}.footer-brand{grid-column:auto}.footer-links{gap:10px}.pix-card{padding:17px}.modal{width:calc(100% - 12px);border-radius:16px}.modal-inner{padding:18px}.modal-head h2{font-size:23px}.floating-donate{bottom:8px;left:auto;right:10px;min-height:46px;padding:9px 14px;border-radius:14px;font-size:13px}.floating-donate span:nth-child(2){display:block}.igjal-bible-verse{padding:21px}.igjal-home-scripture{padding-bottom:24px}.igjal-home-scripture .igjal-bible-verse blockquote{font-size:21px}}
+@media(max-width:390px){.brand-text strong{font-size:11px}.brand-text small{font-size:7px}.header-content{gap:6px}.header-actions{gap:5px}.mobile-nav a{font-size:13px;padding:9px 10px}.igjal-schedule-day{padding:14px}.igjal-home-cultos>div{font-size:14px}}
+@media(hover:none){.home-nav-card:hover,.youtube-video-card:hover,.song-card:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+@media print{.mobile-nav,.floating-donate,.menu-button,.header-actions{display:none!important}.igjal-bible-verse{box-shadow:none}}
+
+/* Acesso direto em telas pequenas: sempre visível, inclusive sem login */
+.igjal-mobile-quicknav{display:none}
+@media(max-width:850px){
+  body{padding-bottom:142px!important}
+  .igjal-mobile-quicknav{position:fixed;bottom:0;left:0;right:0;z-index:32;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:7px 8px max(8px,env(safe-area-inset-bottom));background:#fff;border-top:1px solid #dbe5ed;box-shadow:0 -7px 24px rgba(15,43,74,.1);gap:4px}
+  .igjal-mobile-quicknav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:54px;padding:5px 2px;border-radius:11px;color:#284360;font-size:12px;font-weight:800;text-align:center;text-decoration:none}
+  .igjal-mobile-quicknav a span:first-child{font-size:22px;line-height:1.12}
+  .igjal-mobile-quicknav a[aria-current="page"]{background:#eaf2fb;color:#0b427b}
+  .igjal-mobile-quicknav a:focus-visible{outline-offset:-2px}
+  .floating-donate{bottom:calc(79px + env(safe-area-inset-bottom))!important;right:11px!important;left:auto!important;padding:9px 13px!important;min-height:45px!important;border-radius:15px!important}
+  .igjal-home-scripture{width:calc(100% - 32px)}
+}
+@media(max-width:390px){.igjal-mobile-quicknav a{font-size:11px}.igjal-mobile-quicknav a span:first-child{font-size:19px}}
+/* Ajusta hierarquia de títulos e áreas importantes nas páginas internas */
+.story-copy h1,.donation-copy h1{font-size:clamp(31px,4.2vw,54px);line-height:1.16}
+.section-heading h1{font-size:clamp(30px,3.7vw,45px);line-height:1.17}
+.igjal-bible-verse blockquote{border:0;padding:0;background:transparent}
+.igjal-home-scripture .igjal-bible-verse{margin-bottom:0}
+.igjal-bible-verse .verse-source{overflow-wrap:anywhere}
