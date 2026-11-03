@@ -1,0 +1,33 @@
+name: Testar navegação em celular e computador
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.html'
+      - 'assets/*.css'
+      - 'assets/app.js'
+      - 'assets/videos.js'
+      - 'tools/browser_smoke.py'
+      - '.github/workflows/testar-navegacao.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Preparar navegador
+        run: |
+          python -m pip install --quiet playwright
+          python -m playwright install chromium --with-deps
+      - name: Servir site local
+        run: |
+          python -m http.server 8123 --bind 127.0.0.1 >/tmp/igjal_site.log 2>&1 &
+          sleep 2
+      - name: Testar 10 páginas e 3 tamanhos de tela
+        run: python tools/browser_smoke.py
