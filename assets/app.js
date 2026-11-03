@@ -986,6 +986,7 @@
       const num=Number(sel.value);
       const tom=$('cifra-tom').value.trim();
       const obs=$('cifra-obs').value.trim();
+      if(!tom){setStatus('cifra-status','Informe o tom da cifra antes de enviar o PDF (por exemplo: G, Am ou C).',true);$('cifra-tom').focus();return;}
       if(!songs.some(s=>s.number===num)){setStatus('cifra-status','Escolha um hino do hinário.',true);return;}
       if(n.length<2||n.length>60||tom.length>20||obs.length>400){setStatus('cifra-status','Revise nome e observações.',true);return;}
       if(!$('cifra-consent').checked){setStatus('cifra-status','Confirme a autorização para compartilhar a cifra.',true);return;}
@@ -1000,7 +1001,7 @@
         const up=await db.storage.from(cifraBucketPrivate).upload(fileName,file,{contentType:'application/pdf',upsert:false,cacheControl:'3600'});
         if(up.error)throw up.error;
         uploaded=true;
-        const {error}=await db.from('cifra_envios').insert({hino_numero:num,nome:n,tom:tom||null,observacoes:obs||null,storage_path:fileName});
+        const {error}=await db.from('cifra_envios').insert({hino_numero:num,nome:n,tom,observacoes:obs||null,storage_path:fileName});
         if(error)throw error;
         setStatus('cifra-status','PDF recebido! A cifra está pendente de análise e não aparece no site público.');
         form.reset();
