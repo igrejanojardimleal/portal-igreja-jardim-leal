@@ -5,6 +5,7 @@ window.IGREJA_LIVE = (() => {
   const $=id=>document.getElementById(id);
   const TABLE='site_live_destaque';
   let ctx=null, publicTimer=null, adminLoaded=false;
+  const canManage=()=>!!ctx?.db?.() && (ctx?.isAdmin?.()===true || ctx?.hasArea?.('live')===true);
   const validId=id=>/^[A-Za-z0-9_-]{11}$/.test(String(id||''));
   const watch=id=>'https://www.youtube.com/watch?v='+id;
   const thumbnail=id=>'https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';
@@ -62,7 +63,7 @@ window.IGREJA_LIVE = (() => {
     showPreview(row?.video_id);
   }
   async function refreshAdmin(){
-    if(!ctx?.isAdmin?.()||!ctx?.db?.()||!$('admin-live-form'))return;
+    if(!canManage()||!ctx?.db?.()||!$('admin-live-form'))return;
     setStatus('Consultando o destaque do canal...');
     const {data,error}=await ctx.db().from(TABLE)
       .select('id,video_id,titulo,modo,previsto_em,atualizado_em')
@@ -71,7 +72,7 @@ window.IGREJA_LIVE = (() => {
     if(!data){setStatus('Configuração da live não encontrada no banco.',true);return;}
     fillAdmin(data);
     adminLoaded=true;
-    setStatus('Configuração carregada. Apenas o administrador geral pode salvar alterações.');
+    setStatus('Configuração carregada. Somente o administrador geral ou o gestor de lives pode salvar alterações.');
   }
   async function save(row){
     const {data,error}=await ctx.db().from(TABLE).update(row).eq('id',1)
@@ -82,8 +83,8 @@ window.IGREJA_LIVE = (() => {
   }
   async function saveAdmin(event){
     event.preventDefault();
-    if(!ctx?.isAdmin?.()||!ctx?.db?.()){
-      setStatus('Apenas o administrador geral pode gerenciar o destaque.',true);return;
+    if(!canManage()||!ctx?.db?.()){
+      setStatus('Somente pessoas autorizadas a gerenciar lives podem alterar o destaque.',true);return;
     }
     const raw=$('admin-live-url').value.trim();
     const id=extractVideoId(raw);
@@ -109,7 +110,7 @@ window.IGREJA_LIVE = (() => {
     finally{btn.disabled=false;}
   }
   async function deactivate(){
-    if(!ctx?.isAdmin?.()||!ctx?.db?.())return;
+    if(!canManage()||!ctx?.db?.())return;
     if(!window.confirm('Encerrar o destaque no site? A gravação continuará disponível no YouTube.'))return;
     const btn=$('admin-live-hide');btn.disabled=true;
     setStatus('Ocultando o destaque...');
@@ -152,8 +153,8 @@ window.IGREJA_LIVE = (() => {
   }
   function onAuthChange(){
     const adminPanel=$('admin-live-panel');
-    if(adminPanel&&!ctx?.isAdmin?.())adminPanel.hidden=true;
-    if(ctx?.isAdmin?.()&&!adminLoaded)void refreshAdmin();
+    if(adminPanel&&!canManage())adminPanel.hidden=true;
+    if(canManage()&&!adminLoaded)void refreshAdmin();
     if($('live-spotlight'))void refreshPublic();
   }
   function init(context){
