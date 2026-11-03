@@ -1,0 +1,29 @@
+name: Validar integridade do portal
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.html'
+      - 'assets/**'
+      - 'tools/**'
+      - 'config.js'
+      - '.github/workflows/validar-site.yml'
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validar sintaxe JavaScript
+        run: |
+          for f in assets/*.js config.js; do node --check "$f"; done
+      - name: Validar Python
+        run: python3 -m compileall -q tools/
+      - name: Verificar HTML, referências e conteúdo
+        run: python3 tools/verify_site.py
