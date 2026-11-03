@@ -12,6 +12,7 @@ window.IGREJA_ESTUDOS = (() => {
   let ctx = null, area = null, filter = 'Todos', publicItems = [], editableItems = [];
   const norm = text => String(text||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   const isAdmin = () => ctx?.isAdmin?.() === true;
+  const canEditStudies = () => isAdmin() || ctx?.hasArea?.('editor_estudos') === true;
   const isReviewer = () => isAdmin() || ctx?.isStudyReviewer?.() === true;
   const isTeacher = () => isAdmin() || ctx?.isStudyTeacher?.() === true;
   const sourceLinks = text => String(text||'').split(/[\r\n]+/).map(s=>s.trim()).filter(s=>/^https:\/\/[^\s<>"']{4,500}$/.test(s)).slice(0,8);
@@ -99,9 +100,9 @@ window.IGREJA_ESTUDOS = (() => {
   }
   async function refreshAdmin(nextCtx){
     if(nextCtx)ctx=nextCtx;
-    if(!isReviewer() || !ctx?.db?.())return;
-    await refreshReviews();
-    if(!isAdmin()){
+    if(!(isReviewer()||canEditStudies()) || !ctx?.db?.())return;
+    if(isReviewer())await refreshReviews();
+    if(!canEditStudies()){
       if($('admin-estudo-form'))$('admin-estudo-form').hidden=true;
       if($('estudo-registros'))$('estudo-registros').hidden=true;
       return;
@@ -122,7 +123,7 @@ window.IGREJA_ESTUDOS = (() => {
     $('estudo-novo').addEventListener('click',()=>{fillForm(null);$('estudo-lista').value='';$('estudo-slug').focus();setStatus('Novo roteiro. Comece pelo identificador e título.');});
     $('admin-estudo-form').addEventListener('submit',async ev=>{
       ev.preventDefault();
-      if(!isAdmin() || !ctx?.db?.())return setStatus('Acesso somente para administradores autenticados.',true);
+      if(!canEditStudies() || !ctx?.db?.())return setStatus('Acesso autorizado somente a editores de estudos.',true);
       const record={slug:val('estudo-slug').toLowerCase(),area:val('estudo-area'),titulo:val('estudo-titulo'),categoria:val('estudo-categoria'),referencias:val('estudo-referencias'),resumo:val('estudo-resumo'),questao:val('estudo-questao'),corpo:val('estudo-corpo'),fontes:val('estudo-fontes'),publicado:!!$('estudo-publicado').checked};
       if(!/^[a-z0-9-]{2,100}$/.test(record.slug))return setStatus('Identificador inválido. Utilize letras minúsculas, números e hífen.',true);
       if(record.publicado && !record.corpo.trim())return setStatus('Para publicar, escreva o estudo completo e revise seu conteúdo.',true);
@@ -140,8 +141,8 @@ window.IGREJA_ESTUDOS = (() => {
   const validName=()=>window.IGREJA_MEMBROS?.displayName?.(ctx?.user?.())||'';
   function onAuthChange(){
     const teacher=$('study-teacher-panel');if(teacher){teacher.hidden=!isTeacher();if(isTeacher()&&location.hash==='#study-teacher-panel')window.requestAnimationFrame(()=>teacher.scrollIntoView({block:'start'}));}
-    const adminEditor=$('admin-estudo-form');if(adminEditor)adminEditor.hidden=!isAdmin();
-    const adminRecords=$('estudo-registros');if(adminRecords)adminRecords.hidden=!isAdmin();
+    const adminEditor=$('admin-estudo-form');if(adminEditor)adminEditor.hidden=!canEditStudies();
+    const adminRecords=$('estudo-registros');if(adminRecords)adminRecords.hidden=!canEditStudies();
     if(isTeacher())void refreshMyStudies();
     if(isReviewer())void refreshReviews();
   }
