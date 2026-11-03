@@ -123,8 +123,12 @@ window.IGREJA_V4 = (() => {
   async function adminDelete(table,id){if(!(eventTable(table)?eventEditorEnabled():adminEditorEnabled()))throw new Error('Acesso negado.');const res=await client().from(table).delete().eq('id',id);if(res.error)throw res.error;}
   function updateAdminTabs(){
     if(!admin()){
-      if(eventAdmin())currentAdminTab='agenda';
-      else if(muralAdmin())currentAdminTab='comments';
+      const allowed=(currentAdminTab==='agenda'&&eventAdmin()) ||
+        ((currentAdminTab==='comments'||currentAdminTab==='hino-comentarios')&&muralAdmin());
+      if(!allowed){
+        if(eventAdmin())currentAdminTab='agenda';
+        else if(muralAdmin())currentAdminTab='comments';
+      }
     }
     const overview=document.querySelector('.admin-overview');
     if(overview)overview.hidden=!admin();
