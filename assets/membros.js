@@ -4,6 +4,13 @@ window.IGREJA_MEMBROS = (() => {
   const $=id=>document.getElementById(id);
   let context;
   const redirect=()=>new URL('index.html',location.href).href;
+  const cleanName=value=>String(value||'').trim().replace(/\s+/g,' ');
+  function displayName(u){
+    const meta=u?.user_metadata||{};
+    const first=cleanName(meta.first_name),last=cleanName(meta.last_name);
+    const full=cleanName(first&&last ? first+' '+last : meta.full_name);
+    return full.length<=60 && full.split(' ').length>=2 ? full : '';
+  }
   const status=(message,error=false)=>{
     const el=$('member-auth-status');
     if(el){el.textContent=message;el.style.color=error?'#a42626':'';}
@@ -29,9 +36,22 @@ window.IGREJA_MEMBROS = (() => {
   function refresh(){
     const user=context?.user?.();
     const link=$('member-admin-link');
-    if(link)link.hidden=!user||!(context?.isAdmin?.()||context?.isEventManager?.()||context?.isMuralModerator?.());
+    if(link)link.hidden=!user||!(context?.isAdmin?.()||context?.isEventManager?.()||context?.isMuralModerator?.()||context?.isStudyReviewer?.());
+    const teacherLink=$('member-study-link');if(teacherLink)teacherLink.hidden=!user||!context?.isStudyTeacher?.();
     const form=$('member-password-change');
     if(form)form.hidden=!user;
+    const profile=$('member-profile-form');
+    if(profile){
+      profile.hidden=!user;
+      const meta=user?.user_metadata||{},saved=displayName(user);
+      if(user && document.activeElement?.form!==profile){
+        const split=saved ? saved.split(' ') : [];
+        $('member-profile-first').value=cleanName(meta.first_name)||split[0]||'';
+        $('member-profile-last').value=cleanName(meta.last_name)||split.slice(1).join(' ');
+      }
+      const note=$('member-profile-note');
+      if(note)note.textContent=user&&!saved?'Complete seu nome e sobrenome para publicar mensagens e comentários.':'Seu nome cadastrado será usado automaticamente no mural e nos comentários.';
+    }
     const expl=$('member-account-description');
     if(expl)expl.textContent=user?'Conta conectada. Você pode definir uma senha para os próximos acessos.':'Cadastre-se com seu e-mail e uma senha. Após confirmar o e-mail, você poderá participar do mural e dos hinos.';
   }
@@ -55,6 +75,8 @@ window.IGREJA_MEMBROS = (() => {
         <button class="btn btn-primary full-width" type="submit">Entrar na minha conta</button>
       </form>
       <form id="member-signup" data-member-form="cadastro" hidden>
+        <label for="member-signup-first">Nome</label><input id="member-signup-first" type="text" autocomplete="given-name" maxlength="40" required placeholder="Seu nome">
+        <label for="member-signup-last">Sobrenome</label><input id="member-signup-last" type="text" autocomplete="family-name" maxlength="40" required placeholder="Seu sobrenome">
         <label for="member-signup-email">E-mail</label><input id="member-signup-email" type="email" autocomplete="email" required>
         <label for="member-signup-password">Crie uma senha (mínimo 8 caracteres)</label>
         <input id="member-signup-password" type="password" autocomplete="new-password" required minlength="8">
@@ -91,9 +113,12 @@ window.IGREJA_MEMBROS = (() => {
     $('member-signup').addEventListener('submit',async event=>{
       event.preventDefault();
       const email=$('member-signup-email').value.trim();
+      const first=cleanName($('member-signup-first').value),last=cleanName($('member-signup-last').value);
+      const full=cleanName(first+' '+last);
+      if(!first||!last||full.length>60){status('Informe nome e sobrenome válidos (até 60 caracteres no total).',true);return;}
       const password=$('member-signup-password').value;
       if(password!==$('member-signup-password-confirm').value){status('As senhas precisam ser iguais.',true);return;}
-      await submit(db=>db.auth.signUp({email,password,options:{emailRedirectTo:redirect()}}),
+      await submit(db=>db.auth.signUp({email,password,options:{emailRedirectTo:redirect(),data:{first_name:first,last_name:last,full_name:full}}}),
         'Preparando seu cadastro...',
         'Confira seu e-mail e confirme o cadastro antes de entrar. Se a conta já existir, use Recuperar senha.');
       $('member-signup-password').value='';
@@ -109,12 +134,33 @@ window.IGREJA_MEMBROS = (() => {
     if(loggedIn){
       loggedIn.insertAdjacentHTML('beforeend',`
         <a class="btn btn-primary" href="administracao.html" id="member-admin-link" hidden>🛡️ Abrir painel administrativo</a>
+        <a class="btn btn-outline" href="estudos-biblicos.html#study-teacher-panel" id="member-study-link" hidden>📖 Enviar estudo bíblico</a>
+        <form id="member-profile-form" class="member-change-password" hidden>
+          <h3>Meu nome no site</h3>
+          <p class="muted" id="member-profile-note"></p>
+          <label for="member-profile-first">Nome</label><input type="text" id="member-profile-first" autocomplete="given-name" required maxlength="40">
+          <label for="member-profile-last">Sobrenome</label><input type="text" id="member-profile-last" autocomplete="family-name" required maxlength="40">
+          <button class="btn btn-outline" type="submit">Salvar nome e sobrenome</button>
+          <p class="form-status" id="member-profile-status" role="status"></p>
+        </form>
         <form id="member-password-change" class="member-change-password">
           <label for="member-new-password">Definir ou alterar minha senha</label>
           <input type="password" id="member-new-password" autocomplete="new-password" minlength="8" required placeholder="Nova senha (mínimo 8 caracteres)">
           <button class="btn btn-outline" type="submit">Salvar minha senha</button>
           <p class="form-status" id="member-password-status" role="status"></p>
         </form>`);
+      $('member-profile-form').addEventListener('submit',async event=>{
+        event.preventDefault();
+        const first=cleanName($('member-profile-first').value),last=cleanName($('member-profile-last').value);
+        const full=cleanName(first+' '+last),info=$('member-profile-status');
+        if(!first||!last||full.length>60){info.textContent='Informe nome e sobrenome válidos (até 60 caracteres no total).';return;}
+        const db=context?.db?.();
+        if(!db){info.textContent='Serviço indisponível.';return;}
+        info.textContent='Salvando seus dados...';
+        const {error}=await db.auth.updateUser({data:{first_name:first,last_name:last,full_name:full}});
+        info.textContent=error?'Não foi possível salvar: '+error.message:'Nome e sobrenome salvos. Suas próximas mensagens usarão esse nome.';
+        if(!error)refresh();
+      });
       $('member-password-change').addEventListener('submit',async event=>{
         event.preventDefault();
         const password=$('member-new-password').value;
@@ -128,5 +174,5 @@ window.IGREJA_MEMBROS = (() => {
     }
     refresh();
   }
-  return {init,refresh};
+  return {init,refresh,displayName};
 })();
