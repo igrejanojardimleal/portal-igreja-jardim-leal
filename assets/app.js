@@ -246,23 +246,16 @@
       const id=String(video.id||'');
       if(!/^[a-zA-Z0-9_-]{11}$/.test(id))continue;
       const card=el('article','youtube-video-card');
-      const cover=el('div','youtube-cover');
+      const cover=el('a','youtube-cover youtube-cover-link');
+      cover.href='https://www.youtube.com/watch?v='+id;
+      cover.target='_blank';cover.rel='noopener noreferrer';
+      cover.setAttribute('aria-label','Assistir no YouTube: '+String(video.title||'Vídeo da igreja'));
       const image=el('img');
       image.src='https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';
       image.alt='Miniatura do vídeo '+String(video.title||'da igreja');
       image.loading='lazy'; image.decoding='async';
-      const play=el('button','youtube-play','▶');
-      play.type='button'; play.setAttribute('aria-label','Assistir aqui: '+String(video.title||'Vídeo'));
-      play.addEventListener('click',()=>{
-        const frame=document.createElement('iframe');
-        frame.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
-        frame.title='Vídeo da igreja: '+String(video.title||'');
-        frame.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-        frame.referrerPolicy='strict-origin-when-cross-origin';
-        frame.setAttribute('allowfullscreen','');
-        frame.loading='lazy';
-        cover.replaceChildren(frame);cover.classList.add('playing');
-      });
+      const play=el('span','youtube-play','▶');
+      play.setAttribute('aria-hidden','true');
       cover.append(image,play);
       const body=el('div','youtube-video-body');
       const kind=el('span','youtube-category-tag',labels[videoCategory(video)]);
@@ -730,6 +723,7 @@
       window.IGREJA_CELEBRACOES?.onAuthChange?.();
       updateAdminPanelAccess();
       refreshAdminLinks();
+      window.IGREJA_LIVE?.onAuthChange?.();
       if($('moderation-list'))$('moderation-list').replaceChildren();
       if($('cifra-admin-list'))$('cifra-admin-list').replaceChildren();
       return;
@@ -742,6 +736,7 @@
       isMuralModerator=isAdmin || (!muralResult.error && muralResult.data===true);
       isStudyTeacher=isAdmin || (!studyResult.error && studyResult.data===true);
       isStudyReviewer=isAdmin || (!reviewResult.error && reviewResult.data===true);
+      window.IGREJA_LIVE?.onAuthChange?.();
       window.IGREJA_V4?.onAuthChange?.();
       window.IGREJA_CELEBRACOES?.onAuthChange?.();
       $('open-moderation').hidden=true;
@@ -1044,6 +1039,7 @@
     initModeration();
     initCifraSubmission();
     await initBackend();
+    window.IGREJA_LIVE?.init?.({db:()=>db,isAdmin:()=>isAdmin});
     window.IGREJA_COMUNIDADE?.init?.({db:()=>db,user:()=>user,canModerate:()=>isAdmin||isMuralModerator,selectedSong:()=>selectedSong});
     window.IGREJA_ACESSOS?.init?.({db:()=>db,isAdmin:()=>isAdmin});
     if (window.IGREJA_V4?.init) await window.IGREJA_V4.init({
