@@ -49,6 +49,34 @@ def main():
                         page.locator("#song-search").fill("Jesus")
                         if page.locator(".song-card").count()==0:
                             errors.append("Hinário: busca por texto não produziu resultados")
+                        page.locator("#song-search").fill("73")
+                        page.locator(".song-card").first.click()
+                        page.locator('[data-dialog-mode="cifra"]').click()
+                        original=page.locator("#transpose-original").inner_text()
+                        if "Dó" not in original:
+                            errors.append(f"Hino 73: tom original incorreto: {original}")
+                        original_text=page.locator("#song-dialog-content").inner_text()
+                        page.locator("#transpose-key").select_option("D")
+                        transposed=page.locator("#song-dialog-content").inner_text()
+                        if original_text==transposed or not transposed.strip().startswith("D"):
+                            errors.append("Hino 73: transposição C → D não funcionou")
+                        page.evaluate("window.print = () => {window.__igjal_print_called = true;}")
+                        page.locator("#print-song").click()
+                        if not page.evaluate("window.__igjal_print_called"):
+                            errors.append("Hino 73: botão Imprimir não acionou impressão")
+                        if "Enche-Me, Oh Deus" not in page.locator("#print-song-title").inner_text():
+                            errors.append("Hino 73: título ausente na impressão")
+                        if "Tom selecionado: D" not in page.locator("#print-song-tone").inner_text():
+                            errors.append("Hino 73: tom transposto ausente na impressão")
+                        page.emulate_media(media="print")
+                        if not page.locator("#print-song-sheet").is_visible():
+                            errors.append("Hino 73: folha de impressão está oculta")
+                        print_logo=page.locator(".igjal-print-heading img")
+                        if not print_logo.evaluate("img => img.complete && img.naturalWidth > 0"):
+                            errors.append("Hino 73: logotipo não aparece na impressão")
+                        page.emulate_media(media="screen")
+                        if page.locator("#print-song-sheet").is_visible():
+                            errors.append("Hino 73: layout de impressão interfere na tela")
                     if errs:
                         errors.append(f"{width}px {path}: erros JS: {errs[:2]}")
                 except Exception as exc:
