@@ -139,7 +139,7 @@ window.IGREJA_ESTUDOS = (() => {
 
   const validName=()=>window.IGREJA_MEMBROS?.displayName?.(ctx?.user?.())||'';
   function onAuthChange(){
-    const teacher=$('study-teacher-panel');if(teacher)teacher.hidden=!isTeacher();
+    const teacher=$('study-teacher-panel');if(teacher){teacher.hidden=!isTeacher();if(isTeacher()&&location.hash==='#study-teacher-panel')window.requestAnimationFrame(()=>teacher.scrollIntoView({block:'start'}));}
     const adminEditor=$('admin-estudo-form');if(adminEditor)adminEditor.hidden=!isAdmin();
     const adminRecords=$('estudo-registros');if(adminRecords)adminRecords.hidden=!isAdmin();
     if(isTeacher())void refreshMyStudies();
