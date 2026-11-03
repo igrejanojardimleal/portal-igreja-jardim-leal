@@ -21,6 +21,7 @@
   let refreshingComments = false;
   let isAdmin = false;
   let isEventManager = false;
+  let isMuralModerator = false;
   let youtubeVideos = [];
   let youtubeShown = 12;
   let youtubeFilter = 'todos';
@@ -685,6 +686,7 @@
   async function updateAdminAccess() {
     isAdmin=false;
     isEventManager=false;
+    isMuralModerator=false;
     $('open-moderation').hidden=true;
     if(!db||!user){
       window.IGREJA_V4?.onAuthChange?.();
@@ -695,19 +697,20 @@
       return;
     }
     try{
-      const [adminResult,eventResult]=await Promise.all([db.rpc('is_site_admin'),db.rpc('can_manage_events')]);
+      const [adminResult,eventResult,muralResult]=await Promise.all([db.rpc('is_site_admin'),db.rpc('can_manage_events'),db.rpc('can_moderate_mural')]);
       if(adminResult.error)throw adminResult.error;
       isAdmin=adminResult.data===true;
       isEventManager=isAdmin || (!eventResult.error && eventResult.data===true);
+      isMuralModerator=isAdmin || (!muralResult.error && muralResult.data===true);
       window.IGREJA_V4?.onAuthChange?.();
       window.IGREJA_CELEBRACOES?.onAuthChange?.();
-      $('open-moderation').hidden=!(isAdmin||isEventManager);
-      if($('open-moderation'))$('open-moderation').textContent=isAdmin?'🛡️ Administração geral':'📅 Gerenciar eventos';
+      $('open-moderation').hidden=!(isAdmin||isEventManager||isMuralModerator);
+      if($('open-moderation'))$('open-moderation').textContent=isAdmin?'🛡️ Administração geral':isEventManager?'📅 Gerenciar eventos':'💬 Moderar mural';
       updateAdminPanelAccess();
     }catch(err){console.warn('Não foi possível conferir acesso da moderação:',err.message);}
   }
   async function loadModeration() {
-    if(!db||!user||!isAdmin||!$('moderation-list'))return;
+    if(!db||!user||!isMuralModerator||!$('moderation-list'))return;
     const list=$('moderation-list');list.replaceChildren();
     setStatus('moderation-status','Carregando mensagens pendentes...');
     try {
@@ -760,9 +763,10 @@
 
   function updateAdminPanelAccess() {
     if(!$('admin-locked'))return;
-    $('admin-locked').hidden=Boolean(isAdmin||isEventManager);
-    $('admin-content').hidden=!(isAdmin||isEventManager);
-    if(isAdmin){loadModeration();loadCifraModeration();}
+    $('admin-locked').hidden=Boolean(isAdmin||isEventManager||isMuralModerator);
+    $('admin-content').hidden=!(isAdmin||isEventManager||isMuralModerator);
+    if(isMuralModerator)loadModeration();
+    if(isAdmin)loadCifraModeration();
   }
 
   function updateAuthUI() {
@@ -997,6 +1001,7 @@
       db:()=>db,
       isAdmin:()=>isAdmin,
       isEventsAdmin:()=>isEventManager,
+      isMuralModerator:()=>isMuralModerator,
       songs,
       getSelectedSong:()=>selectedSong,
       refreshSongs:()=>{if($('songs-grid'))renderSongs();},
