@@ -1041,3 +1041,33 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .member-registration-content .member-change-password{margin-top:17px;padding-top:0}
 .member-registration-content .member-change-password+.member-change-password{border-top:1px solid #e4eded;padding-top:18px}
 @media(prefers-reduced-motion:reduce){.member-registration-arrow{transition:none}}
+
+
+/* Identificação visual dos aniversariantes. Só a configuração do cadastro define a cor. */
+.celebrations-public .igjal-name-celebrate.igjal-name-masculino,
+.home-celebrations-compact .igjal-name-celebrate.igjal-name-masculino{
+ color:#2563a7!important;
+}
+.celebrations-public .igjal-name-celebrate.igjal-name-feminino,
+.home-celebrations-compact .igjal-name-celebrate.igjal-name-feminino{
+ color:#bb4d91!important;
+}
+.celebrations-public .igjal-name-celebrate.igjal-name-neutro,
+.home-celebrations-compact .igjal-name-celebrate.igjal-name-neutro{
+ color:#5b6472!important;
+}
+.celebrations-public .igjal-name-celebrate.igjal-name-masculino:hover,
+.home-celebrations-compact .igjal-name-celebrate.igjal-name-masculino:hover{
+ background:#e8f4ff;
+ text-decoration-color:#70a8d9;
+}
+.celebrations-public .igjal-name-celebrate.igjal-name-feminino:hover,
+.home-celebrations-compact .igjal-name-celebrate.igjal-name-feminino:hover{
+ background:#fff0f8;
+ text-decoration-color:#df90bd;
+}
+.celebrations-public .igjal-name-celebrate.igjal-name-neutro:hover,
+.home-celebrations-compact .igjal-name-celebrate.igjal-name-neutro:hover{
+ background:#eef1f5;
+ text-decoration-color:#aab3c4;
+}
