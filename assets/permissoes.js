@@ -30,7 +30,20 @@ window.IGREJA_ACESSOS = (()=>{
     card.append(make('p','🛡️ Administrador Geral — acesso integral e protegido','access-role'));
    }else{
     const actions=make('div',undefined,'access-actions');
-    for(const [area,label,key] of [['agenda','Agenda e avisos','pode_agenda'],['mural','Moderador do mural','pode_mural'],['estudos','Professor: enviar estudos','pode_estudos'],['revisor_estudos','Revisor pastoral: editar e aprovar estudos','pode_revisar_estudos']]){
+    for(const [area,label,key] of [
+      ['agenda','Agenda, avisos e aniversariantes','pode_agenda'],
+      ['mural','Moderação do mural','pode_mural'],
+      ['comentarios_hinos','Moderação dos comentários dos hinos','pode_comentarios_hinos'],
+      ['cifras','Revisar e publicar cifras em PDF','pode_cifras'],
+      ['hinos','Editar letras e cifras do hinário','pode_hinos'],
+      ['midias','Gerenciar mídias dos hinos','pode_midias'],
+      ['kits','Gerenciar Kits de Ensaios','pode_kits'],
+      ['live','Gerenciar transmissões ao vivo','pode_live'],
+      ['identidade','Editar história e fotos institucionais','pode_identidade'],
+      ['estudos','Professor: enviar estudos para revisão','pode_estudos'],
+      ['revisor_estudos','Revisor: aprovar estudos enviados','pode_revisar_estudos'],
+      ['editor_estudos','Editor: cadastrar estudos oficiais','pode_editor_estudos']
+    ]){
       const enabled=Boolean(user[key]);
       const button=make('button',(enabled?'✓ Retirar ':'+ Conceder ')+label,enabled?'btn btn-outline btn-sm':'btn btn-primary btn-sm');
       button.type='button';button.disabled=!user.email_confirmado;
@@ -61,11 +74,11 @@ window.IGREJA_ACESSOS = (()=>{
   show();
   if(!ctx?.isAdmin?.()||!ctx?.db?.())return;
   status('Consultando contas cadastradas...');
-  const {data,error}=await ctx.db().rpc('admin_listar_usuarios_v3');
+  const {data,error}=await ctx.db().rpc('admin_listar_usuarios_v4');
   if(error){status('Não foi possível carregar as contas: '+error.message,true);return;}
   rows=data||[];
   render();
-  status(rows.length+' usuário(s) encontrado(s). As contas precisam confirmar o e-mail antes de receber acesso.');
+  status(rows.length+' usuário(s) encontrado(s). Os acessos são independentes e somente podem ser concedidos a contas com e-mail confirmado.');
  }
  function init(context){
   ctx=context;show();
