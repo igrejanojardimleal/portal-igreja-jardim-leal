@@ -1181,3 +1181,88 @@ body[data-page="louvores"] .songs-panel{
 /* PDFs com duas vozes, mas sem cifra textual: esconder controles de transposição. */
 .transpose-panel .transpose-heading[hidden],
 .transpose-panel .transpose-controls[hidden]{display:none!important}
+
+/* Cifra legível no celular: acordes vinculados às palavras, sem rolagem lateral.
+   A formatação da cifra original é preservada no desktop e para impressão. */
+@media (max-width:700px){
+  #song-dialog #song-dialog-content.is-chords.mobile-cifra,
+  #song-dialog.modo-culto #song-dialog-content.is-chords.mobile-cifra{
+    white-space:normal!important;
+    overflow-x:hidden!important;
+    overflow-wrap:anywhere!important;
+    word-break:normal!important;
+    font-family:"DM Sans",Arial,sans-serif!important;
+    line-height:1.48!important;
+    max-width:100%;
+    min-width:0;
+    padding:12px 2px 16px;
+    text-align:left!important;
+  }
+  #song-dialog .modal-inner{min-width:0}
+  #song-dialog .mobile-cifra-verse{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:flex-end;
+    justify-content:flex-start;
+    column-gap:.36em;
+    row-gap:.28em;
+    margin:0 0 14px;
+    max-width:100%;
+    min-width:0;
+  }
+  #song-dialog .mobile-cifra-word{
+    display:inline-flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:flex-end;
+    max-width:100%;
+    min-width:0;
+    white-space:nowrap;
+    vertical-align:bottom;
+  }
+  #song-dialog .mobile-cifra-chord{
+    display:block;
+    min-height:1.45em;
+    max-width:100%;
+    font:800 .79em/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;
+    color:#206448;
+    letter-spacing:-.02em;
+    white-space:normal;
+    overflow-wrap:anywhere;
+  }
+  #song-dialog .mobile-cifra-chord:empty{visibility:hidden}
+  #song-dialog .mobile-cifra-lyric{font:inherit;white-space:nowrap}
+  #song-dialog .mobile-cifra-instrumental{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:5px 11px;
+    margin:3px 0 12px;
+    max-width:100%;
+  }
+  #song-dialog .mobile-cifra-instrumental-chord{
+    display:inline-flex;
+    padding:2px 6px;
+    border-radius:5px;
+    background:#e9f3ed;
+    color:#206448;
+    font:800 .85em/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  #song-dialog .mobile-cifra-unpaired{
+    max-width:100%;
+    margin:0 0 9px;
+    white-space:normal;
+    overflow-wrap:anywhere;
+  }
+  #song-dialog .mobile-cifra-heading{
+    margin:15px 0 9px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-size:.9em;
+  }
+  #song-dialog .mobile-cifra-break{height:7px}
+}
+@media print{
+  #song-dialog #song-dialog-content.is-chords.mobile-cifra{display:none!important}
+}

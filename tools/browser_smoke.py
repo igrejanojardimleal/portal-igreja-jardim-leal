@@ -72,6 +72,29 @@ def main():
                         page.locator("#song-search").fill("Jesus")
                         if page.locator(".song-card").count()==0:
                             errors.append("Hinário: busca por texto não produziu resultados")
+
+                        # Cifras longas devem caber na largura do visor, mesmo com
+                        # espaçamento original excessivo na partitura PDF.
+                        page.locator("#song-search").fill("1")
+                        page.locator(".song-card").first.click()
+                        page.locator('[data-dialog-mode="cifra"]').click()
+                        content=page.locator("#song-dialog-content")
+                        if not content.evaluate("el => el.classList.contains('mobile-cifra')"):
+                            errors.append("Hinário: cifra móvel não ativada")
+                        widths=content.evaluate("""el => {
+                            const b=el.getBoundingClientRect();
+                            return {viewport:window.innerWidth, left:b.left, right:b.right,
+                                scroll:el.scrollWidth, client:el.clientWidth};
+                        }""")
+                        if widths["right"]>width+2 or widths["left"]< -2 or widths["scroll"]>widths["client"]+2:
+                            errors.append(f"Hino 1: cifra ultrapassa tela: {widths}")
+                        if content.locator(".mobile-cifra-word").count()==0:
+                            errors.append("Hino 1: acordes não foram distribuídos nas palavras")
+                        page.locator("#transpose-key").select_option("A")
+                        after=content.inner_text()
+                        if not ("A" in after and content.locator(".mobile-cifra-verse").count()>0):
+                            errors.append("Hino 1: transposição responsiva falhou")
+                        page.locator('[data-close="song-dialog"]').click()
                         page.locator("#song-search").fill("73")
                         page.locator(".song-card").first.click()
                         if not page.locator("#hino-member-prompt").is_visible():

@@ -171,14 +171,91 @@
       if(aligned===null){
         rememberTone(selectedSong.number,transposer.NOTES[original.index]);
         if(select)select.value=transposer.NOTES[original.index];
-        setText('song-dialog-content',current.chords);
+        renderSongContent(current.chords);
         setText('transpose-status','Este tom deslocaria algum acorde da sílaba original. A cifra do maestro foi mantida no tom da versão.');
         setText('song-dialog-subtitle','Tom '+current.key+' • '+(current.label?current.label+' • ':'')+selectedSong.author);
         return;
       }
-      setText('song-dialog-content',aligned);
+      renderSongContent(aligned);
       const changed=original.index!==selected.index;
       setText('song-dialog-subtitle','Tom '+current.key+(changed?' → '+transposer.NOTES[selected.index]:'')+' • '+(current.label?current.label+' • ':'')+selectedSong.author);
+    }
+  }
+
+  // No celular, cifras ganham linhas responsivas com acordes sobre as palavras.
+  // A cadeia original continua intacta para transposição, impressão e computador.
+  let renderedSongPlainText='';
+  const mobileCifraMedia=window.matchMedia?.('(max-width:700px)');
+  function isMobileChordRow(line){
+    if(!transposer||!line.trim())return false;
+    const terms=[...line.matchAll(/[^\s|]+/g)].map(m=>m[0]);
+    if(!terms.length||!terms.every(term=>Boolean(transposer.chordInfo(term))))return false;
+    return terms.length>1||!['A','E'].includes(terms[0])||/^\s{2,}/.test(line);
+  }
+  function isSectionHeading(line){
+    return /^(?:I|II|III|IV|V|VI|CORO|REFR[ÃA]O|PONTE|INTRO|FINAL|INSTRUMENTAL)(?:\s*[:.])?$/i.test(line.trim());
+  }
+  function appendMobileChordVerse(host,chords,lyrics){
+    const words=[...lyrics.matchAll(/\S+/g)].map(m=>({text:m[0],start:m.index,end:m.index+m[0].length,notes:[]}));
+    if(!words.length)return;
+    const chordTokens=[...chords.matchAll(/[^\s|]+/g)];
+    for(const match of chordTokens){
+      let target=words.findIndex(w=>match.index>=w.start&&match.index<w.end);
+      if(target<0){
+        target=words.findIndex(w=>w.start>=match.index);
+        if(target<0)target=words.length-1;
+      }
+      words[target].notes.push(match[0]);
+    }
+    const verse=el('div','mobile-cifra-verse');
+    for(const word of words){
+      const span=el('span','mobile-cifra-word');
+      const note=el('span','mobile-cifra-chord',word.notes.join(' · '));
+      if(!word.notes.length)note.setAttribute('aria-hidden','true');
+      span.append(note,el('span','mobile-cifra-lyric',word.text));
+      verse.append(span);
+    }
+    host.append(verse);
+  }
+  function renderMobileChordText(host,plain){
+    const lines=plain.split('\n');
+    for(let i=0;i<lines.length;i++){
+      const line=lines[i];
+      if(!line.trim()){
+        // Separação entre versos, mais compacta que os blocos centralizados do PDF.
+        if(i>0&&lines[i-1].trim())host.append(el('div','mobile-cifra-break'));
+        continue;
+      }
+      if(isChordOnlyMobilePair(line,lines[i+1])){
+        appendMobileChordVerse(host,line,lines[i+1]);
+        i++;
+      }else if(isMobileChordRow(line)){
+        const instrumental=el('div','mobile-cifra-instrumental');
+        for(const chord of line.trim().split(/\s+/).filter(Boolean)){
+          instrumental.append(el('span','mobile-cifra-instrumental-chord',chord));
+        }
+        host.append(instrumental);
+      }else{
+        host.append(el('div',isSectionHeading(line)?'mobile-cifra-heading':'mobile-cifra-unpaired',line.trim()));
+      }
+    }
+  }
+  function isChordOnlyMobilePair(chordLine,following){
+    return isMobileChordRow(chordLine)&&typeof following==='string'&&
+      Boolean(following.trim())&&!isMobileChordRow(following)&&
+      !isSectionHeading(following);
+  }
+  function renderSongContent(content){
+    const host=$('song-dialog-content');
+    if(!host)return;
+    renderedSongPlainText=String(content??'');
+    host.classList.remove('mobile-cifra');
+    host.replaceChildren();
+    if(dialogMode==='cifra'&&mobileCifraMedia?.matches){
+      host.classList.add('mobile-cifra');
+      renderMobileChordText(host,renderedSongPlainText);
+    }else{
+      host.textContent=renderedSongPlainText;
     }
   }
 
@@ -473,6 +550,9 @@
     renderFilters();
     renderSongs();
     initTransposition();
+    mobileCifraMedia?.addEventListener?.('change',()=>{
+      if(selectedSong&&$('song-dialog')?.open)renderSongDialog();
+    });
     // Link compartilhável: louvores.html?hino=28 abre o hino correspondente.
     const direct=new URLSearchParams(location.search).get('hino');
     if (/^\d{1,3}$/.test(direct||'')){
@@ -494,7 +574,7 @@
       setText('print-song-kind',mode+' • HINO Nº '+selectedSong.number);
       setText('print-song-title',selectedSong.title||'Louvor');
       setText('print-song-author',selectedSong.author?'Autor / referência: '+selectedSong.author:'');
-      const transposed=$('song-dialog-content')?.textContent||'';
+      const transposed=dialogMode==='cifra'?renderedSongPlainText:($('song-dialog-content')?.textContent||'');
       setText('print-song-text',transposed);
       $('print-song-text').classList.toggle('is-chords',dialogMode==='cifra');
       const activeCifra=getActiveChordVersion(selectedSong);
@@ -596,10 +676,13 @@
     setText('song-dialog-title', `${String(selectedSong.number).padStart(2,'0')} — ${selectedSong.title}`);
     setText('song-dialog-eyebrow', dialogMode === 'cifra' ? 'CIFRA DO LOUVOR' : 'LETRA DO LOUVOR');
     setText('song-dialog-subtitle', dialogMode === 'cifra' ? (activeCifra.chords ? `Tom ${activeCifra.key || 'a confirmar'} • ${selectedSong.author}` : (cifrasPublicadas.has(selectedSong.number) ? 'PDF aprovado pela equipe da igreja' : 'Cifra em preparação • envie a cifra para a equipe')) : `Hinário Pedacinho do Céu • ${selectedSong.author}`);
-    setText('song-dialog-content', dialogMode === 'cifra' ? activeCifra.chords || (cifrasPublicadas.has(selectedSong.number) ? 'A cifra aprovada está disponível no PDF original abaixo. Para mudar de tom, a equipe precisa cadastrar a cifra digital revisada.' : 'Ainda não recebemos a cifra deste hino.\n\nA letra está disponível na aba “Letra”.\n\nAs cifras serão adicionadas gradualmente pela equipe da igreja.') : selectedSong.lyrics || 'Letra ainda não cadastrada.');
+    renderSongContent( dialogMode === 'cifra' ? activeCifra.chords || (cifrasPublicadas.has(selectedSong.number) ? 'A cifra aprovada está disponível no PDF original abaixo. Para mudar de tom, a equipe precisa cadastrar a cifra digital revisada.' : 'Ainda não recebemos a cifra deste hino.\n\nA letra está disponível na aba “Letra”.\n\nAs cifras serão adicionadas gradualmente pela equipe da igreja.') : selectedSong.lyrics || 'Letra ainda não cadastrada.');
     applyToneToDialog();
     $('song-dialog-content').classList.toggle('is-chords', dialogMode === 'cifra');
-    $('song-dialog-content').style.fontSize = `${window.IGREJA_V4?.isCulto?.() ? Math.min(Math.max(readingFont+10,22),42) : readingFont}px`;
+    const chordOnMobile=dialogMode==='cifra'&&mobileCifraMedia?.matches;
+    $('song-dialog-content').style.fontSize = `${chordOnMobile
+      ? Math.min(Math.max(readingFont,12),22)
+      : (window.IGREJA_V4?.isCulto?.() ? Math.min(Math.max(readingFont+10,22),42) : readingFont)}px`;
     const hino=selectedSong.number;
     const submit=$('song-submit-chord');
     if (submit) submit.href=`enviar-cifra.html?hino=${encodeURIComponent(hino)}`;
