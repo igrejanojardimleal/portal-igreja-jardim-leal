@@ -890,7 +890,7 @@ window.IGREJA_DATA = {
       "number": 73,
       "title": "Enche-Me, Oh Deus",
       "category": "Hinário — Volume 2",
-      "key": "",
+      "key": "C",
       "time": "",
       "author": "F.C.V.M",
       "lyrics": "A palavra de Deus, é a mesma não mudou\nSe confiarmos no poder que ela mesmo afirmou\nPois Deus fala e também, cumpre o que Ele prometeu\nNosso Deus, ama e cuida dos seus.\nEle fez uma promessa através de Joel\nQue nos últimos dias derramaria sua unção\nSobre toda carne que, invocasse o seu nome\nMancebos jovens e anciãos\nE aqui nos colocamos a com inteira devoção\nComo em pentecoste vem nos encher com teu Espirito Santo\nCORO\nEnche-me oh Deus.     Enche-me com te Espírito\nÉ nossa a alegria, sentir tua unção, Espírito de Deus\nSopra o vento impetuoso, e aviva a tua obra\nE a Igreja vai sentir a tua glória no meio da congregação.\nEnche tua igreja, enche tua igreja, SENHOR",
