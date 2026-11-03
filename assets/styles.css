@@ -998,3 +998,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
  .kit-song-arrow{transition:none}
  .celebration-day-group{transition:none}
 }
+
+/* Navegação com Kits de Ensaios: nove links sem sobrepor a marca. */
+@media(min-width:1181px){
+  .header-content{gap:13px}
+  .desktop-nav{gap:clamp(7px,.85vw,12px);min-width:0}
+  .desktop-nav .nav-link{font-size:11.3px;white-space:nowrap}
+}
