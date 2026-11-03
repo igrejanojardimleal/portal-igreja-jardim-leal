@@ -132,20 +132,22 @@ window.IGREJA_V4 = (() => {
     if($('admin-enable-notifications'))$('admin-enable-notifications').hidden=!admin();
     document.querySelectorAll('[data-admin-view]').forEach(button=>{
       const name=button.dataset.adminView;
-      button.hidden=!admin() && !((name==='agenda'&&eventAdmin())||(name==='comments'&&muralAdmin()));
+      button.hidden=!admin() && !((name==='agenda'&&eventAdmin())||((name==='comments'||name==='hino-comentarios')&&muralAdmin()));
       const active=name===currentAdminTab;
       button.classList.toggle('active',active);
       button.setAttribute('aria-pressed',String(active));
     });
-    for(const key of ['comments','cifras','hinos','agenda','midias','identidade','estudos','historico']){
+    for(const key of ['comments','hino-comentarios','cifras','hinos','agenda','midias','identidade','estudos','historico','usuarios']){
       const panel=$(`admin-${key}-panel`);
       if(panel)panel.hidden=key!==currentAdminTab;
     }
   }
   async function loadPanel(name){
-    if(!admin() && !((name==='agenda'&&eventAdmin()) || (name==='comments'&&muralAdmin())))return;
+    if(!admin() && !((name==='agenda'&&eventAdmin()) || ((name==='comments'||name==='hino-comentarios')&&muralAdmin())))return;
     currentAdminTab=name;updateAdminTabs();
     if(name==='comments'){ctx.loadModeration?.();return;}
+    if(name==='hino-comentarios'){await window.IGREJA_COMUNIDADE?.loadModeration?.();return;}
+    if(name==='usuarios'){await window.IGREJA_ACESSOS?.refresh?.();return;}
     if(!(name==='agenda'?eventEditorEnabled():adminEditorEnabled()))return;
     if(name==='cifras')ctx.loadCifras?.();
     if(name==='agenda')await refreshAgendaAdmin();
