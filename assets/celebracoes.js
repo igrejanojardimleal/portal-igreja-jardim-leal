@@ -18,7 +18,7 @@ window.IGREJA_CELEBRACOES = (() => {
     if(value!==undefined)node.textContent=String(value);
     return node;
   };
-  const isAdmin=()=>ctx?.isAdmin?.()===true && Boolean(ctx?.db?.());
+  const canManage=()=>Boolean(ctx?.db?.()) && (ctx?.isAdmin?.()===true || ctx?.isEventsAdmin?.()===true);
   const clean=s=>String(s??'').trim().replace(/\s+/g,' ');
   const normalize=s=>clean(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   const nameOfMonth=m=>months[Number(m)-1]||'Mês';
@@ -134,9 +134,9 @@ window.IGREJA_CELEBRACOES = (() => {
   }
   function renderAdmin(){
     const section=$('celebration-admin-section');
-    if(section)section.hidden=!isAdmin();
+    if(section)section.hidden=!canManage();
     const host=$('celebration-list');
-    if(!host||!isAdmin())return;
+    if(!host||!canManage())return;
     host.replaceChildren();
     const month=$('celebration-admin-month')?.value||'all';
     const kind=$('celebration-admin-type')?.value||'all';
@@ -177,7 +177,7 @@ window.IGREJA_CELEBRACOES = (() => {
     if($('celebration-form-mode'))$('celebration-form-mode').textContent='Novo registro';
   }
   function editItem(item){
-    if(!isAdmin())return;
+    if(!canManage())return;
     editingId=item.id;
     $('celebration-name').value=item.nome;
     $('celebration-kind').value=item.tipo;
@@ -195,7 +195,7 @@ window.IGREJA_CELEBRACOES = (() => {
     $('celebration-name')?.focus({preventScroll:true});
   }
   async function deleteItem(item){
-    if(!isAdmin())return;
+    if(!canManage())return;
     if(!window.confirm('Excluir definitivamente '+item.nome+' ('+numDay(item.dia)+'/'+numDay(item.mes)+')?'))return;
     status('Excluindo registro...');
     const {data,error}=await ctx.db().from('site_celebracoes')
@@ -207,7 +207,7 @@ window.IGREJA_CELEBRACOES = (() => {
   }
   async function saveItem(event){
     event.preventDefault();
-    if(!isAdmin()){status('Somente o administrador geral pode alterar aniversariantes.',true);return;}
+    if(!canManage()){status('Apenas o administrador geral ou o responsável pela Agenda e Avisos pode alterar aniversariantes.',true);return;}
     const nome=clean($('celebration-name').value),tipo=$('celebration-kind').value,
       dia=Number($('celebration-day').value),mes=Number($('celebration-month').value),
       yearText=$('celebration-year').value,
