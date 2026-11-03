@@ -30,8 +30,7 @@ window.IGREJA_COMUNIDADE = (()=>{
         <div id="hino-comments-feed" class="comments-list"></div>
         <p id="hino-member-prompt">Para comentar ou baixar a letra, <button type="button" class="btn btn-outline btn-sm" id="hino-open-login">entre ou crie sua conta</button>.</p>
         <form id="hino-member-form" hidden>
-          <label for="hino-comment-name">Nome para exibição</label>
-          <input id="hino-comment-name" required minlength="2" maxlength="60" autocomplete="name" placeholder="Seu nome">
+          <p class="muted">O comentário aparecerá com seu nome e sobrenome cadastrados em Minha conta.</p>
           <label for="hino-comment-body">Comentário sobre o hino</label>
           <textarea id="hino-comment-body" required minlength="3" maxlength="600" rows="3" placeholder="Compartilhe sua palavra..."></textarea>
           <button type="submit" class="btn btn-primary btn-sm">Enviar para aprovação</button>
@@ -47,10 +46,11 @@ window.IGREJA_COMUNIDADE = (()=>{
         ev.preventDefault();
         if(!logged()){status('hino-comment-status','Entre com sua conta antes de comentar.',true);return;}
         if(!selected)return;
-        const n=$('hino-comment-name').value.trim().replace(/\s+/g,' ');
+        const n=window.IGREJA_MEMBROS?.displayName?.(ctx.user())||'';
         const msg=$('hino-comment-body').value.trim();
-        if(n.length<2||n.length>60||msg.length<3||msg.length>600){
-          status('hino-comment-status','Informe nome e comentário válidos.',true);return;
+        if(!n){status('hino-comment-status','Complete seu nome e sobrenome em Minha conta.',true);return;}
+        if(msg.length<3||msg.length>600){
+          status('hino-comment-status','Escreva um comentário entre 3 e 600 caracteres.',true);return;
         }
         const button=ev.currentTarget.querySelector('button[type=submit]');button.disabled=true;
         status('hino-comment-status','Enviando para revisão...');
