@@ -97,7 +97,6 @@ window.IGREJA_CELEBRACOES = (() => {
     const published=rows.filter(item=>item.publicado===true && Number(item.mes)===month);
     const birthdays=published.filter(item=>item.tipo==='aniversario').sort(sortDates);
     const ministry=published.filter(item=>item.tipo!=='aniversario').sort(sortDates);
-    const limit=4;
     function renderMiniList(items,targetId,emptyText){
       const target=$(targetId);
       if(!target)return;
@@ -106,7 +105,7 @@ window.IGREJA_CELEBRACOES = (() => {
         target.append(el('p','home-celebration-empty',emptyText));
         return;
       }
-      for(const item of items.slice(0,limit)){
+      for(const item of items){
         const row=el('div','home-celebration-line');
         const date=el('span','home-celebration-mini-date',numDay(item.dia));
         const copy=el('span','home-celebration-mini-info');
@@ -118,11 +117,6 @@ window.IGREJA_CELEBRACOES = (() => {
         }
         row.append(date,copy);
         target.append(row);
-      }
-      if(items.length>limit){
-        const more=el('a','home-celebrations-more','+'+(items.length-limit)+' data(s) na agenda');
-        more.href='agenda.html#celebracoes-titulo';
-        target.append(more);
       }
     }
     renderMiniList(birthdays,'home-celebrations-birthdays','Nenhum aniversariante neste mês.');
