@@ -4,6 +4,7 @@ window.IGREJA_CONFIG = {
   subtitle: "OBRA DA RESTAURAÇÃO",
   contact: "WhatsApp: (21) 99134-6305",
   phone: "+5521991346305",
+  email: "igrejanojardimleal@gmail.com",
   address: "Rua João Clementino, 831 — Jardim Leal, Duque de Caxias - RJ",
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=Rua%20Jo%C3%A3o%20Clementino%20831%2C%20Jardim%20Leal%2C%20Duque%20de%20Caxias%2C%20RJ",
   weeklyServices: [{"day":"Segunda-feira","meetings":["Fechado — sem cultos ou reuniões regulares"],"closed":true},{"day":"Terça-feira","meetings":["19h30 às 21h00 — Culto da Palavra"],"closed":false},{"day":"Quarta-feira","meetings":["19h00 às 21h00 — Culto público"],"closed":false},{"day":"Quinta-feira","meetings":["Fechado — sem cultos ou reuniões regulares"],"closed":true},{"day":"Sexta-feira","meetings":["Fechado — sem cultos ou reuniões regulares"],"closed":true},{"day":"Sábado","meetings":["06h00 às 07h30 — Oração do monte","10h30 às 12h00 — Consagração","16h30 às 18h00 — Escola bíblica"],"closed":false},{"day":"Domingo","meetings":["18h20 às 21h00 — Culto público"],"closed":false}],

@@ -1,0 +1,5 @@
+/* Contato institucional sem cortes em telas pequenas. */
+.igjal-footer-email{display:inline-block;color:#173d68;font-weight:750;font-size:14px;margin-top:7px;overflow-wrap:anywhere;text-decoration:underline;text-underline-offset:4px}
+.site-footer .igjal-footer-email{color:#d5e3f6!important}
+.igjal-restoration-reference{font-size:clamp(17px,2vw,20px);line-height:1.65;max-width:750px;margin:12px auto}
+.igjal-bible-verse .verse-source a{font-weight:800;text-decoration:underline;text-underline-offset:3px}

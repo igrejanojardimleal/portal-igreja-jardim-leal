@@ -1,0 +1,23 @@
+/* IGJAL — modo de impressão independente (não altera o layout de tela). */
+@media screen {
+  #print-song-sheet {display:none!important}
+}
+@media print {
+  @page {size:A4;margin:15mm 16mm}
+  html,body {background:white!important;color:#121b28!important;margin:0!important;padding:0!important}
+  body > :not(#print-song-sheet) {display:none!important}
+  #print-song-sheet:not(.print-ready) {display:none!important}
+  #print-song-sheet.print-ready {display:block!important;position:static!important;border:0!important;background:white!important;color:#121b28!important;max-height:none!important;overflow:visible!important;width:100%!important;font-family:Arial,Helvetica,sans-serif!important}
+  .igjal-print-heading{display:flex!important;align-items:center!important;gap:13px!important}
+  .igjal-print-heading img{display:block!important;width:24mm!important;height:24mm!important;object-fit:contain!important}
+  .igjal-print-ministry{font-size:13pt!important;font-weight:800!important;letter-spacing:.025em!important}
+  .igjal-print-subtitle{font-size:8.7pt!important;line-height:1.4!important;margin-top:3px!important}
+  .igjal-print-divider{border-bottom:2px solid #1a3759!important;margin:7mm 0 7mm!important}
+  .igjal-print-song-meta{display:flex!important;justify-content:space-between!important;flex-wrap:wrap!important;gap:5px!important;font-size:8.5pt!important;color:#435368!important;font-weight:700!important}
+  #print-song-title{font-family:Georgia,serif!important;font-size:20pt!important;line-height:1.22!important;margin:4mm 0 2mm!important;letter-spacing:0!important;color:#121b28!important}
+  .igjal-print-author{font-size:9pt!important;color:#4d5b69!important;margin-bottom:7mm!important}
+  .igjal-print-text{display:block!important;background:white!important;color:#161e28!important;font-family:Georgia,"Times New Roman",serif!important;font-size:12pt!important;line-height:1.5!important;white-space:pre-wrap!important;overflow-wrap:break-word!important;word-break:normal!important;overflow:visible!important;max-height:none!important;margin:0!important;padding:0!important;border:0!important;widows:2;orphans:2}
+  .igjal-print-text.is-chords{font-family:"Courier New",monospace!important;font-size:9.5pt!important;line-height:1.45!important}
+  .igjal-print-footer{display:block!important;border-top:1px solid #cbd3de!important;font-size:8pt!important;color:#6b7480!important;margin-top:9mm!important;padding-top:3mm!important}
+  #print-song-sheet * {box-shadow:none!important;text-shadow:none!important}
+}

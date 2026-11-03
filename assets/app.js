@@ -371,7 +371,27 @@
         renderSongDialog();
       });
     });
-    $('print-song').addEventListener('click', () => window.print());
+    $('print-song').addEventListener('click', () => {
+      if (!selectedSong) return;
+      const sheet=$('print-song-sheet');
+      if (!sheet) { window.print(); return; }
+      const mode=dialogMode==='cifra'?'CIFRA':'LETRA';
+      setText('print-song-kind',mode+' • HINO Nº '+selectedSong.number);
+      setText('print-song-title',selectedSong.title||'Louvor');
+      setText('print-song-author',selectedSong.author?'Autor / referência: '+selectedSong.author:'');
+      const transposed=$('song-dialog-content')?.textContent||'';
+      setText('print-song-text',transposed);
+      $('print-song-text').classList.toggle('is-chords',dialogMode==='cifra');
+      const selected=$('transpose-key')?.value||selectedSong.key||'';
+      setText('print-song-tone',dialogMode==='cifra'&&selectedSong.key
+        ? 'Tom original: '+selectedSong.key+' • Tom selecionado: '+selected
+        : '');
+      sheet.classList.add('print-ready');
+      window.print();
+    });
+    window.addEventListener('afterprint',()=>{
+      $('print-song-sheet')?.classList.remove('print-ready');
+    });
     $('text-bigger').addEventListener('click', () => { readingFont = Math.min(readingFont + 2, 30); renderSongDialog(); });
     $('text-smaller').addEventListener('click', () => { readingFont = Math.max(readingFont - 2, 12); renderSongDialog(); });
   }
