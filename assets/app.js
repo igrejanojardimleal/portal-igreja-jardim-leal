@@ -24,6 +24,10 @@
   let isMuralModerator = false;
   let isStudyTeacher = false;
   let isStudyReviewer = false;
+  let areaPermissions = new Set();
+  const delegatedAreas = ['cifras','hinos','midias','kits','live','identidade','editor_estudos','comentarios_hinos'];
+  const canArea = area => isAdmin || areaPermissions.has(area);
+  const canOpenAdmin = () => isAdmin||isEventManager||isMuralModerator||isStudyReviewer||areaPermissions.size>0;
   let youtubeVideos = [];
   let youtubeShown = 12;
   let youtubeFilter = 'todos';
@@ -727,6 +731,7 @@
     isMuralModerator=false;
     isStudyTeacher=false;
     isStudyReviewer=false;
+    areaPermissions = new Set();
     $('open-moderation').hidden=true;
     if(!db||!user){
       window.IGREJA_V4?.onAuthChange?.();
@@ -740,19 +745,25 @@
       return;
     }
     try{
-      const [adminResult,eventResult,muralResult,studyResult,reviewResult]=await Promise.all([db.rpc('is_site_admin'),db.rpc('can_manage_events'),db.rpc('can_moderate_mural'),db.rpc('can_submit_studies'),db.rpc('can_review_studies')]);
+      const [adminResult,eventResult,muralResult,studyResult,reviewResult,...areaResults]=await Promise.all([
+        db.rpc('is_site_admin'),db.rpc('can_manage_events'),
+        db.rpc('can_moderate_mural'),db.rpc('can_submit_studies'),db.rpc('can_review_studies'),
+        ...delegatedAreas.map(p_area=>db.rpc('can_manage_area',{p_area}))
+      ]);
       if(adminResult.error)throw adminResult.error;
       isAdmin=adminResult.data===true;
       isEventManager=isAdmin || (!eventResult.error && eventResult.data===true);
       isMuralModerator=isAdmin || (!muralResult.error && muralResult.data===true);
       isStudyTeacher=isAdmin || (!studyResult.error && studyResult.data===true);
       isStudyReviewer=isAdmin || (!reviewResult.error && reviewResult.data===true);
+      areaPermissions=new Set(delegatedAreas.filter((area,i)=>!areaResults[i]?.error && areaResults[i]?.data===true));
       window.IGREJA_LIVE?.onAuthChange?.();
       window.IGREJA_KITS?.onAuthChange?.();
       window.IGREJA_V4?.onAuthChange?.();
       window.IGREJA_CELEBRACOES?.onAuthChange?.();
+      window.IGREJA_ESTUDOS?.onAuthChange?.();
       $('open-moderation').hidden=true;
-      if($('open-moderation'))$('open-moderation').textContent=isAdmin?'🛡️ Administração geral':isEventManager?'📅 Gerenciar eventos':'💬 Moderar mural';
+      if($('open-moderation'))$('open-moderation').textContent=isAdmin?'🛡️ Administração geral':isEventManager?'📅 Gerenciar eventos':isMuralModerator?'💬 Moderar mural':'🛠️ Gerenciar minha área';
       updateAdminPanelAccess();
       refreshAdminLinks();
     }catch(err){console.warn('Não foi possível conferir acesso da moderação:',err.message);}
@@ -811,10 +822,11 @@
 
   function updateAdminPanelAccess() {
     if(!$('admin-locked'))return;
-    $('admin-locked').hidden=Boolean(isAdmin||isEventManager||isMuralModerator||isStudyReviewer);
-    $('admin-content').hidden=!(isAdmin||isEventManager||isMuralModerator||isStudyReviewer);
+    const allow=canOpenAdmin();
+    $('admin-locked').hidden=allow;
+    $('admin-content').hidden=!allow;
     if(isMuralModerator)loadModeration();
-    if(isAdmin)loadCifraModeration();
+    if(canArea('cifras'))loadCifraModeration();
   }
 
   function updateAuthUI() {
@@ -970,7 +982,7 @@
   }
   // Somente administradores: analisar PDF privado antes de publicá-lo no bucket público.
   async function loadCifraModeration() {
-    if(!db||!isAdmin||!user||!$('cifra-admin-list'))return;
+    if(!db||!canArea('cifras')||!user||!$('cifra-admin-list'))return;
     const list=$('cifra-admin-list');list.replaceChildren();
     setStatus('cifra-admin-status','Carregando cifras pendentes...');
     try{
@@ -1047,13 +1059,13 @@
     initDialogs();
     initComments();
     initLogin();
-    window.IGREJA_MEMBROS?.init?.({db:()=>db,user:()=>user,isAdmin:()=>isAdmin,isEventManager:()=>isEventManager,isMuralModerator:()=>isMuralModerator,isStudyTeacher:()=>isStudyTeacher,isStudyReviewer:()=>isStudyReviewer});
+    window.IGREJA_MEMBROS?.init?.({db:()=>db,user:()=>user,isAdmin:()=>isAdmin,isEventManager:()=>isEventManager,isMuralModerator:()=>isMuralModerator,isStudyTeacher:()=>isStudyTeacher,isStudyReviewer:()=>isStudyReviewer,hasArea:canArea,hasPanelAccess:canOpenAdmin});
     initModeration();
     initCifraSubmission();
     await initBackend();
-    window.IGREJA_LIVE?.init?.({db:()=>db,isAdmin:()=>isAdmin});
-    window.IGREJA_KITS?.init?.({db:()=>db,isAdmin:()=>isAdmin});
-    window.IGREJA_COMUNIDADE?.init?.({db:()=>db,user:()=>user,canModerate:()=>isAdmin||isMuralModerator,selectedSong:()=>selectedSong});
+    window.IGREJA_LIVE?.init?.({db:()=>db,isAdmin:()=>isAdmin,hasArea:canArea});
+    window.IGREJA_KITS?.init?.({db:()=>db,isAdmin:()=>isAdmin,hasArea:canArea});
+    window.IGREJA_COMUNIDADE?.init?.({db:()=>db,user:()=>user,canModerate:()=>canArea('comentarios_hinos'),selectedSong:()=>selectedSong});
     window.IGREJA_ACESSOS?.init?.({db:()=>db,isAdmin:()=>isAdmin});
     if (window.IGREJA_V4?.init) await window.IGREJA_V4.init({
       db:()=>db,
@@ -1061,6 +1073,7 @@
       isEventsAdmin:()=>isEventManager,
       isMuralModerator:()=>isMuralModerator,
       isStudyReviewer:()=>isStudyReviewer,
+      hasArea:canArea,
       songs,
       getSelectedSong:()=>selectedSong,
       refreshSongs:()=>{if($('songs-grid'))renderSongs();},
@@ -1070,7 +1083,7 @@
       loadCifras:loadCifraModeration
     });
     if (window.IGREJA_CELEBRACOES?.init) await window.IGREJA_CELEBRACOES.init({db:()=>db,isAdmin:()=>isAdmin,isEventsAdmin:()=>isEventManager});
-    if (window.IGREJA_ESTUDOS?.init) await window.IGREJA_ESTUDOS.init({db:()=>db,isAdmin:()=>isAdmin,isStudyTeacher:()=>isStudyTeacher,isStudyReviewer:()=>isStudyReviewer,user:()=>user});
+    if (window.IGREJA_ESTUDOS?.init) await window.IGREJA_ESTUDOS.init({db:()=>db,isAdmin:()=>isAdmin,isStudyTeacher:()=>isStudyTeacher,isStudyReviewer:()=>isStudyReviewer,hasArea:canArea,user:()=>user});
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();
