@@ -1051,8 +1051,10 @@
       const n=$('cifra-nome').value.trim().replace(/\s+/g,' ');
       const num=Number(sel.value);
       const tom=$('cifra-tom').value.trim();
+      const voz=$('cifra-voz-confortavel')?.value||'';
       const obs=$('cifra-obs').value.trim();
       if(!tom){setStatus('cifra-status','Informe o tom da cifra antes de enviar o PDF (por exemplo: G, Am ou C).',true);$('cifra-tom').focus();return;}
+      if(!Object.prototype.hasOwnProperty.call(VOCAL_LABELS,voz)){setStatus('cifra-status','Selecione a voz confortável ou a opção Sem definição.',true);$('cifra-voz-confortavel')?.focus();return;}
       if(!songs.some(s=>s.number===num)){setStatus('cifra-status','Escolha um hino do hinário.',true);return;}
       if(n.length<2||n.length>60||tom.length>20||obs.length>400){setStatus('cifra-status','Revise nome e observações.',true);return;}
       if(!$('cifra-consent').checked){setStatus('cifra-status','Confirme a autorização para compartilhar a cifra.',true);return;}
@@ -1067,7 +1069,7 @@
         const up=await db.storage.from(cifraBucketPrivate).upload(fileName,file,{contentType:'application/pdf',upsert:false,cacheControl:'3600'});
         if(up.error)throw up.error;
         uploaded=true;
-        const {error}=await db.from('cifra_envios').insert({hino_numero:num,nome:n,tom,observacoes:obs||null,storage_path:fileName});
+        const {error}=await db.from('cifra_envios').insert({hino_numero:num,nome:n,tom,voz_confortavel:voz,observacoes:obs||null,storage_path:fileName});
         if(error)throw error;
         setStatus('cifra-status','PDF recebido! A cifra está pendente de análise e não aparece no site público.');
         form.reset();
@@ -1085,7 +1087,7 @@
     setStatus('cifra-admin-status','Carregando cifras pendentes...');
     try{
       const {data:rows,error}=await db.from('cifra_envios')
-        .select('id,hino_numero,nome,tom,observacoes,storage_path,status,criado_em')
+        .select('id,hino_numero,nome,tom,voz_confortavel,observacoes,storage_path,status,criado_em')
         .eq('status','pendente').order('criado_em',{ascending:true}).limit(150);
       if(error)throw error;
       setText('cifra-admin-total',`${rows.length} ${rows.length===1?'cifra pendente':'cifras pendentes'}`);
@@ -1095,6 +1097,7 @@
         const card=el('article','moderation-item');
         card.append(el('h3','',`Hino ${row.hino_numero}: ${sng?.title||'Não encontrado'}`),el('small','',`${row.nome} • ${formatDate(row.criado_em)}`));
         if(row.tom)card.append(el('p','','Tom informado: '+row.tom));
+        card.append(el('p','','Voz confortável: '+(VOCAL_LABELS[row.voz_confortavel]||VOCAL_LABELS.sem_definicao)));
         if(row.observacoes)card.append(el('p','',row.observacoes));
         const actions=el('div','moderation-actions');
         const view=el('button','btn btn-outline','Abrir PDF para conferir');view.type='button';
@@ -1128,7 +1131,7 @@
               const path=`hino-${row.hino_numero}-${row.id}.pdf`;
               const {error:upErr}=await db.storage.from(cifraBucketPublic).upload(path,download,{contentType:'application/pdf',upsert:false});
               if(upErr)throw upErr;
-              const {error:pubErr}=await db.from('cifras_publicadas').upsert({hino_numero:row.hino_numero,storage_path:path,origem_envio:row.id},{onConflict:'hino_numero'});
+              const {error:pubErr}=await db.from('cifras_publicadas').upsert({hino_numero:row.hino_numero,storage_path:path,origem_envio:row.id,voz_confortavel:row.voz_confortavel||'sem_definicao'},{onConflict:'hino_numero'});
               if(pubErr)throw pubErr;
             }
             const {error:statusErr}=await db.from('cifra_envios').update({status:accept?'aprovado':'rejeitado'}).eq('id',row.id);
