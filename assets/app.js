@@ -23,6 +23,7 @@
   let isEventManager = false;
   let isMuralModerator = false;
   let isStudyTeacher = false;
+  let isStudyReviewer = false;
   let youtubeVideos = [];
   let youtubeShown = 12;
   let youtubeFilter = 'todos';
@@ -722,6 +723,7 @@
     isEventManager=false;
     isMuralModerator=false;
     isStudyTeacher=false;
+    isStudyReviewer=false;
     $('open-moderation').hidden=true;
     if(!db||!user){
       window.IGREJA_V4?.onAuthChange?.();
@@ -733,12 +735,13 @@
       return;
     }
     try{
-      const [adminResult,eventResult,muralResult,studyResult]=await Promise.all([db.rpc('is_site_admin'),db.rpc('can_manage_events'),db.rpc('can_moderate_mural'),db.rpc('can_submit_studies')]);
+      const [adminResult,eventResult,muralResult,studyResult,reviewResult]=await Promise.all([db.rpc('is_site_admin'),db.rpc('can_manage_events'),db.rpc('can_moderate_mural'),db.rpc('can_submit_studies'),db.rpc('can_review_studies')]);
       if(adminResult.error)throw adminResult.error;
       isAdmin=adminResult.data===true;
       isEventManager=isAdmin || (!eventResult.error && eventResult.data===true);
       isMuralModerator=isAdmin || (!muralResult.error && muralResult.data===true);
       isStudyTeacher=isAdmin || (!studyResult.error && studyResult.data===true);
+      isStudyReviewer=isAdmin || (!reviewResult.error && reviewResult.data===true);
       window.IGREJA_V4?.onAuthChange?.();
       window.IGREJA_CELEBRACOES?.onAuthChange?.();
       $('open-moderation').hidden=true;
@@ -801,8 +804,8 @@
 
   function updateAdminPanelAccess() {
     if(!$('admin-locked'))return;
-    $('admin-locked').hidden=Boolean(isAdmin||isEventManager||isMuralModerator);
-    $('admin-content').hidden=!(isAdmin||isEventManager||isMuralModerator);
+    $('admin-locked').hidden=Boolean(isAdmin||isEventManager||isMuralModerator||isStudyReviewer);
+    $('admin-content').hidden=!(isAdmin||isEventManager||isMuralModerator||isStudyReviewer);
     if(isMuralModerator)loadModeration();
     if(isAdmin)loadCifraModeration();
   }
@@ -1037,7 +1040,7 @@
     initDialogs();
     initComments();
     initLogin();
-    window.IGREJA_MEMBROS?.init?.({db:()=>db,user:()=>user,isAdmin:()=>isAdmin,isEventManager:()=>isEventManager,isMuralModerator:()=>isMuralModerator,isStudyTeacher:()=>isStudyTeacher});
+    window.IGREJA_MEMBROS?.init?.({db:()=>db,user:()=>user,isAdmin:()=>isAdmin,isEventManager:()=>isEventManager,isMuralModerator:()=>isMuralModerator,isStudyTeacher:()=>isStudyTeacher,isStudyReviewer:()=>isStudyReviewer});
     initModeration();
     initCifraSubmission();
     await initBackend();
@@ -1048,6 +1051,7 @@
       isAdmin:()=>isAdmin,
       isEventsAdmin:()=>isEventManager,
       isMuralModerator:()=>isMuralModerator,
+      isStudyReviewer:()=>isStudyReviewer,
       songs,
       getSelectedSong:()=>selectedSong,
       refreshSongs:()=>{if($('songs-grid'))renderSongs();},
@@ -1057,7 +1061,7 @@
       loadCifras:loadCifraModeration
     });
     if (window.IGREJA_CELEBRACOES?.init) await window.IGREJA_CELEBRACOES.init({db:()=>db,isAdmin:()=>isAdmin,isEventsAdmin:()=>isEventManager});
-    if (window.IGREJA_ESTUDOS?.init) await window.IGREJA_ESTUDOS.init({db:()=>db,isAdmin:()=>isAdmin,isStudyTeacher:()=>isStudyTeacher,user:()=>user});
+    if (window.IGREJA_ESTUDOS?.init) await window.IGREJA_ESTUDOS.init({db:()=>db,isAdmin:()=>isAdmin,isStudyTeacher:()=>isStudyTeacher,isStudyReviewer:()=>isStudyReviewer,user:()=>user});
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();
