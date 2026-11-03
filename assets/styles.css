@@ -1177,3 +1177,7 @@ body[data-page="louvores"] .songs-panel{
 
 .voice-choice-source{display:block;font-size:10px;font-weight:600;color:#587469}
 .voice-version-caution{margin:10px 0 0;font-size:10px;line-height:1.45;color:#698173}
+
+/* PDFs com duas vozes, mas sem cifra textual: esconder controles de transposição. */
+.transpose-panel .transpose-heading[hidden],
+.transpose-panel .transpose-controls[hidden]{display:none!important}
