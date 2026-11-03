@@ -69,13 +69,13 @@ def main():
                     if width==390 and path=="louvores.html":
                         if page.locator("#hino-member-form").count()!=1:
                             errors.append("Hinário: formulário de comentários não carregou")
-                        if not page.locator("#hino-member-prompt").is_visible():
-                            errors.append("Hinário: convite de cadastro aos visitantes não aparece")
                         page.locator("#song-search").fill("Jesus")
                         if page.locator(".song-card").count()==0:
                             errors.append("Hinário: busca por texto não produziu resultados")
                         page.locator("#song-search").fill("73")
                         page.locator(".song-card").first.click()
+                        if not page.locator("#hino-member-prompt").is_visible():
+                            errors.append("Hinário: convite de cadastro no hino aberto não aparece")
                         page.locator('[data-dialog-mode="cifra"]').click()
                         original=page.locator("#transpose-original").inner_text()
                         if "Dó" not in original:
