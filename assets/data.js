@@ -1403,30 +1403,6 @@ window.IGREJA_DATA = {
       "source": "Novo Hinário Volume 2 (documento enviado pela igreja)"
     },
     {
-      "id": "hino-v2-47",
-      "number": 118,
-      "title": "A Vitória É Nossa",
-      "category": "Hinário — Volume 2",
-      "key": "",
-      "time": "",
-      "author": "F.C.V.M.",
-      "lyrics": "Situações nessa vida existem e o medo chega ao coração.\nE até pensamos que não tem mais jeito, aquilo que pra Deus tem solução.\nO inimigo coloca o desespero, e a incerteza em nossos corações\nMas o dia da angústia termina quando Deus determina a vitória meu irmão.\nDepois de um tempo a vitória vai chegar\nDepois de um tempo a vitória tu vai contatar\nO mar agitado e os vendavais, Deus repreendeu o mar acalmou e a vitória chegou.\nCORO\nA vitória é nossa em nome de Jesus\nDeus ajuda a levarmos a nossa cruz\nE aquilo que antes, parecia difícil, Deus fez acontecer o impossível.",
-      "chords": "",
-      "source": "Novo Hinário Volume 2 (documento enviado pela igreja)"
-    },
-    {
-      "id": "hino-v2-48",
-      "number": 119,
-      "title": "Sempre Feliz",
-      "category": "Hinário — Volume 2",
-      "key": "",
-      "time": "",
-      "author": "F.C.V.M.",
-      "lyrics": "Todo crente é muito feliz, pois ele sabe que mais que vencedor\nE a alegria nos faz sempre cantar, que Jesus Cristo é o nosso Salvador\nSe você veio aqui buscar uma benção, você hoje pode receber\nEm nosso meio Jesus está presente e a alegria estará sempre em você\nCORO\nNesse lugar é lugar de receber vitória\nNesse lugar é lugar de receber vitória\nSempre avante, e sem olhar pra trás\nDeus te ama e ama a mim também\nVitória tem nesse lugar, Vem e vê, o que Deus pode fazer.",
-      "chords": "",
-      "source": "Novo Hinário Volume 2 (documento enviado pela igreja)"
-    },
-    {
       "id": "hino-v2-49",
       "number": 120,
       "title": "Volta Logo",
