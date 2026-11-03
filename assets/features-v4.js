@@ -33,6 +33,7 @@ window.IGREJA_V4 = (() => {
   function admin(){return ctx?.isAdmin?.()===true;}
   function eventAdmin(){return admin() || ctx?.isEventsAdmin?.()===true;}
   function muralAdmin(){return admin() || ctx?.isMuralModerator?.()===true;}
+  function studyReviewer(){return admin() || ctx?.isStudyReviewer?.()===true;}
   function eventTable(table){return ['site_eventos','site_avisos'].includes(table);}
   function client(){return ctx?.db?.()||null;}
   function favRead(){try{const x=JSON.parse(localStorage.getItem(FAV_KEY)||'[]');return Array.isArray(x)?x.filter(Number.isInteger):[];}catch(_){return [];}}
@@ -124,10 +125,12 @@ window.IGREJA_V4 = (() => {
   function updateAdminTabs(){
     if(!admin()){
       const allowed=(currentAdminTab==='agenda'&&eventAdmin()) ||
-        ((currentAdminTab==='comments'||currentAdminTab==='hino-comentarios')&&muralAdmin());
+        ((currentAdminTab==='comments'||currentAdminTab==='hino-comentarios')&&muralAdmin()) ||
+        (currentAdminTab==='estudos'&&studyReviewer());
       if(!allowed){
         if(eventAdmin())currentAdminTab='agenda';
         else if(muralAdmin())currentAdminTab='comments';
+        else if(studyReviewer())currentAdminTab='estudos';
       }
     }
     const overview=document.querySelector('.admin-overview');
@@ -136,7 +139,7 @@ window.IGREJA_V4 = (() => {
     if($('admin-enable-notifications'))$('admin-enable-notifications').hidden=!admin();
     document.querySelectorAll('[data-admin-view]').forEach(button=>{
       const name=button.dataset.adminView;
-      button.hidden=!admin() && !((name==='agenda'&&eventAdmin())||((name==='comments'||name==='hino-comentarios')&&muralAdmin()));
+      button.hidden=!admin() && !((name==='agenda'&&eventAdmin())||((name==='comments'||name==='hino-comentarios')&&muralAdmin())||(name==='estudos'&&studyReviewer()));
       const active=name===currentAdminTab;
       button.classList.toggle('active',active);
       button.setAttribute('aria-pressed',String(active));
@@ -147,18 +150,19 @@ window.IGREJA_V4 = (() => {
     }
   }
   async function loadPanel(name){
-    if(!admin() && !((name==='agenda'&&eventAdmin()) || ((name==='comments'||name==='hino-comentarios')&&muralAdmin())))return;
+    if(!admin() && !((name==='agenda'&&eventAdmin()) || ((name==='comments'||name==='hino-comentarios')&&muralAdmin()) || (name==='estudos'&&studyReviewer())))return;
     currentAdminTab=name;updateAdminTabs();
     if(name==='comments'){ctx.loadModeration?.();return;}
     if(name==='hino-comentarios'){await window.IGREJA_COMUNIDADE?.loadModeration?.();return;}
     if(name==='usuarios'){await window.IGREJA_ACESSOS?.refresh?.();return;}
+    if(name==='estudos'){await window.IGREJA_ESTUDOS?.refreshAdmin?.(ctx);return;}
     if(!(name==='agenda'?eventEditorEnabled():adminEditorEnabled()))return;
     if(name==='cifras')ctx.loadCifras?.();
     if(name==='agenda')await refreshAgendaAdmin();
     if(name==='midias')await refreshMediaAdmin();
     if(name==='identidade')refreshIdentityForm();
     if(name==='historico')await loadAudit();
-    if(name==='estudos')await window.IGREJA_ESTUDOS?.refreshAdmin?.(ctx);
+    // Estudos são carregados antecipadamente para os revisores na seção específica.
   }
   function initAdminTabs(){document.querySelectorAll('[data-admin-view]').forEach(b=>b.addEventListener('click',()=>loadPanel(b.dataset.adminView)));updateAdminTabs();}
   function readSongForm(){const num=Number(fieldVal('edit-song-number'));return {numero:num,titulo:fieldVal('edit-song-title'),autor:fieldVal('edit-song-author'),tom:fieldVal('edit-song-key'),letra:fieldVal('edit-song-lyrics'),cifra:fieldVal('edit-song-chords')};}
@@ -210,7 +214,20 @@ window.IGREJA_V4 = (() => {
   function refreshIdentityForm(){for(const [key,id] of [['history_intro','edit-history-intro'],['history_detail','edit-history-detail'],['logo_url','edit-logo-url'],['hero_photo_url','edit-hero-url'],['history_photo_url','edit-history-url'],['contact','edit-contact']])if($(id))$(id).value=identity.get(key)||((key==='history_intro'||key==='history_detail')?window.IGREJA_DATA?.history?.[key==='history_intro'?'intro':'detail']||'':'');}
   async function loadAudit(){const host=$('admin-audit-list');if(!host||!adminEditorEnabled())return;host.replaceChildren();const {data,error}=await client().from('site_moderacao_historico').select('acao,tipo,referencia_id,criado_em').order('criado_em',{ascending:false}).limit(40);if(error){host.append(E('p','','O histórico será exibido após configurar o banco.'));return;}for(const r of data||[]){host.append(moderationLine(`${r.acao} • ${r.tipo}`,formatDate(r.criado_em,true),`Registro ${r.referencia_id}`));}if(!(data||[]).length)host.append(E('p','','Ainda não há decisões registradas.'));}
   async function pendingCount(){if(!adminEditorEnabled())return;try{const queries=await Promise.all([client().from('comentarios').select('*',{head:true,count:'exact'}).eq('status','pendente'),client().from('cifra_envios').select('*',{head:true,count:'exact'}).eq('status','pendente')]);if(queries.some(x=>x.error))return;const current=(queries[0].count||0)+(queries[1].count||0);if($('admin-v4-queue-total'))$('admin-v4-queue-total').textContent=String(current);if($('pending-badge'))$('pending-badge').textContent=String(current);if($('pending-link'))$('pending-link').hidden=current===0;document.title=current?`(${current}) Administração • Igreja no Jardim Leal`:'Administração • Igreja no Jardim Leal';if(lastPending!==null && current>lastPending && document.visibilityState==='visible'){status('admin-notification',`Há ${current-lastPending} nova(s) pendência(s) para revisar.`);if('Notification' in window&&Notification.permission==='granted'){try{new Notification('Igreja no Jardim Leal — moderação',{body:`${current} envio(s) aguardando análise.`});}catch(_){/* permissões do navegador */}}}lastPending=current;}catch(_){/* servidor ainda não preparado */}}
-  async function onAuthChange(){if(!ctx)return;if(eventEditorEnabled()){if(admin()){await pendingCount();if(!adminPoll)adminPoll=setInterval(()=>{if(!document.hidden)pendingCount();},60000);}await loadPanel(admin()?currentAdminTab:'agenda');}else{if(adminPoll){clearInterval(adminPoll);adminPoll=null;}lastPending=null;if($('pending-link'))$('pending-link').hidden=true;}}
+  async function onAuthChange(){
+    if(!ctx)return;
+    updateAdminTabs();
+    if(admin()||eventAdmin()||muralAdmin()||studyReviewer()){
+      if(admin()){
+        await pendingCount();
+        if(!adminPoll)adminPoll=setInterval(()=>{if(!document.hidden)pendingCount();},60000);
+      }
+      await loadPanel(currentAdminTab);
+    }else{
+      if(adminPoll){clearInterval(adminPoll);adminPoll=null;}
+      lastPending=null;
+    }
+  }
   async function init(context){ctx=context;initCulto();initPixQR();initAdminEditors();await fetchPublic();await onAuthChange();}
   return {init,keepSong,getMedia,onSongRendered,onAuthChange,loadPanel,isCulto:()=>culto};
 })();
