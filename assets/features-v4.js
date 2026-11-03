@@ -41,7 +41,22 @@ window.IGREJA_V4 = (() => {
   function isFavorite(n){return favRead().includes(Number(n));}
   function setFavorite(n){if(!Number.isInteger(n))return;const a=new Set(favRead());if(a.has(n))a.delete(n);else a.add(n);favWrite([...a]);onSongRendered({number:n});ctx?.refreshSongs?.();}
   function onSongRendered(song){if(!song)return;const b=$('favorite-song');if(b){const yes=isFavorite(song.number);b.textContent=yes?'★ Salvo':'☆ Favorito';b.setAttribute('aria-pressed',String(yes));}}
-  function updateCulto(){const dlg=$('song-dialog');if(!dlg)return;dlg.classList.toggle('modo-culto',culto);document.body.classList.toggle('culto-open',culto && dlg.open);const b=$('modo-culto');if(b){b.setAttribute('aria-pressed',String(culto));b.textContent=culto?'□ Sair do Modo Culto':'▣ Ativar Modo Culto';}}
+  function updateCulto(){
+    const dlg=$('song-dialog');if(!dlg)return;
+    dlg.classList.toggle('modo-culto',culto);
+    document.body.classList.toggle('culto-open',culto && dlg.open);
+    // A área da comunidade é exibida apenas fora do Modo Culto.
+    const community=dlg.querySelector('.hino-comunidade');
+    if(community){
+      community.hidden=culto;
+      community.setAttribute('aria-hidden',String(culto));
+    }
+    const b=$('modo-culto');
+    if(b){
+      b.setAttribute('aria-pressed',String(culto));
+      b.textContent=culto?'□ Sair do Modo Culto':'▣ Ativar Modo Culto';
+    }
+  }
   function switchHymn(delta){const selected=ctx?.getSelectedSong?.();if(!selected)return;const list=[...ctx.songs].sort((a,b)=>a.number-b.number);const index=list.findIndex(x=>x.number===selected.number);if(index<0)return;const next=list[(index+delta+list.length)%list.length];ctx.openSong(next,'letra');if($('song-dialog-content'))$('song-dialog-content').scrollTop=0;if($('culto-status'))$('culto-status').textContent=`Hino ${next.number}: ${next.title}`;updateCulto();}
   function initCulto(){
     if(!$('song-dialog'))return;
