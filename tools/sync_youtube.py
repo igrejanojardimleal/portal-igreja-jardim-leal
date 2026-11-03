@@ -121,7 +121,7 @@ def main():
     for v in buscar_historico(channel):
         anterior = catalog.get(v['id'],{})
         # Não perde datas e títulos completos previamente conferidos no RSS.
-        catalog[v['id']] = {**v, **{k:val for k,val in anterior.items() if val}, 'category': categoria(titulo,'streams' if aba=='streams' else '')}
+        catalog[v['id']] = {**v, **{k:val for k,val in anterior.items() if val}, 'category': categoria(v.get('title','')) if categoria(v.get('title','')) in ('orquestra','quarteto','coral') else v.get('category','outros')}
     for v in items:
         anterior = catalog.get(v['id'],{})
         catalog[v['id']] = {**anterior, **v, 'category': categoria(v['title']) if anterior.get('category') not in ('lives','orquestra','quarteto','coral') else categoria(v['title']) if categoria(v['title']) in ('orquestra','quarteto','coral') else anterior.get('category')}
