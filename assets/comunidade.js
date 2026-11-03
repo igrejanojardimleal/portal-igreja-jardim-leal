@@ -82,6 +82,7 @@ window.IGREJA_COMUNIDADE = (()=>{
     }
     $('admin-hinos-comentarios-reload')?.addEventListener('click',loadModeration);
     updateAccess();
+    if(context.selectedSong?.()) void songChanged(context.selectedSong());
   }
   function renderComments(rows){
     const host=$('hino-comments-feed');if(!host)return;
