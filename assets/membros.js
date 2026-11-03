@@ -75,6 +75,10 @@ window.IGREJA_MEMBROS = (() => {
     summary.textContent='Prefiro receber um link por e-mail, sem senha';
     details.append(summary,oldForm);
     box.append(details);
+    // O portal pede senha nos acessos comuns; link mágico e Google ficam fora da interface.
+    details.hidden=true;
+    const google=$('google-login');if(google)google.hidden=true;
+    const separator=box.querySelector('.separator-word');if(separator)separator.hidden=true;
     document.querySelectorAll('[data-member-mode]').forEach(btn=>btn.addEventListener('click',()=>switchMode(btn.dataset.memberMode)));
     $('member-password-login').addEventListener('submit',async event=>{
       event.preventDefault();
