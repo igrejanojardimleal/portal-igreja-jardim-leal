@@ -136,3 +136,27 @@ form button[type="submit"]{min-height:52px}
 .igjal-bible-verse blockquote{border:0;padding:0;background:transparent}
 .igjal-home-scripture .igjal-bible-verse{margin-bottom:0}
 .igjal-bible-verse .verse-source{overflow-wrap:anywhere}
+
+/* Marca IGJAL em destaque na saudação, sem repetir o nome extenso da igreja. */
+.home-hero-welcome h1 .igjal-title-accent{
+  display:inline-block;
+  position:relative;
+  isolation:isolate;
+  color:#125e83;
+  font-size:1.14em;
+  font-weight:900;
+  letter-spacing:-.055em;
+  white-space:nowrap;
+}
+.home-hero-welcome h1 .igjal-title-accent::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:.03em;
+  height:.16em;
+  border-radius:999px;
+  background:#cce9d8;
+  transform:rotate(-1.5deg);
+  z-index:-1;
+}
