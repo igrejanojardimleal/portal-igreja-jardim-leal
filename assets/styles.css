@@ -441,3 +441,41 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 #library-dialog-category{font-weight:650;color:#356a57}
 .study-review-panel [data-study-field="corpo"]{min-height:250px}
 .study-teacher-panel #study-send-body{min-height:300px}
+
+/* Palavra do ministério no topo da página inicial — Atos 3:21 */
+.igjal-verse-ribbon{
+  background:linear-gradient(90deg,#f5f8fb 0%,#fcfdfd 100%);
+  border-bottom:1px solid #dce5ed;
+  padding:15px 0;
+}
+.igjal-verse-ribbon-inner{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  min-width:0;
+}
+.igjal-verse-ribbon-reference{
+  flex:0 0 auto;
+  color:#153e73;
+  font-family:Manrope,sans-serif;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.11em;
+  white-space:nowrap;
+  border-left:3px solid #b88763;
+  padding-left:13px;
+}
+.igjal-verse-ribbon p{
+  margin:0;
+  color:#304660;
+  font-size:clamp(12px,1.06vw,14px);
+  font-weight:550;
+  line-height:1.65;
+  max-width:1050px;
+}
+@media (max-width:700px){
+  .igjal-verse-ribbon{padding:13px 0 14px}
+  .igjal-verse-ribbon-inner{display:block}
+  .igjal-verse-ribbon-reference{display:block;font-size:11px;margin-bottom:7px}
+  .igjal-verse-ribbon p{font-size:12.5px;line-height:1.5}
+}
