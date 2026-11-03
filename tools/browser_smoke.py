@@ -101,6 +101,7 @@ def main():
                         toggle.click()
                         if toggle.get_attribute("aria-expanded")!="false":
                             errors.append("Hino 1: não recolheu ajustes de voz e tom")
+                        toggle.click()
                         page.locator("#transpose-key").select_option("A")
                         after=content.inner_text()
                         if not ("A" in after and content.locator(".mobile-cifra-verse").count()>0):
@@ -111,6 +112,7 @@ def main():
                         if not page.locator("#hino-member-prompt").is_visible():
                             errors.append("Hinário: convite de cadastro no hino aberto não aparece")
                         page.locator('[data-dialog-mode="cifra"]').click()
+                        page.locator("#mobile-chord-panel-toggle").click()
                         original=page.locator("#transpose-original").inner_text()
                         if "Dó" not in original:
                             errors.append(f"Hino 73: tom original incorreto: {original}")

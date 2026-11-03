@@ -1285,10 +1285,11 @@
     window.IGREJA_MEMBROS?.init?.({db:()=>db,user:()=>user,isAdmin:()=>isAdmin,isEventManager:()=>isEventManager,isMuralModerator:()=>isMuralModerator,isStudyTeacher:()=>isStudyTeacher,isStudyReviewer:()=>isStudyReviewer,hasArea:canArea,hasPanelAccess:canOpenAdmin});
     initModeration();
     initCifraSubmission();
+    // O formulário de comentários deve aparecer imediatamente, sem esperar o login remoto.
+    window.IGREJA_COMUNIDADE?.init?.({db:()=>db,user:()=>user,canModerate:()=>canArea('comentarios_hinos'),selectedSong:()=>selectedSong});
     await initBackend();
     window.IGREJA_LIVE?.init?.({db:()=>db,isAdmin:()=>isAdmin,hasArea:canArea});
     window.IGREJA_KITS?.init?.({db:()=>db,isAdmin:()=>isAdmin,hasArea:canArea});
-    window.IGREJA_COMUNIDADE?.init?.({db:()=>db,user:()=>user,canModerate:()=>canArea('comentarios_hinos'),selectedSong:()=>selectedSong});
     window.IGREJA_ACESSOS?.init?.({db:()=>db,isAdmin:()=>isAdmin});
     if (window.IGREJA_V4?.init) await window.IGREJA_V4.init({
       db:()=>db,
