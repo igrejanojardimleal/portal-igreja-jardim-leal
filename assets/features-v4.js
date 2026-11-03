@@ -144,7 +144,7 @@ window.IGREJA_V4 = (() => {
       button.classList.toggle('active',active);
       button.setAttribute('aria-pressed',String(active));
     });
-    for(const key of ['comments','hino-comentarios','cifras','hinos','agenda','midias','identidade','estudos','historico','usuarios']){
+    for(const key of ['comments','hino-comentarios','cifras','hinos','agenda','midias','live','identidade','estudos','historico','usuarios']){
       const panel=$(`admin-${key}-panel`);
       if(panel)panel.hidden=key!==currentAdminTab;
     }
@@ -155,6 +155,7 @@ window.IGREJA_V4 = (() => {
     if(name==='comments'){ctx.loadModeration?.();return;}
     if(name==='hino-comentarios'){await window.IGREJA_COMUNIDADE?.loadModeration?.();return;}
     if(name==='usuarios'){await window.IGREJA_ACESSOS?.refresh?.();return;}
+    if(name==='live'){await window.IGREJA_LIVE?.refreshAdmin?.();return;}
     if(name==='estudos'){await window.IGREJA_ESTUDOS?.refreshAdmin?.(ctx);return;}
     if(!(name==='agenda'?eventEditorEnabled():adminEditorEnabled()))return;
     if(name==='cifras')ctx.loadCifras?.();
