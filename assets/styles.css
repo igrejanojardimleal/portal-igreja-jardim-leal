@@ -1071,3 +1071,91 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
  background:#eef1f5;
  text-decoration-color:#aab3c4;
 }
+
+/* Pedacinho do Céu — acolhimento e identidade do hinário digital */
+body[data-page="louvores"] .songs-section{
+  background:linear-gradient(155deg,#fbf9f3 0%,#f5f3ed 62%,#f7f8f3 100%);
+  padding-top:clamp(36px,5.5vw,74px);
+}
+body[data-page="louvores"] .hinario-heading{
+  position:relative;
+  padding:clamp(22px,3.2vw,34px) clamp(20px,3.5vw,40px);
+  margin-bottom:27px;
+  border:1px solid #e7e1d1;
+  border-radius:23px;
+  background:
+    radial-gradient(circle at 92% 10%,rgba(233,211,166,.27),transparent 31%),
+    linear-gradient(125deg,#fffdf9,#f8f8f0 76%,#f2f8f4);
+  align-items:center;
+  box-shadow:0 10px 28px rgba(62,65,49,.045);
+  overflow:hidden;
+}
+body[data-page="louvores"] .hinario-heading::after{
+  content:"✳";
+  position:absolute;right:22px;bottom:-38px;
+  font-size:137px;line-height:1;color:#94b8a0;opacity:.1;
+  pointer-events:none;
+}
+body[data-page="louvores"] .hinario-heading-main,
+body[data-page="louvores"] .hinario-actions{position:relative;z-index:1}
+body[data-page="louvores"] .hinario-heading-main{min-width:0;max-width:640px}
+body[data-page="louvores"] .hinario-heading .overline{
+  color:#6d866c;font-size:10px;font-weight:850;letter-spacing:.12em;
+}
+body[data-page="louvores"] .hinario-heading h1{
+  font:800 clamp(29px,3.6vw,46px)/1.17 Manrope,"DM Sans",sans-serif;
+  color:#183958;letter-spacing:-.043em;
+  margin:13px 0 16px;
+  max-width:600px;
+}
+body[data-page="louvores"] .hinario-heading h1 em{
+  color:#46745d;font-style:normal;
+}
+body[data-page="louvores"] .hinario-edition-row{
+  display:flex;align-items:center;gap:11px;flex-wrap:wrap;
+}
+body[data-page="louvores"] .hinario-volume-pill{
+  display:inline-flex;align-items:center;
+  min-height:29px;padding:5px 13px;
+  border-radius:999px;
+  background:#e5f0e8;border:1px solid #c9e2cf;
+  color:#2f6951;font-size:12px;font-weight:850;
+}
+body[data-page="louvores"] .hinario-edition-label{
+  font-size:12px;color:#76867b;font-weight:650;
+}
+body[data-page="louvores"] .hinario-actions{
+  width:min(100%,355px);max-width:355px;
+  gap:13px;
+}
+body[data-page="louvores"] .hinario-actions p{
+  color:#59675e;font-size:14px;line-height:1.75;margin:0;
+}
+body[data-page="louvores"] .hinario-actions .btn{
+  background:rgba(255,255,255,.72);border-color:#cbdad0;
+  color:#2d6953;
+}
+body[data-page="louvores"] .hinario-actions .btn:hover{
+  background:#e9f2ea;border-color:#b0ccbb;
+}
+body[data-page="louvores"] .songs-panel{
+  border-color:#e6e3d9;
+}
+@media(max-width:890px){
+  body[data-page="louvores"] .hinario-heading{
+    display:flex;flex-direction:column;align-items:stretch;
+    gap:16px;
+  }
+  body[data-page="louvores"] .hinario-actions{
+    width:auto;max-width:100%;
+  }
+}
+@media(max-width:560px){
+  body[data-page="louvores"] .hinario-heading{
+    padding:23px 19px;border-radius:17px;
+  }
+  body[data-page="louvores"] .hinario-heading h1{font-size:31px}
+  body[data-page="louvores"] .hinario-heading::after{font-size:95px;right:6px;bottom:-23px}
+  body[data-page="louvores"] .hinario-actions p{font-size:13px}
+  body[data-page="louvores"] .hinario-actions .btn{width:100%;justify-content:center}
+}
