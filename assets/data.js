@@ -1427,18 +1427,6 @@ window.IGREJA_DATA = {
       "source": "Novo Hinário Volume 2 (documento enviado pela igreja)"
     },
     {
-      "id": "hino-v2-51",
-      "number": 122,
-      "title": "Sempre Avante",
-      "category": "Hinário — Volume 2",
-      "key": "",
-      "time": "",
-      "author": "F.C.V.M.",
-      "lyrics": "O Senhor é quem manda, nós seguirmos avante\nSó olhando pra cima, com fé em Jesus\nPois a fé que nos move, e nos da esperança\nNos dará a vitória, por Cristo Jesus\nE então vou seguindo com Cristo\nE o mal, não olho pra isso\nVencerei, vencerei. Com Cristo Jesus, vencerei\nCORO\nNão temo nem a morte, mas olho pra Cristo\nOlho avante, Ele é meu comandante\nCaminho com Ele, no monte ou no vale\nEle é meu companheiro e o mal não me abala   ????     (falta concluir ou trocar essa parte)\nEsta comigo aqui na Igreja ou em casa   ?????      (falta concluir ou trocar essa parte)",
-      "chords": "",
-      "source": "Novo Hinário Volume 2 (documento enviado pela igreja)"
-    },
-    {
       "id": "hino-v2-52",
       "number": 123,
       "title": "Só Continuei",
