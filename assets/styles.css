@@ -645,3 +645,117 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
  .celebration-admin-actions{width:100%}
  .celebration-admin-actions .btn{flex:1}
 }
+
+/* IGJAL — resumo compacto de aniversários e batismos na página inicial */
+.home-celebrations.home-celebrations-compact{
+  max-width:100%;
+  margin-top:22px;
+  padding:16px 18px 13px;
+  background:#fbfcfd;
+  border:1px solid #e0e8eb;
+  border-radius:16px;
+}
+.home-celebrations-compact .home-celebrations-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:8px 16px;
+  margin-bottom:12px;
+}
+.home-celebrations-compact .home-celebrations-head h3{
+  font-size:17px;
+  line-height:1.35;
+  margin:0;
+  color:#153d70;
+}
+.home-celebrations-compact .home-celebrations-head>a{
+  color:#285a7f;
+  font-size:12px;
+  font-weight:750;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.home-celebrations-compact #home-celebrations{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+  margin:0;
+}
+.home-celebrations-compact .home-celebrations-group{
+  min-width:0;
+  border:1px solid #e2eaf0;
+  border-radius:12px;
+  background:#fff;
+  padding:11px 13px;
+}
+.home-celebrations-compact .home-celebrations-group h4{
+  font-size:13px;
+  color:#1b4874;
+  line-height:1.4;
+  margin:0 0 7px;
+}
+.home-celebrations-compact .home-celebration-line{
+  display:flex;
+  align-items:center;
+  min-width:0;
+  gap:10px;
+  padding:6px 0;
+}
+.home-celebrations-compact .home-celebration-line+.home-celebration-line{
+  border-top:1px solid #edf1f4;
+}
+.home-celebrations-compact .home-celebration-mini-date{
+  display:grid;
+  place-items:center;
+  flex:0 0 30px;
+  height:30px;
+  border-radius:8px;
+  background:#e8f0eb;
+  font-size:13px;
+  font-weight:800;
+  color:#295b47;
+  font-variant-numeric:tabular-nums;
+}
+.home-celebrations-compact .home-celebration-mini-info{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  gap:2px;
+  line-height:1.35;
+}
+.home-celebrations-compact .home-celebration-mini-info strong{
+  font-size:12.5px;
+  color:#233e5e;
+  font-weight:700;
+  overflow-wrap:anywhere;
+}
+.home-celebrations-compact .home-celebration-mini-info small{
+  color:#687887;
+  font-size:10.5px;
+}
+.home-celebrations-compact .home-celebrations-more{
+  display:inline-block;
+  margin-top:6px;
+  font-size:11px;
+  color:#28628a;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+.home-celebrations-compact .home-celebration-empty{
+  margin:7px 0 2px;
+  font-size:12px;
+  color:#75808c;
+}
+.home-celebrations-compact .home-celebrations-footnote{
+  font-size:11px;
+  line-height:1.45;
+  color:#73808b;
+  margin:10px 0 0;
+}
+@media(max-width:650px){
+ .home-celebrations.home-celebrations-compact{padding:13px 12px}
+ .home-celebrations-compact #home-celebrations{grid-template-columns:1fr;gap:10px}
+ .home-celebrations-compact .home-celebrations-head h3{font-size:16px}
+ .home-celebrations-compact .home-celebrations-group{padding:10px 12px}
+}
