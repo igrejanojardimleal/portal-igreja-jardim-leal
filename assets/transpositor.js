@@ -47,18 +47,62 @@ window.IGREJA_TRANSPOSE = (() => {
     return true;
   }
   function transposeLine(line,steps){
-    // Marcações inline explícitas: [C]Quero [G/B]cantar.
-    if(/\[[A-G][#b]?/.test(line))return line.replace(/\[([^\]\n]+)\]/g,(whole,chord)=>chordInfo(chord)?'['+transposedChord(chord,steps)+']':whole);
+    // Nunca modificar a cifra original nem um único espaço.
+    if(!steps)return line;
+    // Marcadores inline permanecem imediatamente antes da mesma sílaba.
+    if(/\[[A-G][#b]?/.test(line))
+      return line.replace(/\[([^\]\n]+)\]/g,(whole,chord)=>
+        chordInfo(chord)?'['+transposedChord(chord,steps)+']':whole);
     if(!chordLine(line))return line;
-    // Mantém espaços, barras de compasso e pontuação estrutural intactos.
-    // Comprimentos de nomes de acordes podem alterar levemente o alinhamento.
-    return line.replace(/[^\s|]+/g,token=>transposedChord(token,steps));
+    // No formato textual, a coluna inicial do acorde marca a sílaba exata.
+    const matches=[...line.matchAll(/[^\s|]+/g)];
+    let output='',endOriginal=0;
+    for(let i=0;i<matches.length;i++){
+      const match=matches[i],token=match[0],column=match.index;
+      const chord=transposedChord(token,steps),following=matches[i+1]?.index??Infinity;
+      // Nunca deslocar acordes. Se não houver espaço, bloquear esta transposição.
+      if(column<output.length || column+chord.length>following)return null;
+      const gap=line.slice(endOriginal,column);
+      const bars=[...gap.matchAll(/\|/g)].map(x=>endOriginal+x.index);
+      const length=column-output.length;
+      if(length<0)return null;
+      const chars=Array.from({length},()=> ' ');
+      for(const originalColumn of bars){
+        const at=originalColumn-output.length;
+        if(at<0||at>=chars.length)return null;
+        chars[at]='|';
+      }
+      output+=chars.join('')+chord;
+      endOriginal=column+token.length;
+    }
+    const tail=line.slice(endOriginal);
+    const bars=[...tail.matchAll(/\|/g)].map(x=>endOriginal+x.index);
+    if(bars.length){
+      const len=line.length-output.length;
+      if(len<0)return null;
+      const chars=Array.from({length:len},()=> ' ');
+      for(const column of bars){
+        const at=column-output.length;
+        if(at<0||at>=chars.length)return null;
+        chars[at]='|';
+      }
+      output+=chars.join('');
+    }else output+=tail;
+    return output;
   }
   function transpose(text,from,to){
     const orig=keyInfo(from),target=keyInfo(to);
     if(!orig||!target)return null;
+    const source=String(text||'');
     const steps=(target.index-orig.index+12)%12;
-    return String(text||'').split('\n').map(line=>transposeLine(line,steps)).join('\n');
+    if(!steps)return source;
+    const rendered=[];
+    for(const line of source.split('\n')){
+      const changed=transposeLine(line,steps);
+      if(changed===null)return null;
+      rendered.push(changed);
+    }
+    return rendered.join('\n');
   }
   function countChords(text){
     const s=String(text||'');let count=0;
