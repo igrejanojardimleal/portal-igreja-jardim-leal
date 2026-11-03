@@ -98,7 +98,7 @@ window.IGREJA_COMUNIDADE = (()=>{
   }
   async function songChanged(song){
     if(!song)return; const old=selected?.number;selected=song;updateAccess();
-    if(old===song.number)return;
+    if(old===song.number && $('hino-comments-feed')?.dataset.loadedHino===String(song.number))return;
     const host=$('hino-comments-feed');if(!host)return;
     host.textContent='Carregando comentários...';
     if(!ctx?.db?.()){host.textContent='Os comentários serão carregados quando o serviço estiver disponível.';return;}
@@ -108,6 +108,7 @@ window.IGREJA_COMUNIDADE = (()=>{
       .eq('status','aprovado').order('criado_em',{ascending:false}).limit(100);
     if(thisLoad!==loading)return;
     if(error){host.textContent='Não foi possível carregar comentários.';return;}
+    host.dataset.loadedHino=String(song.number);
     renderComments(data||[]);
   }
   async function loadModeration(){
