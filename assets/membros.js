@@ -38,6 +38,8 @@ window.IGREJA_MEMBROS = (() => {
     const link=$('member-admin-link');
     if(link)link.hidden=!user||!(context?.hasPanelAccess?.()||context?.isAdmin?.()||context?.isEventManager?.()||context?.isMuralModerator?.()||context?.isStudyReviewer?.());
     const teacherLink=$('member-study-link');if(teacherLink)teacherLink.hidden=!user||!context?.isStudyTeacher?.();
+    const registration=$('member-registration-details');
+    if(registration){registration.hidden=!user;if(!user)registration.open=false;}
     const form=$('member-password-change');
     if(form)form.hidden=!user;
     const profile=$('member-profile-form');
@@ -135,6 +137,13 @@ window.IGREJA_MEMBROS = (() => {
       loggedIn.insertAdjacentHTML('beforeend',`
         <a class="btn btn-primary" href="administracao.html" id="member-admin-link" hidden>🛡️ Abrir painel administrativo</a>
         <a class="btn btn-outline" href="estudos-biblicos.html#study-teacher-panel" id="member-study-link" hidden>📖 Enviar estudo bíblico</a>
+        <details class="member-registration-details" id="member-registration-details">
+          <summary class="member-registration-summary">
+            <span class="member-registration-icon" aria-hidden="true">👤</span>
+            <span><strong>Cadastro</strong><small>Nome, sobrenome e senha da conta</small></span>
+            <span class="member-registration-arrow" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="member-registration-content">
         <form id="member-profile-form" class="member-change-password" hidden>
           <h3>Meu nome no site</h3>
           <p class="muted" id="member-profile-note"></p>
@@ -148,7 +157,15 @@ window.IGREJA_MEMBROS = (() => {
           <input type="password" id="member-new-password" autocomplete="new-password" minlength="8" required placeholder="Nova senha (mínimo 8 caracteres)">
           <button class="btn btn-outline" type="submit">Salvar minha senha</button>
           <p class="form-status" id="member-password-status" role="status"></p>
-        </form>`);
+        </form>
+          </div>
+        </details>`);
+      const registrationLogout=$('logout-button');
+      if(registrationLogout)loggedIn.append(registrationLogout);
+      const registration=$('member-registration-details');
+      registration?.addEventListener('toggle',()=>{
+        if(registration.open)registration.scrollIntoView({behavior:'smooth',block:'nearest'});
+      });
       // Após o login, exibir apenas o essencial; dados pessoais e senha ficam recolhidos.
       const section=document.createElement('details');
       section.id='member-registration-details';
