@@ -1427,18 +1427,6 @@ window.IGREJA_DATA = {
       "source": "Novo Hinário Volume 2 (documento enviado pela igreja)"
     },
     {
-      "id": "hino-v2-52",
-      "number": 123,
-      "title": "Só Continuei",
-      "category": "Hinário — Volume 2",
-      "key": "",
-      "time": "",
-      "author": "F.C.V.M.",
-      "lyrics": "Deus, como eu poderia nunca mais te servir\nComo eu poderia nunca mais te adorar\nPois o mundo estava prestes a me abraçar\nDeus, foi por pouco que eu não me afastei\nFoi por pouco que a cruz eu quase larguei\nPois fraquinho estava eu no caminhar.\nNo caminhar, pensei até mesmo em parar\nCheguei a ouvir vozes pra te deixar\nJesus, o mundo só queria me tragar, me tragar\nMas olhei só para Ti, e continuei.\nCORO\nSó continuei, olhando pra Ti\nSó continuei, mantendo minha fé\nSó continuei, sem pra trás olhar\nSó eu e Deus.\nSó continuei, sofrendo calado\nSó continuei, avante por fé\nSó por Deus hoje estou de pé.",
-      "chords": "",
-      "source": "Novo Hinário Volume 2 (documento enviado pela igreja)"
-    },
-    {
       "id": "hino-v2-53",
       "number": 124,
       "title": "Vivendo Pra Cristo",
