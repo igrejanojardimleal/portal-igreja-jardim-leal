@@ -850,7 +850,7 @@
       }
       setStatus('login-status', 'Enviando link...');
       const { error } = await db.auth.signInWithOtp({
-        email, options: { emailRedirectTo: `${location.origin}${location.pathname}` }
+        email, options: { emailRedirectTo: new URL('index.html',location.href).href }
       });
       if (error) setStatus('login-status', `Não foi possível enviar o link: ${error.message}`, true);
       else setStatus('login-status', 'Confira seu e-mail para acessar sua conta.');
