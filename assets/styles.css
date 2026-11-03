@@ -479,3 +479,26 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   .igjal-verse-ribbon-reference{display:block;font-size:11px;margin-bottom:7px}
   .igjal-verse-ribbon p{font-size:12.5px;line-height:1.5}
 }
+
+/* Canal da igreja — miniaturas direcionam ao YouTube e destaque manual da live */
+.youtube-cover-link{text-decoration:none;cursor:pointer;outline-offset:4px}
+.youtube-cover-link:focus-visible,.igjal-live-cover:focus-visible{outline:3px solid #1b70b2;outline-offset:3px}
+.youtube-cover-link img,.igjal-live-cover img{transition:transform .24s ease,filter .24s ease}
+.youtube-cover-link:hover img,.igjal-live-cover:hover img{transform:scale(1.035);filter:brightness(.9)}
+.youtube-cover-link .youtube-play{pointer-events:none}
+.igjal-live-cover{display:block;text-decoration:none;cursor:pointer;outline-offset:4px}
+.igjal-live-cover .igjal-live-play{z-index:2;pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,.28)}
+.igjal-live-upcoming{border-color:#b9d1e4}
+.igjal-live-upcoming .igjal-live-badge{background:#205d8a}
+.igjal-live-admin-preview{padding:15px 18px;border:1px solid #dee9ee;border-radius:14px;background:#f8fafc}
+.igjal-live-admin-preview p{margin:0 0 10px}
+.igjal-live-admin-preview img{display:block;width:min(100%,440px);aspect-ratio:16/9;object-fit:cover;border-radius:12px;border:1px solid #dce5ed}
+.igjal-live-admin-actions{display:flex;flex-wrap:wrap;gap:10px}
+.igjal-live-admin-actions button{flex:0 1 auto}
+@media(max-width:650px){
+ .igjal-live-admin-actions{display:grid;grid-template-columns:1fr}
+ .igjal-live-admin-actions button{width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+ .youtube-cover-link img,.igjal-live-cover img{transition:none}
+}
