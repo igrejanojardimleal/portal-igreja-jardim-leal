@@ -570,3 +570,18 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   #song-dialog.modo-culto #song-dialog-content{overflow:visible;max-height:none}
   #song-dialog.modo-culto .reading-controls{display:none!important}
 }
+
+
+/* Posição musical exata: conservar as colunas dos acordes, sem quebrar linhas.
+   Em telas pequenas, mover a cifra horizontalmente — jamais mover o acorde de sílaba. */
+#song-dialog #song-dialog-content.is-chords,
+#song-dialog.modo-culto #song-dialog-content.is-chords{
+  white-space:pre!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  text-align:left!important;
+  font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace!important;
+  font-variant-ligatures:none;
+  tab-size:4;
+  overflow-x:auto;
+}
