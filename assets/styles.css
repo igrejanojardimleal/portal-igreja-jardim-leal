@@ -759,3 +759,242 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
  .home-celebrations-compact .home-celebrations-head h3{font-size:16px}
  .home-celebrations-compact .home-celebrations-group{padding:10px 12px}
 }
+
+/* IGJAL 2026 — Kits de Ensaios e Agenda festiva */
+
+/* Agenda e aniversários: flores, cartões coloridos e balões interativos. */
+#agenda-page .agenda-top-note{
+  background:linear-gradient(110deg,#f3fbf5,#fff5fa 62%,#eef5fc);
+  border-color:#dfddec;
+}
+#agenda-page .igjal-regular-schedule{
+  background:linear-gradient(140deg,#fff,#fbf9ff);
+  border-color:#e6e1eb;
+}
+#agenda-page .igjal-schedule-day:not(.is-closed){
+  background:linear-gradient(125deg,#f5fcf7,#fffaf6);
+  border-color:#daebe3;
+}
+#agenda-page .agenda-columns>section{
+  border:1px solid #eee5ed;
+  border-radius:19px;
+  padding:18px;
+  background:linear-gradient(155deg,#fff,#fff9fc);
+}
+#agenda-page .agenda-columns>section:nth-child(2){background:linear-gradient(155deg,#fff,#f7fbff)}
+#agenda-page .agenda-columns .event-date{
+  background:linear-gradient(130deg,#ffdfeb,#f7e5d0);
+  color:#a75c7e;
+}
+.celebrations-public{
+  position:relative;
+  isolation:isolate;
+  border:1px solid #e9dce8;
+  border-radius:25px;
+  padding:28px clamp(16px,3vw,29px);
+  background:
+    radial-gradient(circle at 94% 5%,rgba(250,194,220,.45),transparent 25%),
+    radial-gradient(circle at 3% 95%,rgba(180,215,247,.35),transparent 28%),
+    linear-gradient(140deg,#fff9fc,#fff 48%,#f8faff);
+  box-shadow:0 12px 32px rgba(115,77,109,.055);
+}
+.celebrations-public::before,.celebrations-public::after{
+  position:absolute;pointer-events:none;opacity:.19;line-height:1;z-index:-1;
+  font-size:clamp(42px,7vw,95px);
+}
+.celebrations-public::before{content:"✿";right:16px;top:7px;color:#b863a2}
+.celebrations-public::after{content:"✾";bottom:11px;left:13px;color:#679fbd}
+.celebrations-public .section-heading h2{color:#9f5182}
+.celebration-festive-hint{
+  color:#9b5684;font-size:13px;font-weight:750;line-height:1.5;margin:12px 0 6px;
+}
+.celebration-month-toolbar{
+  background:linear-gradient(105deg,#fff2fa,#f1f9ff);
+  border-color:#ead9e9;margin-top:20px;
+}
+.celebration-month-toolbar label{color:#87547b}
+.celebration-month-toolbar select{border-color:#ddc0d5}
+.celebration-month-toolbar p{color:#795a78}
+.celebration-selected-month{color:#91567d}
+.celebration-month-sections>section{
+  background:linear-gradient(180deg,#fff,#fff9fc);
+  border-color:#eedef0;
+  box-shadow:0 10px 23px rgba(136,81,113,.05);
+}
+.celebration-month-sections>section:nth-child(2){
+  background:linear-gradient(180deg,#fff,#f7faff);
+  border-color:#dce8f3;
+}
+.celebration-month-sections h4{color:#9e5c89}
+.celebration-month-sections>section:nth-child(2) h4{color:#617eac}
+.celebration-day-group{
+  background:#fffcfe;border-color:#f0e3ec;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.celebration-day-group:hover{transform:translateY(-2px);box-shadow:0 9px 21px rgba(112,60,100,.08)}
+.celebration-month-sections>section:nth-child(2) .celebration-day-group{
+  background:#fbfdff;border-color:#e1eaf3;
+}
+.celebration-day-badge{background:linear-gradient(145deg,#fbd8e8,#fee8d8);color:#a15c80}
+.celebration-month-sections>section:nth-child(2) .celebration-day-badge{
+  background:linear-gradient(145deg,#dceaff,#e3f2ed);color:#4a76a0;
+}
+.celebration-person{border-radius:9px}
+.celebration-person:hover{background:#fff4f9}
+.celebration-person-ministry:hover{background:#f0f7ff}
+.celebration-avatar-placeholder{background:linear-gradient(145deg,#ffe4ed,#f9eadb)}
+.celebration-person-ministry .celebration-avatar-placeholder{background:linear-gradient(145deg,#e3efff,#e5f5ed)}
+.igjal-name-celebrate{
+  appearance:none;border:none;background:transparent;
+  padding:2px 4px;margin:0 0 0 -4px;
+  display:inline;text-align:left;color:#8c527c;
+  font:800 15px/1.45 Manrope,Arial,sans-serif;
+  overflow-wrap:anywhere;white-space:normal;
+  cursor:pointer;border-radius:6px;
+}
+.celebration-person-ministry .igjal-name-celebrate{color:#496da1}
+.igjal-name-celebrate:hover{
+  background:#fff0f8;color:#b83f8a;
+  text-decoration:underline wavy #eaa5c8;text-underline-offset:4px;
+}
+.igjal-name-celebrate:focus-visible{outline:3px solid #bc74a5;outline-offset:3px}
+.home-celebrations-compact .home-celebrate-name{
+  font-size:12.5px;font-weight:750;line-height:1.35;
+}
+.home-celebrations-compact .home-celebrations-group:first-child{
+  background:linear-gradient(150deg,#fff,#fff9fc);border-color:#eadddf;
+}
+.home-celebrations-compact .home-celebrations-group:nth-child(2){
+  background:linear-gradient(150deg,#fff,#f6faff);border-color:#dbe7f1;
+}
+.home-celebrations-compact .home-celebration-mini-date{background:#fce5ef;color:#995677}
+.home-celebrations-compact .home-celebrations-group:nth-child(2) .home-celebration-mini-date{background:#e4effe;color:#5178a0}
+.igjal-celebration-fx{
+  position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:2147483640;
+}
+.igjal-party-balloon{
+  position:absolute;display:block;width:32px;height:42px;
+  border-radius:50% 50% 49% 49%;
+  background:radial-gradient(circle at 30% 23%,rgba(255,255,255,.94) 0%,transparent 29%),var(--balloon-color,#f497bd);
+  box-shadow:inset -5px -7px 9px rgba(0,0,0,.12),0 5px 15px rgba(54,39,77,.1);
+  transform-origin:center bottom;
+  animation:igjalBalloonRise var(--party-duration,4s) var(--party-delay,0ms) ease-in both;
+}
+.igjal-party-balloon::after{
+  content:"";position:absolute;top:100%;left:47%;
+  height:39px;width:1.4px;background:rgba(117,100,130,.55);transform:rotate(6deg);
+}
+.igjal-party-balloon::before{
+  content:"";position:absolute;bottom:-5px;left:12px;
+  border-left:5px solid transparent;border-right:5px solid transparent;
+  border-top:7px solid var(--balloon-color,#f497bd);
+}
+.igjal-party-sparkle{
+  position:absolute;font-size:18px;font-weight:800;
+  animation:igjalSparkleFly var(--spark-duration,1.8s) ease-out both;
+}
+@keyframes igjalBalloonRise{
+  0%{opacity:0;transform:translate(0,20px) scale(.65) rotate(0deg)}
+  11%{opacity:1}
+  85%{opacity:1}
+  100%{opacity:0;transform:translate(var(--party-drift,30px),var(--party-rise,-900px)) scale(1.18) rotate(var(--party-spin,15deg))}
+}
+@keyframes igjalSparkleFly{
+  0%{opacity:0;transform:translate(0,0) scale(.5)}
+  22%{opacity:1}
+  100%{opacity:0;transform:translate(var(--spark-x,80px),var(--spark-y,-150px)) scale(1.4)}
+}
+
+/* Biblioteca de kits de ensaios: leve, responsiva, com players só sob demanda. */
+.kits-page{background:linear-gradient(#fffdf9,#f9fbfc)}
+.kits-hero{
+  padding:clamp(24px,4vw,48px);
+  border:1px solid #dbe5e9;border-radius:24px;
+  background:radial-gradient(circle at 95% 20%,#dceff8,transparent 43%),linear-gradient(122deg,#eaf7ee,#fff9f1);
+}
+.kits-hero h1{
+  font:800 clamp(30px,4.3vw,51px)/1.15 Manrope,Arial,sans-serif;
+  color:#193d69;letter-spacing:-.04em;margin:12px 0;
+}
+.kits-hero h1 em{font-style:normal;color:#418678}
+.kits-hero>p{font-size:16px;color:#4c6470;line-height:1.75;max-width:700px}
+.kits-hero-note{display:flex;gap:12px;align-items:center;max-width:690px;padding:14px 17px;border-radius:14px;background:rgba(255,255,255,.68);font-size:14px;color:#315c5a;margin-top:22px}
+.kits-hero-note>span:first-child{font-size:24px}
+.kits-browser{margin:35px auto;max-width:980px}
+.kits-search-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.kits-search-heading h2{font:800 clamp(22px,3vw,31px)/1.3 Manrope,Arial,sans-serif;color:#204268;margin:7px 0 17px}
+.kits-head-icon{font-size:45px;color:#8faeca}
+.kits-browser>label{display:block;font-size:14px;font-weight:750;color:#49616d;margin-bottom:7px}
+#kits-search{display:block;width:100%;min-height:52px;border:2px solid #d8e4eb;border-radius:13px;background:#fff;padding:13px 18px;font-size:16px;box-sizing:border-box}
+#kits-search:focus-visible{outline:3px solid #aacbd7;outline-offset:2px}
+.kits-count{margin:14px 0 17px;font-size:13px;font-weight:750;color:#57727d}
+.kits-song-list{display:flex;flex-direction:column;gap:13px}
+.kits-empty{text-align:center;padding:38px 24px;border:1px dashed #bcd1d7;border-radius:18px;background:#f8fbfc}
+.kits-empty h2{font-size:23px;color:#234c67;margin:14px 0 8px}
+.kits-empty p{font-size:14px;color:#637783;line-height:1.6;max-width:520px;margin:0 auto}
+.kits-empty-icon{font-size:43px;color:#6caa99}
+.kit-song-card{background:#fff;border:1px solid #dbe7eb;border-radius:17px;overflow:hidden;box-shadow:0 5px 18px rgba(50,79,95,.035)}
+.kit-song-card[open]{border-color:#a8d0c7;box-shadow:0 11px 27px rgba(49,114,109,.065)}
+.kit-song-header{display:flex;align-items:center;gap:14px;padding:19px 23px;cursor:pointer;list-style:none}
+.kit-song-header::-webkit-details-marker{display:none}
+.kit-song-header:focus-visible{outline:3px solid #70aaac;outline-offset:-3px}
+.kit-song-symbol{display:grid;place-items:center;flex:0 0 48px;height:48px;border-radius:13px;background:#e6f4ed;color:#387f70;font-size:28px}
+.kit-song-title{flex:1;min-width:0}
+.kit-song-title h2{font-size:19px;color:#173f6a;font-weight:800;line-height:1.3;margin:0 0 4px;overflow-wrap:anywhere}
+.kit-song-counter{font-size:12px;color:#677a85;font-weight:700}
+.kit-song-arrow{font-size:30px;color:#7aa6a0;transform:rotate(0);transition:transform .2s ease}
+.kit-song-card[open] .kit-song-arrow{transform:rotate(180deg)}
+.kit-song-body{padding:0 22px 22px;border-top:1px solid #f0f3f4}
+.kit-song-description{font-size:14px;line-height:1.7;color:#647985;margin:16px 0}
+.kit-track-list{display:flex;flex-direction:column;gap:10px;padding-top:17px}
+.kit-track-row{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 18px;
+  align-items:center;background:#f7fbfa;border:1px solid #e1ebea;border-radius:13px;padding:14px 16px;
+}
+.kit-track-info{display:flex;align-items:center;gap:11px;min-width:0}
+.kit-track-info>div{display:flex;flex-direction:column;gap:3px;min-width:0}
+.kit-track-info strong{font-size:15px;color:#264f63;overflow-wrap:anywhere}
+.kit-track-info small{font-size:12px;color:#687d83}
+.kit-track-icon{flex:0 0 34px;display:grid;place-items:center;width:34px;height:34px;border-radius:10px;color:#327f75;background:#e3f1ed;font-size:19px}
+.kit-track-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap;justify-content:end}
+.kit-external-link{font-size:12px;text-decoration:underline;text-underline-offset:3px;color:#376a89}
+.kit-track-player{grid-column:1/-1;width:100%}
+.kit-track-player:empty{display:none}
+.kit-youtube-player{display:block;border:0;width:min(100%,640px);aspect-ratio:16/9;border-radius:11px;background:#1a2531}
+.kit-native-audio{display:block;width:min(100%,640px);height:54px}
+.kits-guide{max-width:980px;margin:30px auto 12px;padding:25px 0 0;border-top:1px solid #dbe7eb}
+.kits-guide h2{font-size:24px;color:#204765;margin:0 0 19px}
+.kits-guide-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.kits-guide-grid>div{padding:18px;border:1px solid #e2eceb;border-radius:15px;background:#fff}
+.kits-guide-grid>div>span{font-size:13px;font-weight:850;color:#409583;letter-spacing:.08em}
+.kits-guide-grid strong{display:block;font-size:16px;color:#214b6a;margin:9px 0}
+.kits-guide-grid p,.kits-guide-footer{font-size:13px;line-height:1.65;color:#697b87}
+.kits-guide-footer{margin-top:18px}
+.kits-admin-info{padding:13px 16px;border-radius:12px;background:#eff8f4;color:#336753;font-size:13px;margin:15px 0}
+.kits-admin-list{display:grid;gap:9px}
+.kit-admin-item{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:14px;border:1px solid #dfe9ec;border-radius:13px;background:#fff}
+.kit-admin-item>div{display:flex;flex-direction:column;gap:3px;min-width:0}
+.kit-admin-item strong{font-size:15px;color:#23496b;overflow-wrap:anywhere}
+.kit-admin-item small{font-size:12px;color:#74848e}
+#admin-kits-panel h4{font-size:18px;color:#224c6d}
+#admin-kits-panel form{scroll-margin-top:90px}
+@media(max-width:720px){
+ .kits-hero{padding:23px 18px}
+ .kits-guide-grid{grid-template-columns:1fr}
+ .kit-track-row{grid-template-columns:1fr}
+ .kit-track-actions{justify-content:start}
+ .kit-song-header{padding:16px}
+ .kit-song-body{padding:0 14px 16px}
+ .kits-guide-grid>div{padding:15px}
+}
+@media(max-width:500px){
+ .kit-admin-item{align-items:start;flex-direction:column}
+ .kit-song-symbol{flex-basis:42px;height:42px}
+ .kit-song-title h2{font-size:17px}
+ .kit-track-actions .btn{min-height:42px}
+}
+@media(prefers-reduced-motion:reduce){
+ .igjal-party-balloon,.igjal-party-sparkle{animation:none!important;display:none!important}
+ .kit-song-arrow{transition:none}
+ .celebration-day-group{transition:none}
+}
