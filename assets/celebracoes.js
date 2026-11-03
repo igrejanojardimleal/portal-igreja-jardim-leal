@@ -108,8 +108,7 @@ window.IGREJA_CELEBRACOES = (() => {
       }
       for(const item of items.slice(0,limit)){
         const row=el('div','home-celebration-line');
-        const date=el('time','home-celebration-mini-date',numDay(item.dia));
-        date.setAttribute('datetime','2024-'+String(item.mes).padStart(2,'0')+'-'+numDay(item.dia));
+        const date=el('span','home-celebration-mini-date',numDay(item.dia));
         const copy=el('span','home-celebration-mini-info');
         copy.append(el('strong','',item.nome));
         if(item.tipo!=='aniversario'){
