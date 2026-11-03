@@ -653,6 +653,7 @@
   }
   function initComments() {
     if(!$('comment-form'))return;
+    $('mural-open-login')?.addEventListener('click',()=>showDialog('login-dialog'));
     renderComments([]);
     $('comment-message').addEventListener('input',()=>setText('comment-counter',$('comment-message').value.length));
     $('comment-form').addEventListener('submit',async(event)=>{
@@ -786,6 +787,7 @@
       setText('logged-in-user', `Conectado como ${user.email || 'membro da igreja'}. Você pode participar do mural, enviar cifras e comentar nos hinos.`);
     }
     const send=$('send-comment');if(send)send.disabled=!user;
+    if($('mural-member-notice'))$('mural-member-notice').hidden=Boolean(user);
     window.IGREJA_MEMBROS?.refresh?.();
     window.IGREJA_COMUNIDADE?.onAuthChange?.();
   }
