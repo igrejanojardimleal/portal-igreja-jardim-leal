@@ -40,35 +40,35 @@
   const page = document.body.dataset.page || 'home';
   const transposer = window.IGREJA_TRANSPOSE || null;
 
-  // Migra favoritos e tons selecionados uma única vez, acompanhando o hino
-  // correto após a mudança oficial dos 123 números. Hinos excluídos não migram.
-  (function migrateHymnalPreferences(){
-    const mapping=data?.numberingMigration?.oldToNew;
-    if(!mapping||data?.numberingMigration?.version!=='2026-11-03-123-hinos')return;
-    const marker='igjal-numeracao-123-migrada-20261103-v1';
-    try{
+  // Preserva a numeração original, inclusive as lacunas dos hinos excluídos.
+  (function restoreOriginalHymnalNumbers(){
+    const map=data?.numberingMigration?.oldToNew;
+    if(!map||data.numberingMigration.version!=='2026-11-03-numeracao-original-preservada')return;
+    const marker='igjal-numeracao-original-restaurada-20261103-v2';
+    try {
       if(localStorage.getItem(marker)==='ok')return;
-      const favoritesKey='igjal-hinos-favoritos-v1';
-      const favorites=JSON.parse(localStorage.getItem(favoritesKey)||'[]');
-      if(Array.isArray(favorites)){
-        const changed=[...new Set(favorites
-          .filter(Number.isInteger)
-          .map(n=>mapping[String(n)])
-          .filter(n=>Number.isInteger(n)&&n>=1&&n<=123))];
-        localStorage.setItem(favoritesKey,JSON.stringify(changed));
-      }
-      const tonesKey='igjal-tons-escolhidos-v1';
-      const tones=JSON.parse(localStorage.getItem(tonesKey)||'{}');
-      if(tones&&typeof tones==='object'&&!Array.isArray(tones)){
-        const changed={};
-        for(const [old,tone] of Object.entries(tones)){
-          const n=mapping[old];
-          if(Number.isInteger(n)&&n>=1&&n<=123)changed[n]=tone;
+      if(localStorage.getItem('igjal-numeracao-123-migrada-20261103-v1')==='ok'){
+        const reverse=Object.fromEntries(Object.entries(map).map(([original,compact])=>[String(compact),Number(original)]));
+        const favoritesKey='igjal-hinos-favoritos-v1';
+        const favorites=JSON.parse(localStorage.getItem(favoritesKey)||'[]');
+        if(Array.isArray(favorites)){
+          localStorage.setItem(favoritesKey,JSON.stringify([...new Set(
+            favorites.filter(Number.isInteger).map(n=>reverse[String(n)]).filter(Number.isInteger)
+          )]));
         }
-        localStorage.setItem(tonesKey,JSON.stringify(changed));
+        for(const key of ['igjal-tons-escolhidos-v1','igjal-versoes-vocais-v1']){
+          const saved=JSON.parse(localStorage.getItem(key)||'{}');
+          if(saved&&typeof saved==='object'&&!Array.isArray(saved)){
+            const restored={};
+            for(const [n,value] of Object.entries(saved)){
+              if(Number.isInteger(reverse[n]))restored[reverse[n]]=value;
+            }
+            localStorage.setItem(key,JSON.stringify(restored));
+          }
+        }
       }
       localStorage.setItem(marker,'ok');
-    }catch(error){console.warn('Preferências do hinário não migradas:',error);}
+    }catch(error){console.warn('Falha ao restaurar preferências do hinário:',error);}
   })();
   // Versões reais da regência: primeira edição e segunda edição em tons próprios.
   const VOCAL_LABELS=Object.freeze({
@@ -123,27 +123,35 @@
   function applyToneToDialog() {
     const box=$('transpose-panel');if(!box||!selectedSong)return;
     const current=getActiveChordVersion(selectedSong);
-    const available=dialogMode==='cifra' && Boolean(current.chords.trim());
-    box.hidden=!available;
-    const selector=$('voice-version-selector');
+    const available=dialogMode==='cifra'&&Boolean(current.chords.trim());
+    const pdfVersions=cifrasPublicadas.get(selectedSong.number)||{};
+    const pdfTwo=Boolean(pdfVersions.tenor_baixo_contralto&&pdfVersions.baritono_soprano);
     const variants=selectedSong.voiceVariants;
-    const two=Boolean(variants?.tenor_baixo_contralto?.chords?.trim() &&
+    const chordTwo=Boolean(variants?.tenor_baixo_contralto?.chords?.trim() &&
       variants?.baritono_soprano?.chords?.trim() &&
       variants.tenor_baixo_contralto.key!==variants.baritono_soprano.key);
+    box.hidden=dialogMode!=='cifra'||(!available&&!pdfTwo);
+    for(const part of box.querySelectorAll('.transpose-heading,.transpose-controls'))part.hidden=!available;
+    const selector=$('voice-version-selector');
+    const showChoices=dialogMode==='cifra'&&((available&&chordTwo)||pdfTwo);
     if(selector){
-      selector.hidden=!available||!two;
-      if(available&&two){
+      selector.hidden=!showChoices;
+      if(showChoices){
         const selected=chosenVocalVersions.get(selectedSong.number)||'tenor_baixo_contralto';
         for(const button of selector.querySelectorAll('[data-voice-variant]')){
           const kind=button.dataset.voiceVariant;
           button.classList.toggle('active',kind===selected);
           button.setAttribute('aria-pressed',String(kind===selected));
           const note=button.querySelector('.voice-choice-key');
-          if(note)note.textContent='Tom '+(variants?.[kind]?.key||'');
+          if(note)note.textContent=variants?.[kind]?.key
+            ? 'Tom '+variants[kind].key:(pdfVersions[kind]?'PDF oficial':'');
         }
       }
     }
-    if(!available)return;
+    if(!available){
+      setText('transpose-status',pdfTwo?'Escolha a versão em PDF. A transposição manual depende de acordes digitais.':'');
+      return;
+    }
     const original=transposer?.keyInfo(current.key);
     const count=transposer?.countChords(current.chords)||0;
     const selected=transposer?.keyInfo(chosenTone(selectedSong,current.key));
@@ -210,9 +218,11 @@
         if(!selectedSong)return;
         const style=btn.dataset.voiceVariant;
         const candidate=selectedSong.voiceVariants?.[style];
-        if(!candidate?.chords?.trim()||!transposer?.keyInfo(candidate.key))return;
+        const digital=Boolean(candidate?.chords?.trim()&&transposer?.keyInfo(candidate.key));
+        const pdf=Boolean(cifrasPublicadas.get(selectedSong.number)?.[style]);
+        if(!digital&&!pdf)return;
         rememberVocalVersion(selectedSong.number,style);
-        rememberTone(selectedSong.number,candidate.key);
+        if(digital)rememberTone(selectedSong.number,candidate.key);
         renderSongDialog();
       });
     }
@@ -593,12 +603,18 @@
     const hino=selectedSong.number;
     const submit=$('song-submit-chord');
     if (submit) submit.href=`enviar-cifra.html?hino=${encodeURIComponent(hino)}`;
-    const published=cifrasPublicadas.get(hino);
+    const versions=cifrasPublicadas.get(hino)||{};
+    const preferred=chosenVocalVersions.get(hino)||'tenor_baixo_contralto';
+    const publishedKind=versions[preferred]?preferred
+      : ['sem_definicao','tenor_baixo_contralto','baritono_soprano'].find(k=>versions[k]);
+    const published=publishedKind?versions[publishedKind]:'';
     const pdfLink=$('song-pdf-link');
     if(pdfLink){
       pdfLink.hidden=!published;
-      if(published)pdfLink.href=published;
-      else pdfLink.removeAttribute('href');
+      if(published){
+        pdfLink.href=published;
+        pdfLink.textContent='Abrir cifra oficial em PDF ('+VOCAL_LABELS[publishedKind]+') ↗';
+      }else pdfLink.removeAttribute('href');
     }
     const mediaHost=$('song-media-content');
     if(mediaHost){
@@ -1014,13 +1030,19 @@
   async function loadPublishedCifras() {
     if(!db)return;
     try{
-      const {data:rows,error}=await db.from('cifras_publicadas').select('hino_numero,storage_path');
+      const {data:rows,error}=await db.from('cifras_publicadas').select('hino_numero,storage_path,voz_confortavel');
       if(error)throw error;
       cifrasPublicadas=new Map();
       for(const row of rows||[]){
         if(!Number.isInteger(row.hino_numero)||!/^hino-\d+-[a-zA-Z0-9_-]+\.pdf$/.test(row.storage_path))continue;
+        const kind=Object.prototype.hasOwnProperty.call(VOCAL_LABELS,row.voz_confortavel)
+          ? row.voz_confortavel:'sem_definicao';
         const {data:published}=db.storage.from(cifraBucketPublic).getPublicUrl(row.storage_path);
-        if(published?.publicUrl)cifrasPublicadas.set(row.hino_numero,published.publicUrl);
+        if(published?.publicUrl){
+          const versions=cifrasPublicadas.get(row.hino_numero)||{};
+          versions[kind]=published.publicUrl;
+          cifrasPublicadas.set(row.hino_numero,versions);
+        }
       }
       if($('songs-grid'))renderSongs();
       if(selectedSong&&$('song-dialog')?.open)renderSongDialog();
@@ -1131,7 +1153,7 @@
               const path=`hino-${row.hino_numero}-${row.id}.pdf`;
               const {error:upErr}=await db.storage.from(cifraBucketPublic).upload(path,download,{contentType:'application/pdf',upsert:false});
               if(upErr)throw upErr;
-              const {error:pubErr}=await db.from('cifras_publicadas').upsert({hino_numero:row.hino_numero,storage_path:path,origem_envio:row.id,voz_confortavel:row.voz_confortavel||'sem_definicao'},{onConflict:'hino_numero'});
+              const {error:pubErr}=await db.from('cifras_publicadas').upsert({hino_numero:row.hino_numero,storage_path:path,origem_envio:row.id,voz_confortavel:row.voz_confortavel||'sem_definicao'},{onConflict:'hino_numero,voz_confortavel'});
               if(pubErr)throw pubErr;
             }
             const {error:statusErr}=await db.from('cifra_envios').update({status:accept?'aprovado':'rejeitado'}).eq('id',row.id);
