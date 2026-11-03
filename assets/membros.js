@@ -3,7 +3,7 @@ window.IGREJA_MEMBROS = (() => {
   'use strict';
   const $=id=>document.getElementById(id);
   let context;
-  const redirect=()=>location.origin+location.pathname;
+  const redirect=()=>new URL('index.html',location.href).href;
   const status=(message,error=false)=>{
     const el=$('member-auth-status');
     if(el){el.textContent=message;el.style.color=error?'#a42626':'';}
