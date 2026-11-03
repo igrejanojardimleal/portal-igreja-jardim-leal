@@ -414,3 +414,24 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .igjal-footer-map,.igjal-footer-whatsapp{display:inline-block;color:#d5e3f6!important;font-weight:750;text-decoration:underline;text-underline-offset:4px;font-size:14px;margin-top:7px}
 @media(max-width:850px){.igjal-home-welcome-card{max-width:650px}.home-hero-welcome h1{max-width:none}}
 @media(max-width:600px){.home-hero-welcome h1{font-size:clamp(32px,8vw,41px)!important;line-height:1.16!important}.igjal-home-welcome-card{padding:18px}.igjal-home-emblem{width:185px}.igjal-home-cultos>div{flex-direction:column;align-items:flex-start;gap:3px}.igjal-home-cultos span{text-align:left}.igjal-schedule-grid{grid-template-columns:1fr}.igjal-regular-schedule{padding:17px}.igjal-contact-actions{width:100%}.igjal-contact-actions .btn{flex:1;min-width:130px}.igjal-home-quicklinks{gap:10px 15px}}
+
+
+/* IGJAL V10 — navegação e estudos da comunidade */
+.hinario-actions{display:flex;flex-direction:column;align-items:flex-start;gap:12px;max-width:380px}
+.hinario-actions p{margin:0}
+.hinario-actions .btn{white-space:normal;text-align:center}
+.igjal-faith-message{max-width:580px;margin-top:26px;padding:19px 22px;border:1px solid #dce8df;border-left:4px solid #4d7763;border-radius:15px;background:#f8fbf8;text-align:left}
+.igjal-faith-message .overline{font-size:10px;letter-spacing:.11em}
+.igjal-faith-message blockquote{font-size:17px;line-height:1.55;font-weight:600;color:#263e36;margin:9px 0 8px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.igjal-faith-message p{font-size:12px;margin:0 0 9px;color:#536b5e;font-weight:700}
+.igjal-faith-message a{font-size:12px;font-weight:750;color:#2b654f;text-underline-offset:3px}
+.library-author{font-weight:700;font-size:12px;color:#356a57;margin:0}
+.study-teacher-panel,.study-review-panel{margin-top:30px;padding:22px;background:#fff;border:1px solid var(--line);border-radius:18px}
+.study-teacher-panel h2,.study-review-panel h3{margin-top:0}
+.study-teacher-panel #study-my-submissions,.study-review-panel #study-review-list{display:grid;gap:14px;margin-top:12px}
+.study-review-panel .moderation-item{padding:20px}
+.study-review-panel .admin-form-grid textarea{white-space:pre-wrap}
+#library-public-section{margin-top:28px}
+#library-public-section #library-search{width:min(100%,460px);min-height:45px;padding:10px 15px;border:1px solid var(--line);border-radius:10px;margin:10px 0 20px}
+@media(max-width:1180px){.desktop-nav{display:none}.menu-button{display:flex}}
+@media(max-width:650px){.study-teacher-panel,.study-review-panel{padding:15px}.igjal-faith-message{margin:20px 0 0;padding:15px}.igjal-faith-message blockquote{font-size:15px}.hinario-actions{max-width:none}}
