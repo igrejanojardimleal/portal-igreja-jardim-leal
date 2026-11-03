@@ -786,77 +786,70 @@
   function memberDisplayName() {
     return window.IGREJA_MEMBROS?.displayName?.(user) || '';
   }
-  function makeReplyForm(parentId) {
-    const wrap=el('form','reply-form');
-    const title=el('strong','', 'Responder à mensagem');
-    const author=el('p','muted','A resposta aparecerá com o nome cadastrado em Minha conta.');
-    const messageLabel=el('label','', 'Sua resposta');
-    const message=el('textarea');message.required=true;message.minLength=3;message.maxLength=600;message.placeholder='Escreva sua resposta...';
-    const actions=el('div','reply-actions');
-    const send=el('button','btn btn-primary','Enviar para análise');send.type='submit';
-    const cancel=el('button','btn btn-outline','Cancelar');cancel.type='button';cancel.addEventListener('click',()=>wrap.remove());
-    actions.append(send,cancel);
-    const status=el('p','reply-status');status.setAttribute('role','status');
-    wrap.append(title,author,messageLabel,message,actions,status);
-    wrap.addEventListener('submit',async event=>{
-      event.preventDefault();
-      if(!db||!user){status.textContent='Entre na sua conta antes de responder.';return;}
-      const n=memberDisplayName(),m=message.value.trim();
-      if(!n){status.textContent='Complete seu nome e sobrenome em Minha conta antes de responder.';return;}
-      if(m.length<3||m.length>600){status.textContent='Escreva uma resposta entre 3 e 600 caracteres.';return;}
-      send.disabled=true;
-      try{
-        const {error}=await db.from('comentarios').insert({nome:n,mensagem:m,parent_id:parentId,user_id:user.id});
-        if(error)throw error;
-        status.textContent='Resposta enviada! Será exibida somente após aprovação.';
-        message.value='';
-      }catch(err){status.textContent='Não foi possível enviar a resposta. Tente novamente.';}
-      finally{send.disabled=false;}
-    });
-    return wrap;
+
+  // Mural de bênçãos: mensagens independentes, sem respostas e com uma curtida por conta.
+  let minhasCurtidas=new Set();
+  const curtidasPendentes=new Set();
+  async function carregarMinhasCurtidas(){
+    minhasCurtidas=new Set();
+    if(!db||!user)return;
+    try{
+      const {data,error}=await db.from('mural_curtidas')
+        .select('comentario_id').eq('usuario_id',user.id).limit(1000);
+      if(error)throw error;
+      minhasCurtidas=new Set((data||[]).map(item=>Number(item.comentario_id)));
+    }catch(err){console.warn('Não foi possível carregar suas curtidas:',err.message);}
   }
-  function buildComment(comment, replies) {
-    const card = el('article', 'comment-item');
+  async function alternarCurtida(mensagem,button){
+    if(!user){
+      setText('comment-mode','Entre ou crie sua conta para curtir uma mensagem do mural.');
+      showDialog('login-dialog');return;
+    }
+    if(!db||curtidasPendentes.has(mensagem.id))return;
+    curtidasPendentes.add(mensagem.id);button.disabled=true;
+    try{
+      const jaCurtiu=minhasCurtidas.has(Number(mensagem.id));
+      const resposta=jaCurtiu
+        ? await db.from('mural_curtidas').delete().eq('comentario_id',mensagem.id).eq('usuario_id',user.id)
+        : await db.from('mural_curtidas').insert({comentario_id:mensagem.id,usuario_id:user.id});
+      if(resposta.error)throw resposta.error;
+      await loadComments();
+    }catch(err){
+      console.warn('Erro ao curtir mensagem:',err.message);
+      setText('comment-mode','Não foi possível registrar sua curtida. Confira sua conexão e tente novamente.');
+    }finally{curtidasPendentes.delete(mensagem.id);button.disabled=false;}
+  }
+  function buildComment(comment){
+    const card=el('article','comment-item');
     const head=el('div','comment-head');
     const person=el('div','comment-person');
-    const avatar=el('span','comment-avatar',initials(comment.nome)); avatar.setAttribute('aria-hidden','true');
-    const info=el('div'); info.append(el('strong','',comment.nome),el('small','',formatDate(comment.criado_em)));
-    person.append(avatar,info); head.append(person);
+    const avatar=el('span','comment-avatar',initials(comment.nome));avatar.setAttribute('aria-hidden','true');
+    const info=el('div');info.append(el('strong','',comment.nome),el('small','',formatDate(comment.criado_em)));
+    person.append(avatar,info);head.append(person);
     card.append(head,el('p','comment-message',comment.mensagem));
-    if(replies.length){
-      const sub=el('div','comment-replies');
-      for(const reply of replies){
-        const item=el('div','comment-reply');
-        const h=el('div','comment-person');
-        const avatar2=el('span','comment-avatar',initials(reply.nome)); avatar2.setAttribute('aria-hidden','true');
-        const who=el('div'); who.append(el('strong','',reply.nome),el('small','',formatDate(reply.criado_em)));
-        h.append(avatar2,who);item.append(h,el('p','comment-message',reply.mensagem));sub.append(item);
-      }
-      card.append(sub);
-    }
-    const replyBtn=el('button','reply-button','↳ Responder'); replyBtn.type='button';
-    replyBtn.addEventListener('click',()=>{
-      if(!user){setStatus('comment-mode','Entre ou crie sua conta para responder.');showDialog('login-dialog');return;}
-      const existing=card.querySelector('.reply-form');
-      if(existing){existing.remove();return;}
-      const form=makeReplyForm(comment.id);card.append(form);form.querySelector('textarea').focus();
-    });
-    card.append(replyBtn);
+    const likes=Math.max(0,Number(comment.curtidas)||0);
+    const liked=minhasCurtidas.has(Number(comment.id));
+    const actions=el('div','mural-message-actions');
+    const button=el('button',liked?'mural-like-button liked':'mural-like-button',liked?'♥ Curtido':'♡ Curtir');
+    button.type='button';
+    button.setAttribute('aria-pressed',String(liked));
+    button.setAttribute('aria-label',(liked?'Retirar curtida da':'Curtir a')+' mensagem de '+comment.nome);
+    button.title=user?'Você pode curtir ou retirar sua curtida.':'Entre na sua conta para curtir.';
+    button.addEventListener('click',()=>alternarCurtida(comment,button));
+    const count=el('span','mural-like-count',likes+' '+(likes===1?'curtida':'curtidas'));
+    actions.append(button,count);card.append(actions);
     return card;
   }
-  function renderComments(comments) {
-    const list = $('comments-list'); if(!list)return; list.replaceChildren();
-    const approved=comments.filter(row=>row.status==='aprovado');
-    const roots=approved.filter(row=>!row.parent_id);
-    setText('comment-count', `${approved.length} ${approved.length===1?'mensagem':'mensagens'}`);
-    if (!roots.length) {
+  function renderComments(comments){
+    const list=$('comments-list');if(!list)return;list.replaceChildren();
+    const approved=comments.filter(row=>row.status==='aprovado'&&!row.parent_id);
+    setText('comment-count',approved.length+' '+(approved.length===1?'mensagem':'mensagens'));
+    if(!approved.length){
       const empty=el('div','comment-empty');
-      empty.append(el('span','','♡'),el('strong','','O mural está esperando você.'),el('p','','Deixe uma mensagem: ela aparecerá após a aprovação da igreja.'));
+      empty.append(el('span','','♡'),el('strong','','O mural está esperando sua palavra.'),el('p','','Deixe um testemunho ou uma bênção: ele aparecerá após a aprovação da igreja.'));
       list.append(empty);return;
     }
-    for (const comment of roots){
-      list.append(buildComment(comment,approved.filter(reply=>reply.parent_id===comment.id)));
-    }
+    for(const comment of approved)list.append(buildComment(comment));
   }
 
   let faithMessageRows=[],faithLastId=null,faithTimer=null,faithQueue=[],faithKey='';
@@ -896,12 +889,13 @@
     refreshingComments=true;
     try {
       const { data: rows, error }=await db.from('comentarios')
-        .select('id,nome,mensagem,criado_em,parent_id,status')
-        .eq('status','aprovado').order('criado_em',{ascending:false}).limit(250);
+        .select('id,nome,mensagem,criado_em,parent_id,status,curtidas')
+        .eq('status','aprovado').is('parent_id',null).order('criado_em',{ascending:false}).limit(250);
       if(error)throw error;
+      if($('comments-list'))await carregarMinhasCurtidas();
       renderComments(rows||[]);
       updateFaithMessages(rows||[]);
-      setText('comment-mode','Compartilhe mensagens, testemunhos e palavras de carinho com a comunidade.');
+      setText('comment-mode','Compartilhe testemunhos e palavras de bênção. As mensagens são aprovadas antes de aparecer no mural.');
     } catch(err){
       setText('comment-mode','Não foi possível carregar o mural. Confira a conexão e as regras de acesso.');
       console.warn('Falha no mural:',err.message);
@@ -981,49 +975,76 @@
       refreshAdminLinks();
     }catch(err){console.warn('Não foi possível conferir acesso da moderação:',err.message);}
   }
-  async function loadModeration() {
+
+  async function loadModeration(){
     if(!db||!user||!isMuralModerator||!$('moderation-list'))return;
-    const list=$('moderation-list');list.replaceChildren();
-    setStatus('moderation-status','Carregando mensagens pendentes...');
-    try {
+    const pendingList=$('moderation-list'),publishedList=$('moderation-approved-list');
+    pendingList.replaceChildren();publishedList?.replaceChildren();
+    setStatus('moderation-status','Carregando mensagens do mural...');
+    try{
       const {data:rows,error}=await db.from('comentarios')
-        .select('id,nome,mensagem,criado_em,parent_id,status').eq('status','pendente')
-        .order('criado_em',{ascending:true}).limit(200);
+        .select('id,nome,mensagem,criado_em,status,curtidas')
+        .in('status',['pendente','aprovado'])
+        .is('parent_id',null).order('criado_em',{ascending:false}).limit(400);
       if(error)throw error;
-      const parentIds=[...new Set(rows.filter(v=>v.parent_id).map(v=>v.parent_id))];
-      const parentMap=new Map();
-      if(parentIds.length){
-        const {data:parents,error:parentError}=await db.from('comentarios').select('id,nome,mensagem').in('id',parentIds);
-        if(parentError)throw parentError;
-        for(const parent of parents||[])parentMap.set(parent.id,parent);
-      }
-      setText('moderation-total',`${rows.length} ${rows.length===1?'mensagem pendente':'mensagens pendentes'}`);
-      setStatus('moderation-status', rows.length?'Analise o conteúdo antes de escolher uma ação.':'Nenhuma mensagem aguardando análise.');
-      for(const item of rows){
+      const pending=(rows||[]).filter(item=>item.status==='pendente');
+      const published=(rows||[]).filter(item=>item.status==='aprovado');
+      setText('moderation-total',pending.length+' '+(pending.length===1?'mensagem pendente':'mensagens pendentes'));
+      setStatus('moderation-status',pending.length+' pendente(s) · '+published.length+' publicada(s).');
+      if(!pending.length)pendingList.append(el('p','muted','Nenhuma mensagem aguardando aprovação.'));
+      for(const item of pending){
         const box=el('article','moderation-item');
-        box.append(el('h3','',`${item.parent_id?'↳ Resposta':'Comentário'} de ${item.nome}`), el('small','',formatDate(item.criado_em)),el('p','',item.mensagem));
-        if(item.parent_id){
-          const p=parentMap.get(item.parent_id);
-          box.append(el('small','',p ? `Em resposta a ${p.nome}: ${p.mensagem.slice(0,120)}${p.mensagem.length>120?'…':''}` : `Resposta ao comentário nº ${item.parent_id}`));
-        }
+        box.append(el('h3','',item.nome),el('small','',formatDate(item.criado_em)),el('p','',item.mensagem));
         const acts=el('div','moderation-actions');
         const approve=el('button','btn btn-primary','Aprovar e publicar');approve.type='button';
         const reject=el('button','btn moderation-reject','Rejeitar');reject.type='button';
-        const decide=async (status)=>{
+        const decide=async status=>{
           approve.disabled=reject.disabled=true;
           try{
-            const {error:err}=await db.from('comentarios').update({status}).eq('id',item.id);
-            if(err)throw err;
-            box.remove();
-            setStatus('moderation-status',status==='aprovado'?'Mensagem aprovada.':'Mensagem rejeitada.');
+            const {data,error:err}=await db.from('comentarios').update({status})
+              .eq('id',item.id).select('id').maybeSingle();
+            if(err||!data)throw err||new Error('Permissão insuficiente ou mensagem não encontrada.');
             await Promise.all([loadComments(),loadModeration()]);
-          }catch(err){setStatus('moderation-status','Não foi possível moderar: verifique as permissões.',true);approve.disabled=reject.disabled=false;}
+          }catch(err){
+            console.warn('Falha ao moderar:',err.message);
+            setStatus('moderation-status','Não foi possível moderar a mensagem. Confira suas permissões.',true);
+            approve.disabled=reject.disabled=false;
+          }
         };
         approve.addEventListener('click',()=>decide('aprovado'));
         reject.addEventListener('click',()=>decide('rejeitado'));
-        acts.append(approve,reject);box.append(acts);list.append(box);
+        acts.append(approve,reject);box.append(acts);pendingList.append(box);
       }
-    }catch(err){setStatus('moderation-status','Falha ao carregar a fila. Acesse com uma conta administradora.',true);}
+      if(publishedList){
+        if(!published.length)publishedList.append(el('p','muted','Ainda não há mensagens publicadas.'));
+        for(const item of published){
+          const box=el('article','moderation-item');
+          const count=Math.max(0,Number(item.curtidas)||0);
+          box.append(el('h3','',item.nome),el('small','',formatDate(item.criado_em)+' · '+count+' '+(count===1?'curtida':'curtidas')),el('p','',item.mensagem));
+          const acts=el('div','moderation-actions');
+          const remove=el('button','btn moderation-reject','Excluir mensagem');remove.type='button';
+          remove.setAttribute('aria-label','Excluir permanentemente mensagem de '+item.nome);
+          remove.addEventListener('click',async()=>{
+            if(!window.confirm('Excluir permanentemente a mensagem de '+item.nome+'? Ela sairá do mural e da página inicial. Esta ação não pode ser desfeita.'))return;
+            remove.disabled=true;
+            try{
+              const {data,error:err}=await db.from('comentarios').delete()
+                .eq('id',item.id).select('id').maybeSingle();
+              if(err||!data)throw err||new Error('A exclusão não foi autorizada.');
+              await Promise.all([loadComments(),loadModeration()]);
+            }catch(err){
+              console.warn('Falha ao excluir mensagem:',err.message);
+              setStatus('moderation-status','Não foi possível excluir a mensagem. Confira suas permissões.',true);
+              remove.disabled=false;
+            }
+          });
+          acts.append(remove);box.append(acts);publishedList.append(box);
+        }
+      }
+    }catch(err){
+      console.warn('Erro ao consultar a moderação:',err.message);
+      setStatus('moderation-status','Falha ao carregar as mensagens. Acesse com uma conta administradora.',true);
+    }
   }
   function initModeration() {
     const open=$('open-moderation');
@@ -1082,7 +1103,7 @@
         user = session?.user || null;
         updateAuthUI();
         // Atualização fora do callback de autenticação para evitar reentrância.
-        window.setTimeout(updateAdminAccess, 0);
+        window.setTimeout(()=>{void updateAdminAccess();void loadComments();},0);
       });
       await loadComments();
       await loadPublishedCifras();

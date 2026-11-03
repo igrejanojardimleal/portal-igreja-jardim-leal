@@ -80,14 +80,6 @@ body{padding-bottom:6px}
 .youtube-empty{grid-column:1/-1;border:1px dashed #e3cdbd;background:#fff;border-radius:20px;padding:38px 20px;text-align:center;color:#69616e}
 .youtube-empty h3{font-size:18px;margin:0 0 10px}.youtube-empty p{max-width:500px;margin:0 auto 20px;font-size:13px;line-height:1.7}
 .youtube-empty a{display:inline-flex}
-/* Respostas sempre submetidas à aprovação */
-.comment-replies{padding:0 0 0 20px;margin-top:18px;border-left:2px solid #f0dfd2;display:flex;flex-direction:column;gap:10px}
-.comment-reply{background:#fff;border:1px solid #ece9e5;border-radius:10px;padding:13px}
-.reply-button{border:1px solid #e6d9cc;border-radius:8px;padding:8px 11px;background:#fff;color:#98694f;font-size:11px;font-weight:800;margin-top:13px;cursor:pointer}
-.reply-form{margin-top:12px;background:#fff;border:1px solid #e9e0d9;padding:14px;border-radius:12px}
-.reply-form label{font-size:11px}.reply-form input,.reply-form textarea{margin-bottom:10px}.reply-form textarea{min-height:75px}
-.reply-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.reply-actions button{min-height:34px;font-size:11px}
-.reply-status{margin:7px 0;font-size:11px;color:#537b59}
 .moderation-dialog{width:min(760px,calc(100% - 28px))}.moderation-dialog .modal-inner{max-height:88vh;overflow-y:auto}
 .moderation-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:15px 0;font-size:12px;font-weight:800}
 .moderation-list{display:flex;flex-direction:column;gap:12px}
@@ -1289,3 +1281,22 @@ body[data-page="louvores"] .songs-panel{
  #song-dialog.modo-culto #song-dialog-content.is-chords.mobile-cifra{position:relative;z-index:auto;flex:1 1 auto;min-height:110px;max-height:none;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain;padding:10px 2px 18px}
  #song-dialog:not(.modo-culto) #song-dialog-content.is-chords.mobile-cifra{max-height:min(55dvh,560px);overflow-y:auto!important;overscroll-behavior:contain}
 }
+
+
+/* IGJAL — mural de bênçãos: leitura acolhedora e curtidas sem respostas. */
+.comment-item{padding:20px;border-radius:16px;background:#fffefa;border-color:#e3e9e5}
+.comment-person strong{font-size:15px;line-height:1.5;color:#173c58}
+.comment-person small{font-size:12px;color:#607083}
+.comment-message{font-size:15px;line-height:1.75;color:#344a5b;margin-top:14px}
+.mural-message-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:16px}
+.mural-like-button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:9px 18px;border:1px solid #abd0b9;border-radius:100px;background:#e9f5ed;color:#215b3e;font:700 14px/1.35 Manrope,Arial,sans-serif;cursor:pointer;transition:background-color .2s,border-color .2s}
+.mural-like-button:hover{background:#d7eedf;border-color:#67a77e}
+.mural-like-button.liked{background:#d4ecdd;border-color:#72ac86;color:#145634}
+.mural-like-button:focus-visible{outline:3px solid #2e6b9e;outline-offset:3px}
+.mural-like-button:disabled{opacity:.6;cursor:wait}
+.mural-like-count{font-size:13px;font-weight:600;color:#5d6c76}
+.moderation-published{margin-top:34px;padding-top:20px;border-top:2px solid #e4ece6}
+.moderation-published>.muted{font-size:14px;line-height:1.65;margin-bottom:18px}
+.moderation-published .moderation-item{background:#fff}
+.moderation-published .moderation-reject{font-size:13px;min-height:44px;padding:9px 16px}
+@media (prefers-reduced-motion:reduce){.mural-like-button{transition:none}}
