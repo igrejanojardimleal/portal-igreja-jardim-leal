@@ -526,6 +526,7 @@
       tab.setAttribute('aria-pressed', String(active));
     }
     window.IGREJA_V4?.onSongRendered?.(selectedSong);
+    window.IGREJA_COMUNIDADE?.songChanged?.(selectedSong);
   }
 
   function showDialog(id) {
@@ -575,22 +576,15 @@
     wrap.append(title,nameLabel,name,messageLabel,message,actions,status);
     wrap.addEventListener('submit',async(event)=>{
       event.preventDefault();
+      if(!db||!user){status.textContent='Entre na sua conta antes de responder.';return;}
       const n=name.value.trim().replace(/\s+/g,' ');
       const m=message.value.trim();
       if(n.length<2||n.length>60||m.length<3||m.length>600){ status.textContent='Confira o nome (2–60) e a resposta (3–600 caracteres).'; return; }
       send.disabled=true;
       try {
-        if(db) {
-          const payload={nome:n,mensagem:m,parent_id:parentId};
-          if(user?.id)payload.user_id=user.id;
-          const {error}=await db.from('comentarios').insert(payload);
-          if(error)throw error;
-          status.textContent='Resposta enviada! Será exibida somente após a aprovação da igreja.';
-        } else {
-          const items=readLocalComments();
-          if(!writeLocalComments([{id:Date.now(),nome:n,mensagem:m,parent_id:parentId,status:'pendente',criado_em:new Date().toISOString()},...items])) throw new Error('Armazenamento bloqueado');
-          status.textContent='Resposta guardada como teste neste navegador, aguardando integração da moderação.';
-        }
+        const {error}=await db.from('comentarios').insert({nome:n,mensagem:m,parent_id:parentId,user_id:user.id});
+        if(error)throw error;
+        status.textContent='Resposta enviada! Será exibida somente após aprovação.';
         name.value='';message.value='';
       }catch(err){status.textContent='Não foi possível enviar a resposta. Tente novamente.';}
       finally{send.disabled=false;}
@@ -618,6 +612,7 @@
     }
     const replyBtn=el('button','reply-button','↳ Responder'); replyBtn.type='button';
     replyBtn.addEventListener('click',()=>{
+      if(!user){setStatus('comment-mode','Entre ou crie sua conta para responder.');showDialog('login-dialog');return;}
       const existing=card.querySelector('.reply-form');
       if(existing){existing.remove();return;}
       const form=makeReplyForm(comment.id);card.append(form);form.querySelector('input').focus();
@@ -662,26 +657,38 @@
     $('comment-message').addEventListener('input',()=>setText('comment-counter',$('comment-message').value.length));
     $('comment-form').addEventListener('submit',async(event)=>{
       event.preventDefault();
+      if(!db||!user){setStatus('comment-status','Entre ou crie sua conta para publicar uma mensagem no mural.',true);return;}
       const name=$('comment-name').value.trim().replace(/\s+/g,' ');
       const message=$('comment-message').value.trim();
       if(name.length<2||name.length>60){setStatus('comment-status','Informe um nome entre 2 e 60 caracteres.',true);return;}
       if(message.length<3||message.length>600){setStatus('comment-status','Escreva uma mensagem entre 3 e 600 caracteres.',true);return;}
       const button=$('send-comment');button.disabled=true;setStatus('comment-status','Enviando para análise...');
       try{
-        if(db){
-          const payload={nome:name,mensagem:message};
-          if(user?.id)payload.user_id=user.id;
-          const {error}=await db.from('comentarios').insert(payload);
-          if(error)throw error;
-          setStatus('comment-status','Mensagem recebida! Agora aguarda aprovação dos administradores. Ainda não está publicada.');
-        }else{
-          if(!writeLocalComments([{id:Date.now(),nome:name,mensagem:message,status:'pendente',criado_em:new Date().toISOString()},...readLocalComments()]))throw new Error('Armazenamento bloqueado');
-          setStatus('comment-status','Teste salvo neste navegador como PENDENTE. Para revisão real por administradores, a igreja precisará conectar o banco de dados.');
-        }
+        const payload={nome:name,mensagem:message,user_id:user.id};
+        const {error}=await db.from('comentarios').insert(payload);
+        if(error)throw error;
+        setStatus('comment-status','Mensagem recebida! A publicação depende da aprovação dos moderadores.');
         $('comment-message').value='';setText('comment-counter',0);
       }catch(err){console.warn('Falha ao enviar:',err.message);setStatus('comment-status','Não foi possível enviar. Verifique sua conexão e tente novamente.',true);}
       finally{button.disabled=false;}
     });
+  }
+  function refreshAdminLinks() {
+    const allowed=Boolean(user && (isAdmin||isEventManager||isMuralModerator));
+    for(const nav of document.querySelectorAll('.desktop-nav,.mobile-nav')){
+      let link=nav.querySelector('[data-administracao-link]');
+      if(!link){
+        link=document.createElement('a');
+        link.href='administracao.html';link.textContent='🛡 Administração';
+        link.className=nav.classList.contains('desktop-nav')?'nav-link':'';
+        link.dataset.administracaoLink='true';
+        nav.append(link);
+      }
+      link.hidden=!allowed;
+    }
+    window.IGREJA_MEMBROS?.refresh?.();
+    window.IGREJA_ACESSOS?.show?.();
+    window.IGREJA_COMUNIDADE?.onAuthChange?.();
   }
   async function updateAdminAccess() {
     isAdmin=false;
@@ -692,6 +699,7 @@
       window.IGREJA_V4?.onAuthChange?.();
       window.IGREJA_CELEBRACOES?.onAuthChange?.();
       updateAdminPanelAccess();
+      refreshAdminLinks();
       if($('moderation-list'))$('moderation-list').replaceChildren();
       if($('cifra-admin-list'))$('cifra-admin-list').replaceChildren();
       return;
@@ -707,6 +715,7 @@
       $('open-moderation').hidden=!(isAdmin||isEventManager||isMuralModerator);
       if($('open-moderation'))$('open-moderation').textContent=isAdmin?'🛡️ Administração geral':isEventManager?'📅 Gerenciar eventos':'💬 Moderar mural';
       updateAdminPanelAccess();
+      refreshAdminLinks();
     }catch(err){console.warn('Não foi possível conferir acesso da moderação:',err.message);}
   }
   async function loadModeration() {
@@ -755,7 +764,7 @@
   }
   function initModeration() {
     const open=$('open-moderation');
-    if(open)open.addEventListener('click',()=>{if(isAdmin||isEventManager)location.href='administracao.html';});
+    if(open)open.addEventListener('click',()=>{if(isAdmin||isEventManager||isMuralModerator)location.href='administracao.html';});
     $('reload-moderation')?.addEventListener('click',loadModeration);
     $('reload-cifras')?.addEventListener('click',loadCifraModeration);
     $('admin-login-action')?.addEventListener('click',()=>showDialog('login-dialog'));
@@ -774,8 +783,11 @@
     $('logged-out-panel').hidden = Boolean(user);
     setText('login-button-text', user ? 'Minha conta' : 'Entrar');
     if (user) {
-      setText('logged-in-user', `Você está conectado como ${user.email || 'membro da igreja'}. O login não é necessário para comentar.`);
+      setText('logged-in-user', `Conectado como ${user.email || 'membro da igreja'}. Você pode participar do mural, enviar cifras e comentar nos hinos.`);
     }
+    const send=$('send-comment');if(send)send.disabled=!user;
+    window.IGREJA_MEMBROS?.refresh?.();
+    window.IGREJA_COMUNIDADE?.onAuthChange?.();
   }
   async function initBackend() {
     const url = String(config.supabase?.url || '').trim();
@@ -795,7 +807,7 @@
       db = window.supabase.createClient(url, anonKey, {
         auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true }
       });
-      setText('login-mode-note', 'Entre com Google ou receba um link de acesso por e-mail. Sua participação no mural continua livre sem login.');
+      setText('login-mode-note', 'Para comentar no mural ou nos hinos, entre ou crie sua conta com e-mail confirmado.');
       const { data: sessionData } = await db.auth.getSession();
       user = sessionData.session?.user || null;
       updateAuthUI();
@@ -994,9 +1006,12 @@
     initDialogs();
     initComments();
     initLogin();
+    window.IGREJA_MEMBROS?.init?.({db:()=>db,user:()=>user,isAdmin:()=>isAdmin,isEventManager:()=>isEventManager,isMuralModerator:()=>isMuralModerator});
     initModeration();
     initCifraSubmission();
     await initBackend();
+    window.IGREJA_COMUNIDADE?.init?.({db:()=>db,user:()=>user,canModerate:()=>isAdmin||isMuralModerator,selectedSong:()=>selectedSong});
+    window.IGREJA_ACESSOS?.init?.({db:()=>db,isAdmin:()=>isAdmin});
     if (window.IGREJA_V4?.init) await window.IGREJA_V4.init({
       db:()=>db,
       isAdmin:()=>isAdmin,
