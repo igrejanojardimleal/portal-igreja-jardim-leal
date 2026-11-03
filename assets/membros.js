@@ -36,7 +36,7 @@ window.IGREJA_MEMBROS = (() => {
   function refresh(){
     const user=context?.user?.();
     const link=$('member-admin-link');
-    if(link)link.hidden=!user||!(context?.isAdmin?.()||context?.isEventManager?.()||context?.isMuralModerator?.()||context?.isStudyReviewer?.());
+    if(link)link.hidden=!user||!(context?.hasPanelAccess?.()||context?.isAdmin?.()||context?.isEventManager?.()||context?.isMuralModerator?.()||context?.isStudyReviewer?.());
     const teacherLink=$('member-study-link');if(teacherLink)teacherLink.hidden=!user||!context?.isStudyTeacher?.();
     const form=$('member-password-change');
     if(form)form.hidden=!user;
