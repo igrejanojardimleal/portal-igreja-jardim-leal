@@ -1005,3 +1005,39 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   .desktop-nav{gap:clamp(7px,.85vw,12px);min-width:0}
   .desktop-nav .nav-link{font-size:11.3px;white-space:nowrap}
 }
+
+/* Aniversariantes por identificação e Minha Conta compacta — 2026-11 */
+/* Rosa e azul prevalecem sobre a separação por batismo/ministerial. */
+.celebrations-public .igjal-name-celebrate.igjal-name-feminino,
+.home-celebrations-compact .igjal-name-celebrate.igjal-name-feminino{color:#a92f77!important}
+.celebrations-public .igjal-name-celebrate.igjal-name-masculino,
+.home-celebrations-compact .igjal-name-celebrate.igjal-name-masculino{color:#1d5ca3!important}
+.celebrations-public .igjal-name-celebrate.igjal-name-neutro,
+.home-celebrations-compact .igjal-name-celebrate.igjal-name-neutro{color:#415569!important}
+.celebrations-public .igjal-name-celebrate.igjal-name-feminino:hover,
+.home-celebrations-compact .igjal-name-celebrate.igjal-name-feminino:hover{background:#ffedf6;text-decoration-color:#d579b0}
+.celebrations-public .igjal-name-celebrate.igjal-name-masculino:hover,
+.home-celebrations-compact .igjal-name-celebrate.igjal-name-masculino:hover{background:#ecf4ff;text-decoration-color:#76a5df}
+.celebrations-public .igjal-name-celebrate.igjal-name-neutro:hover,
+.home-celebrations-compact .igjal-name-celebrate.igjal-name-neutro:hover{background:#edf0f5;text-decoration-color:#a3b1bf}
+
+/* Minha Conta com atalhos principais e dados pessoais dentro de "Cadastro". */
+#logged-in-panel{display:flex;flex-direction:column;align-items:stretch;gap:12px}
+#logged-in-panel[hidden]{display:none!important}
+#logged-in-user{margin:0 0 8px;color:#24496b;font-weight:700;line-height:1.6}
+#logged-in-panel>a.btn,#logged-in-panel>button.btn{width:100%;box-sizing:border-box;text-align:center;justify-content:center}
+.member-registration-details{margin:3px 0 8px;border:1px solid #d8e4e4;border-radius:16px;background:linear-gradient(140deg,#f8fbfa,#fff);overflow:hidden}
+.member-registration-details[hidden]{display:none!important}
+.member-registration-summary{list-style:none;display:flex;align-items:center;gap:13px;padding:17px 18px;cursor:pointer;color:#1d4766}
+.member-registration-summary::-webkit-details-marker{display:none}
+.member-registration-summary:focus-visible{outline:3px solid #5f9ab2;outline-offset:-3px}
+.member-registration-icon{font-size:23px;flex-shrink:0}
+.member-registration-summary>span:nth-child(2){display:flex;flex-direction:column;flex:1;gap:4px}
+.member-registration-summary strong{font-size:16px;font-weight:800}
+.member-registration-summary small{font-size:12px;color:#6a7c82}
+.member-registration-arrow{font-size:24px;transition:transform .18s ease}
+.member-registration-details[open] .member-registration-arrow{transform:rotate(180deg)}
+.member-registration-content{padding:0 17px 18px;border-top:1px solid #e5eceb}
+.member-registration-content .member-change-password{margin-top:17px;padding-top:0}
+.member-registration-content .member-change-password+.member-change-password{border-top:1px solid #e4eded;padding-top:18px}
+@media(prefers-reduced-motion:reduce){.member-registration-arrow{transition:none}}
