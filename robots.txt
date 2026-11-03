@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /portal-igreja-jardim-leal/
+
+Sitemap: https://igrejanojardimleal.github.io/portal-igreja-jardim-leal/sitemap.xml
