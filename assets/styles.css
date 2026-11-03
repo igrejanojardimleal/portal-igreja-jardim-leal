@@ -435,3 +435,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 #library-public-section #library-search{width:min(100%,460px);min-height:45px;padding:10px 15px;border:1px solid var(--line);border-radius:10px;margin:10px 0 20px}
 @media(max-width:1180px){.desktop-nav{display:none}.menu-button{display:flex}}
 @media(max-width:650px){.study-teacher-panel,.study-review-panel{padding:15px}.igjal-faith-message{margin:20px 0 0;padding:15px}.igjal-faith-message blockquote{font-size:15px}.hinario-actions{max-width:none}}
+
+/* Leitura de textos bíblicos longos: manter parágrafos e separação de linhas. */
+#library-dialog-full p{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8}
+#library-dialog-category{font-weight:650;color:#356a57}
+.study-review-panel [data-study-field="corpo"]{min-height:250px}
+.study-teacher-panel #study-send-body{min-height:300px}
