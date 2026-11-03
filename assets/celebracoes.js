@@ -79,32 +79,57 @@ window.IGREJA_CELEBRACOES = (() => {
     const selected=monthSelected();
     const label=$('celebracoes-mes-nome');
     if(label)label.textContent=nameOfMonth(selected);
-    const published=rows.filter(item=>item.publicado===true && Number(item.mes)===selected);
+    const published=rows.filter(item=>item.publicado===true&&Number(item.mes)===selected);
     const born=published.filter(item=>item.tipo==='aniversario');
-    const baptism=published.filter(item=>item.tipo==='batismo');
+    const ministry=published.filter(item=>item.tipo!=='aniversario');
     groupByDay(born,$('celebracoes-nascimento'),'Nenhum aniversário de nascimento cadastrado neste mês.');
-    groupByDay(baptism,$('celebracoes-batismo'),'Nenhum aniversário de batismo cadastrado neste mês.');
+    groupByDay(ministry,$('celebracoes-batismo'),'Nenhum aniversário de batismo ou data ministerial cadastrado neste mês.');
     const total=$('celebracoes-resumo');
-    if(total)total.textContent=born.length+' aniversariante(s) de nascimento • '+baptism.length+' de batismo em '+nameOfMonth(selected)+'.';
+    if(total)total.textContent=born.length+' aniversariante(s) • '+ministry.length+
+      ' data(s) de batismo e ministério em '+nameOfMonth(selected)+'.';
   }
   function renderHome(){
-    const host=$('home-celebrations');if(!host)return;
-    host.replaceChildren();
+    const host=$('home-celebrations');
+    if(!host)return;
     const month=new Date().getMonth()+1;
-    const items=rows.filter(item=>item.publicado===true && Number(item.mes)===month
-      && ['aniversario','batismo'].includes(item.tipo)).sort(sortDates);
-    const count=$('home-celebrations-count');
-    if(count)count.textContent=items.length?'Confira '+items.length+' comemoração(ões) neste mês.':'Ainda não há aniversários publicados neste mês.';
-    if(!items.length){host.append(el('p','muted','Nenhum aniversário cadastrado para este mês.'));return;}
-    for(const item of items.slice(0,8)){
-      const card=el('article','home-celebration-item');
-      const date=el('strong','home-celebration-date',numDay(item.dia));
-      const copy=el('div','');
-      copy.append(el('strong','',item.nome),
-        el('small','',item.tipo==='batismo'?'Aniversário de batismo'+(item.ano_referencia?' • '+item.ano_referencia:''):'Aniversário de nascimento'));
-      card.append(date,copy);host.append(card);
+    const selectedName=$('home-celebrations-month');
+    if(selectedName)selectedName.textContent=nameOfMonth(month).toLowerCase();
+    const published=rows.filter(item=>item.publicado===true && Number(item.mes)===month);
+    const birthdays=published.filter(item=>item.tipo==='aniversario').sort(sortDates);
+    const ministry=published.filter(item=>item.tipo!=='aniversario').sort(sortDates);
+    const limit=4;
+    function renderMiniList(items,targetId,emptyText){
+      const target=$(targetId);
+      if(!target)return;
+      target.replaceChildren();
+      if(!items.length){
+        target.append(el('p','home-celebration-empty',emptyText));
+        return;
+      }
+      for(const item of items.slice(0,limit)){
+        const row=el('div','home-celebration-line');
+        const date=el('time','home-celebration-mini-date',numDay(item.dia));
+        date.setAttribute('datetime','2024-'+String(item.mes).padStart(2,'0')+'-'+numDay(item.dia));
+        const copy=el('span','home-celebration-mini-info');
+        copy.append(el('strong','',item.nome));
+        if(item.tipo!=='aniversario'){
+          let detail=kinds[item.tipo]||'Data ministerial';
+          if(item.tipo==='batismo'&&item.ano_referencia)detail+=' • '+item.ano_referencia;
+          copy.append(el('small','',detail));
+        }
+        row.append(date,copy);
+        target.append(row);
+      }
+      if(items.length>limit){
+        const more=el('a','home-celebrations-more','+'+(items.length-limit)+' data(s) na agenda');
+        more.href='agenda.html#celebracoes-titulo';
+        target.append(more);
+      }
     }
-    if(items.length>8)host.append(el('p','muted','Veja todas as datas do mês na página Agenda e Avisos.'));
+    renderMiniList(birthdays,'home-celebrations-birthdays','Nenhum aniversariante neste mês.');
+    renderMiniList(ministry,'home-celebrations-ministry','Nenhum batismo ou chamado neste mês.');
+    const count=$('home-celebrations-count');
+    if(count)count.textContent=birthdays.length+' aniversário(s) pessoais • '+ministry.length+' data(s) de batismo ou ministério.';
   }
   async function load(){
     const db=ctx?.db?.();if(!db)return null;
