@@ -22,6 +22,7 @@
   let isAdmin = false;
   let isEventManager = false;
   let isMuralModerator = false;
+  let isStudyTeacher = false;
   let youtubeVideos = [];
   let youtubeShown = 12;
   let youtubeFilter = 'todos';
@@ -561,31 +562,33 @@
     if (Number.isNaN(date.getTime())) return 'Agora';
     return new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).format(date);
   }
+  function memberDisplayName() {
+    return window.IGREJA_MEMBROS?.displayName?.(user) || '';
+  }
   function makeReplyForm(parentId) {
-    const wrap = el('form','reply-form');
-    const title = el('strong','', 'Responder à mensagem');
-    const nameLabel = el('label','', 'Seu nome');
-    const name = el('input'); name.type='text'; name.required=true; name.minLength=2; name.maxLength=60; name.placeholder='Seu nome';
-    const messageLabel = el('label','', 'Sua resposta');
-    const message = el('textarea'); message.required=true; message.minLength=3; message.maxLength=600; message.placeholder='Escreva sua resposta...';
-    const actions = el('div','reply-actions');
-    const send = el('button','btn btn-primary','Enviar para análise'); send.type='submit';
-    const cancel = el('button','btn btn-outline','Cancelar'); cancel.type='button'; cancel.addEventListener('click', () => wrap.remove());
+    const wrap=el('form','reply-form');
+    const title=el('strong','', 'Responder à mensagem');
+    const author=el('p','muted','A resposta aparecerá com o nome cadastrado em Minha conta.');
+    const messageLabel=el('label','', 'Sua resposta');
+    const message=el('textarea');message.required=true;message.minLength=3;message.maxLength=600;message.placeholder='Escreva sua resposta...';
+    const actions=el('div','reply-actions');
+    const send=el('button','btn btn-primary','Enviar para análise');send.type='submit';
+    const cancel=el('button','btn btn-outline','Cancelar');cancel.type='button';cancel.addEventListener('click',()=>wrap.remove());
     actions.append(send,cancel);
-    const status=el('p','reply-status'); status.setAttribute('role','status');
-    wrap.append(title,nameLabel,name,messageLabel,message,actions,status);
-    wrap.addEventListener('submit',async(event)=>{
+    const status=el('p','reply-status');status.setAttribute('role','status');
+    wrap.append(title,author,messageLabel,message,actions,status);
+    wrap.addEventListener('submit',async event=>{
       event.preventDefault();
       if(!db||!user){status.textContent='Entre na sua conta antes de responder.';return;}
-      const n=name.value.trim().replace(/\s+/g,' ');
-      const m=message.value.trim();
-      if(n.length<2||n.length>60||m.length<3||m.length>600){ status.textContent='Confira o nome (2–60) e a resposta (3–600 caracteres).'; return; }
+      const n=memberDisplayName(),m=message.value.trim();
+      if(!n){status.textContent='Complete seu nome e sobrenome em Minha conta antes de responder.';return;}
+      if(m.length<3||m.length>600){status.textContent='Escreva uma resposta entre 3 e 600 caracteres.';return;}
       send.disabled=true;
-      try {
+      try{
         const {error}=await db.from('comentarios').insert({nome:n,mensagem:m,parent_id:parentId,user_id:user.id});
         if(error)throw error;
         status.textContent='Resposta enviada! Será exibida somente após aprovação.';
-        name.value='';message.value='';
+        message.value='';
       }catch(err){status.textContent='Não foi possível enviar a resposta. Tente novamente.';}
       finally{send.disabled=false;}
     });
@@ -615,7 +618,7 @@
       if(!user){setStatus('comment-mode','Entre ou crie sua conta para responder.');showDialog('login-dialog');return;}
       const existing=card.querySelector('.reply-form');
       if(existing){existing.remove();return;}
-      const form=makeReplyForm(comment.id);card.append(form);form.querySelector('input').focus();
+      const form=makeReplyForm(comment.id);card.append(form);form.querySelector('textarea').focus();
     });
     card.append(replyBtn);
     return card;
@@ -624,7 +627,7 @@
     const list = $('comments-list'); if(!list)return; list.replaceChildren();
     const approved=comments.filter(row=>row.status==='aprovado');
     const roots=approved.filter(row=>!row.parent_id);
-    setText('comment-count', `${approved.length} ${approved.length===1?'mensagem aprovada':'mensagens aprovadas'}`);
+    setText('comment-count', `${approved.length} ${approved.length===1?'mensagem':'mensagens'}`);
     if (!roots.length) {
       const empty=el('div','comment-empty');
       empty.append(el('span','','♡'),el('strong','','O mural está esperando você.'),el('p','','Deixe uma mensagem: ela aparecerá após a aprovação da igreja.'));
@@ -634,8 +637,39 @@
       list.append(buildComment(comment,approved.filter(reply=>reply.parent_id===comment.id)));
     }
   }
+
+  let faithMessageRows=[],faithLastId=null,faithTimer=null,faithQueue=[],faithKey='';
+  function showNextFaithMessage(){
+    const host=$('home-faith-message');
+    if(!host||!faithMessageRows.length)return;
+    if(!faithQueue.length){
+      faithQueue=[...faithMessageRows];
+      for(let i=faithQueue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[faithQueue[i],faithQueue[j]]=[faithQueue[j],faithQueue[i]];}
+      if(faithQueue.length>1 && faithQueue[0].id===faithLastId){[faithQueue[0],faithQueue[1]]=[faithQueue[1],faithQueue[0]];}
+    }
+    const chosen=faithQueue.shift();
+    $('home-faith-text').textContent='“'+chosen.mensagem+'”';
+    $('home-faith-author').textContent=chosen.nome ? '— '+chosen.nome : '— Comunidade';
+    host.hidden=false;
+    faithLastId=chosen.id;
+    try{sessionStorage.setItem('igjal-ultima-palavra',String(chosen.id));}catch(_){}
+  }
+  function updateFaithMessages(rows){
+    const host=$('home-faith-message');if(!host)return;
+    const valid=(rows||[]).filter(x=>!x.parent_id && x.status==='aprovado' && typeof x.mensagem==='string' && x.mensagem.trim());
+    const key=valid.map(x=>x.id).join(',');
+    if(key===faithKey && faithTimer)return;
+    faithKey=key;faithMessageRows=valid;faithQueue=[];
+    if(faithTimer){clearInterval(faithTimer);faithTimer=null;}
+    if(!valid.length){host.hidden=true;return;}
+    try{faithLastId=Number(sessionStorage.getItem('igjal-ultima-palavra'))||null;}catch(_){faithLastId=null;}
+    showNextFaithMessage();
+    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches && valid.length>1){
+      faithTimer=window.setInterval(()=>{if(!document.hidden)showNextFaithMessage();},14000);
+    }
+  }
   async function loadComments() {
-    if(!$('comments-list'))return;
+    if(!$('comments-list') && !$('home-faith-message'))return;
     if (!db) { if($('comments-list'))renderComments([]); return; }
     if (refreshingComments) return;
     refreshingComments=true;
@@ -645,7 +679,8 @@
         .eq('status','aprovado').order('criado_em',{ascending:false}).limit(250);
       if(error)throw error;
       renderComments(rows||[]);
-      setText('comment-mode','Todas as mensagens e respostas visíveis foram aprovadas pela igreja. Os novos envios aguardam moderação.');
+      updateFaithMessages(rows||[]);
+      setText('comment-mode','Compartilhe mensagens, testemunhos e palavras de carinho com a comunidade.');
     } catch(err){
       setText('comment-mode','Não foi possível carregar o mural. Confira a conexão e as regras de acesso.');
       console.warn('Falha no mural:',err.message);
@@ -659,9 +694,9 @@
     $('comment-form').addEventListener('submit',async(event)=>{
       event.preventDefault();
       if(!db||!user){setStatus('comment-status','Entre ou crie sua conta para publicar uma mensagem no mural.',true);return;}
-      const name=$('comment-name').value.trim().replace(/\s+/g,' ');
+      const name=memberDisplayName();
       const message=$('comment-message').value.trim();
-      if(name.length<2||name.length>60){setStatus('comment-status','Informe um nome entre 2 e 60 caracteres.',true);return;}
+      if(!name){setStatus('comment-status','Complete nome e sobrenome em Minha conta antes de publicar.',true);return;}
       if(message.length<3||message.length>600){setStatus('comment-status','Escreva uma mensagem entre 3 e 600 caracteres.',true);return;}
       const button=$('send-comment');button.disabled=true;setStatus('comment-status','Enviando para análise...');
       try{
@@ -675,26 +710,18 @@
     });
   }
   function refreshAdminLinks() {
-    const allowed=Boolean(user && (isAdmin||isEventManager||isMuralModerator));
-    for(const nav of document.querySelectorAll('.desktop-nav,.mobile-nav')){
-      let link=nav.querySelector('[data-administracao-link]');
-      if(!link){
-        link=document.createElement('a');
-        link.href='administracao.html';link.textContent='🛡 Administração';
-        link.className=nav.classList.contains('desktop-nav')?'nav-link':'';
-        link.dataset.administracaoLink='true';
-        nav.append(link);
-      }
-      link.hidden=!allowed;
-    }
+    // O link da administração fica exclusivamente em Minha Conta, sob autorização do servidor.
+    document.querySelectorAll('[data-administracao-link]').forEach(link=>link.remove());
     window.IGREJA_MEMBROS?.refresh?.();
     window.IGREJA_ACESSOS?.show?.();
     window.IGREJA_COMUNIDADE?.onAuthChange?.();
+    window.IGREJA_ESTUDOS?.onAuthChange?.();
   }
   async function updateAdminAccess() {
     isAdmin=false;
     isEventManager=false;
     isMuralModerator=false;
+    isStudyTeacher=false;
     $('open-moderation').hidden=true;
     if(!db||!user){
       window.IGREJA_V4?.onAuthChange?.();
@@ -706,14 +733,15 @@
       return;
     }
     try{
-      const [adminResult,eventResult,muralResult]=await Promise.all([db.rpc('is_site_admin'),db.rpc('can_manage_events'),db.rpc('can_moderate_mural')]);
+      const [adminResult,eventResult,muralResult,studyResult]=await Promise.all([db.rpc('is_site_admin'),db.rpc('can_manage_events'),db.rpc('can_moderate_mural'),db.rpc('can_submit_studies')]);
       if(adminResult.error)throw adminResult.error;
       isAdmin=adminResult.data===true;
       isEventManager=isAdmin || (!eventResult.error && eventResult.data===true);
       isMuralModerator=isAdmin || (!muralResult.error && muralResult.data===true);
+      isStudyTeacher=isAdmin || (!studyResult.error && studyResult.data===true);
       window.IGREJA_V4?.onAuthChange?.();
       window.IGREJA_CELEBRACOES?.onAuthChange?.();
-      $('open-moderation').hidden=!(isAdmin||isEventManager||isMuralModerator);
+      $('open-moderation').hidden=true;
       if($('open-moderation'))$('open-moderation').textContent=isAdmin?'🛡️ Administração geral':isEventManager?'📅 Gerenciar eventos':'💬 Moderar mural';
       updateAdminPanelAccess();
       refreshAdminLinks();
@@ -784,12 +812,13 @@
     $('logged-out-panel').hidden = Boolean(user);
     setText('login-button-text', user ? 'Minha conta' : 'Entrar');
     if (user) {
-      setText('logged-in-user', `Conectado como ${user.email || 'membro da igreja'}. Você pode participar do mural, enviar cifras e comentar nos hinos.`);
+      setText('logged-in-user', `Conectado como ${memberDisplayName() || user.email || 'membro da igreja'}. Você pode participar do mural, enviar cifras e comentar nos hinos.`);
     }
     const send=$('send-comment');if(send)send.disabled=!user;
     if($('mural-member-notice'))$('mural-member-notice').hidden=Boolean(user);
     window.IGREJA_MEMBROS?.refresh?.();
     window.IGREJA_COMUNIDADE?.onAuthChange?.();
+    window.IGREJA_ESTUDOS?.onAuthChange?.();
   }
   async function initBackend() {
     const url = String(config.supabase?.url || '').trim();
@@ -1008,7 +1037,7 @@
     initDialogs();
     initComments();
     initLogin();
-    window.IGREJA_MEMBROS?.init?.({db:()=>db,user:()=>user,isAdmin:()=>isAdmin,isEventManager:()=>isEventManager,isMuralModerator:()=>isMuralModerator});
+    window.IGREJA_MEMBROS?.init?.({db:()=>db,user:()=>user,isAdmin:()=>isAdmin,isEventManager:()=>isEventManager,isMuralModerator:()=>isMuralModerator,isStudyTeacher:()=>isStudyTeacher});
     initModeration();
     initCifraSubmission();
     await initBackend();
@@ -1028,7 +1057,7 @@
       loadCifras:loadCifraModeration
     });
     if (window.IGREJA_CELEBRACOES?.init) await window.IGREJA_CELEBRACOES.init({db:()=>db,isAdmin:()=>isAdmin,isEventsAdmin:()=>isEventManager});
-    if (window.IGREJA_ESTUDOS?.init) await window.IGREJA_ESTUDOS.init({db:()=>db,isAdmin:()=>isAdmin});
+    if (window.IGREJA_ESTUDOS?.init) await window.IGREJA_ESTUDOS.init({db:()=>db,isAdmin:()=>isAdmin,isStudyTeacher:()=>isStudyTeacher,user:()=>user});
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();
