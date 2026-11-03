@@ -97,7 +97,8 @@ window.IGREJA_CELEBRACOES = (() => {
     });},6500);
   }
   function celebratoryName(item,small=false){
-    const b=el('button',small?'igjal-name-celebrate home-celebrate-name':'igjal-name-celebrate',item.nome);
+    const genderClass=item.genero_exibicao==='masculino'?' igjal-name-masculino':item.genero_exibicao==='feminino'?' igjal-name-feminino':' igjal-name-neutro';
+    const b=el('button',(small?'igjal-name-celebrate home-celebrate-name':'igjal-name-celebrate')+genderClass,item.nome);
     b.type='button';
     b.title='Soltar balões para '+item.nome;
     b.setAttribute('aria-label','Celebrar '+item.nome+' com balões');
@@ -203,7 +204,7 @@ window.IGREJA_CELEBRACOES = (() => {
   async function load(){
     const db=ctx?.db?.();if(!db)return null;
     const {data,error}=await db.from('site_celebracoes')
-      .select('id,nome,tipo,dia,mes,ano_referencia,foto_url,publicado,consentimento_confirmado,criado_em,origem_lista')
+      .select('id,nome,tipo,dia,mes,ano_referencia,genero_exibicao,foto_url,publicado,consentimento_confirmado,criado_em,origem_lista')
       .order('mes',{ascending:true}).order('dia',{ascending:true}).order('nome',{ascending:true});
     if(error){console.warn('Erro ao consultar aniversariantes:',error.message);return null;}
     return data||[];
@@ -232,6 +233,7 @@ window.IGREJA_CELEBRACOES = (() => {
       const note=numDay(item.dia)+' de '+nameOfMonth(item.mes)+
         (item.ano_referencia?' de '+item.ano_referencia:'')+
         ' • '+(kinds[item.tipo]||item.tipo)+
+        ' • '+(item.genero_exibicao==='masculino'?'Azul':item.genero_exibicao==='feminino'?'Rosa':'Sem cor definida')+
         ' • '+(item.publicado?'Publicado':'Oculto');
       body.append(el('small','',note));
       const actions=el('div','celebration-admin-actions');
@@ -247,6 +249,7 @@ window.IGREJA_CELEBRACOES = (() => {
   function resetForm(){
     const form=$('celebration-form');
     form?.reset();
+    if($('celebration-gender'))$('celebration-gender').value='nao_informado';
     editingId=null;
     if($('celebration-submit'))$('celebration-submit').textContent='Adicionar aniversariante';
     if($('celebration-cancel-edit'))$('celebration-cancel-edit').hidden=true;
@@ -261,6 +264,7 @@ window.IGREJA_CELEBRACOES = (() => {
     $('celebration-month').value=item.mes;
     $('celebration-year').value=item.ano_referencia??'';
     $('celebration-photo').value=item.foto_url||'';
+    $('celebration-gender').value=item.genero_exibicao||'nao_informado';
     $('celebration-consent').checked=Boolean(item.consentimento_confirmado);
     $('celebration-published').checked=Boolean(item.publicado);
     $('celebration-submit').textContent='Salvar alterações';
@@ -288,16 +292,18 @@ window.IGREJA_CELEBRACOES = (() => {
       dia=Number($('celebration-day').value),mes=Number($('celebration-month').value),
       yearText=$('celebration-year').value,
       ano_referencia=yearText?Number(yearText):null,
+      genero_exibicao=$('celebration-gender').value,
       foto_url=clean($('celebration-photo').value)||null,
       publicado=$('celebration-published').checked,
       consent=$('celebration-consent').checked;
     if(!consent){status('Confirme a autorização de divulgação antes de salvar.',true);return;}
     if(nome.length<2||nome.length>100||!validDay(dia,mes)){status('Confira nome, dia e mês.',true);return;}
     if(!Object.hasOwn(kinds,tipo)){status('Tipo de comemoração inválido.',true);return;}
+    if(!['masculino','feminino','nao_informado'].includes(genero_exibicao)){status('Selecione a identificação do cadastro.',true);return;}
     if(tipo==='aniversario'&&ano_referencia!==null){status('Para aniversário de nascimento, não informe o ano.',true);return;}
     if(ano_referencia!==null&&(!Number.isInteger(ano_referencia)||ano_referencia<1900||ano_referencia>new Date().getFullYear())){status('Confira o ano do batismo ou marco ministerial.',true);return;}
     if(!validPhoto(foto_url)){status('Use apenas URL HTTPS ou caminho assets/fotos/ da fotografia autorizada.',true);return;}
-    const record={nome,tipo,dia,mes,ano_referencia,foto_url,publicado,consentimento_confirmado:true};
+    const record={nome,tipo,dia,mes,ano_referencia,genero_exibicao,foto_url,publicado,consentimento_confirmado:true};
     const submit=$('celebration-submit');submit.disabled=true;
     status(editingId?'Salvando alterações...':'Adicionando aniversariante...');
     let query;
