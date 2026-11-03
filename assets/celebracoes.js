@@ -35,8 +35,84 @@ window.IGREJA_CELEBRACOES = (() => {
     const m=Number($('celebracoes-filtro-mes')?.value);
     return m>=1&&m<=12?m:new Date().getMonth()+1;
   };
+
+  // Balões comemorativos: efeito visual acionado pelo visitante, nunca automático.
+  // Mantém a navegação e as informações acessíveis mesmo sem animações.
+  let celebrationFX=null, lastFX=0;
+  function fxLayer(){
+    if(celebrationFX?.isConnected)return celebrationFX;
+    celebrationFX=document.getElementById('igjal-celebration-fx');
+    if(!celebrationFX){
+      celebrationFX=el('div','igjal-celebration-fx');
+      celebrationFX.id='igjal-celebration-fx';
+      celebrationFX.setAttribute('aria-hidden','true');
+      document.body.append(celebrationFX);
+    }
+    return celebrationFX;
+  }
+  function celebrateName(button,kind){
+    if(window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches)return;
+    if(document.visibilityState==='hidden')return;
+    const now=Date.now();
+    if(now-lastFX<700)return; // evita rajadas acidentais
+    lastFX=now;
+    const layer=fxLayer();
+    const rect=button.getBoundingClientRect();
+    const cx=rect.left+rect.width/2;
+    const cy=rect.top+rect.height/2;
+    const shades=kind==='aniversario'
+      ? ['#ff6c9d','#f4b544','#ff8c71','#b487df','#70bfce','#f47ebc']
+      : ['#89bde3','#9e9adc','#81bd9b','#f6c9a5','#d2a2d2','#74c5ca'];
+    const width=window.innerWidth, height=window.innerHeight;
+    const quantity=window.matchMedia?.('(max-width: 650px)')?.matches?7:12;
+    for(let i=0;i<quantity;i++){
+      const balloon=el('span','igjal-party-balloon');
+      const x=Math.max(24,Math.min(width-24,cx+(Math.random()-.5)*Math.min(width*.75,440)));
+      const y=Math.min(height-24,Math.max(45,cy+Math.random()*90));
+      balloon.style.left=x+'px';
+      balloon.style.top=y+'px';
+      balloon.style.setProperty('--balloon-color',shades[i%shades.length]);
+      balloon.style.setProperty('--party-drift',((Math.random()-.5)*240)+'px');
+      balloon.style.setProperty('--party-rise',(-height-y-70)+'px');
+      balloon.style.setProperty('--party-spin',((Math.random()-.5)*48)+'deg');
+      balloon.style.setProperty('--party-delay',Math.round(Math.random()*360)+'ms');
+      balloon.style.setProperty('--party-duration',(3.5+Math.random()*1.7).toFixed(2)+'s');
+      balloon.addEventListener('animationend',()=>balloon.remove(),{once:true});
+      layer.append(balloon);
+    }
+    for(let i=0;i<10;i++){
+      const sparkle=el('span','igjal-party-sparkle',i%3===0?'✿':i%3===1?'✦':'•');
+      sparkle.style.left=Math.max(12,Math.min(width-12,cx+(Math.random()-.5)*190))+'px';
+      sparkle.style.top=Math.max(20,Math.min(height-20,cy+(Math.random()-.5)*50))+'px';
+      sparkle.style.color=shades[(i+2)%shades.length];
+      sparkle.style.setProperty('--spark-x',((Math.random()-.5)*320)+'px');
+      sparkle.style.setProperty('--spark-y',(-70-Math.random()*260)+'px');
+      sparkle.style.setProperty('--spark-duration',(1.15+Math.random()*.9).toFixed(2)+'s');
+      sparkle.addEventListener('animationend',()=>sparkle.remove(),{once:true});
+      layer.append(sparkle);
+    }
+    // Limpeza extra se o navegador interromper a animação.
+    window.setTimeout(()=>{layer.querySelectorAll('.igjal-party-balloon,.igjal-party-sparkle').forEach(node=>{
+      if(!node.getAnimations().length)node.remove();
+    });},6500);
+  }
+  function celebratoryName(item,small=false){
+    const b=el('button',small?'igjal-name-celebrate home-celebrate-name':'igjal-name-celebrate',item.nome);
+    b.type='button';
+    b.title='Soltar balões para '+item.nome;
+    b.setAttribute('aria-label','Celebrar '+item.nome+' com balões');
+    b.addEventListener('click',()=>celebrateName(b,item.tipo));
+    b.addEventListener('pointerenter',ev=>{
+      if(ev.pointerType!=='mouse')return;
+      const now=Date.now();
+      if(now-Number(b.dataset.lastHover||0)<3500)return;
+      b.dataset.lastHover=String(now);
+      celebrateName(b,item.tipo);
+    });
+    return b;
+  }
   function personCard(item,compact=false){
-    const card=el('article','celebration-person'+(compact?' celebration-person-compact':''));
+    const card=el('article','celebration-person'+(item.tipo==='aniversario'?' celebration-person-birthday':' celebration-person-ministry')+(compact?' celebration-person-compact':''));
     if(validPhoto(item.foto_url)&&item.foto_url){
       const photo=el('img','celebration-avatar');
       photo.alt='Fotografia de '+item.nome;
@@ -45,12 +121,12 @@ window.IGREJA_CELEBRACOES = (() => {
       photo.decoding='async';
       card.append(photo);
     }else{
-      const avatar=el('span','celebration-avatar celebration-avatar-placeholder',item.tipo==='batismo'?'✳':'♫');
+      const avatar=el('span','celebration-avatar celebration-avatar-placeholder',item.tipo==='aniversario'?'🎂':item.tipo==='batismo'?'🕊️':'🌷');
       avatar.setAttribute('aria-hidden','true');
       card.append(avatar);
     }
     const copy=el('div','celebration-person-details');
-    copy.append(el('strong','',item.nome));
+    copy.append(celebratoryName(item));
     if(item.tipo==='batismo' && item.ano_referencia)
       copy.append(el('small','', 'Batismo em '+item.ano_referencia));
     else if(item.tipo!=='aniversario' && item.tipo!=='batismo')
@@ -109,7 +185,7 @@ window.IGREJA_CELEBRACOES = (() => {
         const row=el('div','home-celebration-line');
         const date=el('span','home-celebration-mini-date',numDay(item.dia));
         const copy=el('span','home-celebration-mini-info');
-        copy.append(el('strong','',item.nome));
+        copy.append(celebratoryName(item,true));
         if(item.tipo!=='aniversario'){
           let detail=kinds[item.tipo]||'Data ministerial';
           if(item.tipo==='batismo'&&item.ano_referencia)detail+=' • '+item.ano_referencia;
