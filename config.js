@@ -17,7 +17,7 @@ window.IGREJA_CONFIG = {
     bank: "Nubank"
   },
   supabase: {
-    url: "", // Ex.: https://seu-projeto.supabase.co
+    url: "https://tzexkzhygvmtbggjglxg.supabase.co", // URL pública do projeto Supabase da igreja
     anonKey: "" // Somente chave ANON/PUBLISHABLE; JAMAIS inserir service_role/secret
   }
 };
