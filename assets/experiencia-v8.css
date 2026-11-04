@@ -279,3 +279,62 @@ body[data-page="home"] .igjal-promises-intro{grid-column:1;grid-row:1 / span 3}
  body[data-page="home"] .igjal-promises .igjal-promise-bar,body[data-page="home"] .igjal-promises .igjal-promise-actions{justify-content:center;margin:0}
  body[data-page="home"] .igjal-promise-actions button,body[data-page="home"] .igjal-promise-actions a{min-height:32px;font-size:10px;padding:5px 9px}
 }
+
+/* 2026-11-04 — Início mais enxuto; alterações restritas à página inicial interna. */
+body[data-page="home"] .igjal-verse-ribbon-inner{padding-block:9px}
+body[data-page="home"] .igjal-verse-ribbon p{font-size:12.5px;line-height:1.42;margin:0}
+body[data-page="home"] .hero-layout{padding-block:30px 35px;gap:clamp(20px,3vw,40px)}
+body[data-page="home"] .home-hero-welcome h1{font-size:clamp(34px,4.1vw,51px)!important;line-height:1.12!important;margin:12px 0 14px}
+body[data-page="home"] .home-hero-welcome .hero-description{font-size:15px;line-height:1.56;margin-bottom:11px}
+body[data-page="home"] .igjal-welcome-invite{font-size:14px;margin:0 0 16px}
+body[data-page="home"] .hero-cta{gap:10px;flex-wrap:wrap}
+body[data-page="home"] .hero-cta .btn{min-height:42px;padding:10px 15px;font-size:12px;gap:8px}
+body[data-page="home"] .igjal-home-quicklinks{gap:6px 17px;margin-top:13px}
+body[data-page="home"] .igjal-home-quicklinks a{font-size:12.5px;min-height:27px}
+body[data-page="home"] .igjal-home-welcome-card{padding:19px 21px;border-radius:20px;box-shadow:0 9px 28px rgba(18,51,86,.07)}
+body[data-page="home"] .igjal-home-emblem{max-width:145px;margin-bottom:6px}
+body[data-page="home"] .igjal-home-welcome-text h2{font-size:22px;margin:3px 0 4px}
+body[data-page="home"] .igjal-home-welcome-text p{font-size:12px;margin-bottom:9px}
+body[data-page="home"] .igjal-home-cultos>div{padding:8px 10px;font-size:13px}
+body[data-page="home"] .igjal-home-location{font-size:12px;line-height:1.4}
+body[data-page="home"] .hero-bottom{height:auto;min-height:43px;padding:8px 0;font-size:9px}
+body[data-page="home"] .igjal-dashboard-strip{padding:21px 0 25px}
+body[data-page="home"] .igjal-dashboard-heading{margin-bottom:11px}
+body[data-page="home"] .igjal-dashboard-heading h2{font-size:clamp(21px,2.6vw,27px);margin-bottom:3px}
+body[data-page="home"] .igjal-dashboard-heading p{font-size:12.5px;line-height:1.45}
+body[data-page="home"] .igjal-dynamic-highlights{gap:11px}
+body[data-page="home"] .igjal-highlight-card{min-height:115px;padding:14px 16px;gap:4px}
+body[data-page="home"] .igjal-highlight-card strong{font-size:16px;line-height:1.3}
+body[data-page="home"] .igjal-highlight-card .highlight-label{font-size:12px}
+body[data-page="home"] .igjal-highlight-card>span:not(.highlight-label):not(.next-event){font-size:12px}
+body[data-page="home"] .home-navigation{padding:38px 0}
+body[data-page="home"] .home-navigation .section-heading{margin-bottom:19px}
+body[data-page="home"] .home-navigation .section-heading h2{font-size:clamp(24px,3vw,34px);margin:5px 0 0}
+body[data-page="home"] .home-navigation .section-heading p{font-size:12.5px;line-height:1.5}
+body[data-page="home"] .home-card-grid{gap:12px}
+body[data-page="home"] .home-nav-card{min-height:155px;padding:17px 18px;gap:6px;border-radius:16px}
+body[data-page="home"] .home-nav-card h3{font-size:16px;line-height:1.26}
+body[data-page="home"] .home-nav-card p{font-size:12.5px;line-height:1.44}
+body[data-page="home"] .home-nav-card span:last-child{font-size:12px}
+body[data-page="home"] .notice-section{padding-block:42px}
+@media(max-width:950px){
+ body[data-page="home"] .hero-layout{padding-block:27px 31px}
+ body[data-page="home"] .igjal-home-welcome-card{max-width:650px;margin:0}
+}
+@media(max-width:650px){
+ body[data-page="home"] .hero-layout{gap:17px;padding-block:22px 27px}
+ body[data-page="home"] .home-hero-welcome h1{font-size:clamp(30px,8vw,39px)!important;margin:9px 0 11px}
+ body[data-page="home"] .home-hero-welcome .hero-description{font-size:14px;line-height:1.5}
+ body[data-page="home"] .hero-cta{gap:7px}
+ body[data-page="home"] .hero-cta .btn{min-height:43px}
+ body[data-page="home"] .igjal-home-emblem{max-width:115px}
+ body[data-page="home"] .igjal-home-welcome-card{padding:15px 16px}
+ body[data-page="home"] .igjal-home-cultos>div{gap:3px;padding:7px 9px}
+ body[data-page="home"] .igjal-dashboard-strip{padding:17px 0 22px}
+ body[data-page="home"] .igjal-dynamic-highlights{gap:8px}
+ body[data-page="home"] .igjal-highlight-card{padding:11px 10px;min-height:128px}
+ body[data-page="home"] .igjal-highlight-card strong{font-size:13px}
+ body[data-page="home"] .home-navigation{padding:28px 0}
+ body[data-page="home"] .home-nav-card{min-height:0;padding:15px 16px}
+ body[data-page="home"] .home-navigation .section-heading{margin-bottom:13px}
+}
