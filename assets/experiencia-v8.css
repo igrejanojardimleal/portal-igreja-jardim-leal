@@ -230,25 +230,25 @@ form button[type="submit"]{min-height:52px}
 
 /* Caixinha IGJAL: versículo em destaque, sem caixa, fundo ou bordas. */
 .igjal-promises-zone{background:transparent}
-.igjal-promises{background:transparent;border:0;box-shadow:none;border-radius:0;text-align:center;padding:22px 12px}
+.igjal-promises{background:transparent;border:0;box-shadow:none;border-radius:0;text-align:center;padding:15px 12px}
 .igjal-promises-intro,.igjal-promises-eyebrow{text-align:center}
 .igjal-promises blockquote{
   border:0;
   background:transparent;
-  padding:7px 6px;
-  margin:18px auto 10px;
+  padding:3px 6px;
+  margin:12px auto 7px;
   max-width:790px;
-  font-size:clamp(22px,3vw,30px);
-  line-height:1.75;
+  font-size:clamp(21px,2.5vw,25px);
+  line-height:1.42;
   font-weight:600;
   color:#234a39;
   text-align:center;
   text-shadow:0 5px 16px rgba(28,71,52,.11);
   animation:igjal-promessas-flutuar 7s ease-in-out infinite;
 }
-.igjal-promises .igjal-promise-reference{text-align:center;margin:7px auto 21px;font-size:16px}
+.igjal-promises .igjal-promise-reference{text-align:center;margin:5px auto 15px;font-size:15px}
 .igjal-promises .igjal-promise-bar{justify-content:center}
 .igjal-promises .igjal-promise-actions{justify-content:center}
 @keyframes igjal-promessas-flutuar{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-@media(max-width:700px){.igjal-promises{padding:17px 4px}.igjal-promises blockquote{font-size:clamp(19px,5.5vw,24px);padding:6px 1px}}
+@media(max-width:700px){.igjal-promises{padding:13px 4px}.igjal-promises blockquote{font-size:clamp(18px,4.8vw,21px);line-height:1.45;padding:3px 1px}}
 @media(prefers-reduced-motion:reduce){.igjal-promises blockquote{animation:none}}
