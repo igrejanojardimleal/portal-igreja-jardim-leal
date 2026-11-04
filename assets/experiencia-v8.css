@@ -189,3 +189,22 @@ form button[type="submit"]{min-height:52px}
   .igjal-highlight-card small,.igjal-highlight-card .next-event{font-size:11px}
 }
 @media(max-width:350px){.igjal-highlight-card{padding:11px 9px}.igjal-highlight-card strong{font-size:14px}}
+
+/* A Caixinha de Promessas não interfere na navegação nem no hinário. */
+.igjal-promises-zone{padding:27px 0 36px;background:#fbfaf7}
+.igjal-promises{border:1px solid #d8e8d9;border-radius:19px;background:linear-gradient(135deg,#edf5ec,#fffefa);padding:26px;box-shadow:0 8px 22px #223f2b08;text-align:left}
+.igjal-promises-eyebrow{font-size:12px;letter-spacing:.07em;font-weight:850;color:#3a7358}
+.igjal-promises-intro h2{font-size:clamp(23px,3vw,30px);color:#214a40;line-height:1.25;margin:9px 0 5px}
+.igjal-promises-intro>p{font-size:15px;line-height:1.6;margin:0 0 19px;color:#566c65}
+.igjal-promises blockquote{border-left:4px solid #7bab8d;margin:13px 0 10px;padding:4px 0 4px 18px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:clamp(19px,3vw,23px);font-weight:550;line-height:1.75;color:#234a39}
+.igjal-promises .igjal-promise-reference{font-weight:800;color:#356c50;font-size:16px;margin:10px 0 20px}
+.igjal-promise-bar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.igjal-promise-bar>small{font-size:13px;color:#607769;line-height:1.5}
+.igjal-promise-actions{display:flex;gap:9px;flex-wrap:wrap}
+.igjal-promise-actions button,.igjal-promise-actions a{display:inline-flex;justify-content:center;align-items:center;min-height:44px;padding:9px 16px;border-radius:11px;border:1px solid #99bca4;background:white;color:#2b6648;font:750 13px/1.35 Manrope,Arial,sans-serif;text-decoration:none;cursor:pointer}
+.igjal-promise-actions a{background:#e3f2e7}
+.igjal-promise-actions button:hover,.igjal-promise-actions a:hover{background:#d5eadd}
+.igjal-promise-actions :focus-visible{outline:3px solid #2c699e;outline-offset:2px}
+.igjal-promises-source{display:block;font-size:11px;line-height:1.6;color:#718074;margin-top:19px}
+.igjal-promises-source a{color:#336d52}
+@media(max-width:700px){.igjal-promises-zone{padding:20px 0 27px}.igjal-promises{padding:19px 15px}.igjal-promises blockquote{padding-left:13px;font-size:19px}.igjal-promise-bar>small{font-size:12px}.igjal-promise-actions button,.igjal-promise-actions a{font-size:12px}}
