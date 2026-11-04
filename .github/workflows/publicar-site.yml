@@ -29,7 +29,7 @@ jobs:
       - name: Preparar somente arquivos públicos
         run: |
           mkdir -p dist
-          cp ./*.html ./config.js ./sitemap.xml dist/
+          cp ./*.html ./config.js ./sitemap.xml ./robots.txt ./manifest.webmanifest dist/
           cp -R assets dist/assets
           touch dist/.nojekyll
           find . -maxdepth 1 -type f -name 'google*.html' -exec cp {} dist/ \;
