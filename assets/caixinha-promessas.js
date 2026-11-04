@@ -47,30 +47,29 @@
   function render(){
     if(!verses.length||!$('igjal-promise-text'))return;
     const local=localTime();
-    const hourBlock=Math.floor(local.hour/6);
-    const localBlockUtc=Date.UTC(local.year,local.month-1,local.day,hourBlock*6);
+    const hourBlock=Math.floor(local.hour/12);
+    const localBlockUtc=Date.UTC(local.year,local.month-1,local.day,hourBlock*12);
     const firstBlock=Date.UTC(2026,10,4,0);
-    const number=Math.floor((localBlockUtc-firstBlock)/21600000);
+    const number=Math.floor((localBlockUtc-firstBlock)/43200000);
     if(number===currentSlot)return;
     currentSlot=number;
     const index=((number%verses.length)+verses.length)%verses.length;
     const cycle=Math.floor(number/verses.length);
     const order=shuffleForCycle(cycle);
     currentSelection=verses[order[index]];
-    $('igjal-promise-text').textContent='“'+currentSelection.text+'”';
+    // Evita parênteses redundantes quando todo o versículo já vem entre eles.
+    const exibicao=currentSelection.text.trim().replace(/^\((.*)\)$/s,'$1');
+    $('igjal-promise-text').textContent='“'+exibicao+'”';
     $('igjal-promise-reference').textContent=currentSelection.reference;
-    const next=(hourBlock+1)%4*6;
-    const when=$('igjal-promise-refresh');
-    if(when)when.textContent='Nova passagem às '+String(next).padStart(2,'0')+'h · horário de Brasília';
     const share=$('igjal-promise-whatsapp');
     if(share){
-      const message=currentSelection.text+'\n'+currentSelection.reference+'\n\nAlmeida Revista e Corrigida (edição de 1911) — Plataforma IGJAL';
+      const message=currentSelection.text+'\n\n'+currentSelection.reference+'\n\n*Plataforma IGJAL*';
       share.href='https://wa.me/?text='+encodeURIComponent(message);
     }
   }
   async function copyCurrent(){
     if(!currentSelection)return;
-    const text=currentSelection.text+'\n'+currentSelection.reference+'\nAlmeida Revista e Corrigida (1911)';
+    const text=currentSelection.text+'\n\n'+currentSelection.reference+'\n\n*Plataforma IGJAL*';
     const button=$('igjal-promise-copy');
     try{
       if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(text);
@@ -104,7 +103,7 @@
     }catch(err){
       console.warn('[IGJAL] Não foi possível carregar a Caixinha de Promessas:',err.message);
       $('igjal-promise-text').textContent='O versículo deste período está temporariamente indisponível.';
-      $('igjal-promise-refresh').textContent='Confira sua conexão e atualize a página.';
+      const info=$('igjal-promise-refresh');if(info)info.textContent='Confira sua conexão e atualize a página.';
       if($('igjal-promise-copy'))$('igjal-promise-copy').disabled=true;
       if($('igjal-promise-whatsapp'))$('igjal-promise-whatsapp').hidden=true;
     }

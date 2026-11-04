@@ -208,3 +208,22 @@ form button[type="submit"]{min-height:52px}
 .igjal-promises-source{display:block;font-size:11px;line-height:1.6;color:#718074;margin-top:19px}
 .igjal-promises-source a{color:#336d52}
 @media(max-width:700px){.igjal-promises-zone{padding:20px 0 27px}.igjal-promises{padding:19px 15px}.igjal-promises blockquote{padding-left:13px;font-size:19px}.igjal-promise-bar>small{font-size:12px}.igjal-promise-actions button,.igjal-promise-actions a{font-size:12px}}
+
+/* Melhor leitura: cabeçalho da Caixinha centralizado em ambas as plataformas. */
+.igjal-promises-intro{text-align:center}
+.igjal-promises-eyebrow{display:block;text-align:center}
+
+/* Evita a colisão Minha Conta / Contribuir em desktops com largura reduzida
+   ou com zoom. O menu principal passa para o botão de navegação antes de faltar espaço. */
+@media (max-width:1499px){
+  .site-header .desktop-nav{display:none!important}
+  .site-header .menu-button{display:flex!important}
+  .site-header .header-actions{margin-left:auto;flex-shrink:0}
+  .site-header .header-content{justify-content:space-between}
+}
+@media (min-width:1500px){
+  .site-header .header-content{gap:12px}
+  .site-header .desktop-nav{min-width:0;gap:clamp(5px,.6vw,11px);flex-shrink:1}
+  .site-header .desktop-nav .nav-link{font-size:clamp(10px,.75vw,12px)}
+  .site-header .header-actions{flex-shrink:0}
+}
