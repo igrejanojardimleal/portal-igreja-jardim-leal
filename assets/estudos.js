@@ -19,6 +19,11 @@ window.IGREJA_ESTUDOS = (() => {
   const catalog = a => [...(starter[a]||[])].map(x=>({...x, publicado:false}));
   const setStatus=(message,error=false)=>{const node=$('estudo-status');if(node){node.textContent=message;node.classList.toggle('error',error);}};
   const val=id=>String($(id)?.value||'').trim();
+  // Mantém as passagens na ordem informada, com uma vírgula entre cada referência.
+  const normalizeReferences = text => [...new Set(String(text||'')
+    .split(/[,;\n\r，；]+/g).map(x=>x.trim().replace(/\s+/g,' ')).filter(Boolean))]
+    .join(', ');
+
 
   async function fetchArea(a){
     const base = catalog(a), db = ctx?.db?.();
@@ -39,8 +44,18 @@ window.IGREJA_ESTUDOS = (() => {
     $('library-dialog-badge').textContent=item.publicado?'ESTUDO PUBLICADO':'ROTEIRO INICIAL';
     $('library-dialog-summary').textContent=item.resumo;
     $('library-dialog-question').textContent=item.questao||'Perguntas e pontos de estudo serão detalhados pela liderança.';
-    $('library-dialog-references').textContent=item.referencias||'Este tema histórico utiliza referências bibliográficas, indicadas abaixo.';
-    $('library-verses-label').textContent=item.area==='biblia'?'Textos bíblicos para leitura':'Base histórica';
+    const passages=normalizeReferences(item.referencias);
+    const top=$('library-dialog-top-references');
+    if(top){
+      top.hidden=item.area!=='biblia'||!passages;
+      top.textContent=passages?'Passagens utilizadas: '+passages:'';
+    }
+    const detail=$('library-dialog-references');
+    const label=$('library-verses-label');
+    detail.textContent=item.area==='biblia'?passages:(item.referencias||'Consulte as fontes históricas indicadas abaixo.');
+    detail.hidden=item.area==='biblia'||!item.referencias;
+    label.textContent=item.area==='biblia'?'Passagens utilizadas':'Base histórica';
+    label.hidden=detail.hidden;
     const full=$('library-dialog-full');full.replaceChildren();
     if(item.publicado && item.corpo){full.append(E('h3','Estudo completo'));full.append(E('p',item.corpo));}
     const sources=$('library-dialog-sources');sources.replaceChildren();
@@ -62,7 +77,7 @@ window.IGREJA_ESTUDOS = (() => {
       card.append(E('h3',item.titulo));
       if(item.autor_nome)card.append(E('p','Por '+item.autor_nome,'library-author'));
       card.append(E('p',item.resumo));
-      if(item.referencias)card.append(E('div',item.referencias,'library-ref'));
+      if(item.referencias)card.append(E('div',normalizeReferences(item.referencias),'library-ref'));
       const b=E('button',item.publicado?'Abrir estudo →':'Ver roteiro →');b.type='button';b.addEventListener('click',()=>openDetail(item));card.append(b);grid.append(card);
     }
   }
@@ -124,9 +139,10 @@ window.IGREJA_ESTUDOS = (() => {
     $('admin-estudo-form').addEventListener('submit',async ev=>{
       ev.preventDefault();
       if(!canEditStudies() || !ctx?.db?.())return setStatus('Acesso autorizado somente a editores de estudos.',true);
-      const record={slug:val('estudo-slug').toLowerCase(),area:val('estudo-area'),titulo:val('estudo-titulo'),categoria:val('estudo-categoria'),referencias:val('estudo-referencias'),resumo:val('estudo-resumo'),questao:val('estudo-questao'),corpo:val('estudo-corpo'),fontes:val('estudo-fontes'),publicado:!!$('estudo-publicado').checked};
+      const record={slug:val('estudo-slug').toLowerCase(),area:val('estudo-area'),titulo:val('estudo-titulo'),categoria:val('estudo-categoria'),referencias:normalizeReferences(val('estudo-referencias')),resumo:val('estudo-resumo'),questao:val('estudo-questao'),corpo:val('estudo-corpo'),fontes:val('estudo-fontes'),publicado:!!$('estudo-publicado').checked};
       if(!/^[a-z0-9-]{2,100}$/.test(record.slug))return setStatus('Identificador inválido. Utilize letras minúsculas, números e hífen.',true);
-      if(record.publicado && !record.corpo.trim())return setStatus('Para publicar, escreva o estudo completo e revise seu conteúdo.',true);
+      if(record.referencias.length>700)return setStatus('As passagens bíblicas ultrapassam o limite de 700 caracteres.',true);
+       if(record.publicado && !record.corpo.trim())return setStatus('Para publicar, escreva o estudo completo e revise seu conteúdo.',true);
       if(sourceLinks(record.fontes).length !== record.fontes.split(/[\r\n]+/).filter(x=>x.trim()).length)return setStatus('As fontes devem conter somente um endereço HTTPS por linha.',true);
       try{
         // 'upsert' precisa de privilégios de INSERT e UPDATE: RLS do banco define quem pode executar.
@@ -195,9 +211,10 @@ window.IGREJA_ESTUDOS = (() => {
           if(!isReviewer())return;
           const get=k=>String(form.querySelector('[data-study-field="'+k+'"]')?.value||'').trim();
           const args={p_envio_id:row.id,p_decisao:decision,
-            p_titulo:get('titulo'),p_categoria:get('categoria'),p_referencias:get('referencias'),
+            p_titulo:get('titulo'),p_categoria:get('categoria'),p_referencias:normalizeReferences(get('referencias')),
             p_resumo:get('resumo'),p_corpo:get('corpo'),p_fontes:get('fontes'),p_parecer:get('parecer')};
-          if(!window.confirm((decision==='aprovado'?'Publicar':'Não aprovar')+' o estudo de '+(row.autor_nome||'este autor')+'?'))return;
+          if(args.p_referencias.length>700){if(status)status.textContent='As passagens bíblicas ultrapassam o limite de 700 caracteres.';return;}
+           if(!window.confirm((decision==='aprovado'?'Publicar':'Não aprovar')+' o estudo de '+(row.autor_nome||'este autor')+'?'))return;
           const all=[...buttons.querySelectorAll('button')];all.forEach(b=>b.disabled=true);
           const {data:ok,error:err}=await ctx.db().rpc('revisar_estudo_enviado',args);
           if(err||ok!==true){if(status)status.textContent='Não foi possível concluir: '+(err?.message||'resposta inválida');all.forEach(b=>b.disabled=false);return;}
@@ -218,10 +235,11 @@ window.IGREJA_ESTUDOS = (() => {
       const valId=id=>String($(id)?.value||'').trim();
       const record={
         user_id:ctx.user().id,titulo:valId('study-send-title'),categoria:valId('study-send-category'),
-        referencias:valId('study-send-references'),resumo:valId('study-send-summary'),
+        referencias:normalizeReferences(valId('study-send-references')),resumo:valId('study-send-summary'),
         corpo:valId('study-send-body'),fontes:valId('study-send-sources'),status:'pendente'
       };
-      if(record.titulo.length<2||record.resumo.length<5||record.corpo.length<20){status.textContent='Preencha título, resumo e estudo completo.';return;}
+      if(record.referencias.length>700){status.textContent='As passagens bíblicas ultrapassam o limite de 700 caracteres.';return;}
+       if(record.titulo.length<2||record.resumo.length<5||record.corpo.length<20){status.textContent='Preencha título, resumo e estudo completo.';return;}
       if(sourceLinks(record.fontes).length!==record.fontes.split(/[\r\n]+/).filter(x=>x.trim()).length){status.textContent='Utilize somente links HTTPS, um por linha.';return;}
       status.textContent='Enviando para análise...';
       const submit=form.querySelector('button[type=submit]');submit.disabled=true;

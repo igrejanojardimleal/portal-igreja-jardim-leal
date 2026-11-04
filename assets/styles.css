@@ -1300,3 +1300,21 @@ body[data-page="louvores"] .songs-panel{
 .moderation-published .moderation-item{background:#fff}
 .moderation-published .moderation-reject{font-size:13px;min-height:44px;padding:9px 16px}
 @media (prefers-reduced-motion:reduce){.mural-like-button{transition:none}}
+
+/* Referências dos estudos: várias passagens, separadas por vírgula e visíveis no topo. */
+.library-top-references{
+  display:block;
+  background:#edf5ee;
+  border-left:4px solid #5a9670;
+  border-radius:10px;
+  padding:14px 16px;
+  margin:15px 0;
+  font-size:15px;
+  line-height:1.7;
+  font-weight:700;
+  color:#27513e;
+  overflow-wrap:anywhere;
+}
+.library-top-references[hidden]{display:none!important}
+#study-teacher-form label small,
+#admin-estudo-form label small{display:block;font-size:12px;line-height:1.5;color:#5c6871;margin:5px 0 0;font-weight:500}
