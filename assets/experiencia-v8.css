@@ -160,3 +160,32 @@ form button[type="submit"]{min-height:52px}
   transform:rotate(-1.5deg);
   z-index:-1;
 }
+
+
+/* Painel vivo IGJAL: horários da agenda + gravações do canal da igreja. */
+.igjal-dashboard-strip{padding:26px 0 38px;background:#f6f9f6;border-bottom:1px solid #e2ece5}
+.igjal-dashboard-heading{text-align:left;margin-bottom:19px}
+.igjal-dashboard-heading .overline{display:block;margin-bottom:7px}
+.igjal-dashboard-heading h2{font-size:clamp(22px,3vw,32px);line-height:1.25;margin:0 0 6px}
+.igjal-dashboard-heading p{font-size:15px;line-height:1.6;color:#586c70;margin:0}
+.igjal-dynamic-highlights{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.igjal-highlight-card{display:flex;flex-direction:column;min-width:0;gap:7px;padding:22px;background:#fff;border:1px solid #d6e3e6;border-radius:17px;text-decoration:none;color:#193c54;overflow-wrap:anywhere;min-height:148px;box-shadow:0 4px 12px #1d4c5b08}
+.igjal-highlight-card:nth-child(2){background:#fffdf9;border-color:#e4dfd5}
+.igjal-highlight-card:hover,.igjal-highlight-card:focus-visible{border-color:#7ca9b7;box-shadow:0 6px 19px #17465f12;outline-offset:2px}
+.igjal-highlight-card .highlight-label{font-size:14px;font-weight:800;letter-spacing:.01em;color:#336d73}
+.igjal-highlight-card strong{font-size:20px;line-height:1.35}
+.igjal-highlight-card>span:not(.highlight-label):not(.next-event){font-size:15px;color:#4c6671;line-height:1.5}
+.igjal-highlight-card small{font-size:12px;color:#6b7b81;line-height:1.5}
+.igjal-highlight-card .next-event{font-size:13px;color:#286547;border-top:1px solid #dce8e0;padding-top:8px;margin-top:4px;line-height:1.5}
+@media(max-width:700px){
+  .igjal-dashboard-strip{padding:21px 0 28px}
+  .igjal-dashboard-heading h2{font-size:21px}
+  .igjal-dashboard-heading p{font-size:14px}
+  .igjal-dynamic-highlights{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .igjal-highlight-card{padding:14px 12px;border-radius:14px;gap:6px;min-height:158px}
+  .igjal-highlight-card .highlight-label{font-size:12px}
+  .igjal-highlight-card strong{font-size:15px}
+  .igjal-highlight-card>span:not(.highlight-label):not(.next-event){font-size:12px}
+  .igjal-highlight-card small,.igjal-highlight-card .next-event{font-size:11px}
+}
+@media(max-width:350px){.igjal-highlight-card{padding:11px 9px}.igjal-highlight-card strong{font-size:14px}}
