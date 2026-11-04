@@ -227,3 +227,28 @@ form button[type="submit"]{min-height:52px}
   .site-header .desktop-nav .nav-link{font-size:clamp(10px,.75vw,12px)}
   .site-header .header-actions{flex-shrink:0}
 }
+
+/* Caixinha IGJAL: versículo em destaque, sem caixa, fundo ou bordas. */
+.igjal-promises-zone{background:transparent}
+.igjal-promises{background:transparent;border:0;box-shadow:none;border-radius:0;text-align:center;padding:22px 12px}
+.igjal-promises-intro,.igjal-promises-eyebrow{text-align:center}
+.igjal-promises blockquote{
+  border:0;
+  background:transparent;
+  padding:7px 6px;
+  margin:18px auto 10px;
+  max-width:790px;
+  font-size:clamp(22px,3vw,30px);
+  line-height:1.75;
+  font-weight:600;
+  color:#234a39;
+  text-align:center;
+  text-shadow:0 5px 16px rgba(28,71,52,.11);
+  animation:igjal-promessas-flutuar 7s ease-in-out infinite;
+}
+.igjal-promises .igjal-promise-reference{text-align:center;margin:7px auto 21px;font-size:16px}
+.igjal-promises .igjal-promise-bar{justify-content:center}
+.igjal-promises .igjal-promise-actions{justify-content:center}
+@keyframes igjal-promessas-flutuar{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@media(max-width:700px){.igjal-promises{padding:17px 4px}.igjal-promises blockquote{font-size:clamp(19px,5.5vw,24px);padding:6px 1px}}
+@media(prefers-reduced-motion:reduce){.igjal-promises blockquote{animation:none}}
