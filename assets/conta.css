@@ -174,7 +174,7 @@ body::before{
   position:fixed;
   inset:0;
   pointer-events:none;
-  z-index:-1;
+  z-index:0;
   background-image:linear-gradient(rgba(90,166,191,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(90,166,191,.035) 1px,transparent 1px);
   background-size:52px 52px;
   mask-image:linear-gradient(180deg,#000,transparent 82%);
@@ -385,3 +385,6 @@ main.shell{padding-top:32px}
   .welcome::after{right:-27px;top:-18px;font-size:130px}
   .account-tabs button{font-size:10px}
 }
+
+/* A grade sutil fica atrás do conteúdo sem bloquear cliques. */
+main.shell,.site-footer{position:relative;z-index:1}
