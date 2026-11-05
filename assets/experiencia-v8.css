@@ -338,3 +338,47 @@ body[data-page="home"] .notice-section{padding-block:42px}
  body[data-page="home"] .home-nav-card{min-height:0;padding:15px 16px}
  body[data-page="home"] .home-navigation .section-heading{margin-bottom:13px}
 }
+
+
+/* Hinário e Cifras: listagem compacta com número, título e compositor.
+   Os detalhes aparecem apenas quando o membro abre o hino/cifra. */
+body[data-page="louvores"] .songs-grid .song-card{
+  min-height:82px;
+  padding:13px 16px;
+  display:flex;
+  align-items:stretch;
+  justify-content:center;
+  border-radius:12px;
+}
+body[data-page="louvores"] .song-card-head{align-items:center;gap:13px}
+body[data-page="louvores"] .song-icon{
+  flex:0 0 38px;
+  width:38px;
+  height:38px;
+  font-size:14px;
+  border-radius:10px;
+}
+body[data-page="louvores"] .song-title{
+  margin:0;
+  font-size:15px;
+  line-height:1.35;
+  font-weight:800;
+}
+body[data-page="louvores"] .song-category{
+  margin:3px 0 0;
+  font-size:11px;
+  line-height:1.4;
+  color:#63788b;
+}
+@media(max-width:650px){
+  body[data-page="louvores"] .songs-grid{gap:8px}
+  body[data-page="louvores"] .songs-grid .song-card{
+    min-height:72px;
+    padding:11px 12px;
+  }
+  body[data-page="louvores"] .song-card-head{gap:11px}
+  body[data-page="louvores"] .song-icon{
+    width:35px;height:35px;flex-basis:35px;font-size:13px;
+  }
+  body[data-page="louvores"] .song-title{font-size:14px}
+}
