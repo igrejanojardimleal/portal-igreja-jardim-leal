@@ -406,3 +406,42 @@ main.shell,.site-footer{position:relative;z-index:1}
 @media (prefers-reduced-motion:reduce){
   .progress-track span{transition:none}
 }
+
+
+/* Marca redonda e mais visível no cabeçalho da Minha Conta. */
+.account-header .brand{
+  gap:13px;
+}
+.account-header .brand img{
+  display:block;
+  width:58px;
+  height:58px;
+  flex:0 0 58px;
+  padding:5px;
+  object-fit:contain;
+  border-radius:50%;
+  background:#f8fcff;
+  border:2px solid #77ddda;
+  box-shadow:0 0 0 4px rgba(60,155,178,.16),0 0 21px rgba(95,221,219,.33);
+}
+.account-header .brand strong{
+  font-size:13px;
+  letter-spacing:.035em;
+  color:#f2faff;
+}
+.account-header .brand small{
+  color:#a3c6da;
+}
+@media(max-width:520px){
+  .account-header .brand{gap:8px}
+  .account-header .brand img{
+    width:47px;
+    height:47px;
+    flex-basis:47px;
+    padding:4px;
+    border-width:2px;
+    box-shadow:0 0 0 3px rgba(60,155,178,.13),0 0 13px rgba(95,221,219,.25);
+  }
+  .account-header .brand strong{font-size:10px}
+  .account-header .brand small{font-size:8px}
+}
