@@ -22,6 +22,7 @@
   let user = null;
   let refreshingComments = false;
   let isAdmin = false;
+  let isMemberVerifier = false;
   let isEventManager = false;
   let isMuralModerator = false;
   let isStudyTeacher = false;
@@ -29,7 +30,7 @@
   let areaPermissions = new Set();
   const delegatedAreas = ['cifras','hinos','midias','kits','live','identidade','editor_estudos','comentarios_hinos'];
   const canArea = area => isAdmin || areaPermissions.has(area);
-  const canOpenAdmin = () => isAdmin||isEventManager||isMuralModerator||isStudyReviewer||areaPermissions.size>0;
+  const canOpenAdmin = () => isAdmin||isMemberVerifier||isEventManager||isMuralModerator||isStudyReviewer||areaPermissions.size>0;
   let youtubeVideos = [];
   let youtubeShown = 12;
   let youtubeFilter = 'todos';
@@ -934,6 +935,7 @@
   }
   async function updateAdminAccess() {
     isAdmin=false;
+    isMemberVerifier=false;
     isEventManager=false;
     isMuralModerator=false;
     isStudyTeacher=false;
@@ -952,13 +954,14 @@
       return;
     }
     try{
-      const [adminResult,eventResult,muralResult,studyResult,reviewResult,...areaResults]=await Promise.all([
+      const [adminResult,eventResult,muralResult,studyResult,reviewResult,verifyResult,...areaResults]=await Promise.all([
         db.rpc('is_site_admin'),db.rpc('can_manage_events'),
-        db.rpc('can_moderate_mural'),db.rpc('can_submit_studies'),db.rpc('can_review_studies'),
+        db.rpc('can_moderate_mural'),db.rpc('can_submit_studies'),db.rpc('can_review_studies'),db.rpc('igjal_pode_verificar'),
         ...delegatedAreas.map(p_area=>db.rpc('can_manage_area',{p_area}))
       ]);
       if(adminResult.error)throw adminResult.error;
       isAdmin=adminResult.data===true;
+      isMemberVerifier=isAdmin || (!verifyResult.error && verifyResult.data===true);
       isEventManager=isAdmin || (!eventResult.error && eventResult.data===true);
       isMuralModerator=isAdmin || (!muralResult.error && muralResult.data===true);
       isStudyTeacher=isAdmin || (!studyResult.error && studyResult.data===true);
@@ -970,7 +973,7 @@
       window.IGREJA_CELEBRACOES?.onAuthChange?.();
       window.IGREJA_ESTUDOS?.onAuthChange?.();
       $('open-moderation').hidden=true;
-      if($('open-moderation'))$('open-moderation').textContent=isAdmin?'🛡️ Administração geral':isEventManager?'📅 Gerenciar eventos':isMuralModerator?'💬 Moderar mural':'🛠️ Gerenciar minha área';
+      if($('open-moderation'))$('open-moderation').textContent=isAdmin?'🛡️ Administração geral':isMemberVerifier?'✓ Verificação de membros':isEventManager?'📅 Gerenciar eventos':isMuralModerator?'💬 Moderar mural':'🛠️ Gerenciar minha área';
       updateAdminPanelAccess();
       refreshAdminLinks();
     }catch(err){console.warn('Não foi possível conferir acesso da moderação:',err.message);}
@@ -1048,7 +1051,7 @@
   }
   function initModeration() {
     const open=$('open-moderation');
-    if(open)open.addEventListener('click',()=>{if(isAdmin||isEventManager||isMuralModerator)location.href='administracao.html';});
+    if(open)open.addEventListener('click',()=>{if(canOpenAdmin())location.href='administracao.html';});
     $('reload-moderation')?.addEventListener('click',loadModeration);
     $('reload-cifras')?.addEventListener('click',loadCifraModeration);
     $('admin-login-action')?.addEventListener('click',()=>showDialog('login-dialog'));
@@ -1303,7 +1306,7 @@
     initDialogs();
     initComments();
     initLogin();
-    window.IGREJA_MEMBROS?.init?.({db:()=>db,user:()=>user,isAdmin:()=>isAdmin,isEventManager:()=>isEventManager,isMuralModerator:()=>isMuralModerator,isStudyTeacher:()=>isStudyTeacher,isStudyReviewer:()=>isStudyReviewer,hasArea:canArea,hasPanelAccess:canOpenAdmin});
+    window.IGREJA_MEMBROS?.init?.({db:()=>db,user:()=>user,isAdmin:()=>isAdmin,isEventManager:()=>isEventManager,isMuralModerator:()=>isMuralModerator,isStudyTeacher:()=>isStudyTeacher,isStudyReviewer:()=>isStudyReviewer,hasArea:canArea,hasPanelAccess:canOpenAdmin,canVerify:()=>isMemberVerifier});
     initModeration();
     initCifraSubmission();
     // O formulário de comentários deve aparecer imediatamente, sem esperar o login remoto.
@@ -1311,10 +1314,11 @@
     await initBackend();
     window.IGREJA_LIVE?.init?.({db:()=>db,isAdmin:()=>isAdmin,hasArea:canArea});
     window.IGREJA_KITS?.init?.({db:()=>db,isAdmin:()=>isAdmin,hasArea:canArea});
-    window.IGREJA_ACESSOS?.init?.({db:()=>db,isAdmin:()=>isAdmin});
+    window.IGREJA_ACESSOS?.init?.({db:()=>db,isAdmin:()=>isAdmin,canVerify:()=>isMemberVerifier});
     if (window.IGREJA_V4?.init) await window.IGREJA_V4.init({
       db:()=>db,
       isAdmin:()=>isAdmin,
+      canVerify:()=>isMemberVerifier,
       isEventsAdmin:()=>isEventManager,
       isMuralModerator:()=>isMuralModerator,
       isStudyReviewer:()=>isStudyReviewer,
