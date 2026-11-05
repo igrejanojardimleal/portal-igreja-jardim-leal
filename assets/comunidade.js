@@ -3,9 +3,18 @@ window.IGREJA_COMUNIDADE = (()=>{
   'use strict';
   const $=id=>document.getElementById(id);
   let ctx,selected=null,loading=0;
+  let verificacoesHino=new Set();
   const status=(id,value,error=false)=>{const e=$(id);if(e){e.textContent=value;e.style.color=error?'#9e2626':'';}};
   const make=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;};
   function logged(){return Boolean(ctx?.user?.()&&ctx?.db?.());}
+  async function registrarDownload(numero){
+    if(!logged()||!numero)return;
+    try{
+      const {data,error}=await ctx.db().rpc('igjal_registrar_interacao',{p_tipo:'download',p_recurso:'hino:'+numero});
+      if(error)throw error;
+      if(data===true)void window.IGREJA_MEMBROS?.atualizarProgresso?.(true);
+    }catch(e){console.warn('[IGJAL] Pontuação de download indisponível:',e.message);}
+  }
   function updateAccess(){
     const form=$('hino-member-form'),prompt=$('hino-member-prompt');
     if(form)form.hidden=!logged();
@@ -72,11 +81,13 @@ window.IGREJA_COMUNIDADE = (()=>{
         const url=URL.createObjectURL(blob);
         const a=make('a');a.href=url;a.download=`hino-${selected.number}.txt`;
         a.click();
+        void registrarDownload(selected.number);
         window.setTimeout(()=>URL.revokeObjectURL(url),1500);
       });
       $('member-save-pdf').addEventListener('click',()=>{
         if(!logged())return;
         $('print-song')?.click();
+        void registrarDownload(selected?.number);
         status('hino-comment-status','Na janela de impressão, escolha “Salvar como PDF”.');
       });
     }
@@ -92,6 +103,10 @@ window.IGREJA_COMUNIDADE = (()=>{
       const article=make('article','comment-item');
       const title=make('strong','',row.nome);
       const when=make('small','', ' · '+new Date(row.criado_em).toLocaleDateString('pt-BR'));
+      if(verificacoesHino.has(Number(row.id))){
+        const selo=make('span','igjal-selo-verificado','✓');selo.title='Membro verificado pela liderança da igreja';
+        selo.setAttribute('aria-label','Membro verificado pela igreja');title.append(selo);
+      }
       const p=make('p','comment-message',row.mensagem);
       article.append(title,when,p);host.append(article);
     }
@@ -103,11 +118,16 @@ window.IGREJA_COMUNIDADE = (()=>{
     host.textContent='Carregando comentários...';
     if(!ctx?.db?.()){host.textContent='Os comentários serão carregados quando o serviço estiver disponível.';return;}
     const thisLoad=++loading;
-    const {data,error}=await ctx.db().from('hino_comentarios')
-      .select('id,nome,mensagem,criado_em,status').eq('hino_numero',song.number)
-      .eq('status','aprovado').order('criado_em',{ascending:false}).limit(100);
+    const [comments,certificates]=await Promise.all([
+      ctx.db().from('hino_comentarios')
+        .select('id,nome,mensagem,criado_em,status').eq('hino_numero',song.number)
+        .eq('status','aprovado').order('criado_em',{ascending:false}).limit(100),
+      ctx.db().rpc('igjal_hinos_verificados')
+    ]);
+    const {data,error}=comments;
     if(thisLoad!==loading)return;
     if(error){host.textContent='Não foi possível carregar comentários.';return;}
+    verificacoesHino=new Set((certificates.error?[]:certificates.data||[]).map(Number));
     host.dataset.loadedHino=String(song.number);
     renderComments(data||[]);
   }
