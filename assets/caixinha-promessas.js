@@ -1,10 +1,10 @@
 /* Caixinha de Promessas IGJAL - 500 versículos da Almeida Revista e Corrigida (Lisboa, 1911).
    Os quatro períodos diários são iguais para todos, no horário de Brasília.
-   O texto vem do acervo em domínio público, sem mudar as palavras da edição. */
+   O texto vem de edição em domínio público, com ortografia atualizada. */
 (() => {
   'use strict';
   const ZONE='America/Sao_Paulo';
-  const SOURCE='https://igrejanojardimleal.github.io/portal-igreja-jardim-leal/assets/promessas-arc1911.json?v=20261104-pai-v2';
+  const SOURCE='https://igrejanojardimleal.github.io/portal-igreja-jardim-leal/assets/promessas-arc1911.json?v=20261105-ortografia-v1';
   const $=id=>document.getElementById(id);
   const timezoneParts=new Intl.DateTimeFormat('en-GB',{
     timeZone:ZONE,year:'numeric',month:'2-digit',day:'2-digit',
