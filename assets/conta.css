@@ -445,3 +445,23 @@ main.shell,.site-footer{position:relative;z-index:1}
   .account-header .brand strong{font-size:10px}
   .account-header .brand small{font-size:8px}
 }
+
+
+/* Emblema circular iluminado no cabeçalho da Minha Conta. */
+.account-header .brand{gap:13px}
+.account-header .brand img{
+  display:block;width:57px;height:57px;flex:0 0 57px;
+  box-sizing:border-box;object-fit:contain;object-position:center;
+  border-radius:50%;padding:5px;
+  background:radial-gradient(circle at 40% 30%,#fff 0%,#f4f9ff 72%,#dfeaf5 100%);
+  border:2px solid #83d7e4;
+  box-shadow:0 0 0 4px rgba(104,200,214,.13),0 0 24px rgba(79,182,221,.26),0 5px 14px rgba(0,0,0,.23);
+}
+.account-header .brand strong{font-size:13px;font-weight:800;letter-spacing:.035em}
+.account-header .brand small{font-size:10px}
+@media(max-width:440px){
+  .account-header .brand{gap:9px}
+  .account-header .brand img{width:45px;height:45px;flex-basis:45px;padding:4px}
+  .account-header .brand strong{font-size:10px}
+  .account-header .brand small{font-size:9px}
+}
