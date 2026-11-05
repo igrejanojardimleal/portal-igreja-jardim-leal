@@ -27,7 +27,7 @@ window.IGREJA_MEMBROS = (() => {
       const inicio=[0,0,25,75,175,350,1500,10001][nivel];
       $('igjal-barra-pontos').style.width=(proximo===null?100:Math.max(0,Math.min(100,(total-inicio)/(proximo-inicio)*100)))+'%';
       const selos=[
-        ['verificado','✓ Conta verificada'],
+        ['verificado','✓ Conta cadastrada'],
         ['colaborou_cifra','🎼 Colaborou com cifra'],
         ['colaborou_hino','🎵 Colaborou com hino'],
         ['colaborou_estudo','📖 Colaborou com estudo'],
@@ -113,7 +113,7 @@ window.IGREJA_MEMBROS = (() => {
       if(note)note.textContent=user&&!saved?'Complete seu nome e sobrenome para publicar mensagens e comentários.':'Seu nome cadastrado será usado automaticamente no mural e nos comentários.';
     }
     const expl=$('member-account-description');
-    if(expl)expl.textContent=user?'Conta conectada. Você pode definir uma senha para os próximos acessos.':'Cadastre-se com seu e-mail e uma senha. Após confirmar o e-mail, você poderá participar do mural e dos hinos.';
+    if(expl)expl.textContent=user?'Conta conectada. Você pode definir uma senha para os próximos acessos.':'Cadastre-se com e-mail, telefone e senha para participar do mural e dos hinos.';
   }
   function init(ctx){
     context=ctx;
@@ -145,8 +145,8 @@ window.IGREJA_MEMBROS = (() => {
         <input id="member-signup-password" type="password" autocomplete="new-password" required minlength="8">
         <label for="member-signup-password-confirm">Repita a senha</label>
         <input id="member-signup-password-confirm" type="password" autocomplete="new-password" required minlength="8">
-        <button class="btn btn-primary full-width" type="submit">Cadastrar e confirmar e-mail</button>
-        <small>A confirmação será enviada para seu e-mail. Seu nome e sobrenome aparecerão junto às mensagens, comentários e estudos que forem publicados. Apenas contas confirmadas poderão participar.</small>
+        <button class="btn btn-primary full-width" type="submit">Criar minha conta</button>
+        <small>Seu e-mail será usado para entrar e recuperar a senha. O telefone é privado. As publicações continuam sujeitas à moderação da igreja.</small>
       </form>
       <form id="member-recovery" data-member-form="recuperar" hidden>
         <label for="member-recovery-email">E-mail cadastrado</label><input id="member-recovery-email" type="email" autocomplete="email" required>
