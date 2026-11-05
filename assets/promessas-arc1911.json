@@ -1,2010 +1,2010 @@
 {
- "title": "Caixinha de Promessas · IGJAL",
- "translation": "Almeida Revista e Corrigida — edição histórica de 1911, com ajustes pontuais de grafia",
- "edition": "1911",
- "note": "Texto de domínio público da edição histórica de 1911, com atualização pontual da grafia Pae para Pai e revisão de Mateus 18:19 conforme texto informado pela igreja. Não corresponde integralmente à ARC moderna da SBB.",
- "source": "https://github.com/damarals/biblias/tree/main/data/canonical/ALM1911",
- "count": 500,
- "verses": [
-  {
-   "reference": "Salmos 23:1",
-   "text": "O Senhor é o meu pastor, nada me faltará."
-  },
-  {
-   "reference": "Salmos 91:1",
-   "text": "Aquelle que habita no esconderijo do Altissimo, á sombra do Omnipotente descançará."
-  },
-  {
-   "reference": "Salmos 103:1",
-   "text": "Bemdize, ó alma minha ao Senhor, e tudo o que ha em mim, bemdiga o seu sancto nome."
-  },
-  {
-   "reference": "Salmos 121:1",
-   "text": "Levantarei os meus olhos para os montes, de onde vem a minha salvação."
-  },
-  {
-   "reference": "Salmos 51:12",
-   "text": "Torna a dar-me a alegria da tua salvação, e sustem-me com o teu Espirito voluntario."
-  },
-  {
-   "reference": "Salmos 128:5",
-   "text": "O Senhor te abençoará desde Sião, e tu verás os bens de Jerusalem em todos os dias da tua vida."
-  },
-  {
-   "reference": "Salmos 121:5",
-   "text": "O Senhor é quem te guarda: o Senhor é a tua sombra á tua direita."
-  },
-  {
-   "reference": "Salmos 126:3",
-   "text": "Grandes coisas fez o Senhor por nós, pelas quaes estamos alegres."
-  },
-  {
-   "reference": "Salmos 146:5",
-   "text": "Bemaventurado aquelle que tem o Deus de Jacob por seu auxilio, e cuja esperança está posta no Senhor seu Deus."
-  },
-  {
-   "reference": "Salmos 147:1",
-   "text": "Louvae ao Senhor, porque é bom cantar louvores ao nosso Deus, porque é agradavel; decoroso é o louvor."
-  },
-  {
-   "reference": "Salmos 145:21",
-   "text": "A minha bocca fallará o louvor do Senhor, e toda a carne louvará o seu sancto nome pelo seculo do seculo e para sempre."
-  },
-  {
-   "reference": "Salmos 150:1",
-   "text": "Louvae ao Senhor. Louvae a Deus no seu sanctuario, louvae-o no firmamento do seu poder."
-  },
-  {
-   "reference": "Salmos 91:2",
-   "text": "Direi do Senhor: Elle é o meu Deus, o meu refugio, a minha fortaleza, e n'elle confiarei."
-  },
-  {
-   "reference": "Salmos 84:8",
-   "text": "Senhor Deus dos Exercitos, escuta a minha oração: inclina os ouvidos, ó Deus de Jacob! (Selah)"
-  },
-  {
-   "reference": "Salmos 27:1",
-   "text": "O Senhor é a minha luz e a minha salvação; a quem temerei? O Senhor é a força da minha vida; de quem me receiarei?"
-  },
-  {
-   "reference": "Salmos 23:6",
-   "text": "Certamente que a bondade e a misericordia me seguirão todos os dias da minha vida: e habitarei na casa do Senhor por longos dias."
-  },
-  {
-   "reference": "Salmos 71:5",
-   "text": "Pois tu és a minha esperança. Senhor Deus; tu és a minha confiança desde a minha mocidade."
-  },
-  {
-   "reference": "Salmos 63:1",
-   "text": "Ó Deus, tu és o meu Deus, de madrugada te buscarei: a minha alma tem sêde de ti; a minha carne te deseja muito em uma terra secca e cançada, onde não ha agua"
-  },
-  {
-   "reference": "Salmos 62:7",
-   "text": "Em Deus está a minha salvação e a minha gloria: a rocha da minha fortaleza, e o meu refugio estão em Deus."
-  },
-  {
-   "reference": "Salmos 111:1",
-   "text": "Louvae ao Senhor. Louvarei ao Senhor de todo o meu coração, na assembléa dos justos e na congregação."
-  },
-  {
-   "reference": "Salmos 112:1",
-   "text": "Louvae ao Senhor. Bemaventurado o homem que teme ao Senhor, que em seus mandamentos tem grande prazer."
-  },
-  {
-   "reference": "Salmos 116:5",
-   "text": "Piedoso é o Senhor e justo: o nosso Deus tem misericordia."
-  },
-  {
-   "reference": "Salmos 119:130",
-   "text": "A entrada das tuas palavras dá luz, dá entendimento aos simplices."
-  },
-  {
-   "reference": "Salmos 118:27",
-   "text": "Deus é o Senhor que nos mostrou a luz: atae a victima da festa com cordas, até aos cornos do altar."
-  },
-  {
-   "reference": "Salmos 139:14",
-   "text": "Eu te louvarei, porque de um modo terrivel, e tão maravilhoso fui feito; maravilhosas são as tuas obras, e a minha alma o sabe muito bem."
-  },
-  {
-   "reference": "Salmos 133:3",
-   "text": "Como o orvalho de Hermon e como o que desce sobre os montes de Sião, porque ali o Senhor ordena a benção e vida para sempre."
-  },
-  {
-   "reference": "Salmos 130:7",
-   "text": "Espere Israel no Senhor, porque no Senhor ha misericordia, e n'elle ha abundante redempção."
-  },
-  {
-   "reference": "Salmos 107:21",
-   "text": "Louvem ao Senhor pela sua bondade, e pelas suas maravilhas para com os filhos dos homens."
-  },
-  {
-   "reference": "Salmos 136:3",
-   "text": "Louvae ao Senhor dos senhores; porque a sua benignidade dura para sempre."
-  },
-  {
-   "reference": "Salmos 103:17",
-   "text": "Mas a misericordia do Senhor é desde a eternidade e até á eternidade sobre aquelles que o temem, e a sua justiça sobre os filhos dos filhos;"
-  },
-  {
-   "reference": "Salmos 100:3",
-   "text": "Sabei que o Senhor é Deus: foi elle que nos fez, e não nós outros a nós; somos povo seu e ovelhas do seu pasto."
-  },
-  {
-   "reference": "Salmos 40:16",
-   "text": "Folguem e alegrem-se em ti os que te buscam: digam constantemente os que amam a tua salvação: Magnificado seja o Senhor."
-  },
-  {
-   "reference": "Salmos 34:1",
-   "text": "Louvarei ao Senhor em todo o tempo: o seu louvor estará continuamente na minha bocca."
-  },
-  {
-   "reference": "Salmos 37:6",
-   "text": "E elle fará sobresair a tua justiça como a luz, e o teu juizo como o meio-dia."
-  },
-  {
-   "reference": "Salmos 46:4",
-   "text": "Ha um rio cujas correntes alegram a cidade de Deus, o sanctuario das moradas do Altissimo."
-  },
-  {
-   "reference": "Salmos 30:12",
-   "text": "Para que a minha gloria a ti cante louvores, e não se cale: Senhor, Deus meu, eu te louvarei para sempre."
-  },
-  {
-   "reference": "Salmos 31:5",
-   "text": "Nas tuas mãos encommendo o meu espirito: tu me redimiste, Senhor Deus da verdade."
-  },
-  {
-   "reference": "Salmos 33:5",
-   "text": "Elle ama a justiça e o juizo: a terra está cheia da bondade do Senhor."
-  },
-  {
-   "reference": "Salmos 51:10",
-   "text": "Cria em mim, ó Deus, um coração puro, e renova em mim um espirito recto."
-  },
-  {
-   "reference": "Salmos 128:4",
-   "text": "Eis que assim será abençoado o homem que teme ao Senhor."
-  },
-  {
-   "reference": "Salmos 121:2",
-   "text": "O meu soccorro vem do Senhor, que fez o céu e a terra."
-  },
-  {
-   "reference": "Salmos 126:2",
-   "text": "Então a nossa bocca se encheu do riso e a nossa lingua de cantico: então se dizia entre as nações: Grandes coisas fez o Senhor a estes."
-  },
-  {
-   "reference": "Salmos 146:2",
-   "text": "Louvarei ao Senhor durante a minha vida; cantarei louvores ao meu Deus emquanto eu fôr vivo."
-  },
-  {
-   "reference": "Salmos 147:12",
-   "text": "Louva, ó Jerusalem, ao Senhor; louva, ó Sião, ao teu Deus."
-  },
-  {
-   "reference": "Salmos 145:7",
-   "text": "Proferirão abundantemente a memoria da tua grande bondade, e cantarão a tua justiça."
-  },
-  {
-   "reference": "Salmos 150:6",
-   "text": "Tudo quanto tem folego louve ao Senhor. Louvae ao Senhor."
-  },
-  {
-   "reference": "Salmos 91:9",
-   "text": "Porque tu, ó Senhor, és o meu refugio: no Altissimo fizeste a tua habitação."
-  },
-  {
-   "reference": "Salmos 84:11",
-   "text": "Porque o Senhor Deus é um sol e escudo: o Senhor dará graça e gloria; não retirará bem algum aos que andam na rectidão."
-  },
-  {
-   "reference": "Salmos 27:4",
-   "text": "Uma coisa pedi ao Senhor, e a buscarei: que possa morar na casa do Senhor todos os dias da minha vida, para contemplar a formosura do Senhor, e inquirir no seu templo."
-  },
-  {
-   "reference": "Salmos 23:3",
-   "text": "Refrigera a minha alma; guia-me pelas veredas da justiça, por amor do seu nome."
-  },
-  {
-   "reference": "Salmos 71:16",
-   "text": "Sairei na força do Senhor Deus, farei menção da tua justiça, e só d'ella."
-  },
-  {
-   "reference": "Salmos 63:5",
-   "text": "A minha alma se fartará, como de tutano e de gordura; e a minha bocca te louvará com alegres labios,"
-  },
-  {
-   "reference": "Salmos 62:12",
-   "text": "A ti tambem, Senhor, pertence a misericordia; pois retribuirás a cada um segundo a sua obra."
-  },
-  {
-   "reference": "Salmos 111:10",
-   "text": "O temor do Senhor é o principio da sabedoria: bom entendimento teem todos os que cumprem os seus mandamentos: o seu louvor permanece para sempre."
-  },
-  {
-   "reference": "Salmos 112:7",
-   "text": "Não temerá maus rumores: o seu coração está firme, confiando no Senhor."
-  },
-  {
-   "reference": "Salmos 116:4",
-   "text": "Então invoquei o nome do Senhor, dizendo: Ó Senhor, livra a minha alma."
-  },
-  {
-   "reference": "Salmos 119:33",
-   "text": "Ensina-me, ó Senhor, o caminho dos teus estatutos, e guardal-o-hei até ao fim."
-  },
-  {
-   "reference": "Salmos 118:25",
-   "text": "Salva-nos, agora, te pedimos, ó Senhor, ó Senhor, te pedimos, prospera-nos."
-  },
-  {
-   "reference": "Salmos 139:12",
-   "text": "Nem ainda as trevas me encobrem de ti: mas a noite resplandece como o dia; as trevas e a luz são para ti a mesma coisa."
-  },
-  {
-   "reference": "Salmos 133:2",
-   "text": "É como o oleo precioso sobre a cabeça, que desce sobre a barba, a barba, d'Aarão, e que desce á orla dos seus vestidos."
-  },
-  {
-   "reference": "Salmos 130:3",
-   "text": "Se tu, Senhor, observares as iniquidades, Senhor, quem subsistirá?"
-  },
-  {
-   "reference": "Salmos 107:8",
-   "text": "Louvem ao Senhor pela sua bondade, e pelas suas maravilhas para com os filhos dos homens."
-  },
-  {
-   "reference": "Salmos 136:2",
-   "text": "Louvae ao Deus dos deuses; porque a sua benignidade dura para sempre."
-  },
-  {
-   "reference": "Salmos 103:22",
-   "text": "Bemdizei ao Senhor, todas as suas obras, em todos os logares do seu dominio; bemdize, ó alma minha, ao Senhor."
-  },
-  {
-   "reference": "Salmos 100:4",
-   "text": "Entrae pelas portas d'elle com louvor, e em seus atrios com hymno: louvae-o, e bemdizei o seu nome."
-  },
-  {
-   "reference": "Salmos 40:17",
-   "text": "Mas eu sou pobre e necessitado; comtudo o Senhor cuida de mim: tu és o meu auxilio e o meu libertador; não te detenhas, ó meu Deus."
-  },
-  {
-   "reference": "Salmos 34:18",
-   "text": "Perto está o Senhor dos que teem o coração quebrantado, e salva os contritos de espirito."
-  },
-  {
-   "reference": "Salmos 37:39",
-   "text": "Mas a salvação dos justos vem do Senhor; elle é a sua fortaleza no tempo da angustia."
-  },
-  {
-   "reference": "Salmos 46:7",
-   "text": "O Senhor dos Exercitos está comnosco: o Deus de Jacob é o nosso refugio (Selah)."
-  },
-  {
-   "reference": "Salmos 30:2",
-   "text": "Senhor, meu Deus, clamei a ti, e tu me saraste."
-  },
-  {
-   "reference": "Salmos 31:21",
-   "text": "Bemdito seja o Senhor, pois fez maravilhosa a sua misericordia para comigo em cidade segura."
-  },
-  {
-   "reference": "Salmos 33:18",
-   "text": "Eis que os olhos do Senhor estão sobre os que o temem, sobre os que esperam na sua misericordia;"
-  },
-  {
-   "reference": "Salmos 51:11",
-   "text": "Não me lances fóra da tua presença, e não retires de mim o teu Espirito Sancto."
-  },
-  {
-   "reference": "Salmos 128:1",
-   "text": "Bemaventurado aquelle que teme ao Senhor e anda nos seus caminhos."
-  },
-  {
-   "reference": "Salmos 121:7",
-   "text": "O Senhor te guardará de todo o mal: guardará a tua alma."
-  },
-  {
-   "reference": "Salmos 126:6",
-   "text": "Aquelle que leva a preciosa semente, andando e chorando, voltará sem duvida com alegria, trazendo comsigo os seus molhos."
-  },
-  {
-   "reference": "Salmos 146:10",
-   "text": "O Senhor reinará eternamente; o teu Deus, ó Sião, é de geração em geração. Louvae ao Senhor."
-  },
-  {
-   "reference": "Salmos 147:7",
-   "text": "Cantae ao Senhor em acção de graça; cantae louvores ao nosso Deus sobre a harpa."
-  },
-  {
-   "reference": "Salmos 145:3",
-   "text": "Grande é o Senhor, e muito digno de louvor, e a sua grandeza inexcrutavel."
-  },
-  {
-   "reference": "Salmos 150:3",
-   "text": "Louvae-o com o som de trombeta, louvae-o com o psalterio e a harpa."
-  },
-  {
-   "reference": "Salmos 91:16",
-   "text": "Fartal-o-hei com longura de dias, e lhe mostrarei a minha salvação."
-  },
-  {
-   "reference": "Salmos 84:12",
-   "text": "Senhor dos Exercitos, bemaventurado o homem que em ti põe a sua confiança."
-  },
-  {
-   "reference": "Salmos 27:14",
-   "text": "Espera no Senhor, anima-te, e elle fortalecerá o teu coração; espera pois no Senhor."
-  },
-  {
-   "reference": "Salmos 23:4",
-   "text": "Ainda que eu andasse pelo valle da sombra da morte, não temeria mal algum, porque tu estás comigo; a tua vara e o teu cajado me consolam."
-  },
-  {
-   "reference": "Salmos 71:15",
-   "text": "A minha bocca manifestará a tua justiça e a tua salvação todo o dia, pois não conheço o numero d'ellas."
-  },
-  {
-   "reference": "Salmos 63:3",
-   "text": "Porque a tua benignidade é melhor do que a vida; os meus labios te louvarão."
-  },
-  {
-   "reference": "Salmos 62:1",
-   "text": "A minha alma espera sómente em Deus: d'elle vem a minha salvação."
-  },
-  {
-   "reference": "Salmos 111:4",
-   "text": "Fez com que as suas maravilhas fossem lembradas: piedoso e misericordioso é o Senhor."
-  },
-  {
-   "reference": "Salmos 112:4",
-   "text": "Aos justos nasce luz nas trevas: elle é piedoso, misericordioso e justo."
-  },
-  {
-   "reference": "Salmos 116:8",
-   "text": "Porque tu, Senhor, livraste a minha alma da morte, os meus olhos das lagrimas, e os meus pés da queda."
-  },
-  {
-   "reference": "Salmos 119:105",
-   "text": "A tua palavra é uma lampada para os meus pés e uma luz para o meu caminho."
-  },
-  {
-   "reference": "Salmos 118:28",
-   "text": "Tu és o meu Deus, e eu te louvarei; tu és o meu Deus, e eu te exaltarei."
-  },
-  {
-   "reference": "Salmos 139:17",
-   "text": "E quão preciosos me são, ó Deus, os teus pensamentos! Quão grandes são as sommas d'elles!"
-  },
-  {
-   "reference": "Salmos 133:1",
-   "text": "Oh! quão bom e quão suave é que os irmãos habitem em união."
-  },
-  {
-   "reference": "Salmos 130:6",
-   "text": "A minha alma aguarda ao Senhor, mais do que os guardas pela manhã, mais do que aquelles que vigiam pela manhã."
-  },
-  {
-   "reference": "Salmos 107:1",
-   "text": "Louvae ao Senhor, porque elle é bom, porque a sua benignidade dura para sempre."
-  },
-  {
-   "reference": "Salmos 136:1",
-   "text": "Louvae ao Senhor, porque elle é bom; porque a sua benignidade dura para sempre."
-  },
-  {
-   "reference": "Salmos 103:8",
-   "text": "Misericordioso e piedoso é o Senhor; longanimo e grande em benignidade."
-  },
-  {
-   "reference": "Salmos 100:5",
-   "text": "Porque o Senhor é bom, e eterna a sua misericordia; e a sua verdade dura de geração em geração."
-  },
-  {
-   "reference": "Salmos 40:5",
-   "text": "Muitas são, Senhor meu Deus, as maravilhas que tens obrado para comnosco, e os teus pensamentos não se podem contar por ordem diante de ti; se eu os quizera annunciar, e d'elles fallar, são mais do que se podem contar."
-  },
-  {
-   "reference": "Salmos 34:8",
-   "text": "Provae, e vêde que o Senhor é bom; bemaventurado o homem que n'elle confia."
-  },
-  {
-   "reference": "Salmos 37:7",
-   "text": "Descança no Senhor, e espera n'elle; não te indignes por causa d'aquelle que prospera em seu caminho, por causa do homem que executa astutos intentos."
-  },
-  {
-   "reference": "Salmos 46:5",
-   "text": "Deus está no meio d'ella, não se abalará; Deus a ajudará ao romper da manhã."
-  },
-  {
-   "reference": "Salmos 30:3",
-   "text": "Senhor, fizeste subir a minha alma da sepultura: conservaste-me a vida para que não descesse ao abysmo."
-  },
-  {
-   "reference": "Salmos 31:23",
-   "text": "Amae ao Senhor, vós todos que sois seus sanctos; porque o Senhor guarda os fieis e retribue com abundancia ao que usa de soberba."
-  },
-  {
-   "reference": "Salmos 33:22",
-   "text": "Seja a tua misericordia, Senhor, sobre nós, como em ti esperamos."
-  },
-  {
-   "reference": "Salmos 128:6",
-   "text": "E verás os filhos de teus filhos, e a paz sobre Israel."
-  },
-  {
-   "reference": "Salmos 121:8",
-   "text": "O Senhor guardará a tua entrada e a tua saida, desde agora e para sempre."
-  },
-  {
-   "reference": "Salmos 126:1",
-   "text": "Quando o Senhor trouxe do captiveiro os que voltaram a Sião estavamos com os que sonham."
-  },
-  {
-   "reference": "Salmos 146:1",
-   "text": "Louvae ao Senhor. Ó alma minha, louva ao Senhor."
-  },
-  {
-   "reference": "Salmos 147:20",
-   "text": "Não fez assim a nenhuma outra nação; e, emquanto aos seus juizos, não os conhecem. Louvae ao Senhor."
-  },
-  {
-   "reference": "Salmos 145:9",
-   "text": "O Senhor é bom para todos, e as suas misericordias são sobre todas as suas obras."
-  },
-  {
-   "reference": "Salmos 150:2",
-   "text": "Louvae-o pelos seus actos poderosos, louvae-o conforme a excellencia da sua grandeza."
-  },
-  {
-   "reference": "Salmos 91:4",
-   "text": "Elle te cobrirá com as suas pennas, e debaixo das suas azas te confiarás: a sua verdade será o teu escudo e rodella."
-  },
-  {
-   "reference": "Salmos 84:3",
-   "text": "Até o pardal encontrou casa, e a andorinha ninho para si, onde ponha seus filhos, até mesmo nos teus altares, Senhor dos exercitos, Rei meu e Deus meu."
-  },
-  {
-   "reference": "Salmos 27:13",
-   "text": "Pereceria sem duvida, se não cresse que veria os bens do Senhor na terra dos viventes."
-  },
-  {
-   "reference": "Salmos 23:2",
-   "text": "Deitar-me faz em verdes pastos, guia-me mansamente a aguas mui quietas."
-  },
-  {
-   "reference": "Salmos 71:2",
-   "text": "Livra-me na tua justiça, e faze-me escapar: inclina os teus ouvidos para mim, e salva-me."
-  },
-  {
-   "reference": "Salmos 63:8",
-   "text": "A minha alma te segue de perto: a tua dextra me sustenta."
-  },
-  {
-   "reference": "Salmos 62:5",
-   "text": "Ó minha alma, espera sómente em Deus, porque d'elle vem a minha esperança."
-  },
-  {
-   "reference": "Salmos 111:2",
-   "text": "Grandes são as obras do Senhor, procuradas por todos os que n'elles tomam prazer."
-  },
-  {
-   "reference": "Salmos 112:9",
-   "text": "Elle espalhou, deu aos necessitados: a sua justiça permanece para sempre, e a sua força se exaltará em gloria."
-  },
-  {
-   "reference": "Salmos 116:9",
-   "text": "Andarei perante a face do Senhor na terra dos viventes."
-  },
-  {
-   "reference": "Salmos 119:165",
-   "text": "Muita paz teem os que amam a tua lei, e para elles não ha tropeço."
-  },
-  {
-   "reference": "Salmos 118:24",
-   "text": "Este é o dia que fez o Senhor: regozijemo-nos, e alegremo-nos n'elle."
-  },
-  {
-   "reference": "Salmos 139:7",
-   "text": "Para onde me irei do teu Espirito, ou para onde fugirei da tua face?"
-  },
-  {
-   "reference": "Salmos 130:5",
-   "text": "Aguardo ao Senhor; a minha alma o aguarda, e espero na sua palavra."
-  },
-  {
-   "reference": "Salmos 107:6",
-   "text": "E clamaram ao Senhor na sua angustia, e os livrou das suas necessidades."
-  },
-  {
-   "reference": "Salmos 136:26",
-   "text": "Louvae ao Deus dos céus; porque a sua benignidade dura para sempre."
-  },
-  {
-   "reference": "Salmos 103:6",
-   "text": "O Senhor faz justiça e juizo a todos os opprimidos."
-  },
-  {
-   "reference": "Provérbios 3:5",
-   "text": "Confia no Senhor com todo o teu coração, e não te estribes no teu proprio entendimento."
-  },
-  {
-   "reference": "Provérbios 3:6",
-   "text": "Reconhece-o em todos os teus caminhos, e elle endireitará as tuas veredas."
-  },
-  {
-   "reference": "Provérbios 16:3",
-   "text": "Confia do Senhor as tuas obras, e teus pensamentos serão estabelecidos."
-  },
-  {
-   "reference": "Provérbios 31:30",
-   "text": "Sin. Enganosa é a graça e vaidade a formosura, mas a mulher que teme ao Senhor essa será louvada."
-  },
-  {
-   "reference": "Provérbios 30:9",
-   "text": "Para que porventura de farto te não negue, e diga: Quem é o Senhor? ou que, empobrecendo, não venha a furtar, e lance mão do nome de Deus."
-  },
-  {
-   "reference": "Provérbios 19:23",
-   "text": "O temor do Senhor encaminha para a vida; aquelle que o tem ficará satisfeito, e não o visitará mal nenhum."
-  },
-  {
-   "reference": "Provérbios 18:10",
-   "text": "Torre forte é o nome do Senhor; a elle correrá o justo, e estará em alto retiro."
-  },
-  {
-   "reference": "Provérbios 13:20",
-   "text": "O que anda com os sabios, ficará sabio, mas o companheiro dos tolos soffrerá severamente."
-  },
-  {
-   "reference": "Provérbios 12:25",
-   "text": "A solicitude no coração do homem o abate, mas uma boa palavra o alegra."
-  },
-  {
-   "reference": "Provérbios 28:13",
-   "text": "O que encobre as suas transgressões nunca prosperará, mas o que as confessa e deixa alcançará misericordia."
-  },
-  {
-   "reference": "Provérbios 11:2",
-   "text": "Vinda a soberba, virá tambem a affronta; mas com os humildes está a sabedoria."
-  },
-  {
-   "reference": "Provérbios 29:18",
-   "text": "Não havendo prophecia, o povo fica dissoluto; porém o que guarda a lei esse é bemaventurado:"
-  },
-  {
-   "reference": "Provérbios 10:22",
-   "text": "A benção do Senhor é a que enriquece; e não lhe accrescenta dôres."
-  },
-  {
-   "reference": "Provérbios 17:22",
-   "text": "O coração alegre serve de bom remedio, mas o espirito abatido virá a seccar os ossos."
-  },
-  {
-   "reference": "Provérbios 27:9",
-   "text": "O oleo e o perfume alegram o coração: assim a doença do amigo d'alguem com o conselho cordial."
-  },
-  {
-   "reference": "Provérbios 16:20",
-   "text": "O que attenta prudentemente para a palavra achará o bem, e o que confia no Senhor será bemaventurado."
-  },
-  {
-   "reference": "Provérbios 24:14",
-   "text": "Tal será o conhecimento da sabedoria para a tua alma: se a achares, haverá para ti galardão, e não será cortada a tua expectação."
-  },
-  {
-   "reference": "Provérbios 15:30",
-   "text": "A luz dos olhos alegra o coração, a boa fama engorda os ossos."
-  },
-  {
-   "reference": "Provérbios 25:11",
-   "text": "Como maçãs d'oiro em salvas de prata, assim é a palavra dita a seu tempo."
-  },
-  {
-   "reference": "Provérbios 14:26",
-   "text": "No temor do Senhor ha firme confiança, e elle será um refugio para seus filhos."
-  },
-  {
-   "reference": "Provérbios 22:1",
-   "text": "Mais digno de ser escolhido é o bom nome do que as muitas riquezas; e a graça é melhor do que a riqueza e o oiro."
-  },
-  {
-   "reference": "Provérbios 20:24",
-   "text": "Os passos do homem são dirigidos pelo Senhor: o homem, pois, como entenderá o seu caminho?"
-  },
-  {
-   "reference": "Provérbios 21:21",
-   "text": "O que segue a justiça e a beneficencia achará a vida, a justiça e a honra."
-  },
-  {
-   "reference": "Provérbios 8:11",
-   "text": "Porque melhor é a sabedoria do que os rubins; e tudo o que mais se deseja não se pode comparar com ella."
-  },
-  {
-   "reference": "Provérbios 3:4",
-   "text": "E acharás graça e bom entendimento aos olhos de Deus e dos homens."
-  },
-  {
-   "reference": "Provérbios 4:7",
-   "text": "O principio da sabedoria é adquirir a sabedoria: adquire pois a sabedoria, e com toda a tua possessão adquire o entendimento."
-  },
-  {
-   "reference": "Provérbios 31:28",
-   "text": "Koph. Levantam-se seus filhos, prezam-n'a por bemaventurada; como tambem seu marido, que a louva, dizendo:"
-  },
-  {
-   "reference": "Provérbios 30:5",
-   "text": "Toda a palavra de Deus é pura; escudo é para os que confiam n'elle."
-  },
-  {
-   "reference": "Provérbios 19:17",
-   "text": "Ao Senhor empresta o que se compadece do pobre, e elle lhe pagará o seu beneficio."
-  },
-  {
-   "reference": "Provérbios 18:21",
-   "text": "A morte e a vida estão no poder da lingua; e aquelle que a ama comerá do seu fructo."
-  },
-  {
-   "reference": "Provérbios 13:12",
-   "text": "A esperança deferida enfraquece o coração, mas o desejo chegado é arvore de vida."
-  },
-  {
-   "reference": "Provérbios 12:18",
-   "text": "Ha alguns que fallam palavras como estocadas de espada, mas a lingua dos sabios é saude."
-  },
-  {
-   "reference": "Provérbios 28:5",
-   "text": "Os homens maus não entendem o juizo, mas os que buscam ao Senhor entendem tudo."
-  },
-  {
-   "reference": "Provérbios 11:25",
-   "text": "A alma abençoante engordará, e o que regar, elle tambem será regado."
-  },
-  {
-   "reference": "Provérbios 29:25",
-   "text": "O temor do homem armará laços, mas o que confia no Senhor será posto em alto retiro."
-  },
-  {
-   "reference": "Provérbios 10:12",
-   "text": "O odio excita contendas, mas o amor cobre todas as transgressões."
-  },
-  {
-   "reference": "Provérbios 17:9",
-   "text": "O que encobre a transgressão busca a amizade, mas o que renova a coisa, separa os maiores amigos."
-  },
-  {
-   "reference": "Provérbios 27:5",
-   "text": "Melhor é a reprehensão aberta do que o amor encoberto."
-  },
-  {
-   "reference": "Provérbios 16:9",
-   "text": "O coração do homem considera o seu caminho, mas o Senhor lhe dirige os passos."
-  },
-  {
-   "reference": "Provérbios 24:3",
-   "text": "Com a sabedoria se edifica a casa, e com a intelligencia se estabelece:"
-  },
-  {
-   "reference": "Provérbios 15:13",
-   "text": "O coração alegre aformosea o rosto, mas pela dôr do coração o espirito se abate."
-  },
-  {
-   "reference": "Provérbios 25:21",
-   "text": "Se o que te aborrece tiver fome, dá-lhe pão para comer; e se tiver sêde, dá-lhe agua para beber;"
-  },
-  {
-   "reference": "Provérbios 14:21",
-   "text": "O que despreza ao seu companheiro pecca, mas o que se compadece dos humildes é bemaventurado."
-  },
-  {
-   "reference": "Provérbios 22:9",
-   "text": "O que é de bons olhos será abençoado, porque deu do seu pão ao pobre."
-  },
-  {
-   "reference": "Provérbios 20:7",
-   "text": "O justo anda na sua sinceridade; bemaventurados serão os seus filhos depois d'elle."
-  },
-  {
-   "reference": "Provérbios 21:3",
-   "text": "Fazer justiça e juizo é mais acceito ao Senhor do que lhe offerecer sacrificio."
-  },
-  {
-   "reference": "Provérbios 8:32",
-   "text": "Agora, pois, filhos, ouvime, porque bemaventurados serão os que guardarem os meus caminhos."
-  },
-  {
-   "reference": "Provérbios 3:19",
-   "text": "O Senhor com sabedoria fundou a terra: preparou os céus com entendimento."
-  },
-  {
-   "reference": "Provérbios 4:5",
-   "text": "Adquire a sabedoria, adquire a intelligencia, e não te esqueças nem te apartes das palavras da minha bocca."
-  },
-  {
-   "reference": "Provérbios 31:26",
-   "text": "Pé. Abre a sua bocca com sabedoria, e a lei da beneficencia está na sua lingua."
-  },
-  {
-   "reference": "Provérbios 30:8",
-   "text": "Alonga de mim a vaidade e a palavra mentirosa; não me dês nem a pobreza nem a riqueza: mantem-me do pão da minha porção acostumada."
-  },
-  {
-   "reference": "Provérbios 19:11",
-   "text": "O entendimento do homem retem a sua ira, e a sua gloria é passar sobre a transgressão."
-  },
-  {
-   "reference": "Provérbios 18:24",
-   "text": "O homem que tem amigos haja-se amigavelmente, e ha amigo mais chegado do que um irmão."
-  },
-  {
-   "reference": "Provérbios 12:28",
-   "text": "Na vereda da justiça está a vida, e no caminho da sua carreira não ha morte."
-  },
-  {
-   "reference": "Provérbios 28:25",
-   "text": "O altivo d'animo levanta contendas, mas o que confia no Senhor engordará."
-  },
-  {
-   "reference": "Provérbios 11:24",
-   "text": "Alguns ha que espalham, e ainda se lhes accrescenta mais, e outros que reteem mais do que é justo, mas é para a sua perda."
-  },
-  {
-   "reference": "Provérbios 3:24",
-   "text": "Quando te deitares, não temerás: mas te deitarás e o teu somno será suave."
-  },
-  {
-   "reference": "Provérbios 10:27",
-   "text": "O temor do Senhor augmenta os dias, mas os annos dos impios serão abreviados."
-  },
-  {
-   "reference": "Provérbios 17:17",
-   "text": "Em todo o tempo ama o amigo; e para a angustia nasce o irmão."
-  },
-  {
-   "reference": "Provérbios 27:17",
-   "text": "Como o ferro com o ferro se aguça, assim o homem aguça o rosto do seu amigo."
-  },
-  {
-   "reference": "Provérbios 16:24",
-   "text": "Favo de mel são as palavras suaves, doces para a alma, e saude para os ossos."
-  },
-  {
-   "reference": "Provérbios 24:5",
-   "text": "E o varão sabio é forte, e o varão de conhecimento consolida a força."
-  },
-  {
-   "reference": "Provérbios 15:4",
-   "text": "A medicina da lingua é arvore de vida, mas a perversidade n'ella quebranta o espirito."
-  },
-  {
-   "reference": "Provérbios 25:15",
-   "text": "Pela longanimidade se persuade o principe, e a lingua branda quebranta os ossos."
-  },
-  {
-   "reference": "Provérbios 14:27",
-   "text": "O temor do Senhor é uma fonte de vida, para se desviarem dos laços da morte."
-  },
-  {
-   "reference": "Provérbios 22:4",
-   "text": "O galardão da humildade com o temor do Senhor são riquezas, a honra e a vida."
-  },
-  {
-   "reference": "Provérbios 20:27",
-   "text": "A alma do homem é a lampada do Senhor, que esquadrinha todo o mais intimo do ventre."
-  },
-  {
-   "reference": "Provérbios 21:23",
-   "text": "O que guarda a sua bocca e a sua lingua, guarda das angustias a sua alma."
-  },
-  {
-   "reference": "Isaías 40:31",
-   "text": "Mas os que esperam no Senhor renovarão as forças, subirão com azas como aguias: correrão, e não se cançarão; caminharão, e não se fatigarão."
-  },
-  {
-   "reference": "Isaías 41:10",
-   "text": "Não temas, porque eu estou comtigo; não te assombres, porque eu sou teu Deus: eu te esforço, e te ajudo, e te sustento com a dextra da minha justiça."
-  },
-  {
-   "reference": "Isaías 43:1",
-   "text": "Porém agora, assim diz o Senhor que te creou, ó Jacob, e que te formou, ó Israel: Não temas, porque eu te remi: chamei-te pelo teu nome, tu és meu."
-  },
-  {
-   "reference": "Isaías 49:13",
-   "text": "Exultae, ó céus, e alegra-te tu, terra, e vós, montes, estalae com jubilo, porque já o Senhor consolou o seu povo, e dos seus afflictos se compadecerá."
-  },
-  {
-   "reference": "Isaías 58:8",
-   "text": "Então romperá a tua luz como a alva, e a tua cura apressadamente brotará, e a tua justiça irá adiante da tua face, e a gloria do Senhor será a tua rectaguarda."
-  },
-  {
-   "reference": "Isaías 40:1",
-   "text": "Consolae, consolae o meu povo, diz o vosso Deus."
-  },
-  {
-   "reference": "Isaías 41:13",
-   "text": "Porque eu, o Senhor teu Deus, te tomo pela tua mão direita; e te digo: Não temas, que eu te ajudo."
-  },
-  {
-   "reference": "Isaías 43:3",
-   "text": "Porque eu sou o Senhor teu Deus, o Sancto d'Israel, o teu Salvador: dei ao Egypto por teu resgate a Ethiopia e a Seba, em teu logar."
-  },
-  {
-   "reference": "Isaías 44:23",
-   "text": "Cantae alegres, ó vós, céus, porque o Senhor o fez: exultae vós, as partes mais baixas da terra, vós, montes, retumbae com jubilo; tambem vós, bosques, e todas as arvores que estão n'elles; porque o Senhor remiu a Jacob, e glorificou-se em Israel"
-  },
-  {
-   "reference": "Isaías 35:2",
-   "text": "Abundantemente florescerá, e tambem se alegrará d'alegria e exultará; a gloria do Libano se lhe deu, o ornato do Carmelo e Saron: elles verão a gloria do Senhor, o ornato do nosso Deus."
-  },
-  {
-   "reference": "Isaías 26:4",
-   "text": "Confiae no Senhor perpetuamente; porque em Deus Senhor ha uma rocha eterna."
-  },
-  {
-   "reference": "Isaías 55:5",
-   "text": "Eis que chamarás a uma nação que nunca conheceste, e uma nação que nunca te conheceu correrá para ti, por amor do Senhor teu Deus, e do Sancto de Israel; porque elle te glorificou."
-  },
-  {
-   "reference": "Isaías 65:25",
-   "text": "O lobo e o cordeiro se apascentarão ambos juntos, e o leão comerá palha como o boi: e pó será a comida da serpente. Não farão mal nem damno algum em todo o meu sancto monte, diz o Senhor"
-  },
-  {
-   "reference": "Isaías 25:9",
-   "text": "E n'aquelle dia se dirá: Eis-que este é o nosso Deus, a quem aguardavamos, e elle nos salvará: este é o Senhor, a quem aguardavamos: na sua salvação pois nos gozaremos e alegraremos."
-  },
-  {
-   "reference": "Isaías 54:1",
-   "text": "Canta alegremente, ó esteril, que não parias: exclama de prazer com alegre canto, e exulta, tu que não tiveste dôres de parto; porque mais são os filhos da solitaria, do que os filhos da casada, diz o Senhor."
-  },
-  {
-   "reference": "Isaías 61:10",
-   "text": "Gozo-me muito no Senhor, a minha alma se alegra no meu Deus: porque me vestiu de vestidos de salvação, me cobriu com o manto de justiça, como quando o noivo se orna com atavio sacerdotal, e como a noiva se enfeita com as suas joias."
-  },
-  {
-   "reference": "Isaías 9:7",
-   "text": "Da grandeza d'este principado e da paz não haverá fim, sobre o throno de David e no seu reino, para o firmar e o fortificar com juizo e com justiça, desde agora para sempre: o zelo do Senhor dos Exercitos fará isto."
-  },
-  {
-   "reference": "Isaías 12:2",
-   "text": "Eis que Deus é a minha salvação; n'elle confiarei, e não temerei; porque a minha força e o meu cantico é Deus Jehovah, e elle foi a minha salvação."
-  },
-  {
-   "reference": "Isaías 49:15",
-   "text": "Porventura pode uma mulher esquecer-se tanto de seu filho que cria, que se não compadeça d'elle, do filho do seu ventre? ora ainda que esta se esquecesse d'elle, comtudo eu me não esquecerei de ti"
-  },
-  {
-   "reference": "Isaías 58:11",
-   "text": "E o Senhor te guiará continuamente, e fartará a tua alma em grandes sequidões, e fortificará os teus ossos; e serás como um jardim regado, e como um manancial de aguas, cujas aguas nunca faltam."
-  },
-  {
-   "reference": "Isaías 40:10",
-   "text": "Eis que o Senhor Jehovah virá contra o forte, e o seu braço se assenhoreará d'elle: eis que o seu galardão vem com elle, e o seu salario diante da sua face."
-  },
-  {
-   "reference": "Isaías 41:9",
-   "text": "Tu a quem tomei desde os fins da terra, e te chamei d'entre os seus mais excellentes, e te disse: Tu és o meu servo, a ti te escolhi e nunca te rejeitei."
-  },
-  {
-   "reference": "Isaías 43:19",
-   "text": "Eis que farei uma coisa nova, agora sairá á luz: porventura não a sabereis? porque porei um caminho no deserto, e rios no ermo."
-  },
-  {
-   "reference": "Isaías 44:6",
-   "text": "Assim diz o Senhor, Rei d'Israel, e seu Redemptor, o Senhor dos Exercitos: Eu sou o primeiro, e eu sou o ultimo, e fóra de mim não ha Deus."
-  },
-  {
-   "reference": "Isaías 35:10",
-   "text": "E os resgatados do Senhor tornarão, e virão a Sião com jubilo: e alegria eterna haverá sobre as suas cabeças: gozo e alegria alcançarão, e d'elles fugirá a tristeza e o gemido."
-  },
-  {
-   "reference": "Isaías 26:9",
-   "text": "Na minha alma te desejei de noite, e com o meu espirito, que está dentro de mim, madrugarei a buscar-te; porque, havendo os teus juizos na terra, os moradores do mundo aprendem justiça."
-  },
-  {
-   "reference": "Isaías 55:7",
-   "text": "O impio deixe o seu caminho, e o homem maligno os seus pensamentos, e se converta ao Senhor; e se compadecerá d'elle; como tambem ao nosso Deus, porque grandioso é em perdoar."
-  },
-  {
-   "reference": "Isaías 65:23",
-   "text": "Não trabalharão debalde, nem parirão para a perturbação; porque são a semente dos bemditos do Senhor, e os seus descendentes com elles"
-  },
-  {
-   "reference": "Isaías 25:1",
-   "text": "Ó Senhor, tu és o meu Deus; exaltar-te-hei a ti, e louvarei o teu nome, porque fizeste maravilhas: os teus conselhos antigos são verdade e firmeza."
-  },
-  {
-   "reference": "Isaías 54:17",
-   "text": "Toda a ferramenta preparada contra ti não prosperará, e toda a lingua que se levantar contra ti em juizo tu a condemnarás: esta é a herança dos servos do Senhor, e a sua justiça vem de mim, diz o Senhor."
-  },
-  {
-   "reference": "Isaías 61:3",
-   "text": "A ordenar aos tristes de Sião que se lhes dê ornamento por cinza, oleo de gozo por tristeza, vestidura de louvor por espirito angustiado; para que se chamem carvalhos de justiça, plantados do Senhor, para que seja glorificado."
-  },
-  {
-   "reference": "Isaías 9:3",
-   "text": "Tu multiplicaste a este povo, porém a alegria lhe augmentaste: todos se alegrarão perante ti, como se alegram na sega, e como exultam quando se repartem os despojos."
-  },
-  {
-   "reference": "Mateus 5:9",
-   "text": "Bemaventurados os pacificadores, porque elles serão chamados filhos de Deus;"
-  },
-  {
-   "reference": "Mateus 6:33",
-   "text": "Mas buscae primeiro o reino de Deus, e a sua justiça, e todas estas coisas vos serão accrescentadas."
-  },
-  {
-   "reference": "Mateus 11:28",
-   "text": "Vinde a mim, todos os que estaes cançados e opprimidos, e eu vos alliviarei."
-  },
-  {
-   "reference": "Mateus 11:25",
-   "text": "N'aquelle tempo, respondendo Jesus, disse: Graças te dou, ó Pai, Senhor do céu e da terra, que occultaste estas coisas aos sabios e intelligentes, e as revelaste aos meninos."
-  },
-  {
-   "reference": "Mateus 18:19",
-   "text": "Também vos digo que, se dois de vós concordarem na terra acerca de qualquer coisa que pedirem, isso lhes será feito por meu Pai, que está nos céus."
-  },
-  {
-   "reference": "Mateus 28:19",
-   "text": "Portanto ide, ensinae todas as nações, baptizando-as em nome do Pai, e do Filho e do Espirito Sancto;"
-  },
-  {
-   "reference": "Mateus 22:37",
-   "text": "E Jesus disse-lhe: Amarás o Senhor teu Deus de todo o teu coração, e de toda a tua alma, e de todo o teu pensamento."
-  },
-  {
-   "reference": "Mateus 5:7",
-   "text": "Bemaventurados os misericordiosos, porque elles alcançarão misericordia;"
-  },
-  {
-   "reference": "Mateus 7:11",
-   "text": "Se vós, pois, sendo maus, sabeis dar boas coisas aos vossos filhos, quanto mais vosso Pai, que está nos céus, dará bens aos que lh'os pedirem?"
-  },
-  {
-   "reference": "Mateus 6:24",
-   "text": "Ninguem pode servir a dois senhores; porque ou ha de odiar um e amar o outro, ou se dedicará a um e desprezará o outro. Não podeis servir a Deus e a Mammon."
-  },
-  {
-   "reference": "Mateus 11:27",
-   "text": "Todas as coisas me foram entregues por meu Pai: e ninguem conhece o Filho, senão o Pai; e ninguem conhece o Pai, senão o Filho, e aquelle a quem o Filho o quizer revelar."
-  },
-  {
-   "reference": "Mateus 18:20",
-   "text": "Porque onde estiverem dois ou tres reunidos em meu nome, ahi estou eu no meio d'elles."
-  },
-  {
-   "reference": "Mateus 28:18",
-   "text": "E, chegando-se Jesus, fallou-lhes, dizendo: É-me dado todo o poder no céu e na terra."
-  },
-  {
-   "reference": "Mateus 22:39",
-   "text": "E o segundo, similhante a este, é: Amarás o teu proximo como a ti mesmo."
-  },
-  {
-   "reference": "Mateus 5:10",
-   "text": "Bemaventurados os que soffrem perseguição por causa da justiça, porque d'elles é o reino dos céus;"
-  },
-  {
-   "reference": "Mateus 7:12",
-   "text": "Portanto, tudo o que vós quereis que os homens vos façam, fazei-lh'o tambem vós, porque esta é a lei e os prophetas."
-  },
-  {
-   "reference": "Mateus 6:30",
-   "text": "Pois, se Deus assim enfeita a herva do campo, que hoje existe e ámanhã é lançada no forno, não vos vestirá muito mais a vós, homens de pouca fé?"
-  },
-  {
-   "reference": "Mateus 11:29",
-   "text": "Tomae sobre vós o meu jugo, e aprendei de mim, que sou manso e humilde de coração; e encontrareis descanço para as vossas almas."
-  },
-  {
-   "reference": "Mateus 28:20",
-   "text": "Ensinando-as a guardar todas as coisas que eu vos tenho mandado; e eis que eu estou comvosco todos os dias, até á consummação do mundo. Amen."
-  },
-  {
-   "reference": "Mateus 22:40",
-   "text": "D'estes dois mandamentos depende toda a lei e os prophetas."
-  },
-  {
-   "reference": "Mateus 5:8",
-   "text": "Bemaventurados os limpos de coração, porque elles verão a Deus;"
-  },
-  {
-   "reference": "Mateus 7:7",
-   "text": "Pedi, e dar-se-vos-ha; buscae, e encontrareis; batei, e abrir-se-vos-ha."
-  },
-  {
-   "reference": "Mateus 6:25",
-   "text": "Por isso vos digo: Não andeis cuidadosos emquanto á vossa vida, pelo que haveis de comer ou pelo que haveis de beber; nem, emquanto ao vosso corpo, pelo que haveis de vestir. Não é a vida mais do que o mantimento, e o corpo mais do que o vestido?"
-  },
-  {
-   "reference": "Mateus 11:30",
-   "text": "Porque o meu jugo é suave e o meu fardo é leve."
-  },
-  {
-   "reference": "Mateus 22:35",
-   "text": "E um d'elles, doutor da lei, interrogou-o para o experimentar, dizendo:"
-  },
-  {
-   "reference": "Mateus 5:6",
-   "text": "Bemaventurados os que teem fome e sêde de justiça, porque elles serão fartos;"
-  },
-  {
-   "reference": "Lucas 1:37",
-   "text": "Porque para Deus nada será impossivel."
-  },
-  {
-   "reference": "Lucas 11:9",
-   "text": "E eu digo-vos, a vós: Pedi, e dar-se-vos-ha: buscae, e achareis: batei, e abrir-se-vos-ha;"
-  },
-  {
-   "reference": "Lucas 2:11",
-   "text": "Que hoje, na cidade de David, vos nasceu o Salvador, que é Christo, o Senhor."
-  },
-  {
-   "reference": "Lucas 1:47",
-   "text": "E o meu espirito se alegra em Deus meu Salvador;"
-  },
-  {
-   "reference": "Lucas 6:36",
-   "text": "Sêde pois misericordiosos, como tambem vosso Pai é misericordioso."
-  },
-  {
-   "reference": "Lucas 15:29",
-   "text": "Mas, respondendo elle, disse ao pae: Eis que te sirvo ha tantos annos, e nunca transgredi o teu mandamento, e nunca me déste um cabrito para alegrar-me com os meus amigos;"
-  },
-  {
-   "reference": "Lucas 24:49",
-   "text": "E eis que sobre vós envio a promessa de meu Pai: ficae, porém, vós na cidade de Jerusalem, até que do alto sejaes revestidos de poder."
-  },
-  {
-   "reference": "Lucas 12:28",
-   "text": "E, se Deus assim veste a herva que hoje está no campo, e ámanhã é lançada no forno, quanto mais a vós, homens de pouca fé?"
-  },
-  {
-   "reference": "Lucas 10:27",
-   "text": "E, respondendo elle, disse: Amarás ao Senhor teu Deus de todo o teu coração, e de toda a tua alma, e de todas as tuas forças, e de todo o teu entendimento; e ao teu proximo como a ti mesmo."
-  },
-  {
-   "reference": "Lucas 11:13",
-   "text": "Pois se vós, sendo máus, sabeis dar boas dadivas aos vossos filhos, quanto mais dará o nosso Pai celestial o Espirito Sancto áquelles que lh'o pedirem?"
-  },
-  {
-   "reference": "Lucas 18:29",
-   "text": "E elle lhes disse: Na verdade vos digo que ninguem ha, que tenha deixado casa, ou paes, ou irmãos, ou mulher, ou filhos, pelo reino de Deus,"
-  },
-  {
-   "reference": "Lucas 2:13",
-   "text": "E, no mesmo instante, appareceu com o anjo uma multidão dos exercitos celestiaes, louvando a Deus, e dizendo:"
-  },
-  {
-   "reference": "Lucas 1:48",
-   "text": "Porque attentou na baixeza de sua serva; pois eis que desde agora todas as gerações me chamarão bemaventurada:"
-  },
-  {
-   "reference": "Lucas 6:38",
-   "text": "Dae, e ser-vos-ha dado; boa medida, recalcada, sacudida e trasbordando, vos deitarão no vosso regaço; porque com a mesma medida com que medirdes vos tornarão a medir."
-  },
-  {
-   "reference": "Lucas 15:32",
-   "text": "Portanto era justo alegrarmo-nos e folgarmos, porque este teu irmão era morto, e reviveu; e tinha-se perdido, e achou-se."
-  },
-  {
-   "reference": "Lucas 24:47",
-   "text": "E em seu nome se prégasse o arrependimento e a remissão dos peccados, em todas as nações, começando por Jerusalem."
-  },
-  {
-   "reference": "Lucas 12:24",
-   "text": "Considerae os corvos, que nem semeiam, nem segam, nem teem dispensa nem celleiro, e Deus os alimenta: quanto mais valeis vós do que as aves?"
-  },
-  {
-   "reference": "Lucas 10:35",
-   "text": "E, partindo ao outro dia, tirou dois dinheiros, e deu-os ao hospedeiro, e disse-lhe: Cuida d'elle; e tudo o que de mais gastares, eu t'o pagarei quando voltar."
-  },
-  {
-   "reference": "Lucas 11:11",
-   "text": "E qual o pae d'entre vós que, se o filho lhe pedir pão, lhe dará uma pedra? Ou tambem, se lhe pedir peixe, lhe dará por peixe uma serpente?"
-  },
-  {
-   "reference": "Lucas 18:27",
-   "text": "E elle disse: As coisas que são impossiveis aos homens são possiveis a Deus."
-  },
-  {
-   "reference": "Lucas 2:14",
-   "text": "Gloria a Deus nas alturas, paz na terra, boa vontade para os homens."
-  },
-  {
-   "reference": "Lucas 1:38",
-   "text": "Disse então Maria: Eis aqui a serva do Senhor; cumpra-se em mim segundo a tua palavra. E o anjo ausentou-se d'ella."
-  },
-  {
-   "reference": "Lucas 6:34",
-   "text": "E, se emprestardes áquelles de quem esperaes tornar a receber, que recompensa tereis? Porque tambem os peccadores emprestam aos peccadores, para tornarem a receber outro tanto."
-  },
-  {
-   "reference": "Lucas 15:24",
-   "text": "Porque este meu filho era morto, e reviveu, tinha-se perdido, e é achado. E começaram a alegrar-se."
-  },
-  {
-   "reference": "João 3:16",
-   "text": "Porque Deus amou o mundo de tal maneira, que deu o seu Filho unigenito, para que todo aquelle que n'elle crê não pereça, mas tenha a vida eterna."
-  },
-  {
-   "reference": "João 8:12",
-   "text": "Fallou-lhes pois Jesus outra vez, dizendo: Eu sou a luz do mundo; quem me segue não andará em trevas, mas terá a luz da vida."
-  },
-  {
-   "reference": "João 10:10",
-   "text": "O ladrão não vem senão a roubar, a matar, e a destruir: eu vim para que tenham vida, e a tenham com abundancia."
-  },
-  {
-   "reference": "João 14:6",
-   "text": "Disse-lhe Jesus: Eu sou o caminho, e a verdade e a vida. Ninguem vem ao Pai, senão por mim."
-  },
-  {
-   "reference": "João 14:27",
-   "text": "Deixo-vos a paz, a minha paz vos dou: não vol-a dou como o mundo a dá. Não se turbe o vosso coração, nem se atemorize."
-  },
-  {
-   "reference": "João 3:19",
-   "text": "E a condemnação é esta: Que a luz veiu ao mundo, e os homens amaram mais as trevas do que a luz, porque as suas obras eram más."
-  },
-  {
-   "reference": "João 1:8",
-   "text": "Não era elle a luz; mas para que testificasse da luz."
-  },
-  {
-   "reference": "João 6:35",
-   "text": "E Jesus lhes disse: Eu sou o pão da vida; aquelle que vem a mim não terá fome, e quem crê em mim nunca terá sêde"
-  },
-  {
-   "reference": "João 4:10",
-   "text": "Jesus respondeu, e disse-lhe: Se tu conheceras o dom de Deus, e quem é o que te diz: Dá-me de beber, tu lhe pedirias, e elle te daria agua viva."
-  },
-  {
-   "reference": "João 8:31",
-   "text": "Jesus dizia pois aos judeos que criam n'elle: Se vós permanecerdes na minha palavra, verdadeiramente sereis meus discipulos;"
-  },
-  {
-   "reference": "João 16:33",
-   "text": "Tenho-vos dito estas coisas, para que em mim tenhaes paz; no mundo tereis afflicção, mas tende bom animo, eu venci o mundo."
-  },
-  {
-   "reference": "João 17:3",
-   "text": "E a vida eterna é esta: que te conheçam, a ti só, por unico Deus verdadeiro, e a Jesus Christo, a quem enviaste."
-  },
-  {
-   "reference": "João 14:26",
-   "text": "Mas aquelle Consolador, o Espirito Sancto, que o Pai enviará em meu nome, esse vos ensinará todas as coisas, e vos fará lembrar de tudo quanto vos tenho dito."
-  },
-  {
-   "reference": "João 15:10",
-   "text": "Se guardardes os meus mandamentos, permanecereis no meu amor; como eu tenho guardado os mandamentos de meu Pai, e permaneço no seu amor."
-  },
-  {
-   "reference": "João 13:35",
-   "text": "N'isto todos conhecerão que sois meus discipulos, se vós tiverdes amor uns aos outros."
-  },
-  {
-   "reference": "João 10:9",
-   "text": "Eu sou a porta; se alguem entrar por mim, salvar-se-ha, e entrará, e sairá, e achará pasto."
-  },
-  {
-   "reference": "João 11:27",
-   "text": "Disse-lhe ella: Sim, Senhor, creio que tu és o Christo, o Filho de Deus, que havia de vir ao mundo."
-  },
-  {
-   "reference": "João 3:17",
-   "text": "Porque Deus enviou o seu Filho ao mundo, não para que condemnasse o mundo, mas para que o mundo fosse salvo por elle."
-  },
-  {
-   "reference": "João 1:13",
-   "text": "Os quaes não nasceram do sangue, nem da vontade da carne, nem da vontade do varão, mas de Deus."
-  },
-  {
-   "reference": "João 6:40",
-   "text": "E a vontade d'aquelle que me enviou é esta: que todo aquelle que vê o Filho, e crê n'Elle, tenha a vida eterna; e eu o resuscitarei no ultimo dia."
-  },
-  {
-   "reference": "João 4:13",
-   "text": "Jesus respondeu, e disse-lhe: Qualquer que beber d'esta agua tornará a ter sêde;"
-  },
-  {
-   "reference": "João 8:32",
-   "text": "E conhecereis a verdade, e a verdade vos libertará."
-  },
-  {
-   "reference": "João 16:22",
-   "text": "Assim tambem vós agora, na verdade, tendes tristeza; mas outra vez vos verei, e o vosso coração se alegrará, e a vossa alegria ninguem vol-a tirará."
-  },
-  {
-   "reference": "João 14:17",
-   "text": "O Espirito de verdade, que o mundo não pode receber, porque não o vê nem o conhece: mas vós o conheceis, porque habita comvosco, e estará em vós."
-  },
-  {
-   "reference": "João 15:15",
-   "text": "Já vos não chamarei servos, porque o servo não sabe o que faz o seu senhor, mas tenho-vos chamado amigos, porque tudo quanto ouvi de meu Pai vos tenho feito conhecer."
-  },
-  {
-   "reference": "João 13:34",
-   "text": "Um novo mandamento vos dou: Que vos ameis uns aos outros, como eu vos amei a vós, que tambem vós uns a outros vos ameis."
-  },
-  {
-   "reference": "João 10:7",
-   "text": "Tornou pois Jesus a dizer-lhes: Em verdade vos digo que eu sou a porta das ovelhas."
-  },
-  {
-   "reference": "João 11:25",
-   "text": "Disse-lhe Jesus: Eu sou a resurreição e a vida; quem crê em mim, ainda que esteja morto, viverá;"
-  },
-  {
-   "reference": "João 3:21",
-   "text": "Mas quem obra a verdade vem para a luz, afim de que as suas obras sejam manifestas, porque são feitas em Deus."
-  },
-  {
-   "reference": "João 1:12",
-   "text": "Mas, a todos quantos o receberam, deu-lhes o poder de serem feitos filhos de Deus, a saber, aos que crêem no seu nome;"
-  },
-  {
-   "reference": "João 6:38",
-   "text": "Porque eu desci do céu, não para fazer a minha vontade, mas a vontade d'aquelle que me enviou."
-  },
-  {
-   "reference": "João 4:14",
-   "text": "Mas aquelle que beber da agua que eu lhe der nunca terá sêde, porque a agua que eu lhe der se fará n'elle uma fonte d'agua que salte para a vida eterna."
-  },
-  {
-   "reference": "João 16:23",
-   "text": "E n'aquelle dia nada me perguntareis. Na verdade, na verdade vos digo que tudo quanto pedirdes a meu Pai, em meu nome, elle vol-o ha de dar."
-  },
-  {
-   "reference": "João 14:23",
-   "text": "Jesus respondeu, e disse-lhe: Se alguem me ama, guardará a minha palavra, e meu Pai o amará, e viremos para elle, e faremos n'elle morada."
-  },
-  {
-   "reference": "Romanos 5:1",
-   "text": "Sendo pois justificados pela fé, temos paz com Deus, por nosso Senhor Jesus Christo;"
-  },
-  {
-   "reference": "Romanos 8:28",
-   "text": "E sabemos que todas as coisas contribuem juntamente para o bem d'aquelles que amam a Deus, d'aquelles que são chamados por seu decreto."
-  },
-  {
-   "reference": "Romanos 12:12",
-   "text": "Alegrae-vos na esperança, sêde pacientes na tribulação, perseverae na oração;"
-  },
-  {
-   "reference": "Romanos 8:9",
-   "text": "Porém vós não estaes na carne, mas no espirito, se é que o Espirito de Deus habita em vós. Mas, se alguem não tem o Espirito de Christo, esse tal não é d'elle."
-  },
-  {
-   "reference": "Romanos 1:17",
-   "text": "Porque n'elle se descobre a justiça de Deus de fé em fé, como está escripto: Mas o justo viverá da fé."
-  },
-  {
-   "reference": "Romanos 5:11",
-   "text": "E não sómente isto, mas tambem nos gloriamos em Deus por nosso Senhor Jesus Christo, pelo qual agora alcançamos a reconciliação."
-  },
-  {
-   "reference": "Romanos 10:10",
-   "text": "Porque com o coração se crê para a justiça, e com a bocca se faz confissão para a salvação."
-  },
-  {
-   "reference": "Romanos 12:3",
-   "text": "Porque pela graça, que me é dada, digo a cada um d'entre vós que não saiba mais do que convem saber, mas que saiba com temperança, conforme a medida da fé que Deus repartiu a cada um."
-  },
-  {
-   "reference": "Romanos 15:13",
-   "text": "Ora o Deus de esperança vos encha de todo o gozo e paz na fé, para que abundeis em esperança pela virtude do Espirito Sancto."
-  },
-  {
-   "reference": "Romanos 8:39",
-   "text": "Nem a altura, nem a profundidade, nem alguma outra creatura nos poderá separar do amor de Deus, que está em Christo Jesus nosso Senhor."
-  },
-  {
-   "reference": "Romanos 1:16",
-   "text": "Porque não me envergonho do evangelho de Christo, pois é o poder de Deus para salvação a todo aquelle que crê; primeiro ao judeo, e tambem ao grego."
-  },
-  {
-   "reference": "Romanos 5:2",
-   "text": "Pelo qual tambem temos entrada pela fé a esta graça, na qual estamos firmes, e nos gloriamos na esperança da gloria de Deus."
-  },
-  {
-   "reference": "Romanos 10:9",
-   "text": "A saber: Se com a tua bocca confessares ao Senhor Jesus, e em teu coração crêres que Deus o resuscitou dos mortos, serás salvo."
-  },
-  {
-   "reference": "Romanos 12:8",
-   "text": "Ou o que exhorta, em exhortar; o que reparte, em simplicidade; o que preside, com cuidado; o que exercita misericordia, com alegria."
-  },
-  {
-   "reference": "Romanos 15:6",
-   "text": "Para que concordes, a uma bocca, glorifiqueis ao Deus e Pai de Nosso Senhor Jesus Christo."
-  },
-  {
-   "reference": "Romanos 8:2",
-   "text": "Porque a lei do espirito de vida, em Christo Jesus, me livrou da lei do peccado e da morte."
-  },
-  {
-   "reference": "Romanos 5:8",
-   "text": "Mas Deus recommenda o seu amor para comnosco, em que Christo morreu por nós, sendo nós ainda peccadores."
-  },
-  {
-   "reference": "Romanos 10:8",
-   "text": "Mas que diz? A palavra está junto de ti, na tua bocca e no teu coração; esta é a palavra da fé, que prégamos,"
-  },
-  {
-   "reference": "Romanos 12:11",
-   "text": "Não sejaes vagarosos no cuidado: sêde fervorosos no espirito, servindo ao Senhor;"
-  },
-  {
-   "reference": "Romanos 15:5",
-   "text": "Ora o Deus de paciencia e consolação vos conceda que entre vós sintaes uma mesma coisa, segundo Jesus Christo."
-  },
-  {
-   "reference": "Romanos 8:1",
-   "text": "Assim que agora nenhuma condemnação ha para os que estão em Christo Jesus, que não andam segundo a carne, mas segundo o espirito."
-  },
-  {
-   "reference": "Romanos 5:5",
-   "text": "E a esperança não confunde, porquanto o amor de Deus está derramado em nossos corações pelo Espirito Sancto que nos foi dado"
-  },
-  {
-   "reference": "Romanos 10:12",
-   "text": "Porque não ha differença entre judeo e grego; porque um mesmo é o Senhor de todos os que o invocam."
-  },
-  {
-   "reference": "Romanos 12:1",
-   "text": "Rogo-vos pois, irmãos, pela compaixão de Deus, que apresenteis os vossos corpos em sacrificio vivo, sancto e agradavel a Deus, que é o vosso culto racional."
-  },
-  {
-   "reference": "Romanos 15:4",
-   "text": "Porque todas as coisas que d'antes foram escriptas, para nosso ensino foram escriptas, para que pela paciencia e consolação das Escripturas tenhamos esperança."
-  },
-  {
-   "reference": "1 Coríntios 13:4",
-   "text": "A caridade é soffredora, é benigna: a caridade não é invejosa: a caridade não trata com leviandade, não se ensoberbece,"
-  },
-  {
-   "reference": "1 Coríntios 13:13",
-   "text": "Agora, pois, permanecem estas tres: a fé, a esperança e a caridade; porém a maior d'estas é a caridade."
-  },
-  {
-   "reference": "1 Coríntios 1:4",
-   "text": "Sempre dou graças ao meu Deus por vós pela graça de Deus que vos foi dada em Jesus Christo."
-  },
-  {
-   "reference": "1 Coríntios 15:57",
-   "text": "Mas graças a Deus que nos dá a victoria por nosso Senhor Jesus Christo."
-  },
-  {
-   "reference": "1 Coríntios 16:13",
-   "text": "Vigiae, estae firmes na fé: portae-vos varonilmente, e fortalecei-vos."
-  },
-  {
-   "reference": "1 Coríntios 10:16",
-   "text": "Porventura o calix de benção, que benzemos, não é a communhão do sangue de Christo? O pão que partimos não é porventura a communhão do corpo de Christo?"
-  },
-  {
-   "reference": "1 Coríntios 13:6",
-   "text": "Não folga com a injustiça, porém folga com a verdade;"
-  },
-  {
-   "reference": "1 Coríntios 12:8",
-   "text": "Porque a um pelo Espirito é dada a palavra da sabedoria; e a outro, pelo mesmo Espirito, a palavra da sciencia;"
-  },
-  {
-   "reference": "1 Coríntios 1:9",
-   "text": "Fiel é Deus, pelo qual fostes chamados para a communhão de seu Filho Jesus Christo nosso Senhor."
-  },
-  {
-   "reference": "1 Coríntios 15:58",
-   "text": "Portanto, meus amados irmãos, sêde firmes e constantes, sempre abundantes na obra do Senhor, sabendo que o vosso trabalho não é vão no Senhor."
-  },
-  {
-   "reference": "1 Coríntios 16:14",
-   "text": "Todas as vossas coisas sejam feitas com caridade."
-  },
-  {
-   "reference": "1 Coríntios 10:13",
-   "text": "Não vos tomou tentação, senão humana; porém fiel é Deus, que vos não deixará tentar acima do que podeis, antes com a tentação dará tambem saida, para que a possaes supportar."
-  },
-  {
-   "reference": "1 Coríntios 13:7",
-   "text": "Tudo soffre, tudo crê, tudo espera, tudo supporta."
-  },
-  {
-   "reference": "1 Coríntios 12:9",
-   "text": "E a outro, pelo mesmo Espirito, a fé; e a outro, pelo mesmo Espirito, os dons de curar;"
-  },
-  {
-   "reference": "1 Coríntios 1:8",
-   "text": "O qual vos confirmará tambem até ao fim, para serdes irreprehensiveis no dia de nosso Senhor Jesus Christo."
-  },
-  {
-   "reference": "1 Coríntios 15:54",
-   "text": "E, quando este corpo corruptivel se revestir da incorruptibilidade, e este corpo mortal se revestir da immortalidade, então cumprir-se-ha a palavra que está escripta: Tragada foi a morte na victoria."
-  },
-  {
-   "reference": "2 Coríntios 4:16",
-   "text": "Por isso não desfallecemos: mas, ainda que o nosso homem exterior se corrompa, o interior, comtudo, se renova de dia em dia,"
-  },
-  {
-   "reference": "2 Coríntios 5:17",
-   "text": "Assim que, se alguem está em Christo, nova creatura é: as coisas velhas já passaram; eis que tudo está feito novo."
-  },
-  {
-   "reference": "2 Coríntios 12:9",
-   "text": "E disse-me: A minha graça te basta, porque o meu poder se aperfeiçoa na fraqueza. De boa vontade pois me gloriarei nas minhas fraquezas, para que em mim habite o poder de Christo."
-  },
-  {
-   "reference": "2 Coríntios 5:20",
-   "text": "De sorte que somos embaixadores da parte de Christo, como se Deus por nós rogasse. Rogamos-vos pois da parte de Christo que vos reconcilieis com Deus."
-  },
-  {
-   "reference": "2 Coríntios 4:6",
-   "text": "Porque Deus, que disse que das trevas resplandecesse a luz, é quem resplandeceu em nossos corações, para illuminação do conhecimento da gloria de Deus, na face de Jesus Christo."
-  },
-  {
-   "reference": "2 Coríntios 3:17",
-   "text": "Ora o Senhor é o Espirito; e onde está o Espirito do Senhor ahi ha liberdade."
-  },
-  {
-   "reference": "2 Coríntios 1:3",
-   "text": "Bemdito seja o Deus e Pai de nosso Senhor Jesus Christo, o Pai das misericordias e o Deus de toda a consolação;"
-  },
-  {
-   "reference": "2 Coríntios 9:13",
-   "text": "Portanto, na prova d'esta administração, glorificam a Deus pela submissão que confessaes quanto ao evangelho de Christo, e pela bondade da communicação para com elles, e para com todos;"
-  },
-  {
-   "reference": "2 Coríntios 12:10",
-   "text": "Pelo que sinto prazer nas fraquezas, nas injurias, nas necessidades, nas perseguições, nas angustias por amor de Christo. Porque quando estou fraco então sou forte."
-  },
-  {
-   "reference": "2 Coríntios 5:7",
-   "text": "(Porque andamos por fé, e não por vista.)"
-  },
-  {
-   "reference": "2 Coríntios 4:5",
-   "text": "Porque não nos prégamos a nós mesmos, mas a Christo Jesus, o Senhor; e nós mesmos somos vossos servos por amor de Jesus."
-  },
-  {
-   "reference": "2 Coríntios 3:18",
-   "text": "Mas todos nós, com cara descoberta, reflectindo como um espelho, a gloria do Senhor, somos transformados de gloria em gloria na mesma imagem, como pelo Espirito do Senhor."
-  },
-  {
-   "reference": "2 Coríntios 1:6",
-   "text": "Mas, se somos attribulados é para vossa consolação e salvação, ou, se somos consolados, para vossa consolação e salvação é, a qual se opéra na tolerancia das mesmas afflicções que nós tambem padecemos;"
-  },
-  {
-   "reference": "2 Coríntios 9:8",
-   "text": "E Deus é poderoso para fazer abundar em vós toda a graça, para que tendo sempre, em tudo, toda a sufficiencia, abundeis em toda a boa obra;"
-  },
-  {
-   "reference": "2 Coríntios 12:8",
-   "text": "Á cerca do qual tres vezes orei ao Senhor para que se desviasse de mim."
-  },
-  {
-   "reference": "Gálatas 5:22",
-   "text": "Mas o fructo do Espirito é caridade, gozo, paz, longanimidade, benignidade, bondade, fé, mansidão, temperança."
-  },
-  {
-   "reference": "Gálatas 5:23",
-   "text": "Contra estas coisas não ha lei."
-  },
-  {
-   "reference": "Gálatas 3:26",
-   "text": "Porque todos sois filhos de Deus pela fé em Christo Jesus."
-  },
-  {
-   "reference": "Gálatas 2:21",
-   "text": "Não aniquilo a graça de Deus; porque, se a justiça provém da lei, segue-se que Christo morreu debalde."
-  },
-  {
-   "reference": "Gálatas 6:16",
-   "text": "E a todos quantos andarem conforme esta regra, paz e misericordia sobre elles e sobre o Israel de Deus."
-  },
-  {
-   "reference": "Gálatas 5:17",
-   "text": "Porque a carne cobiça contra o Espirito, e o Espirito contra a carne; e estes oppõem-se um ao outro: para que não façaes o que quereis."
-  },
-  {
-   "reference": "Gálatas 3:28",
-   "text": "N'isto não ha judeo nem grego; não ha servo nem livre; não ha macho nem femea; porque todos vós sois um em Christo Jesus."
-  },
-  {
-   "reference": "Gálatas 2:20",
-   "text": "Já estou crucificado com Christo; e vivo, não mais eu, mas Christo vive em mim; e a vida que agora vivo na carne vivo a na fé do Filho de Deus, o qual me amou, e se entregou a si mesmo por mim."
-  },
-  {
-   "reference": "Gálatas 6:14",
-   "text": "Mas longe esteja de mim gloriar-me, a não ser na cruz de nosso Senhor Jesus Christo, por quem o mundo está crucificado para mim e eu para o mundo."
-  },
-  {
-   "reference": "Gálatas 5:25",
-   "text": "Se vivemos em Espirito, andemos tambem em Espirito."
-  },
-  {
-   "reference": "Gálatas 3:29",
-   "text": "E, se sois de Christo, logo sois descendencia de Abrahão, e herdeiros conforme a promessa."
-  },
-  {
-   "reference": "Gálatas 2:19",
-   "text": "Porque eu pela lei estou morto para a lei, para viver para Deus."
-  },
-  {
-   "reference": "Gálatas 6:15",
-   "text": "Porque em Christo Jesus nem a circumcisão nem a incircumcisão tem virtude alguma, mas sim o ser uma nova creatura."
-  },
-  {
-   "reference": "Efésios 2:8",
-   "text": "Porque pela graça sois salvos, por meio da fé; e isto não vem de vós; é dom de Deus"
-  },
-  {
-   "reference": "Efésios 6:10",
-   "text": "No demais, irmãos meus, fortalecei-*vos no Senhor e na força do seu poder."
-  },
-  {
-   "reference": "Efésios 1:3",
-   "text": "Bemdito o Deus e Pai de nosso Senhor Jesus Christo, o qual nos abençoou com todas as bençãos espirituaes nos logares celestiaes em Christo."
-  },
-  {
-   "reference": "Efésios 2:10",
-   "text": "Porque somos feitura sua, creados em Christo Jesus para as boas obras, as quaes Deus preparou para que andassemos n'ellas."
-  },
-  {
-   "reference": "Efésios 3:19",
-   "text": "E conhecer o amor de Christo, que excede todo o entendimento, para que sejaes cheios de toda a plenitude de Deus."
-  },
-  {
-   "reference": "Efésios 4:13",
-   "text": "Até que todos cheguemos á unidade da fé, e ao conhecimento do Filho de Deus, a varão perfeito, á medida da estatura completa de Christo."
-  },
-  {
-   "reference": "Efésios 5:20",
-   "text": "Dando sempre graças por todas as coisas a nosso Deus e Pai, em nome de nosso Senhor Jesus Christo:"
-  },
-  {
-   "reference": "Efésios 6:17",
-   "text": "Tomae tambem o capacete da salvação, e a espada do Espirito, que é a palavra de Deus:"
-  },
-  {
-   "reference": "Efésios 1:17",
-   "text": "Para que o Deus de nosso Senhor Jesus Christo, o Pai da gloria, vos dê em seu conhecimento o espirito de sabedoria e de revelação;"
-  },
-  {
-   "reference": "Efésios 2:7",
-   "text": "Para mostrar nos seculos vindouros as abundantes riquezas da sua graça, pela sua benignidade para comnosco em Christo Jesus."
-  },
-  {
-   "reference": "Efésios 3:17",
-   "text": "Para que Christo habite pela fé nos vossos corações; para que, estando arraigados e fundados em amor,"
-  },
-  {
-   "reference": "Efésios 4:32",
-   "text": "Antes sêde uns para com os outros benignos, misericordiosos, perdoando-*vos uns aos outros, como tambem Deus vos perdoou em Christo."
-  },
-  {
-   "reference": "Efésios 5:2",
-   "text": "E andae em amor, como tambem Christo nos amou, e se entregou a si mesmo por nós, em offerta e sacrificio a Deus, em cheiro suave."
-  },
-  {
-   "reference": "Efésios 6:18",
-   "text": "Orando em todo o tempo com toda a oração e supplica em espirito, e vigiando n'isto com toda a perseverança e supplica por todos os sanctos,"
-  },
-  {
-   "reference": "Efésios 1:13",
-   "text": "Em quem tambem vós estaes, depois que ouvistes a palavra da verdade, a saber, o evangelho da vossa salvação, no qual tambem, havendo crido, fostes sellados com o Espirito Sancto da promessa."
-  },
-  {
-   "reference": "Efésios 2:4",
-   "text": "Porque Deus, que é riquissimo em misericordia, pelo seu muito amor com que nos amou,"
-  },
-  {
-   "reference": "Efésios 3:14",
-   "text": "Por causa d'isto me ponho de joelhos perante o Pai de nosso Senhor Jesus Christo,"
-  },
-  {
-   "reference": "Efésios 4:30",
-   "text": "E não entristeçaes o Espirito Sancto de Deus, no qual estaes sellados para o dia da redempção."
-  },
-  {
-   "reference": "Filipenses 4:4",
-   "text": "Regozijae-vos sempre no Senhor; outra vez digo, regozijae-vos."
-  },
-  {
-   "reference": "Filipenses 4:6",
-   "text": "De nada estejaes solicitos: antes as vossas petições sejam em tudo conhecidas diante de Deus pela oração e supplicas com acção de graças."
-  },
-  {
-   "reference": "Filipenses 4:13",
-   "text": "Posso todas as coisas n'aquelle que me fortalece."
-  },
-  {
-   "reference": "Filipenses 4:7",
-   "text": "E a paz de Deus, que excede todo o entendimento, guardará os vossos corações e os vossos sentimentos em Christo Jesus."
-  },
-  {
-   "reference": "Filipenses 3:9",
-   "text": "E seja achado n'elle, não tendo a minha justiça que vem de lei, mas a que vem da fé em Christo, a saber, a justiça que vem de Deus pela fé;"
-  },
-  {
-   "reference": "Filipenses 2:1",
-   "text": "Portanto, se ha algum conforto em Christo, se alguma consolação de amor, se alguma communicação de Espirito, se alguns entranhaveis affectos e compaixões,"
-  },
-  {
-   "reference": "Filipenses 1:11",
-   "text": "Cheios de fructos de justiça, que são por Jesus Christo, para gloria e louvor de Deus."
-  },
-  {
-   "reference": "Filipenses 4:19",
-   "text": "Porém o meu Deus, segundo as suas riquezas, supprirá todas as vossas necessidades em gloria, por Christo Jesus."
-  },
-  {
-   "reference": "Filipenses 3:8",
-   "text": "E, na verdade, tenho tambem por perda todas as coisas, pela excellencia do conhecimento de Christo Jesus, meu Senhor, por amor do qual contei por perda todas estas coisas, e as considero como esterco, para que possa ganhar a Christo,"
-  },
-  {
-   "reference": "Filipenses 2:11",
-   "text": "E toda a lingua confesse que Jesus Christo é o Senhor, para a gloria de Deus Pai."
-  },
-  {
-   "reference": "Filipenses 1:20",
-   "text": "Segundo a minha intensa expectação e esperança, de que em nada serei confundido; antes, com toda a confiança, Christo será, tanto agora como sempre, engrandecido no meu corpo, seja pela vida seja pela morte."
-  },
-  {
-   "reference": "Filipenses 4:9",
-   "text": "O que tambem aprendestes, e recebestes, e ouvistes, e vistes em mim, isso fazei; e o Deus de paz será comvosco."
-  },
-  {
-   "reference": "Filipenses 3:14",
-   "text": "Porém uma coisa faço, e é que, esquecendo-me das coisas que atraz ficam, e avançando para as que estão diante de mim, prosigo para o alvo, ao premio da soberana vocação de Deus em Christo Jesus."
-  },
-  {
-   "reference": "Filipenses 2:5",
-   "text": "De sorte que haja em vós o mesmo sentimento que houve tambem em Christo Jesus,"
-  },
-  {
-   "reference": "Filipenses 1:8",
-   "text": "Porque Deus me é testemunha das muitas saudades que de todos vós tenho, em entranhavel affeição de Jesus Christo."
-  },
-  {
-   "reference": "Filipenses 4:1",
-   "text": "Portanto, meus amados e mui queridos irmãos, minha alegria e corôa, estae assim firmes no Senhor, amados."
-  },
-  {
-   "reference": "Filipenses 3:12",
-   "text": "Não que já a tenha alcançado, ou que seja perfeito, mas prosigo para alcançar aquillo para o que fui tambem preso por Christo Jesus."
-  },
-  {
-   "reference": "Filipenses 2:6",
-   "text": "O qual, sendo em fórma de Deus, não teve por usurpação ser egual a Deus,"
-  },
-  {
-   "reference": "Filipenses 1:6",
-   "text": "Tendo por certo isto mesmo, que aquelle que em vós começou a boa obra, a aperfeiçoará até ao dia de Jesus Christo;"
-  },
-  {
-   "reference": "Colossenses 3:15",
-   "text": "E a paz de Deus domine em vossos corações para a qual tambem fostes chamados em um corpo, e sêde agradecidos."
-  },
-  {
-   "reference": "Colossenses 3:23",
-   "text": "E, tudo quanto fizerdes, fazei-o do coração, como ao Senhor, e não aos homens:"
-  },
-  {
-   "reference": "Colossenses 1:3",
-   "text": "Graças damos ao Deus e Pai de nosso Senhor Jesus Christo, orando sempre por vós:"
-  },
-  {
-   "reference": "Colossenses 3:16",
-   "text": "A palavra de Christo habite em vós abundantemente, em toda a sabedoria, ensinando-vos e admoestando-vos uns aos outros, com palavras, hymnos e canticos espirituaes, cantando ao Senhor com graça em vosso coração."
-  },
-  {
-   "reference": "Colossenses 2:6",
-   "text": "Pois, como recebestes o Senhor Jesus Christo, assim tambem andae n'elle,"
-  },
-  {
-   "reference": "Colossenses 4:3",
-   "text": "Orando tambem juntamente por nós, para que Deus nos abra a porta da palavra, para fallarmos do mysterio de Christo, pelo qual estou tambem preso;"
-  },
-  {
-   "reference": "Colossenses 1:27",
-   "text": "Aos quaes Deus quiz fazer conhecer quaes são as riquezas da gloria d'este mysterio entre os gentios, que é Christo em vós, esperança da gloria:"
-  },
-  {
-   "reference": "Colossenses 3:17",
-   "text": "E, quanto fizerdes por palavras ou por obras, fazei tudo em nome do Senhor Jesus, dando por elle graças a Deus e ao Pai."
-  },
-  {
-   "reference": "Colossenses 2:7",
-   "text": "Arraigados e sobreedificados n'elle, e confirmados na fé, assim como fostes ensinados, abundando em acção de graças."
-  },
-  {
-   "reference": "Colossenses 4:2",
-   "text": "Perseverae em oração, velando n'ella com acção de graças:"
-  },
-  {
-   "reference": "Colossenses 1:28",
-   "text": "O qual annunciámos, admoestando a todo o homem, e ensinando a todo o homem em toda a sabedoria; para que apresentemos todo o homem perfeito em Jesus Christo;"
-  },
-  {
-   "reference": "Colossenses 3:1",
-   "text": "Portanto, se já resuscitastes com Christo, buscae as coisas que são de cima, onde Christo está assentado á dextra de Deus."
-  },
-  {
-   "reference": "Colossenses 4:5",
-   "text": "Andae com sabedoria para com os que estão de fóra, remindo o tempo."
-  },
-  {
-   "reference": "Colossenses 1:4",
-   "text": "Porquanto ouvimos da vossa fé em Christo Jesus, e da caridade que tendes para com todos os sanctos;"
-  },
-  {
-   "reference": "Colossenses 3:24",
-   "text": "Sabendo que recebereis do Senhor o galardão da herança, porque a Christo, o Senhor, servis."
-  },
-  {
-   "reference": "1 Tessalonicenses 5:16",
-   "text": "Regozijae-vos sempre."
-  },
-  {
-   "reference": "1 Tessalonicenses 5:18",
-   "text": "Em tudo dae graças; porque esta é a vontade de Deus em Christo Jesus para comvosco."
-  },
-  {
-   "reference": "1 Tessalonicenses 1:3",
-   "text": "Lembrando-nos sem cessar da obra da vossa fé, e do trabalho de caridade, da paciencia da esperança em Nosso Senhor Jesus Christo, deante de nosso Deus e Pai:"
-  },
-  {
-   "reference": "1 Tessalonicenses 4:16",
-   "text": "Porque o mesmo Senhor descerá do céu com alarido, e com voz de archanjo, e com a trombeta de Deus; e os que morreram em Christo resuscitarão primeiro."
-  },
-  {
-   "reference": "1 Tessalonicenses 5:23",
-   "text": "E o mesmo Deus de paz vos sanctifique em tudo; e todo o vosso sincero espirito, e alma, e corpo, sejam conservados irreprehensiveis para a vinda de nosso Senhor Jesus Christo."
-  },
-  {
-   "reference": "1 Tessalonicenses 1:5",
-   "text": "Porque o nosso evangelho não foi a vós sómente em palavras, mas tambem em poder, e no Espirito Sancto, e em muita certeza; como bem sabeis quaes fomos entre vós, por amor de vós"
-  },
-  {
-   "reference": "1 Tessalonicenses 4:14",
-   "text": "Porque, se crêmos que Jesus morreu e resuscitou, assim tambem aos que em Jesus dormem Deus os tornará a trazer com elle."
-  },
-  {
-   "reference": "1 Tessalonicenses 5:9",
-   "text": "Porque Deus não nos tem designado para a ira, mas para a acquisição da salvação, por nosso Senhor Jesus Christo."
-  },
-  {
-   "reference": "1 Tessalonicenses 1:8",
-   "text": "Porque por vós soou a palavra do Senhor, não sómente na Macedonia e Achaia, mas tambem a vossa fé para com Deus se espalhou por todos os logares, de tal maneira que já d'ella não temos necessidade de fallar coisa alguma;"
-  },
-  {
-   "reference": "1 Tessalonicenses 4:17",
-   "text": "Depois nós, os que ficarmos vivos, seremos arrebatados juntamente com elles nas nuvens, a encontrar o Senhor nos ares, e assim estaremos sempre com o Senhor."
-  },
-  {
-   "reference": "Hebreus 11:1",
-   "text": "Ora, a fé é o firme fundamento das coisas que se esperam, e a prova das coisas que se não vêem."
-  },
-  {
-   "reference": "Hebreus 13:8",
-   "text": "Jesus Christo é o mesmo hontem, e hoje, e eternamente."
-  },
-  {
-   "reference": "Hebreus 4:16",
-   "text": "Cheguemos pois com confiança ao throno da graça, para que possamos alcançar misericordia e achar graça, para sermos ajudados em tempo opportuno."
-  },
-  {
-   "reference": "Hebreus 6:11",
-   "text": "Mas desejamos que cada um de vós mostre o mesmo cuidado até ao fim, para completa certeza da esperança;"
-  },
-  {
-   "reference": "Hebreus 13:5",
-   "text": "Sejam os vossos costumes sem avareza, contentando-vos com o presente; porque elle disse: Não te deixarei, nem te desampararei."
-  },
-  {
-   "reference": "Hebreus 12:2",
-   "text": "Olhando para Jesus, auctor e consummador da fé, o qual pelo gozo que lhe estava proposto supportou a cruz, desprezando a affronta, e assentou-se á dextra do throno de Deus."
-  },
-  {
-   "reference": "Hebreus 11:4",
-   "text": "Pela fé Abel offereceu a Deus maior sacrificio do que Caim, pela qual alcançou testemunho de que era justo, porquanto Deus deu testemunho dos seus dons, e, depois de morto, ainda falla por ella."
-  },
-  {
-   "reference": "Hebreus 10:36",
-   "text": "Porque necessitaes de paciencia, para que, depois de haverdes feito a vontade de Deus, possaes alcançar a promessa."
-  },
-  {
-   "reference": "Hebreus 4:12",
-   "text": "Porque a palavra de Deus é viva e efficaz, e mais penetrante do que espada alguma de dois gumes, e penetra até á divisão da alma e do espirito, e das junturas e medullas, e é apta para discernir os pensamentos e intenções do coração."
-  },
-  {
-   "reference": "Hebreus 6:12",
-   "text": "Para que vos não façaes negligentes, mas sejaes imitadores dos que pela fé e paciencia herdam as promessas."
-  },
-  {
-   "reference": "Hebreus 13:21",
-   "text": "Vos aperfeiçoe em toda a boa obra, para fazerdes a sua vontade, obrando em vós o que perante elle é agradavel por Christo Jesus, ao qual seja gloria para todo o sempre. Amen."
-  },
-  {
-   "reference": "Hebreus 12:3",
-   "text": "Considerae pois aquelle que contra si mesmo supportou tal contradicção dos peccadores, para que não enfraqueçaes, desfallecendo em vossos animos."
-  },
-  {
-   "reference": "Hebreus 11:6",
-   "text": "Ora, sem fé é impossivel agradar a Deus: porque é necessario que aquelle que se approxima de Deus creia que elle existe, e que é galardoador dos que o buscam."
-  },
-  {
-   "reference": "Hebreus 10:21",
-   "text": "E tendo um grande sacerdote sobre a casa de Deus,"
-  },
-  {
-   "reference": "Tiago 1:5",
-   "text": "E, se algum de vós tem falta de sabedoria, peça-a a Deus, que a todos dá liberalmente, e o não lança em rosto, e ser-lhe-ha dada"
-  },
-  {
-   "reference": "Tiago 1:17",
-   "text": "Toda a boa dadiva e todo o dom perfeito é do alto, e desce do Pai das luzes, em quem não ha mudança nem sombra de variação,"
-  },
-  {
-   "reference": "Tiago 5:11",
-   "text": "Eis que temos por bemaventurados os que soffrem. Ouvistes qual foi a paciencia de Job, e vistes o fim que o Senhor lhe deu; porque o Senhor é muito misericordioso e piedoso."
-  },
-  {
-   "reference": "Tiago 4:8",
-   "text": "Chegae-vos a Deus, e elle se chegará a vós. Alimpae as mãos, peccadores; e, vós de duplo animo, purificae os corações."
-  },
-  {
-   "reference": "Tiago 1:12",
-   "text": "Bemaventurado o varão que soffre a tentação; porque, quando fôr provado, receberá a corôa da vida, a qual o Senhor tem promettido aos que o amam."
-  },
-  {
-   "reference": "Tiago 3:18",
-   "text": "Ora o fructo da justiça semeia-se na paz, para os que exercitam a paz."
-  },
-  {
-   "reference": "Tiago 2:18",
-   "text": "Porém dirá alguem: Tu tens a fé, e eu tenho as obras: mostra-me a tua fé pelas tuas obras, e eu te mostrarei a minha fé pelas minhas obras."
-  },
-  {
-   "reference": "Tiago 5:15",
-   "text": "E a oração da fé salvará o doente, e o Senhor o levantará; e, se houver commettido peccados, ser-lhe-hão perdoados."
-  },
-  {
-   "reference": "Tiago 4:7",
-   "text": "Sujeitae-vos pois a Deus, resisti ao diabo, e elle fugirá de vós."
-  },
-  {
-   "reference": "Tiago 1:6",
-   "text": "Porém peça-a com fé, não duvidando; porque o que duvida é similhante á onda do mar, que é levada pelo vento, e lançada de uma para outra parte."
-  },
-  {
-   "reference": "Tiago 3:17",
-   "text": "Mas a sabedoria que do alto vem é, primeiramente, pura, depois pacifica, moderada, tratavel, cheia de misericordia e de bons fructos, sem parcialidade, e sem hypocrisia."
-  },
-  {
-   "reference": "Tiago 2:13",
-   "text": "Porque o juizo virá sem misericordia sobre aquelle que não fez misericordia; e a misericordia gloría-se contra o juizo."
-  },
-  {
-   "reference": "1 Pedro 5:7",
-   "text": "Lançando sobre elle toda a vossa solicitude, porque elle tem cuidado de vós."
-  },
-  {
-   "reference": "1 Pedro 3:15",
-   "text": "Antes sanctificae o Senhor Deus em vossos corações; e estae sempre preparados para responder com mansidão e temor a qualquer que vos pedir a razão da esperança que ha em vós:"
-  },
-  {
-   "reference": "1 Pedro 2:10",
-   "text": "Vós, que d'antes não ereis povo, mas agora sois povo de Deus; que não tinheis alcançado misericordia, mas agora alcançastes misericordia."
-  },
-  {
-   "reference": "1 Pedro 1:3",
-   "text": "Bemdito seja o Deus e Pai de nosso Senhor Jesus Christo, que, segundo a sua grande misericordia, nos gerou de novo para uma viva esperança, pela resurreição de Jesus Christo d'entre os mortos,"
-  },
-  {
-   "reference": "1 Pedro 5:10",
-   "text": "Ora o Deus de toda a graça, que em Christo Jesus nos chamou á sua eterna gloria, depois de haverdes padecido um pouco, o mesmo vos aperfeiçoe, confirme, fortifique e estabeleça."
-  },
-  {
-   "reference": "1 Pedro 4:11",
-   "text": "Se alguem fallar, falle segundo as palavras de Deus: se alguem administrar, administre segundo o poder que Deus dá; para que em tudo Deus seja glorificado por Jesus Christo, a quem pertence a gloria e poder para todo o sempre. Amen."
-  },
-  {
-   "reference": "1 Pedro 3:14",
-   "text": "Mas tambem, se padecerdes por amor da justiça, sois bemaventurados. E não temaes com medo d'elles, nem vos turbeis;"
-  },
-  {
-   "reference": "1 Pedro 2:5",
-   "text": "Vós tambem, como pedras vivas, sois edificados casa espiritual e sacerdocio sancto, para offerecer sacrificios espirituaes agradaveis a Deus por Jesus Christo."
-  },
-  {
-   "reference": "1 Pedro 1:7",
-   "text": "Para que a prova da vossa fé, muito mais preciosa do que o oiro que perece e é provado pelo fogo, se ache em louvor, e honra, e gloria, na revelação de Jesus Christo:"
-  },
-  {
-   "reference": "1 Pedro 5:5",
-   "text": "Similhantemente vós, mancebos, sêde sujeitos aos anciãos; e sêde todos sujeitos uns aos outros, e vesti-vos de humildade, porque Deus resiste aos soberbos, mas dá graça aos humildes."
-  },
-  {
-   "reference": "1 Pedro 4:10",
-   "text": "Cada um administre aos outros o dom como o recebeu, como bons dispenseiros da multiforme graça de Deus."
-  },
-  {
-   "reference": "1 Pedro 3:12",
-   "text": "Porque os olhos do Senhor estão sobre os justos, e os seus ouvidos attentos ás suas orações; mas o rosto do Senhor é contra os que fazem males."
-  },
-  {
-   "reference": "1 Pedro 2:12",
-   "text": "Tendo o vosso viver honesto entre os gentios; para que, n'aquillo em que fallam mal de vós, como de malfeitores, glorifiquem a Deus no dia da visitação, pelas boas obras que em vós virem."
-  },
-  {
-   "reference": "1 Pedro 1:5",
-   "text": "Que pela fé estaes guardados na virtude de Deus para a salvação, já prestes para se revelar no ultimo tempo."
-  },
-  {
-   "reference": "1 Pedro 5:9",
-   "text": "Ao qual resisti firmes na fé: sabendo que as mesmas afflicções se cumprem entre os vossos irmãos no mundo."
-  },
-  {
-   "reference": "1 Pedro 4:8",
-   "text": "Mas, sobretudo, tende ardente caridade uns para com os outros; porque a caridade cobrirá a multidão de peccados."
-  },
-  {
-   "reference": "1 João 4:7",
-   "text": "Amados, amemo-nos uns aos outros; porque a caridade é de Deus; e qualquer que ama é nascido de Deus e conhece a Deus."
-  },
-  {
-   "reference": "1 João 4:8",
-   "text": "Aquelle que não ama não tem conhecido a Deus; porque Deus é caridade."
-  },
-  {
-   "reference": "1 João 4:16",
-   "text": "E nós conhecemos, e cremos o amor que Deus nos tem. Deus é caridade; e quem está em caridade está em Deus, e Deus n'elle."
-  },
-  {
-   "reference": "1 João 5:1",
-   "text": "Todo aquelle que crê que Jesus é o Christo é nascido de Deus; e todo aquelle que ama ao que o gerou tambem ama ao que d'elle é nascido."
-  },
-  {
-   "reference": "1 João 1:7",
-   "text": "Porém, se andarmos na luz, como elle na luz está, temos communhão uns com os outros, e o sangue de Jesus Christo, seu Filho, nos purifica de todo o peccado."
-  },
-  {
-   "reference": "1 João 2:1",
-   "text": "Meus filhinhos, estas coisas vos escrevo, para que não pequeis; e, se alguem peccar, temos um Advogado para com o Pai, Jesus Christo, o justo."
-  },
-  {
-   "reference": "1 João 3:23",
-   "text": "E o seu mandamento é este: que creiamos no nome de seu Filho Jesus Christo, e nos amemos uns aos outros, como nos deu mandamento."
-  },
-  {
-   "reference": "1 João 4:15",
-   "text": "Qualquer que confessar que Jesus é o Filho de Deus, Deus está n'elle, e elle em Deus."
-  },
-  {
-   "reference": "1 João 5:13",
-   "text": "Estas coisas vos escrevi, a vós que crêdes no nome do Filho de Deus, para que saibaes que tendes a vida eterna, e para que creiaes no nome do Filho de Deus."
-  },
-  {
-   "reference": "1 João 1:5",
-   "text": "E esta é a annunciação que d'elle ouvimos, e vos annunciamos: que Deus é luz, e não ha n'elle trevas nenhumas."
-  },
-  {
-   "reference": "1 João 2:5",
-   "text": "Mas qualquer que guarda a sua palavra, o amor de Deus está n'elle verdadeiramente aperfeiçoado: n'isto conhecemos que estamos n'elle."
-  },
-  {
-   "reference": "1 João 3:2",
-   "text": "Amados, agora somos filhos de Deus, e ainda não é manifestado o que havemos de ser. Porém sabemos que, quando se manifestar, seremos similhantes a elle; porque assim como é o veremos."
-  },
-  {
-   "reference": "1 João 4:19",
-   "text": "Nós o amamos a elle porque elle nos amou primeiro."
-  }
- ]
+  "title": "Caixinha de Promessas · IGJAL",
+  "translation": "Almeida Revista e Corrigida — edição histórica de 1911, com ajustes pontuais de grafia",
+  "edition": "1911",
+  "note": "Versículos da edição de 1911 com atualização ortográfica para o português brasileiro contemporâneo; preservadas as referências e a seleção dos textos.",
+  "source": "https://github.com/damarals/biblias/tree/main/data/canonical/ALM1911",
+  "count": 500,
+  "verses": [
+    {
+      "reference": "Salmos 23:1",
+      "text": "O Senhor é o meu pastor, nada me faltará."
+    },
+    {
+      "reference": "Salmos 91:1",
+      "text": "Aquele que habita no esconderijo do Altíssimo, à sombra do Onipotente descansará."
+    },
+    {
+      "reference": "Salmos 103:1",
+      "text": "Bendize, ó alma minha ao Senhor, e tudo o que há em mim, bendiga o seu santo nome."
+    },
+    {
+      "reference": "Salmos 121:1",
+      "text": "Levantarei os meus olhos para os montes, de onde vem a minha salvação."
+    },
+    {
+      "reference": "Salmos 51:12",
+      "text": "Torna a dar-me a alegria da tua salvação, e sustem-me com o teu Espírito voluntario."
+    },
+    {
+      "reference": "Salmos 128:5",
+      "text": "O Senhor te abençoará desde Sião, e tu verás os bens de Jerusalem em todos os dias da tua vida."
+    },
+    {
+      "reference": "Salmos 121:5",
+      "text": "O Senhor é quem te guarda: o Senhor é a tua sombra à tua direita."
+    },
+    {
+      "reference": "Salmos 126:3",
+      "text": "Grandes coisas fez o Senhor por nós, pelas quaes estamos alegres."
+    },
+    {
+      "reference": "Salmos 146:5",
+      "text": "Bemaventurado aquele que tem o Deus de Jacob por seu auxilio, e cuja esperança está posta no Senhor seu Deus."
+    },
+    {
+      "reference": "Salmos 147:1",
+      "text": "Louvai ao Senhor, porque é bom cantar louvores ao nosso Deus, porque é agradavel; decoroso é o louvor."
+    },
+    {
+      "reference": "Salmos 145:21",
+      "text": "A minha boca falará o louvor do Senhor, e toda a carne louvará o seu santo nome pelo seculo do seculo e para sempre."
+    },
+    {
+      "reference": "Salmos 150:1",
+      "text": "Louvai ao Senhor. Louvai a Deus no seu santuário, louvai-o no firmamento do seu poder."
+    },
+    {
+      "reference": "Salmos 91:2",
+      "text": "Direi do Senhor: Ele é o meu Deus, o meu refugio, a minha fortaleza, e n'ele confiarei."
+    },
+    {
+      "reference": "Salmos 84:8",
+      "text": "Senhor Deus dos Exercitos, escuta a minha oração: inclina os ouvidos, ó Deus de Jacob! (Selah)"
+    },
+    {
+      "reference": "Salmos 27:1",
+      "text": "O Senhor é a minha luz e a minha salvação; a quem temerei? O Senhor é a força da minha vida; de quem me receiarei?"
+    },
+    {
+      "reference": "Salmos 23:6",
+      "text": "Certamente que a bondade e a misericórdia me seguirão todos os dias da minha vida: e habitarei na casa do Senhor por longos dias."
+    },
+    {
+      "reference": "Salmos 71:5",
+      "text": "Pois tu és a minha esperança. Senhor Deus; tu és a minha confiança desde a minha mocidade."
+    },
+    {
+      "reference": "Salmos 63:1",
+      "text": "Ó Deus, tu és o meu Deus, de madrugada te buscarei: a minha alma tem sêde de ti; a minha carne te deseja muito em uma terra seca e cançada, onde não há agua"
+    },
+    {
+      "reference": "Salmos 62:7",
+      "text": "Em Deus está a minha salvação e a minha gloria: a rocha da minha fortaleza, e o meu refugio estão em Deus."
+    },
+    {
+      "reference": "Salmos 111:1",
+      "text": "Louvai ao Senhor. Louvarei ao Senhor de todo o meu coração, na assembleia dos justos e na congregação."
+    },
+    {
+      "reference": "Salmos 112:1",
+      "text": "Louvai ao Senhor. Bemaventurado o homem que teme ao Senhor, que em seus mandamentos tem grande prazer."
+    },
+    {
+      "reference": "Salmos 116:5",
+      "text": "Piedoso é o Senhor e justo: o nosso Deus tem misericórdia."
+    },
+    {
+      "reference": "Salmos 119:130",
+      "text": "A entrada das tuas palavras dá luz, dá entendimento aos simplices."
+    },
+    {
+      "reference": "Salmos 118:27",
+      "text": "Deus é o Senhor que nos mostrou a luz: atae a victima da festa com cordas, até aos cornos do altar."
+    },
+    {
+      "reference": "Salmos 139:14",
+      "text": "Eu te louvarei, porque de um modo terrivel, e tão maravilhoso fui feito; maravilhosas são as tuas obras, e a minha alma o sabe muito bem."
+    },
+    {
+      "reference": "Salmos 133:3",
+      "text": "Como o orvalho de Hermon e como o que desce sobre os montes de Sião, porque ali o Senhor ordena a bênção e vida para sempre."
+    },
+    {
+      "reference": "Salmos 130:7",
+      "text": "Espere Israel no Senhor, porque no Senhor há misericórdia, e n'ele há abundante redenção."
+    },
+    {
+      "reference": "Salmos 107:21",
+      "text": "Louvem ao Senhor pela sua bondade, e pelas suas maravilhas para com os filhos dos homens."
+    },
+    {
+      "reference": "Salmos 136:3",
+      "text": "Louvai ao Senhor dos senhores; porque a sua benignidade dura para sempre."
+    },
+    {
+      "reference": "Salmos 103:17",
+      "text": "Mas a misericórdia do Senhor é desde a eternidade e até à eternidade sobre aqueles que o temem, e a sua justiça sobre os filhos dos filhos;"
+    },
+    {
+      "reference": "Salmos 100:3",
+      "text": "Sabei que o Senhor é Deus: foi ele que nos fez, e não nós outros a nós; somos povo seu e ovelhas do seu pasto."
+    },
+    {
+      "reference": "Salmos 40:16",
+      "text": "Folguem e alegrem-se em ti os que te buscam: digam constantemente os que amam a tua salvação: Magnificado seja o Senhor."
+    },
+    {
+      "reference": "Salmos 34:1",
+      "text": "Louvarei ao Senhor em todo o tempo: o seu louvor estará continuamente na minha boca."
+    },
+    {
+      "reference": "Salmos 37:6",
+      "text": "E ele fará sobresair a tua justiça como a luz, e o teu juizo como o meio-dia."
+    },
+    {
+      "reference": "Salmos 46:4",
+      "text": "Há um rio cujas correntes alegram a cidade de Deus, o santuário das moradas do Altíssimo."
+    },
+    {
+      "reference": "Salmos 30:12",
+      "text": "Para que a minha gloria a ti cante louvores, e não se cale: Senhor, Deus meu, eu te louvarei para sempre."
+    },
+    {
+      "reference": "Salmos 31:5",
+      "text": "Nas tuas mãos encomendo o meu espírito: tu me redimiste, Senhor Deus da verdade."
+    },
+    {
+      "reference": "Salmos 33:5",
+      "text": "Ele ama a justiça e o juizo: a terra está cheia da bondade do Senhor."
+    },
+    {
+      "reference": "Salmos 51:10",
+      "text": "Cria em mim, ó Deus, um coração puro, e renova em mim um espírito recto."
+    },
+    {
+      "reference": "Salmos 128:4",
+      "text": "Eis que assim será abençoado o homem que teme ao Senhor."
+    },
+    {
+      "reference": "Salmos 121:2",
+      "text": "O meu socorro vem do Senhor, que fez o céu e a terra."
+    },
+    {
+      "reference": "Salmos 126:2",
+      "text": "Então a nossa boca se encheu do riso e a nossa lingua de cantico: então se dizia entre as nações: Grandes coisas fez o Senhor a estes."
+    },
+    {
+      "reference": "Salmos 146:2",
+      "text": "Louvarei ao Senhor durante a minha vida; cantarei louvores ao meu Deus emquanto eu fôr vivo."
+    },
+    {
+      "reference": "Salmos 147:12",
+      "text": "Louva, ó Jerusalem, ao Senhor; louva, ó Sião, ao teu Deus."
+    },
+    {
+      "reference": "Salmos 145:7",
+      "text": "Proferirão abundantemente a memoria da tua grande bondade, e cantarão a tua justiça."
+    },
+    {
+      "reference": "Salmos 150:6",
+      "text": "Tudo quanto tem folego louve ao Senhor. Louvai ao Senhor."
+    },
+    {
+      "reference": "Salmos 91:9",
+      "text": "Porque tu, ó Senhor, és o meu refugio: no Altíssimo fizeste a tua habitação."
+    },
+    {
+      "reference": "Salmos 84:11",
+      "text": "Porque o Senhor Deus é um sol e escudo: o Senhor dará graça e gloria; não retirará bem algum aos que andam na rectidão."
+    },
+    {
+      "reference": "Salmos 27:4",
+      "text": "Uma coisa pedi ao Senhor, e a buscarei: que possa morar na casa do Senhor todos os dias da minha vida, para contemplar a formosura do Senhor, e inquirir no seu templo."
+    },
+    {
+      "reference": "Salmos 23:3",
+      "text": "Refrigera a minha alma; guia-me pelas veredas da justiça, por amor do seu nome."
+    },
+    {
+      "reference": "Salmos 71:16",
+      "text": "Sairei na força do Senhor Deus, farei menção da tua justiça, e só d'ela."
+    },
+    {
+      "reference": "Salmos 63:5",
+      "text": "A minha alma se fartará, como de tutano e de gordura; e a minha boca te louvará com alegres labios,"
+    },
+    {
+      "reference": "Salmos 62:12",
+      "text": "A ti também, Senhor, pertence a misericórdia; pois retribuirás a cada um segundo a sua obra."
+    },
+    {
+      "reference": "Salmos 111:10",
+      "text": "O temor do Senhor é o principio da sabedoria: bom entendimento teem todos os que cumprem os seus mandamentos: o seu louvor permanece para sempre."
+    },
+    {
+      "reference": "Salmos 112:7",
+      "text": "Não temerá maus rumores: o seu coração está firme, confiando no Senhor."
+    },
+    {
+      "reference": "Salmos 116:4",
+      "text": "Então invoquei o nome do Senhor, dizendo: Ó Senhor, livra a minha alma."
+    },
+    {
+      "reference": "Salmos 119:33",
+      "text": "Ensina-me, ó Senhor, o caminho dos teus estatutos, e guardal-o-hei até ao fim."
+    },
+    {
+      "reference": "Salmos 118:25",
+      "text": "Salva-nos, agora, te pedimos, ó Senhor, ó Senhor, te pedimos, prospera-nos."
+    },
+    {
+      "reference": "Salmos 139:12",
+      "text": "Nem ainda as trevas me encobrem de ti: mas a noite resplandece como o dia; as trevas e a luz são para ti a mesma coisa."
+    },
+    {
+      "reference": "Salmos 133:2",
+      "text": "É como o oleo precioso sobre a cabeça, que desce sobre a barba, a barba, d'Aarão, e que desce à orla dos seus vestidos."
+    },
+    {
+      "reference": "Salmos 130:3",
+      "text": "Se tu, Senhor, observares as iniquidades, Senhor, quem subsistirá?"
+    },
+    {
+      "reference": "Salmos 107:8",
+      "text": "Louvem ao Senhor pela sua bondade, e pelas suas maravilhas para com os filhos dos homens."
+    },
+    {
+      "reference": "Salmos 136:2",
+      "text": "Louvai ao Deus dos deuses; porque a sua benignidade dura para sempre."
+    },
+    {
+      "reference": "Salmos 103:22",
+      "text": "Bendizei ao Senhor, todas as suas obras, em todos os logares do seu dominio; bendize, ó alma minha, ao Senhor."
+    },
+    {
+      "reference": "Salmos 100:4",
+      "text": "Entrae pelas portas d'ele com louvor, e em seus atrios com hymno: louvai-o, e bemdizei o seu nome."
+    },
+    {
+      "reference": "Salmos 40:17",
+      "text": "Mas eu sou pobre e necessitado; comtudo o Senhor cuida de mim: tu és o meu auxilio e o meu libertador; não te detenhas, ó meu Deus."
+    },
+    {
+      "reference": "Salmos 34:18",
+      "text": "Perto está o Senhor dos que teem o coração quebrantado, e salva os contritos de espírito."
+    },
+    {
+      "reference": "Salmos 37:39",
+      "text": "Mas a salvação dos justos vem do Senhor; ele é a sua fortaleza no tempo da angustia."
+    },
+    {
+      "reference": "Salmos 46:7",
+      "text": "O Senhor dos Exercitos está comnosco: o Deus de Jacob é o nosso refugio (Selah)."
+    },
+    {
+      "reference": "Salmos 30:2",
+      "text": "Senhor, meu Deus, clamei a ti, e tu me saraste."
+    },
+    {
+      "reference": "Salmos 31:21",
+      "text": "Bendito seja o Senhor, pois fez maravilhosa a sua misericórdia para comigo em cidade segura."
+    },
+    {
+      "reference": "Salmos 33:18",
+      "text": "Eis que os olhos do Senhor estão sobre os que o temem, sobre os que esperam na sua misericórdia;"
+    },
+    {
+      "reference": "Salmos 51:11",
+      "text": "Não me lances fóra da tua presença, e não retires de mim o teu Espírito Santo."
+    },
+    {
+      "reference": "Salmos 128:1",
+      "text": "Bemaventurado aquele que teme ao Senhor e anda nos seus caminhos."
+    },
+    {
+      "reference": "Salmos 121:7",
+      "text": "O Senhor te guardará de todo o mal: guardará a tua alma."
+    },
+    {
+      "reference": "Salmos 126:6",
+      "text": "Aquele que leva a preciosa semente, andando e chorando, voltará sem duvida com alegria, trazendo comsigo os seus molhos."
+    },
+    {
+      "reference": "Salmos 146:10",
+      "text": "O Senhor reinará eternamente; o teu Deus, ó Sião, é de geração em geração. Louvai ao Senhor."
+    },
+    {
+      "reference": "Salmos 147:7",
+      "text": "Cantae ao Senhor em ação de graça; cantae louvores ao nosso Deus sobre a harpa."
+    },
+    {
+      "reference": "Salmos 145:3",
+      "text": "Grande é o Senhor, e muito digno de louvor, e a sua grandeza inexcrutavel."
+    },
+    {
+      "reference": "Salmos 150:3",
+      "text": "Louvai-o com o som de trombeta, louvai-o com o psalterio e a harpa."
+    },
+    {
+      "reference": "Salmos 91:16",
+      "text": "Fartal-o-hei com longura de dias, e lhe mostrarei a minha salvação."
+    },
+    {
+      "reference": "Salmos 84:12",
+      "text": "Senhor dos Exercitos, bemaventurado o homem que em ti põe a sua confiança."
+    },
+    {
+      "reference": "Salmos 27:14",
+      "text": "Espera no Senhor, anima-te, e ele fortalecerá o teu coração; espera pois no Senhor."
+    },
+    {
+      "reference": "Salmos 23:4",
+      "text": "Ainda que eu andasse pelo vale da sombra da morte, não temeria mal algum, porque tu estás comigo; a tua vara e o teu cajado me consolam."
+    },
+    {
+      "reference": "Salmos 71:15",
+      "text": "A minha boca manifestará a tua justiça e a tua salvação todo o dia, pois não conheço o numero d'elas."
+    },
+    {
+      "reference": "Salmos 63:3",
+      "text": "Porque a tua benignidade é melhor do que a vida; os meus labios te louvarão."
+    },
+    {
+      "reference": "Salmos 62:1",
+      "text": "A minha alma espera sómente em Deus: d'ele vem a minha salvação."
+    },
+    {
+      "reference": "Salmos 111:4",
+      "text": "Fez com que as suas maravilhas fossem lembradas: piedoso e misericordioso é o Senhor."
+    },
+    {
+      "reference": "Salmos 112:4",
+      "text": "Aos justos nasce luz nas trevas: ele é piedoso, misericordioso e justo."
+    },
+    {
+      "reference": "Salmos 116:8",
+      "text": "Porque tu, Senhor, livraste a minha alma da morte, os meus olhos das lagrimas, e os meus pés da queda."
+    },
+    {
+      "reference": "Salmos 119:105",
+      "text": "A tua palavra é uma lampada para os meus pés e uma luz para o meu caminho."
+    },
+    {
+      "reference": "Salmos 118:28",
+      "text": "Tu és o meu Deus, e eu te louvarei; tu és o meu Deus, e eu te exaltarei."
+    },
+    {
+      "reference": "Salmos 139:17",
+      "text": "E quão preciosos me são, ó Deus, os teus pensamentos! Quão grandes são as somas d'eles!"
+    },
+    {
+      "reference": "Salmos 133:1",
+      "text": "Oh! quão bom e quão suave é que os irmãos habitem em união."
+    },
+    {
+      "reference": "Salmos 130:6",
+      "text": "A minha alma aguarda ao Senhor, mais do que os guardas pela manhã, mais do que aqueles que vigiam pela manhã."
+    },
+    {
+      "reference": "Salmos 107:1",
+      "text": "Louvai ao Senhor, porque ele é bom, porque a sua benignidade dura para sempre."
+    },
+    {
+      "reference": "Salmos 136:1",
+      "text": "Louvai ao Senhor, porque ele é bom; porque a sua benignidade dura para sempre."
+    },
+    {
+      "reference": "Salmos 103:8",
+      "text": "Misericordioso e piedoso é o Senhor; longanimo e grande em benignidade."
+    },
+    {
+      "reference": "Salmos 100:5",
+      "text": "Porque o Senhor é bom, e eterna a sua misericórdia; e a sua verdade dura de geração em geração."
+    },
+    {
+      "reference": "Salmos 40:5",
+      "text": "Muitas são, Senhor meu Deus, as maravilhas que tens obrado para comnosco, e os teus pensamentos não se podem contar por ordem diante de ti; se eu os quizera anunciar, e d'eles falar, são mais do que se podem contar."
+    },
+    {
+      "reference": "Salmos 34:8",
+      "text": "Provai, e vêde que o Senhor é bom; bemaventurado o homem que n'ele confia."
+    },
+    {
+      "reference": "Salmos 37:7",
+      "text": "Descansa no Senhor, e espera n'ele; não te indignes por causa d'aquele que prospera em seu caminho, por causa do homem que executa astutos intentos."
+    },
+    {
+      "reference": "Salmos 46:5",
+      "text": "Deus está no meio d'ela, não se abalará; Deus a ajudará ao romper da manhã."
+    },
+    {
+      "reference": "Salmos 30:3",
+      "text": "Senhor, fizeste subir a minha alma da sepultura: conservaste-me a vida para que não descesse ao abysmo."
+    },
+    {
+      "reference": "Salmos 31:23",
+      "text": "Amae ao Senhor, vós todos que sois seus santos; porque o Senhor guarda os fieis e retribue com abundancia ao que usa de soberba."
+    },
+    {
+      "reference": "Salmos 33:22",
+      "text": "Seja a tua misericórdia, Senhor, sobre nós, como em ti esperamos."
+    },
+    {
+      "reference": "Salmos 128:6",
+      "text": "E verás os filhos de teus filhos, e a paz sobre Israel."
+    },
+    {
+      "reference": "Salmos 121:8",
+      "text": "O Senhor guardará a tua entrada e a tua saida, desde agora e para sempre."
+    },
+    {
+      "reference": "Salmos 126:1",
+      "text": "Quando o Senhor trouxe do captiveiro os que voltaram a Sião estavamos com os que sonham."
+    },
+    {
+      "reference": "Salmos 146:1",
+      "text": "Louvai ao Senhor. Ó alma minha, louva ao Senhor."
+    },
+    {
+      "reference": "Salmos 147:20",
+      "text": "Não fez assim a nenhuma outra nação; e, emquanto aos seus juizos, não os conhecem. Louvai ao Senhor."
+    },
+    {
+      "reference": "Salmos 145:9",
+      "text": "O Senhor é bom para todos, e as suas misericordias são sobre todas as suas obras."
+    },
+    {
+      "reference": "Salmos 150:2",
+      "text": "Louvai-o pelos seus actos poderosos, louvai-o conforme a excelência da sua grandeza."
+    },
+    {
+      "reference": "Salmos 91:4",
+      "text": "Ele te cobrirá com as suas penas, e debaixo das suas azas te confiarás: a sua verdade será o teu escudo e rodela."
+    },
+    {
+      "reference": "Salmos 84:3",
+      "text": "Até o pardal encontrou casa, e a andorinha ninho para si, onde ponha seus filhos, até mesmo nos teus altares, Senhor dos exercitos, Rei meu e Deus meu."
+    },
+    {
+      "reference": "Salmos 27:13",
+      "text": "Pereceria sem duvida, se não cresse que veria os bens do Senhor na terra dos viventes."
+    },
+    {
+      "reference": "Salmos 23:2",
+      "text": "Deitar-me faz em verdes pastos, guia-me mansamente a aguas mui quietas."
+    },
+    {
+      "reference": "Salmos 71:2",
+      "text": "Livra-me na tua justiça, e faze-me escapar: inclina os teus ouvidos para mim, e salva-me."
+    },
+    {
+      "reference": "Salmos 63:8",
+      "text": "A minha alma te segue de perto: a tua dextra me sustenta."
+    },
+    {
+      "reference": "Salmos 62:5",
+      "text": "Ó minha alma, espera sómente em Deus, porque d'ele vem a minha esperança."
+    },
+    {
+      "reference": "Salmos 111:2",
+      "text": "Grandes são as obras do Senhor, procuradas por todos os que n'eles tomam prazer."
+    },
+    {
+      "reference": "Salmos 112:9",
+      "text": "Ele espalhou, deu aos necessitados: a sua justiça permanece para sempre, e a sua força se exaltará em gloria."
+    },
+    {
+      "reference": "Salmos 116:9",
+      "text": "Andarei perante a face do Senhor na terra dos viventes."
+    },
+    {
+      "reference": "Salmos 119:165",
+      "text": "Muita paz teem os que amam a tua lei, e para eles não há tropeço."
+    },
+    {
+      "reference": "Salmos 118:24",
+      "text": "Este é o dia que fez o Senhor: regozijemo-nos, e alegremo-nos n'ele."
+    },
+    {
+      "reference": "Salmos 139:7",
+      "text": "Para onde me irei do teu Espírito, ou para onde fugirei da tua face?"
+    },
+    {
+      "reference": "Salmos 130:5",
+      "text": "Aguardo ao Senhor; a minha alma o aguarda, e espero na sua palavra."
+    },
+    {
+      "reference": "Salmos 107:6",
+      "text": "E clamaram ao Senhor na sua angustia, e os livrou das suas necessidades."
+    },
+    {
+      "reference": "Salmos 136:26",
+      "text": "Louvai ao Deus dos céus; porque a sua benignidade dura para sempre."
+    },
+    {
+      "reference": "Salmos 103:6",
+      "text": "O Senhor faz justiça e juizo a todos os oprimidos."
+    },
+    {
+      "reference": "Provérbios 3:5",
+      "text": "Confia no Senhor com todo o teu coração, e não te estribes no teu proprio entendimento."
+    },
+    {
+      "reference": "Provérbios 3:6",
+      "text": "Reconhece-o em todos os teus caminhos, e ele endireitará as tuas veredas."
+    },
+    {
+      "reference": "Provérbios 16:3",
+      "text": "Confia do Senhor as tuas obras, e teus pensamentos serão estabelecidos."
+    },
+    {
+      "reference": "Provérbios 31:30",
+      "text": "Sin. Enganosa é a graça e vaidade a formosura, mas a mulher que teme ao Senhor essa será louvada."
+    },
+    {
+      "reference": "Provérbios 30:9",
+      "text": "Para que porventura de farto te não negue, e diga: Quem é o Senhor? ou que, empobrecendo, não venha a furtar, e lance mão do nome de Deus."
+    },
+    {
+      "reference": "Provérbios 19:23",
+      "text": "O temor do Senhor encaminha para a vida; aquele que o tem ficará satisfeito, e não o visitará mal nenhum."
+    },
+    {
+      "reference": "Provérbios 18:10",
+      "text": "Torre forte é o nome do Senhor; a ele correrá o justo, e estará em alto retiro."
+    },
+    {
+      "reference": "Provérbios 13:20",
+      "text": "O que anda com os sabios, ficará sabio, mas o companheiro dos tolos sofrerá severamente."
+    },
+    {
+      "reference": "Provérbios 12:25",
+      "text": "A solicitude no coração do homem o abate, mas uma boa palavra o alegra."
+    },
+    {
+      "reference": "Provérbios 28:13",
+      "text": "O que encobre as suas transgressões nunca prosperará, mas o que as confessa e deixa alcançará misericórdia."
+    },
+    {
+      "reference": "Provérbios 11:2",
+      "text": "Vinda a soberba, virá também a afronta; mas com os humildes está a sabedoria."
+    },
+    {
+      "reference": "Provérbios 29:18",
+      "text": "Não havendo profecia, o povo fica dissoluto; porém o que guarda a lei esse é bemaventurado:"
+    },
+    {
+      "reference": "Provérbios 10:22",
+      "text": "A bênção do Senhor é a que enriquece; e não lhe acrescenta dôres."
+    },
+    {
+      "reference": "Provérbios 17:22",
+      "text": "O coração alegre serve de bom remedio, mas o espírito abatido virá a secar os ossos."
+    },
+    {
+      "reference": "Provérbios 27:9",
+      "text": "O oleo e o perfume alegram o coração: assim a doença do amigo d'alguem com o conselho cordial."
+    },
+    {
+      "reference": "Provérbios 16:20",
+      "text": "O que atenta prudentemente para a palavra achará o bem, e o que confia no Senhor será bemaventurado."
+    },
+    {
+      "reference": "Provérbios 24:14",
+      "text": "Tal será o conhecimento da sabedoria para a tua alma: se a achares, haverá para ti galardão, e não será cortada a tua expectativa."
+    },
+    {
+      "reference": "Provérbios 15:30",
+      "text": "A luz dos olhos alegra o coração, a boa fama engorda os ossos."
+    },
+    {
+      "reference": "Provérbios 25:11",
+      "text": "Como maçãs d'oiro em salvas de prata, assim é a palavra dita a seu tempo."
+    },
+    {
+      "reference": "Provérbios 14:26",
+      "text": "No temor do Senhor há firme confiança, e ele será um refugio para seus filhos."
+    },
+    {
+      "reference": "Provérbios 22:1",
+      "text": "Mais digno de ser escolhido é o bom nome do que as muitas riquezas; e a graça é melhor do que a riqueza e o oiro."
+    },
+    {
+      "reference": "Provérbios 20:24",
+      "text": "Os passos do homem são dirigidos pelo Senhor: o homem, pois, como entenderá o seu caminho?"
+    },
+    {
+      "reference": "Provérbios 21:21",
+      "text": "O que segue a justiça e a beneficencia achará a vida, a justiça e a honra."
+    },
+    {
+      "reference": "Provérbios 8:11",
+      "text": "Porque melhor é a sabedoria do que os rubins; e tudo o que mais se deseja não se pode comparar com ela."
+    },
+    {
+      "reference": "Provérbios 3:4",
+      "text": "E acharás graça e bom entendimento aos olhos de Deus e dos homens."
+    },
+    {
+      "reference": "Provérbios 4:7",
+      "text": "O principio da sabedoria é adquirir a sabedoria: adquire pois a sabedoria, e com toda a tua possessão adquire o entendimento."
+    },
+    {
+      "reference": "Provérbios 31:28",
+      "text": "Cofe. Levantam-se seus filhos, prezam-na por bem-aventurada; como também seu marido, que a louva, dizendo:"
+    },
+    {
+      "reference": "Provérbios 30:5",
+      "text": "Toda a palavra de Deus é pura; escudo é para os que confiam n'ele."
+    },
+    {
+      "reference": "Provérbios 19:17",
+      "text": "Ao Senhor empresta o que se compadece do pobre, e ele lhe pagará o seu beneficio."
+    },
+    {
+      "reference": "Provérbios 18:21",
+      "text": "A morte e a vida estão no poder da lingua; e aquele que a ama comerá do seu fructo."
+    },
+    {
+      "reference": "Provérbios 13:12",
+      "text": "A esperança deferida enfraquece o coração, mas o desejo chegado é arvore de vida."
+    },
+    {
+      "reference": "Provérbios 12:18",
+      "text": "Há alguns que falam palavras como estocadas de espada, mas a lingua dos sabios é saude."
+    },
+    {
+      "reference": "Provérbios 28:5",
+      "text": "Os homens maus não entendem o juizo, mas os que buscam ao Senhor entendem tudo."
+    },
+    {
+      "reference": "Provérbios 11:25",
+      "text": "A alma abençoante engordará, e o que regar, ele também será regado."
+    },
+    {
+      "reference": "Provérbios 29:25",
+      "text": "O temor do homem armará laços, mas o que confia no Senhor será posto em alto retiro."
+    },
+    {
+      "reference": "Provérbios 10:12",
+      "text": "O odio excita contendas, mas o amor cobre todas as transgressões."
+    },
+    {
+      "reference": "Provérbios 17:9",
+      "text": "O que encobre a transgressão busca a amizade, mas o que renova a coisa, separa os maiores amigos."
+    },
+    {
+      "reference": "Provérbios 27:5",
+      "text": "Melhor é a reprehensão aberta do que o amor encoberto."
+    },
+    {
+      "reference": "Provérbios 16:9",
+      "text": "O coração do homem considera o seu caminho, mas o Senhor lhe dirige os passos."
+    },
+    {
+      "reference": "Provérbios 24:3",
+      "text": "Com a sabedoria se edifica a casa, e com a inteligência se estabelece:"
+    },
+    {
+      "reference": "Provérbios 15:13",
+      "text": "O coração alegre aformosea o rosto, mas pela dôr do coração o espírito se abate."
+    },
+    {
+      "reference": "Provérbios 25:21",
+      "text": "Se o que te aborrece tiver fome, dá-lhe pão para comer; e se tiver sêde, dá-lhe agua para beber;"
+    },
+    {
+      "reference": "Provérbios 14:21",
+      "text": "O que despreza ao seu companheiro peca, mas o que se compadece dos humildes é bemaventurado."
+    },
+    {
+      "reference": "Provérbios 22:9",
+      "text": "O que é de bons olhos será abençoado, porque deu do seu pão ao pobre."
+    },
+    {
+      "reference": "Provérbios 20:7",
+      "text": "O justo anda na sua sinceridade; bemaventurados serão os seus filhos depois d'ele."
+    },
+    {
+      "reference": "Provérbios 21:3",
+      "text": "Fazer justiça e juizo é mais aceito ao Senhor do que lhe oferecer sacrificio."
+    },
+    {
+      "reference": "Provérbios 8:32",
+      "text": "Agora, pois, filhos, ouvime, porque bemaventurados serão os que guardarem os meus caminhos."
+    },
+    {
+      "reference": "Provérbios 3:19",
+      "text": "O Senhor com sabedoria fundou a terra: preparou os céus com entendimento."
+    },
+    {
+      "reference": "Provérbios 4:5",
+      "text": "Adquire a sabedoria, adquire a inteligência, e não te esqueças nem te apartes das palavras da minha boca."
+    },
+    {
+      "reference": "Provérbios 31:26",
+      "text": "Pé. Abre a sua boca com sabedoria, e a lei da beneficencia está na sua lingua."
+    },
+    {
+      "reference": "Provérbios 30:8",
+      "text": "Alonga de mim a vaidade e a palavra mentirosa; não me dês nem a pobreza nem a riqueza: mantem-me do pão da minha porção acostumada."
+    },
+    {
+      "reference": "Provérbios 19:11",
+      "text": "O entendimento do homem retem a sua ira, e a sua gloria é passar sobre a transgressão."
+    },
+    {
+      "reference": "Provérbios 18:24",
+      "text": "O homem que tem amigos haja-se amigavelmente, e há amigo mais chegado do que um irmão."
+    },
+    {
+      "reference": "Provérbios 12:28",
+      "text": "Na vereda da justiça está a vida, e no caminho da sua carreira não há morte."
+    },
+    {
+      "reference": "Provérbios 28:25",
+      "text": "O altivo d'animo levanta contendas, mas o que confia no Senhor engordará."
+    },
+    {
+      "reference": "Provérbios 11:24",
+      "text": "Alguns há que espalham, e ainda se lhes acrescenta mais, e outros que reteem mais do que é justo, mas é para a sua perda."
+    },
+    {
+      "reference": "Provérbios 3:24",
+      "text": "Quando te deitares, não temerás: mas te deitarás e o teu somno será suave."
+    },
+    {
+      "reference": "Provérbios 10:27",
+      "text": "O temor do Senhor augmenta os dias, mas os anos dos impios serão abreviados."
+    },
+    {
+      "reference": "Provérbios 17:17",
+      "text": "Em todo o tempo ama o amigo; e para a angustia nasce o irmão."
+    },
+    {
+      "reference": "Provérbios 27:17",
+      "text": "Como o ferro com o ferro se aguça, assim o homem aguça o rosto do seu amigo."
+    },
+    {
+      "reference": "Provérbios 16:24",
+      "text": "Favo de mel são as palavras suaves, doces para a alma, e saude para os ossos."
+    },
+    {
+      "reference": "Provérbios 24:5",
+      "text": "E o varão sabio é forte, e o varão de conhecimento consolida a força."
+    },
+    {
+      "reference": "Provérbios 15:4",
+      "text": "A medicina da lingua é arvore de vida, mas a perversidade n'ela quebranta o espírito."
+    },
+    {
+      "reference": "Provérbios 25:15",
+      "text": "Pela longanimidade se persuade o principe, e a lingua branda quebranta os ossos."
+    },
+    {
+      "reference": "Provérbios 14:27",
+      "text": "O temor do Senhor é uma fonte de vida, para se desviarem dos laços da morte."
+    },
+    {
+      "reference": "Provérbios 22:4",
+      "text": "O galardão da humildade com o temor do Senhor são riquezas, a honra e a vida."
+    },
+    {
+      "reference": "Provérbios 20:27",
+      "text": "A alma do homem é a lampada do Senhor, que esquadrinha todo o mais intimo do ventre."
+    },
+    {
+      "reference": "Provérbios 21:23",
+      "text": "O que guarda a sua boca e a sua lingua, guarda das angustias a sua alma."
+    },
+    {
+      "reference": "Isaías 40:31",
+      "text": "Mas os que esperam no Senhor renovarão as forças, subirão com azas como aguias: correrão, e não se cançarão; caminharão, e não se fatigarão."
+    },
+    {
+      "reference": "Isaías 41:10",
+      "text": "Não temas, porque eu estou comtigo; não te assombres, porque eu sou teu Deus: eu te esforço, e te ajudo, e te sustento com a dextra da minha justiça."
+    },
+    {
+      "reference": "Isaías 43:1",
+      "text": "Porém agora, assim diz o Senhor que te creou, ó Jacob, e que te formou, ó Israel: Não temas, porque eu te remi: chamei-te pelo teu nome, tu és meu."
+    },
+    {
+      "reference": "Isaías 49:13",
+      "text": "Exultae, ó céus, e alegra-te tu, terra, e vós, montes, estalae com jubilo, porque já o Senhor consolou o seu povo, e dos seus aflitos se compadecerá."
+    },
+    {
+      "reference": "Isaías 58:8",
+      "text": "Então romperá a tua luz como a alva, e a tua cura apressadamente brotará, e a tua justiça irá adiante da tua face, e a gloria do Senhor será a tua rectaguarda."
+    },
+    {
+      "reference": "Isaías 40:1",
+      "text": "Consolae, consolae o meu povo, diz o vosso Deus."
+    },
+    {
+      "reference": "Isaías 41:13",
+      "text": "Porque eu, o Senhor teu Deus, te tomo pela tua mão direita; e te digo: Não temas, que eu te ajudo."
+    },
+    {
+      "reference": "Isaías 43:3",
+      "text": "Porque eu sou o Senhor teu Deus, o Santo d'Israel, o teu Salvador: dei ao Egypto por teu resgate a Etiópia e a Seba, em teu logar."
+    },
+    {
+      "reference": "Isaías 44:23",
+      "text": "Cantae alegres, ó vós, céus, porque o Senhor o fez: exultae vós, as partes mais baixas da terra, vós, montes, retumbae com jubilo; também vós, bosques, e todas as arvores que estão n'eles; porque o Senhor remiu a Jacob, e glorificou-se em Israel"
+    },
+    {
+      "reference": "Isaías 35:2",
+      "text": "Abundantemente florescerá, e também se alegrará d'alegria e exultará; a gloria do Libano se lhe deu, o ornato do Carmelo e Saron: eles verão a gloria do Senhor, o ornato do nosso Deus."
+    },
+    {
+      "reference": "Isaías 26:4",
+      "text": "Confiae no Senhor perpetuamente; porque em Deus Senhor há uma rocha eterna."
+    },
+    {
+      "reference": "Isaías 55:5",
+      "text": "Eis que chamarás a uma nação que nunca conheceste, e uma nação que nunca te conheceu correrá para ti, por amor do Senhor teu Deus, e do Santo de Israel; porque ele te glorificou."
+    },
+    {
+      "reference": "Isaías 65:25",
+      "text": "O lobo e o cordeiro se apascentarão ambos juntos, e o leão comerá palha como o boi: e pó será a comida da serpente. Não farão mal nem damno algum em todo o meu santo monte, diz o Senhor"
+    },
+    {
+      "reference": "Isaías 25:9",
+      "text": "E n'aquele dia se dirá: Eis-que este é o nosso Deus, a quem aguardavamos, e ele nos salvará: este é o Senhor, a quem aguardavamos: na sua salvação pois nos gozaremos e alegraremos."
+    },
+    {
+      "reference": "Isaías 54:1",
+      "text": "Canta alegremente, ó esteril, que não parias: exclama de prazer com alegre canto, e exulta, tu que não tiveste dôres de parto; porque mais são os filhos da solitaria, do que os filhos da casada, diz o Senhor."
+    },
+    {
+      "reference": "Isaías 61:10",
+      "text": "Gozo-me muito no Senhor, a minha alma se alegra no meu Deus: porque me vestiu de vestidos de salvação, me cobriu com o manto de justiça, como quando o noivo se orna com atavio sacerdotal, e como a noiva se enfeita com as suas joias."
+    },
+    {
+      "reference": "Isaías 9:7",
+      "text": "Da grandeza d'este principado e da paz não haverá fim, sobre o trono de David e no seu reino, para o firmar e o fortificar com juizo e com justiça, desde agora para sempre: o zelo do Senhor dos Exercitos fará isto."
+    },
+    {
+      "reference": "Isaías 12:2",
+      "text": "Eis que Deus é a minha salvação; n'ele confiarei, e não temerei; porque a minha força e o meu cantico é Deus Jeová, e ele foi a minha salvação."
+    },
+    {
+      "reference": "Isaías 49:15",
+      "text": "Porventura pode uma mulher esquecer-se tanto de seu filho que cria, que se não compadeça d'ele, do filho do seu ventre? ora ainda que esta se esquecesse d'ele, comtudo eu me não esquecerei de ti"
+    },
+    {
+      "reference": "Isaías 58:11",
+      "text": "E o Senhor te guiará continuamente, e fartará a tua alma em grandes sequidões, e fortificará os teus ossos; e serás como um jardim regado, e como um manancial de aguas, cujas aguas nunca faltam."
+    },
+    {
+      "reference": "Isaías 40:10",
+      "text": "Eis que o Senhor Jeová virá contra o forte, e o seu braço se assenhoreará d'ele: eis que o seu galardão vem com ele, e o seu salario diante da sua face."
+    },
+    {
+      "reference": "Isaías 41:9",
+      "text": "Tu a quem tomei desde os fins da terra, e te chamei d'entre os seus mais excelentes, e te disse: Tu és o meu servo, a ti te escolhi e nunca te rejeitei."
+    },
+    {
+      "reference": "Isaías 43:19",
+      "text": "Eis que farei uma coisa nova, agora sairá à luz: porventura não a sabereis? porque porei um caminho no deserto, e rios no ermo."
+    },
+    {
+      "reference": "Isaías 44:6",
+      "text": "Assim diz o Senhor, Rei d'Israel, e seu Redemptor, o Senhor dos Exercitos: Eu sou o primeiro, e eu sou o ultimo, e fóra de mim não há Deus."
+    },
+    {
+      "reference": "Isaías 35:10",
+      "text": "E os resgatados do Senhor tornarão, e virão a Sião com jubilo: e alegria eterna haverá sobre as suas cabeças: gozo e alegria alcançarão, e d'eles fugirá a tristeza e o gemido."
+    },
+    {
+      "reference": "Isaías 26:9",
+      "text": "Na minha alma te desejei de noite, e com o meu espírito, que está dentro de mim, madrugarei a buscar-te; porque, havendo os teus juizos na terra, os moradores do mundo aprendem justiça."
+    },
+    {
+      "reference": "Isaías 55:7",
+      "text": "O impio deixe o seu caminho, e o homem maligno os seus pensamentos, e se converta ao Senhor; e se compadecerá d'ele; como também ao nosso Deus, porque grandioso é em perdoar."
+    },
+    {
+      "reference": "Isaías 65:23",
+      "text": "Não trabalharão debalde, nem parirão para a perturbação; porque são a semente dos benditos do Senhor, e os seus descendentes com eles"
+    },
+    {
+      "reference": "Isaías 25:1",
+      "text": "Ó Senhor, tu és o meu Deus; exaltar-te-hei a ti, e louvarei o teu nome, porque fizeste maravilhas: os teus conselhos antigos são verdade e firmeza."
+    },
+    {
+      "reference": "Isaías 54:17",
+      "text": "Toda a ferramenta preparada contra ti não prosperará, e toda a lingua que se levantar contra ti em juizo tu a condemnarás: esta é a herança dos servos do Senhor, e a sua justiça vem de mim, diz o Senhor."
+    },
+    {
+      "reference": "Isaías 61:3",
+      "text": "A ordenar aos tristes de Sião que se lhes dê ornamento por cinza, oleo de gozo por tristeza, vestidura de louvor por espírito angustiado; para que se chamem carvalhos de justiça, plantados do Senhor, para que seja glorificado."
+    },
+    {
+      "reference": "Isaías 9:3",
+      "text": "Tu multiplicaste a este povo, porém a alegria lhe augmentaste: todos se alegrarão perante ti, como se alegram na sega, e como exultam quando se repartem os despojos."
+    },
+    {
+      "reference": "Mateus 5:9",
+      "text": "Bemaventurados os pacificadores, porque eles serão chamados filhos de Deus;"
+    },
+    {
+      "reference": "Mateus 6:33",
+      "text": "Mas buscae primeiro o reino de Deus, e a sua justiça, e todas estas coisas vos serão acrescentadas."
+    },
+    {
+      "reference": "Mateus 11:28",
+      "text": "Vinde a mim, todos os que estaes cançados e oprimidos, e eu vos aliviarei."
+    },
+    {
+      "reference": "Mateus 11:25",
+      "text": "N'aquele tempo, respondendo Jesus, disse: Graças te dou, ó Pai, Senhor do céu e da terra, que ocultaste estas coisas aos sabios e inteligentes, e as revelaste aos meninos."
+    },
+    {
+      "reference": "Mateus 18:19",
+      "text": "Também vos digo que, se dois de vós concordarem na terra acerca de qualquer coisa que pedirem, isso lhes será feito por meu Pai, que está nos céus."
+    },
+    {
+      "reference": "Mateus 28:19",
+      "text": "Portanto ide, ensinae todas as nações, baptizando-as em nome do Pai, e do Filho e do Espírito Santo;"
+    },
+    {
+      "reference": "Mateus 22:37",
+      "text": "E Jesus disse-lhe: Amarás o Senhor teu Deus de todo o teu coração, e de toda a tua alma, e de todo o teu pensamento."
+    },
+    {
+      "reference": "Mateus 5:7",
+      "text": "Bemaventurados os misericordiosos, porque eles alcançarão misericórdia;"
+    },
+    {
+      "reference": "Mateus 7:11",
+      "text": "Se vós, pois, sendo maus, sabeis dar boas coisas aos vossos filhos, quanto mais vosso Pai, que está nos céus, dará bens aos que lh'os pedirem?"
+    },
+    {
+      "reference": "Mateus 6:24",
+      "text": "Ninguém pode servir a dois senhores; porque ou há de odiar um e amar o outro, ou se dedicará a um e desprezará o outro. Não podeis servir a Deus e a Mamom."
+    },
+    {
+      "reference": "Mateus 11:27",
+      "text": "Todas as coisas me foram entregues por meu Pai: e ninguém conhece o Filho, senão o Pai; e ninguém conhece o Pai, senão o Filho, e aquele a quem o Filho o quizer revelar."
+    },
+    {
+      "reference": "Mateus 18:20",
+      "text": "Porque onde estiverem dois ou tres reunidos em meu nome, ahi estou eu no meio d'eles."
+    },
+    {
+      "reference": "Mateus 28:18",
+      "text": "E, chegando-se Jesus, falou-lhes, dizendo: É-me dado todo o poder no céu e na terra."
+    },
+    {
+      "reference": "Mateus 22:39",
+      "text": "E o segundo, similhante a este, é: Amarás o teu proximo como a ti mesmo."
+    },
+    {
+      "reference": "Mateus 5:10",
+      "text": "Bemaventurados os que sofrem perseguição por causa da justiça, porque d'eles é o reino dos céus;"
+    },
+    {
+      "reference": "Mateus 7:12",
+      "text": "Portanto, tudo o que vós quereis que os homens vos façam, fazei-lho também vós, porque esta é a lei e os profetas."
+    },
+    {
+      "reference": "Mateus 6:30",
+      "text": "Pois, se Deus assim enfeita a herva do campo, que hoje existe e ámanhã é lançada no forno, não vos vestirá muito mais a vós, homens de pouca fé?"
+    },
+    {
+      "reference": "Mateus 11:29",
+      "text": "Tomae sobre vós o meu jugo, e aprendei de mim, que sou manso e humilde de coração; e encontrareis descanso para as vossas almas."
+    },
+    {
+      "reference": "Mateus 28:20",
+      "text": "Ensinando-as a guardar todas as coisas que eu vos tenho mandado; e eis que eu estou comvosco todos os dias, até à consumação do mundo. Amen."
+    },
+    {
+      "reference": "Mateus 22:40",
+      "text": "D'estes dois mandamentos depende toda a lei e os profetas."
+    },
+    {
+      "reference": "Mateus 5:8",
+      "text": "Bemaventurados os limpos de coração, porque eles verão a Deus;"
+    },
+    {
+      "reference": "Mateus 7:7",
+      "text": "Pedi, e dar-se-vos-há; buscae, e encontrareis; batei, e abrir-se-vos-há."
+    },
+    {
+      "reference": "Mateus 6:25",
+      "text": "Por isso vos digo: Não andeis cuidadosos emquanto à vossa vida, pelo que haveis de comer ou pelo que haveis de beber; nem, emquanto ao vosso corpo, pelo que haveis de vestir. Não é a vida mais do que o mantimento, e o corpo mais do que o vestido?"
+    },
+    {
+      "reference": "Mateus 11:30",
+      "text": "Porque o meu jugo é suave e o meu fardo é leve."
+    },
+    {
+      "reference": "Mateus 22:35",
+      "text": "E um d'eles, doutor da lei, interrogou-o para o experimentar, dizendo:"
+    },
+    {
+      "reference": "Mateus 5:6",
+      "text": "Bemaventurados os que teem fome e sêde de justiça, porque eles serão fartos;"
+    },
+    {
+      "reference": "Lucas 1:37",
+      "text": "Porque para Deus nada será impossível."
+    },
+    {
+      "reference": "Lucas 11:9",
+      "text": "E eu digo-vos, a vós: Pedi, e dar-se-vos-há: buscae, e achareis: batei, e abrir-se-vos-há;"
+    },
+    {
+      "reference": "Lucas 2:11",
+      "text": "Que hoje, na cidade de David, vos nasceu o Salvador, que é Cristo, o Senhor."
+    },
+    {
+      "reference": "Lucas 1:47",
+      "text": "E o meu espírito se alegra em Deus meu Salvador;"
+    },
+    {
+      "reference": "Lucas 6:36",
+      "text": "Sêde pois misericordiosos, como também vosso Pai é misericordioso."
+    },
+    {
+      "reference": "Lucas 15:29",
+      "text": "Mas, respondendo ele, disse ao pae: Eis que te sirvo há tantos anos, e nunca transgredi o teu mandamento, e nunca me déste um cabrito para alegrar-me com os meus amigos;"
+    },
+    {
+      "reference": "Lucas 24:49",
+      "text": "E eis que sobre vós envio a promessa de meu Pai: ficae, porém, vós na cidade de Jerusalem, até que do alto sejaes revestidos de poder."
+    },
+    {
+      "reference": "Lucas 12:28",
+      "text": "E, se Deus assim veste a herva que hoje está no campo, e ámanhã é lançada no forno, quanto mais a vós, homens de pouca fé?"
+    },
+    {
+      "reference": "Lucas 10:27",
+      "text": "E, respondendo ele, disse: Amarás ao Senhor teu Deus de todo o teu coração, e de toda a tua alma, e de todas as tuas forças, e de todo o teu entendimento; e ao teu proximo como a ti mesmo."
+    },
+    {
+      "reference": "Lucas 11:13",
+      "text": "Pois se vós, sendo maus, sabeis dar boas dádivas aos vossos filhos, quanto mais dará o nosso Pai celestial o Espírito Santo àqueles que lho pedirem?"
+    },
+    {
+      "reference": "Lucas 18:29",
+      "text": "E ele lhes disse: Na verdade vos digo que ninguém há, que tenha deixado casa, ou paes, ou irmãos, ou mulher, ou filhos, pelo reino de Deus,"
+    },
+    {
+      "reference": "Lucas 2:13",
+      "text": "E, no mesmo instante, apareceu com o anjo uma multidão dos exercitos celestiaes, louvando a Deus, e dizendo:"
+    },
+    {
+      "reference": "Lucas 1:48",
+      "text": "Porque atentou na baixeza de sua serva; pois eis que desde agora todas as gerações me chamarão bem-aventurada:"
+    },
+    {
+      "reference": "Lucas 6:38",
+      "text": "Dae, e ser-vos-há dado; boa medida, recalcada, sacudida e trasbordando, vos deitarão no vosso regaço; porque com a mesma medida com que medirdes vos tornarão a medir."
+    },
+    {
+      "reference": "Lucas 15:32",
+      "text": "Portanto era justo alegrarmo-nos e folgarmos, porque este teu irmão era morto, e reviveu; e tinha-se perdido, e achou-se."
+    },
+    {
+      "reference": "Lucas 24:47",
+      "text": "E em seu nome se pregasse o arrependimento e a remissão dos pecados, em todas as nações, começando por Jerusalem."
+    },
+    {
+      "reference": "Lucas 12:24",
+      "text": "Considerae os corvos, que nem semeiam, nem segam, nem teem dispensa nem celeiro, e Deus os alimenta: quanto mais valeis vós do que as aves?"
+    },
+    {
+      "reference": "Lucas 10:35",
+      "text": "E, partindo ao outro dia, tirou dois dinheiros, e deu-os ao hospedeiro, e disse-lhe: Cuida d'ele; e tudo o que de mais gastares, eu t'o pagarei quando voltar."
+    },
+    {
+      "reference": "Lucas 11:11",
+      "text": "E qual o pae d'entre vós que, se o filho lhe pedir pão, lhe dará uma pedra? Ou também, se lhe pedir peixe, lhe dará por peixe uma serpente?"
+    },
+    {
+      "reference": "Lucas 18:27",
+      "text": "E ele disse: As coisas que são impossíveis aos homens são possíveis a Deus."
+    },
+    {
+      "reference": "Lucas 2:14",
+      "text": "Gloria a Deus nas alturas, paz na terra, boa vontade para os homens."
+    },
+    {
+      "reference": "Lucas 1:38",
+      "text": "Disse então Maria: Eis aqui a serva do Senhor; cumpra-se em mim segundo a tua palavra. E o anjo ausentou-se d'ela."
+    },
+    {
+      "reference": "Lucas 6:34",
+      "text": "E, se emprestardes àqueles de quem esperais tornar a receber, que recompensa tereis? Porque também os pecadores emprestam aos pecadores, para tornarem a receber outro tanto."
+    },
+    {
+      "reference": "Lucas 15:24",
+      "text": "Porque este meu filho era morto, e reviveu, tinha-se perdido, e é achado. E começaram a alegrar-se."
+    },
+    {
+      "reference": "João 3:16",
+      "text": "Porque Deus amou o mundo de tal maneira, que deu o seu Filho unigenito, para que todo aquele que n'ele crê não pereça, mas tenha a vida eterna."
+    },
+    {
+      "reference": "João 8:12",
+      "text": "Falou-lhes pois Jesus outra vez, dizendo: Eu sou a luz do mundo; quem me segue não andará em trevas, mas terá a luz da vida."
+    },
+    {
+      "reference": "João 10:10",
+      "text": "O ladrão não vem senão a roubar, a matar, e a destruir: eu vim para que tenham vida, e a tenham com abundancia."
+    },
+    {
+      "reference": "João 14:6",
+      "text": "Disse-lhe Jesus: Eu sou o caminho, e a verdade e a vida. Ninguém vem ao Pai, senão por mim."
+    },
+    {
+      "reference": "João 14:27",
+      "text": "Deixo-vos a paz, a minha paz vos dou: não vol-a dou como o mundo a dá. Não se turbe o vosso coração, nem se atemorize."
+    },
+    {
+      "reference": "João 3:19",
+      "text": "E a condenação é esta: Que a luz veiu ao mundo, e os homens amaram mais as trevas do que a luz, porque as suas obras eram más."
+    },
+    {
+      "reference": "João 1:8",
+      "text": "Não era ele a luz; mas para que testificasse da luz."
+    },
+    {
+      "reference": "João 6:35",
+      "text": "E Jesus lhes disse: Eu sou o pão da vida; aquele que vem a mim não terá fome, e quem crê em mim nunca terá sêde"
+    },
+    {
+      "reference": "João 4:10",
+      "text": "Jesus respondeu, e disse-lhe: Se tu conheceras o dom de Deus, e quem é o que te diz: Dá-me de beber, tu lhe pedirias, e ele te daria agua viva."
+    },
+    {
+      "reference": "João 8:31",
+      "text": "Jesus dizia pois aos judeos que criam n'ele: Se vós permanecerdes na minha palavra, verdadeiramente sereis meus discipulos;"
+    },
+    {
+      "reference": "João 16:33",
+      "text": "Tenho-vos dito estas coisas, para que em mim tenhaes paz; no mundo tereis aflição, mas tende bom animo, eu venci o mundo."
+    },
+    {
+      "reference": "João 17:3",
+      "text": "E a vida eterna é esta: que te conheçam, a ti só, por unico Deus verdadeiro, e a Jesus Cristo, a quem enviaste."
+    },
+    {
+      "reference": "João 14:26",
+      "text": "Mas aquele Consolador, o Espírito Santo, que o Pai enviará em meu nome, esse vos ensinará todas as coisas, e vos fará lembrar de tudo quanto vos tenho dito."
+    },
+    {
+      "reference": "João 15:10",
+      "text": "Se guardardes os meus mandamentos, permanecereis no meu amor; como eu tenho guardado os mandamentos de meu Pai, e permaneço no seu amor."
+    },
+    {
+      "reference": "João 13:35",
+      "text": "N'isto todos conhecerão que sois meus discipulos, se vós tiverdes amor uns aos outros."
+    },
+    {
+      "reference": "João 10:9",
+      "text": "Eu sou a porta; se alguem entrar por mim, salvar-se-há, e entrará, e sairá, e achará pasto."
+    },
+    {
+      "reference": "João 11:27",
+      "text": "Disse-lhe ela: Sim, Senhor, creio que tu és o Cristo, o Filho de Deus, que havia de vir ao mundo."
+    },
+    {
+      "reference": "João 3:17",
+      "text": "Porque Deus enviou o seu Filho ao mundo, não para que condenasse o mundo, mas para que o mundo fosse salvo por ele."
+    },
+    {
+      "reference": "João 1:13",
+      "text": "Os quaes não nasceram do sangue, nem da vontade da carne, nem da vontade do varão, mas de Deus."
+    },
+    {
+      "reference": "João 6:40",
+      "text": "E a vontade d'aquele que me enviou é esta: que todo aquele que vê o Filho, e crê n'Ele, tenha a vida eterna; e eu o resuscitarei no ultimo dia."
+    },
+    {
+      "reference": "João 4:13",
+      "text": "Jesus respondeu, e disse-lhe: Qualquer que beber d'esta agua tornará a ter sêde;"
+    },
+    {
+      "reference": "João 8:32",
+      "text": "E conhecereis a verdade, e a verdade vos libertará."
+    },
+    {
+      "reference": "João 16:22",
+      "text": "Assim também vós agora, na verdade, tendes tristeza; mas outra vez vos verei, e o vosso coração se alegrará, e a vossa alegria ninguém vol-a tirará."
+    },
+    {
+      "reference": "João 14:17",
+      "text": "O Espírito de verdade, que o mundo não pode receber, porque não o vê nem o conhece: mas vós o conheceis, porque habita comvosco, e estará em vós."
+    },
+    {
+      "reference": "João 15:15",
+      "text": "Já vos não chamarei servos, porque o servo não sabe o que faz o seu senhor, mas tenho-vos chamado amigos, porque tudo quanto ouvi de meu Pai vos tenho feito conhecer."
+    },
+    {
+      "reference": "João 13:34",
+      "text": "Um novo mandamento vos dou: Que vos ameis uns aos outros, como eu vos amei a vós, que também vós uns a outros vos ameis."
+    },
+    {
+      "reference": "João 10:7",
+      "text": "Tornou pois Jesus a dizer-lhes: Em verdade vos digo que eu sou a porta das ovelhas."
+    },
+    {
+      "reference": "João 11:25",
+      "text": "Disse-lhe Jesus: Eu sou a ressurreição e a vida; quem crê em mim, ainda que esteja morto, viverá;"
+    },
+    {
+      "reference": "João 3:21",
+      "text": "Mas quem obra a verdade vem para a luz, afim de que as suas obras sejam manifestas, porque são feitas em Deus."
+    },
+    {
+      "reference": "João 1:12",
+      "text": "Mas, a todos quantos o receberam, deu-lhes o poder de serem feitos filhos de Deus, a saber, aos que crêem no seu nome;"
+    },
+    {
+      "reference": "João 6:38",
+      "text": "Porque eu desci do céu, não para fazer a minha vontade, mas a vontade d'aquele que me enviou."
+    },
+    {
+      "reference": "João 4:14",
+      "text": "Mas aquele que beber da agua que eu lhe der nunca terá sêde, porque a agua que eu lhe der se fará n'ele uma fonte d'agua que salte para a vida eterna."
+    },
+    {
+      "reference": "João 16:23",
+      "text": "E n'aquele dia nada me perguntareis. Na verdade, na verdade vos digo que tudo quanto pedirdes a meu Pai, em meu nome, ele vol-o há de dar."
+    },
+    {
+      "reference": "João 14:23",
+      "text": "Jesus respondeu, e disse-lhe: Se alguem me ama, guardará a minha palavra, e meu Pai o amará, e viremos para ele, e faremos n'ele morada."
+    },
+    {
+      "reference": "Romanos 5:1",
+      "text": "Sendo pois justificados pela fé, temos paz com Deus, por nosso Senhor Jesus Cristo;"
+    },
+    {
+      "reference": "Romanos 8:28",
+      "text": "E sabemos que todas as coisas contribuem juntamente para o bem d'aqueles que amam a Deus, d'aqueles que são chamados por seu decreto."
+    },
+    {
+      "reference": "Romanos 12:12",
+      "text": "Alegrae-vos na esperança, sêde pacientes na tribulação, perseverae na oração;"
+    },
+    {
+      "reference": "Romanos 8:9",
+      "text": "Porém vós não estaes na carne, mas no espírito, se é que o Espírito de Deus habita em vós. Mas, se alguem não tem o Espírito de Cristo, esse tal não é d'ele."
+    },
+    {
+      "reference": "Romanos 1:17",
+      "text": "Porque n'ele se descobre a justiça de Deus de fé em fé, como está escripto: Mas o justo viverá da fé."
+    },
+    {
+      "reference": "Romanos 5:11",
+      "text": "E não sómente isto, mas também nos gloriamos em Deus por nosso Senhor Jesus Cristo, pelo qual agora alcançamos a reconciliação."
+    },
+    {
+      "reference": "Romanos 10:10",
+      "text": "Porque com o coração se crê para a justiça, e com a boca se faz confissão para a salvação."
+    },
+    {
+      "reference": "Romanos 12:3",
+      "text": "Porque pela graça, que me é dada, digo a cada um d'entre vós que não saiba mais do que convem saber, mas que saiba com temperança, conforme a medida da fé que Deus repartiu a cada um."
+    },
+    {
+      "reference": "Romanos 15:13",
+      "text": "Ora o Deus de esperança vos encha de todo o gozo e paz na fé, para que abundeis em esperança pela virtude do Espírito Santo."
+    },
+    {
+      "reference": "Romanos 8:39",
+      "text": "Nem a altura, nem a profundidade, nem alguma outra creatura nos poderá separar do amor de Deus, que está em Cristo Jesus nosso Senhor."
+    },
+    {
+      "reference": "Romanos 1:16",
+      "text": "Porque não me envergonho do evangelho de Cristo, pois é o poder de Deus para salvação a todo aquele que crê; primeiro ao judeo, e também ao grego."
+    },
+    {
+      "reference": "Romanos 5:2",
+      "text": "Pelo qual também temos entrada pela fé a esta graça, na qual estamos firmes, e nos gloriamos na esperança da gloria de Deus."
+    },
+    {
+      "reference": "Romanos 10:9",
+      "text": "A saber: Se com a tua boca confessares ao Senhor Jesus, e em teu coração crêres que Deus o resuscitou dos mortos, serás salvo."
+    },
+    {
+      "reference": "Romanos 12:8",
+      "text": "Ou o que exhorta, em exhortar; o que reparte, em simplicidade; o que preside, com cuidado; o que exercita misericórdia, com alegria."
+    },
+    {
+      "reference": "Romanos 15:6",
+      "text": "Para que concordes, a uma boca, glorifiqueis ao Deus e Pai de Nosso Senhor Jesus Cristo."
+    },
+    {
+      "reference": "Romanos 8:2",
+      "text": "Porque a lei do espírito de vida, em Cristo Jesus, me livrou da lei do pecado e da morte."
+    },
+    {
+      "reference": "Romanos 5:8",
+      "text": "Mas Deus recomenda o seu amor para comnosco, em que Cristo morreu por nós, sendo nós ainda pecadores."
+    },
+    {
+      "reference": "Romanos 10:8",
+      "text": "Mas que diz? A palavra está junto de ti, na tua boca e no teu coração; esta é a palavra da fé, que prégamos,"
+    },
+    {
+      "reference": "Romanos 12:11",
+      "text": "Não sejaes vagarosos no cuidado: sêde fervorosos no espírito, servindo ao Senhor;"
+    },
+    {
+      "reference": "Romanos 15:5",
+      "text": "Ora o Deus de paciencia e consolação vos conceda que entre vós sintaes uma mesma coisa, segundo Jesus Cristo."
+    },
+    {
+      "reference": "Romanos 8:1",
+      "text": "Assim que agora nenhuma condenação há para os que estão em Cristo Jesus, que não andam segundo a carne, mas segundo o espírito."
+    },
+    {
+      "reference": "Romanos 5:5",
+      "text": "E a esperança não confunde, porquanto o amor de Deus está derramado em nossos corações pelo Espírito Santo que nos foi dado"
+    },
+    {
+      "reference": "Romanos 10:12",
+      "text": "Porque não há diferença entre judeo e grego; porque um mesmo é o Senhor de todos os que o invocam."
+    },
+    {
+      "reference": "Romanos 12:1",
+      "text": "Rogo-vos pois, irmãos, pela compaixão de Deus, que apresenteis os vossos corpos em sacrificio vivo, santo e agradavel a Deus, que é o vosso culto racional."
+    },
+    {
+      "reference": "Romanos 15:4",
+      "text": "Porque todas as coisas que d'antes foram escriptas, para nosso ensino foram escriptas, para que pela paciencia e consolação das Escripturas tenhamos esperança."
+    },
+    {
+      "reference": "1 Coríntios 13:4",
+      "text": "A caridade é sofredora, é benigna: a caridade não é invejosa: a caridade não trata com leviandade, não se ensoberbece,"
+    },
+    {
+      "reference": "1 Coríntios 13:13",
+      "text": "Agora, pois, permanecem estas tres: a fé, a esperança e a caridade; porém a maior d'estas é a caridade."
+    },
+    {
+      "reference": "1 Coríntios 1:4",
+      "text": "Sempre dou graças ao meu Deus por vós pela graça de Deus que vos foi dada em Jesus Cristo."
+    },
+    {
+      "reference": "1 Coríntios 15:57",
+      "text": "Mas graças a Deus que nos dá a victoria por nosso Senhor Jesus Cristo."
+    },
+    {
+      "reference": "1 Coríntios 16:13",
+      "text": "Vigiae, estae firmes na fé: portae-vos varonilmente, e fortalecei-vos."
+    },
+    {
+      "reference": "1 Coríntios 10:16",
+      "text": "Porventura o calix de bênção, que benzemos, não é a comunhão do sangue de Cristo? O pão que partimos não é porventura a comunhão do corpo de Cristo?"
+    },
+    {
+      "reference": "1 Coríntios 13:6",
+      "text": "Não folga com a injustiça, porém folga com a verdade;"
+    },
+    {
+      "reference": "1 Coríntios 12:8",
+      "text": "Porque a um pelo Espírito é dada a palavra da sabedoria; e a outro, pelo mesmo Espírito, a palavra da sciencia;"
+    },
+    {
+      "reference": "1 Coríntios 1:9",
+      "text": "Fiel é Deus, pelo qual fostes chamados para a comunhão de seu Filho Jesus Cristo nosso Senhor."
+    },
+    {
+      "reference": "1 Coríntios 15:58",
+      "text": "Portanto, meus amados irmãos, sêde firmes e constantes, sempre abundantes na obra do Senhor, sabendo que o vosso trabalho não é vão no Senhor."
+    },
+    {
+      "reference": "1 Coríntios 16:14",
+      "text": "Todas as vossas coisas sejam feitas com caridade."
+    },
+    {
+      "reference": "1 Coríntios 10:13",
+      "text": "Não vos tomou tentação, senão humana; porém fiel é Deus, que vos não deixará tentar acima do que podeis, antes com a tentação dará também saida, para que a possais suportar."
+    },
+    {
+      "reference": "1 Coríntios 13:7",
+      "text": "Tudo sofre, tudo crê, tudo espera, tudo suporta."
+    },
+    {
+      "reference": "1 Coríntios 12:9",
+      "text": "E a outro, pelo mesmo Espírito, a fé; e a outro, pelo mesmo Espírito, os dons de curar;"
+    },
+    {
+      "reference": "1 Coríntios 1:8",
+      "text": "O qual vos confirmará também até ao fim, para serdes irreprehensiveis no dia de nosso Senhor Jesus Cristo."
+    },
+    {
+      "reference": "1 Coríntios 15:54",
+      "text": "E, quando este corpo corruptivel se revestir da incorruptibilidade, e este corpo mortal se revestir da imortalidade, então cumprir-se-há a palavra que está escripta: Tragada foi a morte na victoria."
+    },
+    {
+      "reference": "2 Coríntios 4:16",
+      "text": "Por isso não desfalecemos: mas, ainda que o nosso homem exterior se corrompa, o interior, comtudo, se renova de dia em dia,"
+    },
+    {
+      "reference": "2 Coríntios 5:17",
+      "text": "Assim que, se alguem está em Cristo, nova creatura é: as coisas velhas já passaram; eis que tudo está feito novo."
+    },
+    {
+      "reference": "2 Coríntios 12:9",
+      "text": "E disse-me: A minha graça te basta, porque o meu poder se aperfeiçoa na fraqueza. De boa vontade pois me gloriarei nas minhas fraquezas, para que em mim habite o poder de Cristo."
+    },
+    {
+      "reference": "2 Coríntios 5:20",
+      "text": "De sorte que somos embaixadores da parte de Cristo, como se Deus por nós rogasse. Rogamos-vos pois da parte de Cristo que vos reconcilieis com Deus."
+    },
+    {
+      "reference": "2 Coríntios 4:6",
+      "text": "Porque Deus, que disse que das trevas resplandecesse a luz, é quem resplandeceu em nossos corações, para iluminação do conhecimento da gloria de Deus, na face de Jesus Cristo."
+    },
+    {
+      "reference": "2 Coríntios 3:17",
+      "text": "Ora o Senhor é o Espírito; e onde está o Espírito do Senhor ahi há liberdade."
+    },
+    {
+      "reference": "2 Coríntios 1:3",
+      "text": "Bendito seja o Deus e Pai de nosso Senhor Jesus Cristo, o Pai das misericordias e o Deus de toda a consolação;"
+    },
+    {
+      "reference": "2 Coríntios 9:13",
+      "text": "Portanto, na prova d'esta administração, glorificam a Deus pela submissão que confessais quanto ao evangelho de Cristo, e pela bondade da comunicação para com eles, e para com todos;"
+    },
+    {
+      "reference": "2 Coríntios 12:10",
+      "text": "Pelo que sinto prazer nas fraquezas, nas injurias, nas necessidades, nas perseguições, nas angustias por amor de Cristo. Porque quando estou fraco então sou forte."
+    },
+    {
+      "reference": "2 Coríntios 5:7",
+      "text": "(Porque andamos por fé, e não por vista.)"
+    },
+    {
+      "reference": "2 Coríntios 4:5",
+      "text": "Porque não nos prégamos a nós mesmos, mas a Cristo Jesus, o Senhor; e nós mesmos somos vossos servos por amor de Jesus."
+    },
+    {
+      "reference": "2 Coríntios 3:18",
+      "text": "Mas todos nós, com cara descoberta, reflectindo como um espelho, a gloria do Senhor, somos transformados de gloria em gloria na mesma imagem, como pelo Espírito do Senhor."
+    },
+    {
+      "reference": "2 Coríntios 1:6",
+      "text": "Mas, se somos atribulados é para vossa consolação e salvação, ou, se somos consolados, para vossa consolação e salvação é, a qual se opéra na tolerancia das mesmas aflições que nós também padecemos;"
+    },
+    {
+      "reference": "2 Coríntios 9:8",
+      "text": "E Deus é poderoso para fazer abundar em vós toda a graça, para que tendo sempre, em tudo, toda a suficiência, abundeis em toda a boa obra;"
+    },
+    {
+      "reference": "2 Coríntios 12:8",
+      "text": "À cerca do qual tres vezes orei ao Senhor para que se desviasse de mim."
+    },
+    {
+      "reference": "Gálatas 5:22",
+      "text": "Mas o fructo do Espírito é caridade, gozo, paz, longanimidade, benignidade, bondade, fé, mansidão, temperança."
+    },
+    {
+      "reference": "Gálatas 5:23",
+      "text": "Contra estas coisas não há lei."
+    },
+    {
+      "reference": "Gálatas 3:26",
+      "text": "Porque todos sois filhos de Deus pela fé em Cristo Jesus."
+    },
+    {
+      "reference": "Gálatas 2:21",
+      "text": "Não aniquilo a graça de Deus; porque, se a justiça provém da lei, segue-se que Cristo morreu debalde."
+    },
+    {
+      "reference": "Gálatas 6:16",
+      "text": "E a todos quantos andarem conforme esta regra, paz e misericórdia sobre eles e sobre o Israel de Deus."
+    },
+    {
+      "reference": "Gálatas 5:17",
+      "text": "Porque a carne cobiça contra o Espírito, e o Espírito contra a carne; e estes opõem-se um ao outro: para que não façaes o que quereis."
+    },
+    {
+      "reference": "Gálatas 3:28",
+      "text": "N'isto não há judeo nem grego; não há servo nem livre; não há macho nem femea; porque todos vós sois um em Cristo Jesus."
+    },
+    {
+      "reference": "Gálatas 2:20",
+      "text": "Já estou crucificado com Cristo; e vivo, não mais eu, mas Cristo vive em mim; e a vida que agora vivo na carne vivo a na fé do Filho de Deus, o qual me amou, e se entregou a si mesmo por mim."
+    },
+    {
+      "reference": "Gálatas 6:14",
+      "text": "Mas longe esteja de mim gloriar-me, a não ser na cruz de nosso Senhor Jesus Cristo, por quem o mundo está crucificado para mim e eu para o mundo."
+    },
+    {
+      "reference": "Gálatas 5:25",
+      "text": "Se vivemos em Espírito, andemos também em Espírito."
+    },
+    {
+      "reference": "Gálatas 3:29",
+      "text": "E, se sois de Cristo, logo sois descendencia de Abrahão, e herdeiros conforme a promessa."
+    },
+    {
+      "reference": "Gálatas 2:19",
+      "text": "Porque eu pela lei estou morto para a lei, para viver para Deus."
+    },
+    {
+      "reference": "Gálatas 6:15",
+      "text": "Porque em Cristo Jesus nem a circumcisão nem a incircumcisão tem virtude alguma, mas sim o ser uma nova creatura."
+    },
+    {
+      "reference": "Efésios 2:8",
+      "text": "Porque pela graça sois salvos, por meio da fé; e isto não vem de vós; é dom de Deus"
+    },
+    {
+      "reference": "Efésios 6:10",
+      "text": "No demais, irmãos meus, fortalecei-*vos no Senhor e na força do seu poder."
+    },
+    {
+      "reference": "Efésios 1:3",
+      "text": "Bendito o Deus e Pai de nosso Senhor Jesus Cristo, o qual nos abençoou com todas as bênçãos espirituaes nos logares celestiaes em Cristo."
+    },
+    {
+      "reference": "Efésios 2:10",
+      "text": "Porque somos feitura sua, creados em Cristo Jesus para as boas obras, as quaes Deus preparou para que andassemos n'elas."
+    },
+    {
+      "reference": "Efésios 3:19",
+      "text": "E conhecer o amor de Cristo, que excede todo o entendimento, para que sejaes cheios de toda a plenitude de Deus."
+    },
+    {
+      "reference": "Efésios 4:13",
+      "text": "Até que todos cheguemos à unidade da fé, e ao conhecimento do Filho de Deus, a varão perfeito, à medida da estatura completa de Cristo."
+    },
+    {
+      "reference": "Efésios 5:20",
+      "text": "Dando sempre graças por todas as coisas a nosso Deus e Pai, em nome de nosso Senhor Jesus Cristo:"
+    },
+    {
+      "reference": "Efésios 6:17",
+      "text": "Tomae também o capacete da salvação, e a espada do Espírito, que é a palavra de Deus:"
+    },
+    {
+      "reference": "Efésios 1:17",
+      "text": "Para que o Deus de nosso Senhor Jesus Cristo, o Pai da gloria, vos dê em seu conhecimento o espírito de sabedoria e de revelação;"
+    },
+    {
+      "reference": "Efésios 2:7",
+      "text": "Para mostrar nos seculos vindouros as abundantes riquezas da sua graça, pela sua benignidade para comnosco em Cristo Jesus."
+    },
+    {
+      "reference": "Efésios 3:17",
+      "text": "Para que Cristo habite pela fé nos vossos corações; para que, estando arraigados e fundados em amor,"
+    },
+    {
+      "reference": "Efésios 4:32",
+      "text": "Antes sêde uns para com os outros benignos, misericordiosos, perdoando-*vos uns aos outros, como também Deus vos perdoou em Cristo."
+    },
+    {
+      "reference": "Efésios 5:2",
+      "text": "E andae em amor, como também Cristo nos amou, e se entregou a si mesmo por nós, em oferta e sacrificio a Deus, em cheiro suave."
+    },
+    {
+      "reference": "Efésios 6:18",
+      "text": "Orando em todo o tempo com toda a oração e súplica em espírito, e vigiando n'isto com toda a perseverança e súplica por todos os santos,"
+    },
+    {
+      "reference": "Efésios 1:13",
+      "text": "Em quem também vós estaes, depois que ouvistes a palavra da verdade, a saber, o evangelho da vossa salvação, no qual também, havendo crido, fostes selados com o Espírito Santo da promessa."
+    },
+    {
+      "reference": "Efésios 2:4",
+      "text": "Porque Deus, que é riquíssimo em misericórdia, pelo seu muito amor com que nos amou,"
+    },
+    {
+      "reference": "Efésios 3:14",
+      "text": "Por causa d'isto me ponho de joelhos perante o Pai de nosso Senhor Jesus Cristo,"
+    },
+    {
+      "reference": "Efésios 4:30",
+      "text": "E não entristeçaes o Espírito Santo de Deus, no qual estaes selados para o dia da redenção."
+    },
+    {
+      "reference": "Filipenses 4:4",
+      "text": "Regozijae-vos sempre no Senhor; outra vez digo, regozijae-vos."
+    },
+    {
+      "reference": "Filipenses 4:6",
+      "text": "De nada estejaes solicitos: antes as vossas petições sejam em tudo conhecidas diante de Deus pela oração e súplicas com ação de graças."
+    },
+    {
+      "reference": "Filipenses 4:13",
+      "text": "Posso todas as coisas n'aquele que me fortalece."
+    },
+    {
+      "reference": "Filipenses 4:7",
+      "text": "E a paz de Deus, que excede todo o entendimento, guardará os vossos corações e os vossos sentimentos em Cristo Jesus."
+    },
+    {
+      "reference": "Filipenses 3:9",
+      "text": "E seja achado n'ele, não tendo a minha justiça que vem de lei, mas a que vem da fé em Cristo, a saber, a justiça que vem de Deus pela fé;"
+    },
+    {
+      "reference": "Filipenses 2:1",
+      "text": "Portanto, se há algum conforto em Cristo, se alguma consolação de amor, se alguma comunicação de Espírito, se alguns entranhaveis afetos e compaixões,"
+    },
+    {
+      "reference": "Filipenses 1:11",
+      "text": "Cheios de fructos de justiça, que são por Jesus Cristo, para gloria e louvor de Deus."
+    },
+    {
+      "reference": "Filipenses 4:19",
+      "text": "Porém o meu Deus, segundo as suas riquezas, suprirá todas as vossas necessidades em gloria, por Cristo Jesus."
+    },
+    {
+      "reference": "Filipenses 3:8",
+      "text": "E, na verdade, tenho também por perda todas as coisas, pela excelência do conhecimento de Cristo Jesus, meu Senhor, por amor do qual contei por perda todas estas coisas, e as considero como esterco, para que possa ganhar a Cristo,"
+    },
+    {
+      "reference": "Filipenses 2:11",
+      "text": "E toda a lingua confesse que Jesus Cristo é o Senhor, para a gloria de Deus Pai."
+    },
+    {
+      "reference": "Filipenses 1:20",
+      "text": "Segundo a minha intensa expectativa e esperança, de que em nada serei confundido; antes, com toda a confiança, Cristo será, tanto agora como sempre, engrandecido no meu corpo, seja pela vida seja pela morte."
+    },
+    {
+      "reference": "Filipenses 4:9",
+      "text": "O que também aprendestes, e recebestes, e ouvistes, e vistes em mim, isso fazei; e o Deus de paz será comvosco."
+    },
+    {
+      "reference": "Filipenses 3:14",
+      "text": "Porém uma coisa faço, e é que, esquecendo-me das coisas que atraz ficam, e avançando para as que estão diante de mim, prosigo para o alvo, ao premio da soberana vocação de Deus em Cristo Jesus."
+    },
+    {
+      "reference": "Filipenses 2:5",
+      "text": "De sorte que haja em vós o mesmo sentimento que houve também em Cristo Jesus,"
+    },
+    {
+      "reference": "Filipenses 1:8",
+      "text": "Porque Deus me é testemunha das muitas saudades que de todos vós tenho, em entranhavel afeição de Jesus Cristo."
+    },
+    {
+      "reference": "Filipenses 4:1",
+      "text": "Portanto, meus amados e mui queridos irmãos, minha alegria e corôa, estae assim firmes no Senhor, amados."
+    },
+    {
+      "reference": "Filipenses 3:12",
+      "text": "Não que já a tenha alcançado, ou que seja perfeito, mas prosigo para alcançar aquilo para o que fui também preso por Cristo Jesus."
+    },
+    {
+      "reference": "Filipenses 2:6",
+      "text": "O qual, sendo em fórma de Deus, não teve por usurpação ser egual a Deus,"
+    },
+    {
+      "reference": "Filipenses 1:6",
+      "text": "Tendo por certo isto mesmo, que aquele que em vós começou a boa obra, a aperfeiçoará até ao dia de Jesus Cristo;"
+    },
+    {
+      "reference": "Colossenses 3:15",
+      "text": "E a paz de Deus domine em vossos corações para a qual também fostes chamados em um corpo, e sêde agradecidos."
+    },
+    {
+      "reference": "Colossenses 3:23",
+      "text": "E, tudo quanto fizerdes, fazei-o do coração, como ao Senhor, e não aos homens:"
+    },
+    {
+      "reference": "Colossenses 1:3",
+      "text": "Graças damos ao Deus e Pai de nosso Senhor Jesus Cristo, orando sempre por vós:"
+    },
+    {
+      "reference": "Colossenses 3:16",
+      "text": "A palavra de Cristo habite em vós abundantemente, em toda a sabedoria, ensinando-vos e admoestando-vos uns aos outros, com palavras, hymnos e canticos espirituaes, cantando ao Senhor com graça em vosso coração."
+    },
+    {
+      "reference": "Colossenses 2:6",
+      "text": "Pois, como recebestes o Senhor Jesus Cristo, assim também andae n'ele,"
+    },
+    {
+      "reference": "Colossenses 4:3",
+      "text": "Orando também juntamente por nós, para que Deus nos abra a porta da palavra, para falarmos do mysterio de Cristo, pelo qual estou também preso;"
+    },
+    {
+      "reference": "Colossenses 1:27",
+      "text": "Aos quaes Deus quiz fazer conhecer quaes são as riquezas da gloria d'este mysterio entre os gentios, que é Cristo em vós, esperança da gloria:"
+    },
+    {
+      "reference": "Colossenses 3:17",
+      "text": "E, quanto fizerdes por palavras ou por obras, fazei tudo em nome do Senhor Jesus, dando por ele graças a Deus e ao Pai."
+    },
+    {
+      "reference": "Colossenses 2:7",
+      "text": "Arraigados e sobreedificados n'ele, e confirmados na fé, assim como fostes ensinados, abundando em ação de graças."
+    },
+    {
+      "reference": "Colossenses 4:2",
+      "text": "Perseverae em oração, velando n'ela com ação de graças:"
+    },
+    {
+      "reference": "Colossenses 1:28",
+      "text": "O qual anunciamos, admoestando a todo o homem, e ensinando a todo o homem em toda a sabedoria; para que apresentemos todo o homem perfeito em Jesus Cristo;"
+    },
+    {
+      "reference": "Colossenses 3:1",
+      "text": "Portanto, se já resuscitastes com Cristo, buscae as coisas que são de cima, onde Cristo está assentado à dextra de Deus."
+    },
+    {
+      "reference": "Colossenses 4:5",
+      "text": "Andae com sabedoria para com os que estão de fóra, remindo o tempo."
+    },
+    {
+      "reference": "Colossenses 1:4",
+      "text": "Porquanto ouvimos da vossa fé em Cristo Jesus, e da caridade que tendes para com todos os santos;"
+    },
+    {
+      "reference": "Colossenses 3:24",
+      "text": "Sabendo que recebereis do Senhor o galardão da herança, porque a Cristo, o Senhor, servis."
+    },
+    {
+      "reference": "1 Tessalonicenses 5:16",
+      "text": "Regozijae-vos sempre."
+    },
+    {
+      "reference": "1 Tessalonicenses 5:18",
+      "text": "Em tudo dae graças; porque esta é a vontade de Deus em Cristo Jesus para comvosco."
+    },
+    {
+      "reference": "1 Tessalonicenses 1:3",
+      "text": "Lembrando-nos sem cessar da obra da vossa fé, e do trabalho de caridade, da paciencia da esperança em Nosso Senhor Jesus Cristo, deante de nosso Deus e Pai:"
+    },
+    {
+      "reference": "1 Tessalonicenses 4:16",
+      "text": "Porque o mesmo Senhor descerá do céu com alarido, e com voz de archanjo, e com a trombeta de Deus; e os que morreram em Cristo resuscitarão primeiro."
+    },
+    {
+      "reference": "1 Tessalonicenses 5:23",
+      "text": "E o mesmo Deus de paz vos santifique em tudo; e todo o vosso sincero espírito, e alma, e corpo, sejam conservados irreprehensiveis para a vinda de nosso Senhor Jesus Cristo."
+    },
+    {
+      "reference": "1 Tessalonicenses 1:5",
+      "text": "Porque o nosso evangelho não foi a vós sómente em palavras, mas também em poder, e no Espírito Santo, e em muita certeza; como bem sabeis quaes fomos entre vós, por amor de vós"
+    },
+    {
+      "reference": "1 Tessalonicenses 4:14",
+      "text": "Porque, se crêmos que Jesus morreu e resuscitou, assim também aos que em Jesus dormem Deus os tornará a trazer com ele."
+    },
+    {
+      "reference": "1 Tessalonicenses 5:9",
+      "text": "Porque Deus não nos tem designado para a ira, mas para a aquisição da salvação, por nosso Senhor Jesus Cristo."
+    },
+    {
+      "reference": "1 Tessalonicenses 1:8",
+      "text": "Porque por vós soou a palavra do Senhor, não sómente na Macedonia e Achaia, mas também a vossa fé para com Deus se espalhou por todos os logares, de tal maneira que já d'ela não temos necessidade de falar coisa alguma;"
+    },
+    {
+      "reference": "1 Tessalonicenses 4:17",
+      "text": "Depois nós, os que ficarmos vivos, seremos arrebatados juntamente com eles nas nuvens, a encontrar o Senhor nos ares, e assim estaremos sempre com o Senhor."
+    },
+    {
+      "reference": "Hebreus 11:1",
+      "text": "Ora, a fé é o firme fundamento das coisas que se esperam, e a prova das coisas que se não vêem."
+    },
+    {
+      "reference": "Hebreus 13:8",
+      "text": "Jesus Cristo é o mesmo hontem, e hoje, e eternamente."
+    },
+    {
+      "reference": "Hebreus 4:16",
+      "text": "Cheguemos pois com confiança ao trono da graça, para que possamos alcançar misericórdia e achar graça, para sermos ajudados em tempo oportuno."
+    },
+    {
+      "reference": "Hebreus 6:11",
+      "text": "Mas desejamos que cada um de vós mostre o mesmo cuidado até ao fim, para completa certeza da esperança;"
+    },
+    {
+      "reference": "Hebreus 13:5",
+      "text": "Sejam os vossos costumes sem avareza, contentando-vos com o presente; porque ele disse: Não te deixarei, nem te desampararei."
+    },
+    {
+      "reference": "Hebreus 12:2",
+      "text": "Olhando para Jesus, auctor e consumador da fé, o qual pelo gozo que lhe estava proposto suportou a cruz, desprezando a afronta, e assentou-se à dextra do trono de Deus."
+    },
+    {
+      "reference": "Hebreus 11:4",
+      "text": "Pela fé Abel ofereceu a Deus maior sacrificio do que Caim, pela qual alcançou testemunho de que era justo, porquanto Deus deu testemunho dos seus dons, e, depois de morto, ainda fala por ela."
+    },
+    {
+      "reference": "Hebreus 10:36",
+      "text": "Porque necessitais de paciencia, para que, depois de haverdes feito a vontade de Deus, possais alcançar a promessa."
+    },
+    {
+      "reference": "Hebreus 4:12",
+      "text": "Porque a palavra de Deus é viva e eficaz, e mais penetrante do que espada alguma de dois gumes, e penetra até à divisão da alma e do espírito, e das junturas e medulas, e é apta para discernir os pensamentos e intenções do coração."
+    },
+    {
+      "reference": "Hebreus 6:12",
+      "text": "Para que vos não façaes negligentes, mas sejaes imitadores dos que pela fé e paciencia herdam as promessas."
+    },
+    {
+      "reference": "Hebreus 13:21",
+      "text": "Vos aperfeiçoe em toda a boa obra, para fazerdes a sua vontade, obrando em vós o que perante ele é agradavel por Cristo Jesus, ao qual seja gloria para todo o sempre. Amen."
+    },
+    {
+      "reference": "Hebreus 12:3",
+      "text": "Considerae pois aquele que contra si mesmo suportou tal contradição dos pecadores, para que não enfraqueçaes, desfalecendo em vossos animos."
+    },
+    {
+      "reference": "Hebreus 11:6",
+      "text": "Ora, sem fé é impossível agradar a Deus: porque é necessário que aquele que se aproxima de Deus creia que ele existe, e que é galardoador dos que o buscam."
+    },
+    {
+      "reference": "Hebreus 10:21",
+      "text": "E tendo um grande sacerdote sobre a casa de Deus,"
+    },
+    {
+      "reference": "Tiago 1:5",
+      "text": "E, se algum de vós tem falta de sabedoria, peça-a a Deus, que a todos dá liberalmente, e o não lança em rosto, e ser-lhe-há dada"
+    },
+    {
+      "reference": "Tiago 1:17",
+      "text": "Toda a boa dadiva e todo o dom perfeito é do alto, e desce do Pai das luzes, em quem não há mudança nem sombra de variação,"
+    },
+    {
+      "reference": "Tiago 5:11",
+      "text": "Eis que temos por bemaventurados os que sofrem. Ouvistes qual foi a paciencia de Job, e vistes o fim que o Senhor lhe deu; porque o Senhor é muito misericordioso e piedoso."
+    },
+    {
+      "reference": "Tiago 4:8",
+      "text": "Chegae-vos a Deus, e ele se chegará a vós. Alimpae as mãos, pecadores; e, vós de duplo animo, purificae os corações."
+    },
+    {
+      "reference": "Tiago 1:12",
+      "text": "Bemaventurado o varão que sofre a tentação; porque, quando fôr provado, receberá a corôa da vida, a qual o Senhor tem prometido aos que o amam."
+    },
+    {
+      "reference": "Tiago 3:18",
+      "text": "Ora o fructo da justiça semeia-se na paz, para os que exercitam a paz."
+    },
+    {
+      "reference": "Tiago 2:18",
+      "text": "Porém dirá alguem: Tu tens a fé, e eu tenho as obras: mostra-me a tua fé pelas tuas obras, e eu te mostrarei a minha fé pelas minhas obras."
+    },
+    {
+      "reference": "Tiago 5:15",
+      "text": "E a oração da fé salvará o doente, e o Senhor o levantará; e, se houver cometido pecados, ser-lhe-hão perdoados."
+    },
+    {
+      "reference": "Tiago 4:7",
+      "text": "Sujeitae-vos pois a Deus, resisti ao diabo, e ele fugirá de vós."
+    },
+    {
+      "reference": "Tiago 1:6",
+      "text": "Porém peça-a com fé, não duvidando; porque o que duvida é similhante à onda do mar, que é levada pelo vento, e lançada de uma para outra parte."
+    },
+    {
+      "reference": "Tiago 3:17",
+      "text": "Mas a sabedoria que do alto vem é, primeiramente, pura, depois pacifica, moderada, tratavel, cheia de misericórdia e de bons fructos, sem parcialidade, e sem hypocrisia."
+    },
+    {
+      "reference": "Tiago 2:13",
+      "text": "Porque o juizo virá sem misericórdia sobre aquele que não fez misericórdia; e a misericórdia gloría-se contra o juizo."
+    },
+    {
+      "reference": "1 Pedro 5:7",
+      "text": "Lançando sobre ele toda a vossa solicitude, porque ele tem cuidado de vós."
+    },
+    {
+      "reference": "1 Pedro 3:15",
+      "text": "Antes santificai o Senhor Deus em vossos corações; e estae sempre preparados para responder com mansidão e temor a qualquer que vos pedir a razão da esperança que há em vós:"
+    },
+    {
+      "reference": "1 Pedro 2:10",
+      "text": "Vós, que d'antes não ereis povo, mas agora sois povo de Deus; que não tinheis alcançado misericórdia, mas agora alcançastes misericórdia."
+    },
+    {
+      "reference": "1 Pedro 1:3",
+      "text": "Bendito seja o Deus e Pai de nosso Senhor Jesus Cristo, que, segundo a sua grande misericórdia, nos gerou de novo para uma viva esperança, pela ressurreição de Jesus Cristo d'entre os mortos,"
+    },
+    {
+      "reference": "1 Pedro 5:10",
+      "text": "Ora o Deus de toda a graça, que em Cristo Jesus nos chamou à sua eterna gloria, depois de haverdes padecido um pouco, o mesmo vos aperfeiçoe, confirme, fortifique e estabeleça."
+    },
+    {
+      "reference": "1 Pedro 4:11",
+      "text": "Se alguem falar, fale segundo as palavras de Deus: se alguem administrar, administre segundo o poder que Deus dá; para que em tudo Deus seja glorificado por Jesus Cristo, a quem pertence a gloria e poder para todo o sempre. Amen."
+    },
+    {
+      "reference": "1 Pedro 3:14",
+      "text": "Mas também, se padecerdes por amor da justiça, sois bemaventurados. E não temaes com medo d'eles, nem vos turbeis;"
+    },
+    {
+      "reference": "1 Pedro 2:5",
+      "text": "Vós também, como pedras vivas, sois edificados casa espiritual e sacerdocio santo, para oferecer sacrificios espirituaes agradaveis a Deus por Jesus Cristo."
+    },
+    {
+      "reference": "1 Pedro 1:7",
+      "text": "Para que a prova da vossa fé, muito mais preciosa do que o oiro que perece e é provado pelo fogo, se ache em louvor, e honra, e gloria, na revelação de Jesus Cristo:"
+    },
+    {
+      "reference": "1 Pedro 5:5",
+      "text": "Similhantemente vós, mancebos, sêde sujeitos aos anciãos; e sêde todos sujeitos uns aos outros, e vesti-vos de humildade, porque Deus resiste aos soberbos, mas dá graça aos humildes."
+    },
+    {
+      "reference": "1 Pedro 4:10",
+      "text": "Cada um administre aos outros o dom como o recebeu, como bons dispenseiros da multiforme graça de Deus."
+    },
+    {
+      "reference": "1 Pedro 3:12",
+      "text": "Porque os olhos do Senhor estão sobre os justos, e os seus ouvidos atentos ás suas orações; mas o rosto do Senhor é contra os que fazem males."
+    },
+    {
+      "reference": "1 Pedro 2:12",
+      "text": "Tendo o vosso viver honesto entre os gentios; para que, n'aquilo em que falam mal de vós, como de malfeitores, glorifiquem a Deus no dia da visitação, pelas boas obras que em vós virem."
+    },
+    {
+      "reference": "1 Pedro 1:5",
+      "text": "Que pela fé estaes guardados na virtude de Deus para a salvação, já prestes para se revelar no ultimo tempo."
+    },
+    {
+      "reference": "1 Pedro 5:9",
+      "text": "Ao qual resisti firmes na fé: sabendo que as mesmas aflições se cumprem entre os vossos irmãos no mundo."
+    },
+    {
+      "reference": "1 Pedro 4:8",
+      "text": "Mas, sobretudo, tende ardente caridade uns para com os outros; porque a caridade cobrirá a multidão de pecados."
+    },
+    {
+      "reference": "1 João 4:7",
+      "text": "Amados, amemo-nos uns aos outros; porque a caridade é de Deus; e qualquer que ama é nascido de Deus e conhece a Deus."
+    },
+    {
+      "reference": "1 João 4:8",
+      "text": "Aquele que não ama não tem conhecido a Deus; porque Deus é caridade."
+    },
+    {
+      "reference": "1 João 4:16",
+      "text": "E nós conhecemos, e cremos o amor que Deus nos tem. Deus é caridade; e quem está em caridade está em Deus, e Deus n'ele."
+    },
+    {
+      "reference": "1 João 5:1",
+      "text": "Todo aquele que crê que Jesus é o Cristo é nascido de Deus; e todo aquele que ama ao que o gerou também ama ao que d'ele é nascido."
+    },
+    {
+      "reference": "1 João 1:7",
+      "text": "Porém, se andarmos na luz, como ele na luz está, temos comunhão uns com os outros, e o sangue de Jesus Cristo, seu Filho, nos purifica de todo o pecado."
+    },
+    {
+      "reference": "1 João 2:1",
+      "text": "Meus filhinhos, estas coisas vos escrevo, para que não pequeis; e, se alguem pecar, temos um Advogado para com o Pai, Jesus Cristo, o justo."
+    },
+    {
+      "reference": "1 João 3:23",
+      "text": "E o seu mandamento é este: que creiamos no nome de seu Filho Jesus Cristo, e nos amemos uns aos outros, como nos deu mandamento."
+    },
+    {
+      "reference": "1 João 4:15",
+      "text": "Qualquer que confessar que Jesus é o Filho de Deus, Deus está n'ele, e ele em Deus."
+    },
+    {
+      "reference": "1 João 5:13",
+      "text": "Estas coisas vos escrevi, a vós que crêdes no nome do Filho de Deus, para que saibaes que tendes a vida eterna, e para que creiaes no nome do Filho de Deus."
+    },
+    {
+      "reference": "1 João 1:5",
+      "text": "E esta é a anunciação que d'ele ouvimos, e vos anunciamos: que Deus é luz, e não há n'ele trevas nenhumas."
+    },
+    {
+      "reference": "1 João 2:5",
+      "text": "Mas qualquer que guarda a sua palavra, o amor de Deus está n'ele verdadeiramente aperfeiçoado: n'isto conhecemos que estamos n'ele."
+    },
+    {
+      "reference": "1 João 3:2",
+      "text": "Amados, agora somos filhos de Deus, e ainda não é manifestado o que havemos de ser. Porém sabemos que, quando se manifestar, seremos similhantes a ele; porque assim como é o veremos."
+    },
+    {
+      "reference": "1 João 4:19",
+      "text": "Nós o amamos a ele porque ele nos amou primeiro."
+    }
+  ]
 }
