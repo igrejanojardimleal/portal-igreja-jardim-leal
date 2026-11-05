@@ -1,9 +1,10 @@
-/* Comentários moderados por hino e downloads disponíveis para membros cadastrados. */
+/* Comentários dos hinos: membros verificados publicam direto; demais aguardam aprovação. */
 window.IGREJA_COMUNIDADE = (()=>{
   'use strict';
   const $=id=>document.getElementById(id);
   let ctx,selected=null,loading=0;
   let verificacoesHino=new Set();
+  let ownVerified=false,ownVerifiedUser=null;
   const status=(id,value,error=false)=>{const e=$(id);if(e){e.textContent=value;e.style.color=error?'#9e2626':'';}};
   const make=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;};
   function logged(){return Boolean(ctx?.user?.()&&ctx?.db?.());}
@@ -15,12 +16,34 @@ window.IGREJA_COMUNIDADE = (()=>{
       if(data===true)void window.IGREJA_MEMBROS?.atualizarProgresso?.(true);
     }catch(e){console.warn('[IGJAL] Pontuação de download indisponível:',e.message);}
   }
+  function updateFormVerification(){
+    const button=$('hino-member-form')?.querySelector('button[type=submit]');
+    if(button)button.textContent=ownVerified?'Publicar comentário':'Enviar para aprovação';
+  }
+  async function refreshOwnVerification(uid){
+    if(!uid||!ctx?.db?.())return;
+    try{
+      const {data,error}=await ctx.db().from('igjal_membros_verificados')
+        .select('user_id').eq('user_id',uid).maybeSingle();
+      if(error)throw error;
+      if(ownVerifiedUser!==uid)return;
+      ownVerified=Boolean(data);
+      updateFormVerification();
+    }catch(e){console.warn('[IGJAL] Não foi possível consultar o selo do membro:',e.message);}
+  }
   function updateAccess(){
     const form=$('hino-member-form'),prompt=$('hino-member-prompt');
     if(form)form.hidden=!logged();
     if(prompt)prompt.hidden=logged();
     const down=$('hino-download-actions');
     if(down)down.hidden=!logged();
+    const uid=ctx?.user?.()?.id||null;
+    if(uid!==ownVerifiedUser){
+      ownVerifiedUser=uid;
+      ownVerified=false;
+      updateFormVerification();
+      if(uid)void refreshOwnVerification(uid);
+    }
   }
   function init(context){
     ctx=context;
@@ -31,7 +54,7 @@ window.IGREJA_COMUNIDADE = (()=>{
       section.className='hino-comunidade';
       section.innerHTML=`
         <h3>Conversas sobre este hino</h3>
-        <p class="muted">Compartilhe uma reflexão sobre o louvor. Toda mensagem passa por aprovação.</p>
+        <p class="muted">Membros verificados publicam imediatamente. Os demais comentários aguardam aprovação.</p>
         <div id="hino-download-actions" class="hino-download-actions" hidden>
           <button class="btn btn-outline btn-sm" type="button" id="member-download-song">Baixar texto (.txt)</button>
           <button class="btn btn-outline btn-sm" type="button" id="member-save-pdf">Salvar em PDF</button>
@@ -62,14 +85,21 @@ window.IGREJA_COMUNIDADE = (()=>{
           status('hino-comment-status','Escreva um comentário entre 3 e 600 caracteres.',true);return;
         }
         const button=ev.currentTarget.querySelector('button[type=submit]');button.disabled=true;
-        status('hino-comment-status','Enviando para revisão...');
+        status('hino-comment-status','Enviando comentário...');
         try{
           const {error}=await ctx.db().from('hino_comentarios').insert({
             hino_numero:selected.number,nome:n,mensagem:msg,user_id:ctx.user().id
           });
           if(error)throw error;
           $('hino-comment-body').value='';
-          status('hino-comment-status','Mensagem recebida. Ficará visível depois da aprovação.');
+          await refreshOwnVerification(ctx.user().id);
+          if(ownVerified){
+            status('hino-comment-status','Comentário publicado! Obrigado por participar.');
+            $('hino-comments-feed')?.removeAttribute('data-loaded-hino');
+            await songChanged(selected);
+          }else{
+            status('hino-comment-status','Mensagem recebida. Ficará visível depois da aprovação.');
+          }
         }catch(e){status('hino-comment-status','Falha ao enviar: '+e.message,true);}
         finally{button.disabled=false;}
       });
