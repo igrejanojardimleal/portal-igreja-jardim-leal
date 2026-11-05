@@ -1088,7 +1088,11 @@
   function updateAuthUI() {
     $('logged-in-panel').hidden = !user;
     $('logged-out-panel').hidden = Boolean(user);
-    setText('login-button-text', user ? 'Minha conta' : 'Entrar');
+    const nomeConta=user
+      ? String(user.user_metadata?.first_name || memberDisplayName().split(/\s+/)[0] || '').trim().slice(0,18)
+      : '';
+    setText('login-button-text', user ? (nomeConta?'Olá, '+nomeConta:'Olá!') : 'Entrar');
+    if($('login-button'))$('login-button').setAttribute('aria-label',user?'Abrir Minha Conta e acompanhar meu nível':'Entrar ou criar conta');
     if (user) {
       setText('logged-in-user', `Conectado como ${memberDisplayName() || user.email || 'membro da igreja'}. Você pode participar do mural, enviar cifras e comentar nos hinos.`);
     }
