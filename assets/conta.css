@@ -145,3 +145,243 @@ main.shell{padding:29px 0 54px}
 .ranking-status:empty{display:none}
 @media(max-width:850px){.ranking-grid{grid-template-columns:1fr}.ranking-list{padding:9px 12px}.ranking-item{grid-template-columns:32px 1fr auto;min-height:52px;padding:9px}.ranking-card-top{padding:12px 14px}.ranking-card-top h3{font-size:14px}}
 @media(max-width:440px){.account-tabs button{font-size:10px;padding:9px 3px;line-height:1.2}.ranking-head{gap:8px}.ranking-head .section-lead{margin-bottom:4px}}
+
+
+/* IGJAL · Tema azul-noturno exclusivo de Minha Conta: tecnológico, sóbrio e acessível. */
+:root{
+  color-scheme:dark;
+  --ink:#eaf4ff;
+  --muted:#b1c2d2;
+  --green:#5bdab4;
+  --green2:#68c9be;
+  --line:#29435d;
+  --paper:#071422;
+  --cream:#10253b;
+  --white:#102237;
+  --soft:#12283e;
+}
+body{
+  background:
+    radial-gradient(ellipse 660px 460px at 96% 6%,rgba(24,87,132,.25),transparent 75%),
+    radial-gradient(ellipse 600px 580px at 0% 60%,rgba(20,79,99,.16),transparent 76%),
+    linear-gradient(180deg,#08192c 0%,#07111f 100%);
+  background-color:#071422;
+  color:var(--ink);
+  min-height:100vh;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  background-image:linear-gradient(rgba(90,166,191,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(90,166,191,.035) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:linear-gradient(180deg,#000,transparent 82%);
+}
+::selection{background:#267d89;color:#fff}
+.account-header{
+  background:rgba(9,25,42,.95);
+  border-bottom:1px solid #254059;
+  box-shadow:0 8px 28px #02091133;
+}
+.brand strong{color:#eaf5ff}
+.brand small{color:#85a3bf}
+.header-links a,.header-links button{
+  background:#142d46;
+  border-color:#34516a;
+  color:#d7e9fa;
+}
+.header-links a:hover,.header-links button:hover{background:#1c3a57;color:#fff}
+.header-links button{color:#e5b6ae}
+.skip-link{background:#173654;color:#eff9ff}
+main.shell{padding-top:32px}
+.welcome{
+  background:
+    radial-gradient(ellipse at 91% 18%,rgba(37,126,162,.22) 0%,transparent 54%),
+    linear-gradient(115deg,#102b43 0%,#11243c 60%,#11213a 100%);
+  border:1px solid #34617b;
+  box-shadow:0 14px 38px #020b1c40,inset 0 1px #ffffff0d;
+}
+.welcome::after{content:"✦";color:#6fd8bf;opacity:.12;top:-48px;right:9px;font-size:160px}
+.welcome h1{color:#f2f9ff;text-shadow:0 1px 10px #0b182750}
+.welcome p{color:#a9c2d2}
+.mini-label{color:#75d7c0}
+.level-medallion{
+  background:linear-gradient(140deg,#244a62,#18334b);
+  border:1px solid #38637c;
+  box-shadow:0 0 24px #57dcb71a;
+}
+.level-copy strong{color:#f0f8ff}
+.level-copy small,.xp-line{color:#b5cada}
+.progress-track,.progress-track.slim{background:#263e52}
+.progress-track span{
+  background:linear-gradient(90deg,#409fca,#63dfbb);
+  box-shadow:0 0 12px #63dfbb55;
+}
+.account-tabs{
+  background:#0d2034;
+  border:1px solid #263e56;
+  box-shadow:0 5px 18px #00000022;
+}
+.account-tabs button{color:#a8bed0;border-color:transparent}
+.account-tabs button:hover{color:#e7f8ff;background:#16324a}
+.account-tabs button[aria-selected="true"]{
+  background:#1a3b52;
+  border-color:#326c7e;
+  color:#8af0d2;
+  box-shadow:0 2px 12px #010b1840;
+}
+.section-card{
+  background:linear-gradient(150deg,#11263c 0%,#0d2034 100%);
+  border:1px solid #2a455d;
+  box-shadow:0 5px 20px #01091425;
+}
+.section-card h2,.section-card h3{color:#f0f7ff}
+.section-lead,.subtle-note,.active-note{color:#b2c4d3}
+.stat{
+  background:#112f45;
+  border:1px solid #2b4b62;
+}
+.stat small{color:#abc4d3}
+.stat strong,.stat .compact,.active-count{color:#85e5c9}
+.stat em{color:#98b5c7}
+.action-link{
+  background:#153b44;
+  border:1px solid #327d83;
+  color:#8bf1d2;
+}
+.action-link:hover{background:#20545a;color:#ecfffc}
+.action-link.ghost{
+  background:#172f46;
+  border-color:#34516b;
+  color:#d2e6f6;
+}
+.action-link.ghost:hover{background:#22425e;color:#fff}
+.badge-pill{
+  background:#163d3f;
+  border:1px solid #397d7b;
+  color:#a0f7d9;
+}
+.level-item{
+  background:#11283f;
+  border-color:#2b4862;
+}
+.level-item.current{
+  background:#15384c;
+  border-color:#64cabb;
+  box-shadow:inset 0 0 0 1px #3c8c8d,0 0 14px #36b6ae14;
+}
+.level-item.earned{background:#122f3f}
+.level-item .level-icon{
+  background:#193a50;
+}
+.level-item .level-summary strong{color:#edf7ff}
+.level-item .level-summary small{color:#b1c4d4}
+.level-item .level-details{
+  color:#c1d3df;
+  border-top:1px solid #31506a;
+}
+.label-state{color:#85e6c7}
+.label-state.locked{color:#9baabc}
+.level-item>summary::after{color:#9bc9cc}
+.badge-tile{
+  border-color:#2c4860;
+  background:#10273c;
+}
+.badge-tile.unlocked{
+  border-color:#418d88;
+  background:linear-gradient(130deg,#164043,#143149);
+}
+.badge-tile .badge-emoji{
+  background:#183a51;
+  opacity:.72;
+}
+.badge-tile.unlocked .badge-emoji{
+  background:#245851;
+  opacity:1;
+}
+.badge-tile strong{color:#f0f8ff}
+.badge-tile p{color:#b5c9d7}
+.badge-tile .badge-status{color:#9fb2c1}
+.badge-tile.unlocked .badge-status{color:#7be6bf}
+.point-row{border-bottom-color:#2a4258}
+.point-row strong{color:#e0eef8}
+.point-row small{color:#b5c6d3}
+.point-row .point-value{background:#16443f;color:#8cf4ce}
+.ranking-head h2{color:#f2f8ff}
+.ranking-refresh{
+  background:#193a4b;
+  border-color:#3a7884;
+  color:#a3f6e0;
+}
+.ranking-refresh:hover{background:#245465;color:#fff}
+.ranking-note{
+  color:#bdd0df;
+  background:#102e44;
+  border-color:#2b5064;
+}
+.ranking-card{
+  background:#0c1d31;
+  border-color:#2d4b65;
+}
+.ranking-card-top{
+  background:#132e44;
+  border-bottom-color:#2a4a61;
+}
+.ranking-card-top>span{background:#1e4159}
+.ranking-card-top h3{color:#edf8ff}
+.ranking-card-top p{color:#a3bfd0}
+.ranking-item + .ranking-item{border-top-color:#243e56}
+.ranking-item.is-me{
+  background:#173d49;
+  outline-color:#39857e;
+}
+.ranking-place{
+  background:#1d3d56;
+  color:#b7d6e8;
+}
+.ranking-item:nth-child(1) .ranking-place{background:#715522;color:#ffdf93}
+.ranking-item:nth-child(2) .ranking-place{background:#334961;color:#d6e5f3}
+.ranking-item:nth-child(3) .ranking-place{background:#654536;color:#f6c6a4}
+.ranking-person{color:#e3f1ff}
+.ranking-me-mark{color:#80efd0}
+.ranking-score{color:#91efd5}
+.ranking-score small{color:#93b5c0}
+.ranking-placeholder,.ranking-status{color:#aec3d1}
+.form-stack label{color:#d7e7f3}
+.form-stack input{
+  background:#081b2d;
+  border-color:#3a536b;
+  color:#f0f9ff;
+}
+.form-stack input:focus{
+  border-color:#63d7bf;
+  box-shadow:0 0 0 3px #46bcb638;
+}
+.form-stack input:disabled{
+  background:#182d40;
+  color:#aabccb;
+}
+.form-stack input::placeholder{color:#7e97ae}
+.small-help{color:#aabfd0}
+.btn-primary{
+  background:#246e6f;
+  border-color:#4dada9;
+  color:#fff;
+}
+.btn-primary:hover{background:#308b82}
+.form-message{color:#9aeacf}
+.form-message.error{color:#ffb3a5}
+.login-prompt{
+  background:#0f273e;
+  border-color:#33516b;
+}
+.login-prompt h1{color:#f1faff}
+.login-prompt p{color:#bbcfdd}
+.site-footer{border-top-color:#264057;color:#94afc2}
+#account-panel-configuracoes .section-card [style*="border-top:1px"]{border-top-color:#334a5f!important}
+@media(max-width:440px){
+  .welcome::after{right:-27px;top:-18px;font-size:130px}
+  .account-tabs button{font-size:10px}
+}
