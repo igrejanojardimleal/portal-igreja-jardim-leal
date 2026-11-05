@@ -22,28 +22,47 @@ window.IGREJA_MEMBROS = (() => {
       const proximo=data?.proximo_nivel==null?null:Number(data.proximo_nivel);
       $('igjal-nivel-atual').textContent='Nível '+nivel+' — '+LEVEL_NAMES[nivel];
       $('igjal-total-pontos').textContent=total.toLocaleString('pt-BR')+' pontos acumulados';
-      $('igjal-pontos-30').textContent=recentes+' pontos nos últimos 30 dias';
-      $('igjal-proximo-nivel').textContent=proximo===null?'Você alcançou o Nível 7!':'Faltam '+Math.max(0,proximo-total).toLocaleString('pt-BR')+' pontos para o próximo nível.';
-      const inicio=[0,0,25,75,175,350,1500,10001][nivel];
-      $('igjal-barra-pontos').style.width=(proximo===null?100:Math.max(0,Math.min(100,(total-inicio)/(proximo-inicio)*100)))+'%';
+      // A atividade recente aparece somente por meio do selo Membro ativo, quando conquistado.
+      const faltam=proximo===null?0:Math.max(0,proximo-total);
+      $('igjal-proximo-nivel').textContent=proximo===null?'Nível máximo alcançado':'Faltam '+faltam.toLocaleString('pt-BR')+' pontos';
+      const percentual=proximo===null?100:Math.max(0,Math.min(100,total/proximo*100));
+      $('igjal-barra-pontos').style.width=percentual+'%';
+      const faixa=$('igjal-header-progress'),barra=$('igjal-header-progress-bar'),resumo=$('igjal-header-progress-label');
+      if(faixa&&barra&&resumo){
+        const atual=usuario.id===context?.user?.()?.id;
+        if(atual){
+          resumo.textContent=proximo===null?'Nível 7 · máximo':'Nv. '+nivel+' · '+total.toLocaleString('pt-BR')+'/'+proximo.toLocaleString('pt-BR');
+          barra.style.width=percentual+'%';
+          faixa.hidden=false;
+          $('login-button')?.classList.add('igjal-login-progress-btn');
+        }
+      }
       const selos=[
-        ['verificado','✓ Membro verificado pela igreja'],
-        ['colaborou_cifra','🎼 Colaborou com cifra'],
-        ['colaborou_hino','🎵 Colaborou com letra/hino'],
-        ['colaborou_estudo','📖 Colaborou com estudo'],
-        ['membro_ativo','🌿 Membro ativo']
+        ['verificado','✓','Verificado','Reconhecido pela liderança da igreja'],
+        ['colaborou_cifra','🎼','Cifra','Contribuiu com uma cifra aprovada'],
+        ['colaborou_hino','🎵','Hino','Colaborou com letra ou hino'],
+        ['colaborou_estudo','📖','Estudo','Contribuiu com um estudo aprovado'],
+        ['membro_ativo','🌿','Membro ativo','30 pontos ou mais nos últimos 30 dias']
       ];
       const container=$('igjal-selos');container.replaceChildren();
-      const cadastro=document.createElement('span');cadastro.className='igjal-selo is-earned';cadastro.textContent='👤 Conta cadastrada';container.append(cadastro);
-      for(const [chave,titulo] of selos){
+      const cadastrado=document.createElement('span');
+      cadastrado.className='igjal-selo is-earned';
+      cadastrado.textContent='👤 Cadastro';
+      cadastrado.title='Conta cadastrada na comunidade';
+      container.append(cadastrado);
+      for(const [chave,simbolo,nome,descricao] of selos){
+        if(!data?.[chave])continue;
         const tag=document.createElement('span');
-        tag.className='igjal-selo'+(data?.[chave]?' is-earned':'');
-        tag.textContent=titulo+(data?.[chave]?'':' · não conquistado');
+        tag.className='igjal-selo is-earned';
+        tag.textContent=simbolo+' '+nome;
+        tag.title=descricao;
         container.append(tag);
       }
-      aviso.textContent='Membro Ativo: pelo menos 30 pontos nos últimos 30 dias. Sem rankings públicos.';
+      aviso.hidden=true;
+      aviso.textContent='';
     }catch(error){
-      aviso.textContent='Não foi possível consultar o progresso agora. Reabra Minha Conta para tentar novamente.';
+      aviso.hidden=false;
+      aviso.textContent='Não foi possível atualizar o progresso. Toque em ↻ para tentar novamente.';
       console.warn('[IGJAL] Progresso indisponível:',error.message);
     }finally{progressLoading=false;}
   }
@@ -90,9 +109,16 @@ window.IGREJA_MEMBROS = (() => {
     }catch(error){status('Não foi possível concluir: '+error.message,true);}
   }
   function refresh(){
-    if(context?.user?.()&&$('igjal-contribuicao'))void atualizarProgresso();
-    else if($('igjal-contribuicao')){$('igjal-contribuicao').hidden=true;progressUserId=null;}
     const user=context?.user?.();
+    const botaoConta=$('login-button'),faixa=$('igjal-header-progress');
+    if(botaoConta)botaoConta.classList.toggle('igjal-login-progress-btn',Boolean(user));
+    if(!user){
+      if(faixa)faixa.hidden=true;
+      progressUserId=null;
+      progressLastCheck=0;
+    }else if(progressUserId!==user.id && faixa)faixa.hidden=true;
+    if(user&&$('igjal-contribuicao'))void atualizarProgresso();
+    else if($('igjal-contribuicao'))$('igjal-contribuicao').hidden=true;
     const link=$('member-admin-link');
     if(link)link.hidden=!user||!(context?.hasPanelAccess?.()||context?.isAdmin?.()||context?.isEventManager?.()||context?.isMuralModerator?.()||context?.isStudyReviewer?.());
     const teacherLink=$('member-study-link');if(teacherLink)teacherLink.hidden=!user||!context?.isStudyTeacher?.();
@@ -118,6 +144,15 @@ window.IGREJA_MEMBROS = (() => {
   }
   function init(ctx){
     context=ctx;
+    const botaoConta=$('login-button');
+    if(botaoConta && !$('igjal-header-progress')){
+      const faixa=document.createElement('span');
+      faixa.id='igjal-header-progress';
+      faixa.className='igjal-header-progress';
+      faixa.hidden=true;
+      faixa.innerHTML='<span id="igjal-header-progress-label"></span><span class="igjal-header-progress-track" aria-hidden="true"><span id="igjal-header-progress-bar"></span></span>';
+      botaoConta.append(faixa);
+    }
     const box=$('logged-out-panel');
     if(!box)return;
     const oldForm=$('email-login-form');
@@ -202,15 +237,13 @@ window.IGREJA_MEMBROS = (() => {
         <a class="btn btn-primary" href="administracao.html" id="member-admin-link" hidden>🛡️ Abrir painel administrativo</a>
         <a class="btn btn-outline" href="estudos-biblicos.html#study-teacher-panel" id="member-study-link" hidden>📖 Enviar estudo bíblico</a>
         <section id="igjal-contribuicao" class="igjal-contribuicao" hidden aria-label="Meu progresso de contribuição">
-          <div class="igjal-progresso-topo"><span>🌿 SUA PARTICIPAÇÃO NA IGREJA</span><button type="button" id="igjal-atualizar-pontos" class="btn btn-outline btn-sm">Atualizar</button></div>
+          <div class="igjal-progresso-topo"><span>MEU PROGRESSO</span><button type="button" id="igjal-atualizar-pontos" class="igjal-refresh" aria-label="Atualizar meu progresso" title="Atualizar progresso">↻</button></div>
           <h3 id="igjal-nivel-atual">Carregando nível...</h3>
           <strong id="igjal-total-pontos">—</strong>
-          <div class="igjal-progresso-trilho" role="presentation"><span id="igjal-barra-pontos"></span></div>
+          <div class="igjal-progresso-trilho" role="progressbar" aria-label="Progresso até o próximo nível"><span id="igjal-barra-pontos"></span></div>
           <p id="igjal-proximo-nivel" class="muted"></p>
-          <p id="igjal-pontos-30" class="igjal-pontos-recentes"></p>
-          <h4>Seus selos</h4>
-          <div id="igjal-selos" class="igjal-selos"></div>
-          <p id="igjal-progresso-aviso" class="muted"></p>
+          <div id="igjal-selos" class="igjal-selos" aria-label="Conquistas obtidas"></div>
+          <p id="igjal-progresso-aviso" class="muted" hidden></p>
         </section>
         <details class="member-registration-details" id="member-registration-details">
           <summary class="member-registration-summary">
