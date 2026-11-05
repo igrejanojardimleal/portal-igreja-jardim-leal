@@ -56,17 +56,17 @@ window.IGREJA_ACESSOS = (()=>{
    heading.append(make('small','Cadastro: '+registered+' · '+(user.email_confirmado?'Conta habilitada':'Aguardando ativação'),'muted'));
    card.append(heading);
    const hinoReconhecido=hinoUsers.has(user.user_id);
-   const botaoHino=make('button',(hinoReconhecido?'✓ Retirar selo: ':'+ Conceder selo: ')+'Colaborou com hino',
+   const botaoHino=make('button',(hinoReconhecido?'✓ Retirar selo: ':'+ Conceder selo: ')+'Colaborou com letra/hino',
      hinoReconhecido?'btn btn-outline btn-sm access-role-button is-granted':'btn btn-outline btn-sm access-role-button');
    botaoHino.type='button';botaoHino.disabled=!user.email_confirmado;
    botaoHino.title=user.email_confirmado?'Reconhecimento pela colaboração com o hinário, sem conceder acesso de edição.':'A conta precisa estar ativada para receber o selo.';
    botaoHino.addEventListener('click',async()=>{
      if(ctx?.isAdmin?.()!==true||!ctx?.db?.())return;
-     if(!window.confirm((hinoReconhecido?'Retirar':'Conceder')+' selo Colaborou com hino para '+(user.nome_completo||user.email)+'?'))return;
+     if(!window.confirm((hinoReconhecido?'Retirar':'Conceder')+' selo Colaborou com letra/hino para '+(user.nome_completo||user.email)+'?'))return;
      botaoHino.disabled=true;
      const {error}=await ctx.db().rpc('igjal_admin_definir_hino',{p_usuario:user.user_id,p_conceder:!hinoReconhecido,p_observacao:'Contribuição no hinário reconhecida pela liderança'});
      if(error){status('Falha ao atualizar selo: '+error.message,true);botaoHino.disabled=false;return;}
-     await refresh();status('Selo de colaboração com hino atualizado.');
+     await refresh();status('Selo de colaboração com letra/hino atualizado.');
    });
    card.append(botaoHino);
    if(user.administrador_geral){
