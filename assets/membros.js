@@ -25,13 +25,14 @@ window.IGREJA_MEMBROS = (() => {
       // A atividade recente aparece somente por meio do selo Membro ativo, quando conquistado.
       const faltam=proximo===null?0:Math.max(0,proximo-total);
       $('igjal-proximo-nivel').textContent=proximo===null?'Nível máximo alcançado':'Faltam '+faltam.toLocaleString('pt-BR')+' pontos';
-      const percentual=proximo===null?100:Math.max(0,Math.min(100,total/proximo*100));
+      const inicio=[0,0,25,75,175,350,1500,10001][nivel];
+      const percentual=proximo===null?100:Math.max(0,Math.min(100,(total-inicio)/(proximo-inicio)*100));
       $('igjal-barra-pontos').style.width=percentual+'%';
       const faixa=$('igjal-header-progress'),barra=$('igjal-header-progress-bar'),resumo=$('igjal-header-progress-label');
       if(faixa&&barra&&resumo){
         const atual=usuario.id===context?.user?.()?.id;
         if(atual){
-          resumo.textContent=proximo===null?'Nível 7 · máximo':'Nv. '+nivel+' · '+total.toLocaleString('pt-BR')+'/'+proximo.toLocaleString('pt-BR');
+          resumo.textContent=proximo===null?'Nível 7 · máximo':'Nv. '+nivel+' · '+(total-inicio).toLocaleString('pt-BR')+'/'+(proximo-inicio).toLocaleString('pt-BR')+' XP';
           barra.style.width=percentual+'%';
           faixa.hidden=false;
           $('login-button')?.classList.add('igjal-login-progress-btn');
