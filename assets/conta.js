@@ -35,6 +35,7 @@
     ['📖','Estudo bíblico aprovado',100,'Depois de conferido e aprovado pela liderança.']
   ];
   let db=null,user=null,progress=null;
+  let rankingLoadedAt=0,rankingLoading=false;
 
   function nameParts(u){
     const meta=u?.user_metadata||{};
@@ -67,8 +68,69 @@
     child.style.width=p+'%';
     wrapper.setAttribute('aria-valuenow',String(Math.round(p)));
   }
+
+  function renderRankingList(listId,results){
+    const list=$(listId);if(!list)return;
+    list.replaceChildren();
+    const entries=Array.isArray(results)?results:[];
+    if(!entries.length){
+      const empty=document.createElement('li');
+      empty.className='ranking-placeholder';
+      empty.textContent='Ainda não há pontos registrados neste período.';
+      list.append(empty);
+      return;
+    }
+    for(const entry of entries.slice(0,5)){
+      const row=document.createElement('li');
+      row.className='ranking-item'+(entry.eu?' is-me':'');
+      const pos=document.createElement('span');
+      pos.className='ranking-place';
+      pos.textContent=String(Number(entry.posicao)||1);
+      const name=document.createElement('span');
+      name.className='ranking-person';
+      name.textContent=String(entry.nome||'Membro').slice(0,40);
+      if(entry.eu){
+        const you=document.createElement('small');
+        you.className='ranking-me-mark';
+        you.textContent='Você';
+        name.append(you);
+      }
+      const score=document.createElement('span');
+      score.className='ranking-score';
+      score.textContent=nf(entry.pontos)+' ';
+      const unit=document.createElement('small');
+      unit.textContent='pts';
+      score.append(unit);
+      row.append(pos,name,score);
+      list.append(row);
+    }
+  }
+  async function refreshRanking(force=false){
+    if(!db||!user||rankingLoading)return;
+    if(!force && rankingLoadedAt && Date.now()-rankingLoadedAt<60000)return;
+    rankingLoading=true;
+    const button=$('ranking-refresh');
+    if(button)button.disabled=true;
+    text('ranking-status','Consultando os pontos da comunidade...');
+    try{
+      const {data,error}=await db.rpc('igjal_top5_comunidade');
+      if(error)throw error;
+      if(!data||typeof data!=='object')throw new Error('Resultado indisponível');
+      renderRankingList('ranking-week',data.semana);
+      renderRankingList('ranking-month',data.mes);
+      renderRankingList('ranking-all',data.geral);
+      rankingLoadedAt=Date.now();
+      text('ranking-status','Classificações atualizadas com pontos registrados no portal.');
+    }catch(error){
+      text('ranking-status','Não foi possível carregar o Top 5 agora. Tente atualizar novamente.');
+      console.warn('[IGJAL] Top 5 temporariamente indisponível:',error.message);
+    }finally{
+      rankingLoading=false;
+      if(button)button.disabled=false;
+    }
+  }
   function setTab(name,changeHash=true){
-    const selected=['progresso','niveis','configuracoes'].includes(name)?name:'progresso';
+    const selected=['progresso','niveis','ranking','configuracoes'].includes(name)?name:'progresso';
     document.querySelectorAll('[data-account-tab]').forEach(btn=>{
       const chosen=btn.dataset.accountTab===selected;
       btn.setAttribute('aria-selected',String(chosen));
@@ -81,6 +143,7 @@
       const hash='#'+selected;
       if(location.hash!==hash)history.replaceState(null,'',hash);
     }
+    if(selected==='ranking'&&user)void refreshRanking();
   }
   function renderLevels(total,current){
     const target=$('all-levels');target.replaceChildren();
@@ -225,6 +288,7 @@
     renderRewards();
     document.querySelectorAll('[data-account-tab]').forEach(btn=>btn.addEventListener('click',()=>setTab(btn.dataset.accountTab)));
     $('view-achievements').addEventListener('click',()=>{setTab('niveis');document.querySelector('.account-tabs')?.scrollIntoView({behavior:'smooth',block:'start'});});
+    $('ranking-refresh')?.addEventListener('click',()=>void refreshRanking(true));
     $('account-profile-form').addEventListener('submit',saveProfile);
     $('account-password-form').addEventListener('submit',savePassword);
     window.addEventListener('hashchange',()=>setTab(location.hash.slice(1),false));
