@@ -679,15 +679,13 @@
       const head = el('div', 'song-card-head');
       const icon = el('span', 'song-icon', String(song.number).padStart(2,'0'));
       const info = el('div','song-summary');
-      info.append(el('h3', 'song-title', song.title), el('p', 'song-category', `Hino ${song.number} • ${song.author || 'Hinário'}`));
+      info.append(
+        el('h3','song-title',song.title),
+        el('p','song-category',song.author || 'Autoria não informada')
+      );
       head.append(icon,info);
-      const excerpt = el('p', 'song-excerpt', songExcerpt(song, query));
-      const footer = el('div', 'song-card-foot');
-      footer.append(el('span', 'song-meta', songMode === 'cifra' ? (song.chords?.trim() ? `Tom ${song.key || 'a confirmar'}` : cifrasPublicadas.has(song.number) ? 'PDF da cifra aprovado' : 'Cifra ainda não cadastrada') : 'Letra disponível'));
-      const action = el('span', 'song-action', songMode === 'cifra' ? 'Ver cifras ' : 'Ver letra ');
-      action.append(el('span', '', '↗'));
-      footer.append(action);
-      button.append(head, excerpt, footer);
+      // Lista enxuta: número, título e autor. Letras, cifras e tom ficam no modal.
+      button.append(head);
       button.addEventListener('click', () => {
         selectedSong = song;
         dialogMode = songMode;
