@@ -29,8 +29,8 @@
     ['▶','Abrir vídeo pelo portal',1,'Até 3 vídeos diferentes por dia. Abrir o vídeo não comprova que foi assistido inteiro.'],
     ['📄','Baixar hino ou cifra',1,'Uma vez por hino a cada dia; até 5 hinos diferentes por dia.'],
     ['💌','Compartilhar a Caixinha de Promessas',1,'Uma vez por período de promessa; até 2 por dia.'],
-    ['💬','Comentário aprovado no hino',5,'Até 2 comentários pontuados por mês, após aprovação.'],
-    ['🤍','Mensagem aprovada no Mural',10,'Até 2 mensagens pontuadas por mês, após aprovação.'],
+    ['💬','Comentário aprovado no hino',5,'Pontua após aprovação. Limite de 10 comentários por dia, somando hinos e Mural.'],
+    ['🤍','Mensagem aprovada no Mural',10,'Pontua após aprovação. Limite de 10 comentários por dia, somando hinos e Mural.'],
     ['🎼','Cifra aprovada',30,'Depois de conferida e aprovada pela equipe.'],
     ['📖','Estudo bíblico aprovado',60,'Depois de conferido e aprovado pela liderança.'],
     ['🎵','Hino registrado e aprovado',30,'Depois de registrado e reconhecido pela liderança; um crédito por hino.']
