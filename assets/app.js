@@ -1093,9 +1093,8 @@
       : '';
     setText('login-button-text', user ? (nomeConta?'Olá, '+nomeConta:'Olá!') : 'Entrar');
     if($('login-button'))$('login-button').setAttribute('aria-label',user?'Abrir Minha Conta e acompanhar meu nível':'Entrar ou criar conta');
-    if (user) {
-      setText('logged-in-user', `Conectado como ${memberDisplayName() || user.email || 'membro da igreja'}. Você pode participar do mural, enviar cifras e comentar nos hinos.`);
-    }
+    // O primeiro nome já aparece no topo; não repetimos um texto extenso no painel.
+    if($('logged-in-user'))$('logged-in-user').hidden=Boolean(user);
     const send=$('send-comment');if(send)send.disabled=!user;
     if($('mural-member-notice'))$('mural-member-notice').hidden=Boolean(user);
     window.IGREJA_MEMBROS?.refresh?.();
