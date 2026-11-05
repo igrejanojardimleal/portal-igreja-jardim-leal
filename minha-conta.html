@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f9f3">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="Minha Conta na comunidade da Igreja no Jardim Leal: progresso pessoal, níveis, conquistas e configurações.">
+  <title>Minha Conta · Comunidade IGJAL</title>
+  <link rel="icon" type="image/png" href="assets/fotos/logo-igreja-oficial.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/conta.css?v=20261105-minha-conta-v1">
+</head>
+<body>
+  <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
+  <header class="account-header">
+    <div class="shell account-header-content">
+      <a class="brand" href="index.html" aria-label="Voltar ao portal da igreja">
+        <img src="assets/fotos/logo-igreja-oficial.png" alt="" width="41" height="41">
+        <span><strong>IGREJA NO JARDIM LEAL</strong><small>OBRA DA RESTAURAÇÃO</small></span>
+      </a>
+      <nav class="header-links" aria-label="Links da conta">
+        <a href="index.html">← Portal</a>
+        <button type="button" id="account-signout" hidden>Sair</button>
+      </nav>
+    </div>
+  </header>
+  <main id="conteudo" class="shell">
+    <div id="account-loading" class="login-prompt" role="status">Carregando sua conta...</div>
+    <section id="account-login-needed" class="login-prompt" hidden>
+      <div class="emoji" aria-hidden="true">🌿</div>
+      <h1>Entre para ver sua caminhada</h1>
+      <p>Os pontos, níveis e selos são particulares da sua conta. Entre no portal para acompanhar suas conquistas.</p>
+      <a href="index.html" class="action-link">Entrar ou criar conta no portal</a>
+    </section>
+    <div id="account-main" hidden>
+      <section class="welcome" aria-label="Resumo do seu nível">
+        <div class="mini-label">COMUNIDADE IGJAL · MINHA CONTA</div>
+        <h1>Olá, <span id="account-first-name">membro</span>!</h1>
+        <p>Seu espaço para acompanhar o que você tem construído com a comunidade.</p>
+        <div class="welcome-bottom">
+          <div id="account-level-icon" class="level-medallion" aria-hidden="true">🌱</div>
+          <div class="level-copy">
+            <div class="mini-label">SEU NÍVEL</div>
+            <strong id="account-level-name">Nível 1 — Semente</strong>
+            <small id="account-total-points">0 pontos acumulados</small>
+            <div class="progress-track" role="progressbar" aria-label="Progresso até o próximo nível" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="account-xp-progress">
+              <span id="account-xp-fill"></span>
+            </div>
+            <div class="xp-line"><span id="account-xp-current">0 / 25 XP</span><span id="account-xp-to-next">Faltam 25 pontos</span></div>
+          </div>
+        </div>
+      </section>
+      <nav class="account-tabs" aria-label="Áreas da minha conta" role="tablist">
+        <button type="button" id="account-tab-progresso" data-account-tab="progresso" role="tab" aria-selected="true" aria-controls="account-panel-progresso">Meu progresso</button>
+        <button type="button" id="account-tab-niveis" data-account-tab="niveis" role="tab" aria-selected="false" aria-controls="account-panel-niveis">Níveis e selos</button>
+        <button type="button" id="account-tab-configuracoes" data-account-tab="configuracoes" role="tab" aria-selected="false" aria-controls="account-panel-configuracoes">Configurações</button>
+      </nav>
+
+      <section id="account-panel-progresso" class="tab-panel" role="tabpanel" aria-labelledby="account-tab-progresso" data-account-panel="progresso">
+        <div class="section-card">
+          <h2>Meu progresso</h2>
+          <p class="section-lead">Uma forma simples de acompanhar a sua participação.</p>
+          <div class="summary-stats">
+            <div class="stat"><small>Pontos acumulados</small><strong id="stat-total">0</strong></div>
+            <div class="stat"><small>Próximo nível</small><strong id="stat-next" class="compact">Nível 2</strong></div>
+            <div class="stat"><small>Últimos 30 dias</small><strong id="stat-30">0</strong> <em>pontos</em></div>
+          </div>
+        </div>
+        <div class="section-card">
+          <h2>🌿 Membro ativo</h2>
+          <p class="section-lead" id="active-description">Conquiste 30 pontos em 30 dias para ganhar o selo de atividade.</p>
+          <div class="progress-track slim" role="progressbar" aria-label="Progresso até o selo Membro ativo" aria-valuemin="0" aria-valuemax="30" aria-valuenow="0" id="active-progress">
+            <span id="active-fill"></span>
+          </div>
+          <p class="active-note" id="active-remaining">Faltam 30 pontos neste período</p>
+        </div>
+        <div class="section-card">
+          <h2>Meus selos</h2>
+          <p class="section-lead">Aqui aparecem somente as conquistas que você já recebeu.</p>
+          <div id="earned-badges" class="badge-strip" aria-live="polite"></div>
+          <p class="subtle-note">Seus selos de colaboração são concedidos após aprovação. O selo de membro ativo acompanha seus últimos 30 dias.</p>
+          <div style="margin-top:17px">
+            <button type="button" id="view-achievements" class="action-link">Conhecer níveis e todas as conquistas ›</button>
+          </div>
+        </div>
+        <div class="section-card">
+          <h2>Continue participando</h2>
+          <p class="section-lead">Explore o que já existe no portal, de acordo com seus interesses.</p>
+          <div class="badge-strip">
+            <a class="action-link ghost" href="louvores.html">♫ Hinário</a>
+            <a class="action-link ghost" href="mural.html">♡ Mural de Bênçãos</a>
+            <a class="action-link ghost" href="estudos-biblicos.html">📖 Estudos</a>
+            <a class="action-link ghost" href="canal.html">▶ Canal</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="account-panel-niveis" class="tab-panel" role="tabpanel" aria-labelledby="account-tab-niveis" data-account-panel="niveis" hidden>
+        <div class="section-card">
+          <h2>Seu caminho de níveis</h2>
+          <p class="section-lead">São sete níveis. Toque em cada um para saber o significado e quantos pontos são necessários. Não há ranking entre membros.</p>
+          <div id="all-levels" class="level-list"></div>
+        </div>
+        <div class="section-card">
+          <h2>Selos e conquistas</h2>
+          <p class="section-lead">Veja quais você já conquistou e como conseguir os próximos. Os selos não substituem a participação na vida da igreja.</p>
+          <div id="all-badges" class="badge-grid"></div>
+        </div>
+        <div class="section-card">
+          <h2>Como ganhar pontos?</h2>
+          <p class="section-lead">As contribuições são registradas automaticamente quando atendem às regras; publicações precisam ser aprovadas.</p>
+          <div id="how-to-points" class="points-list"></div>
+          <p class="subtle-note">Curtidas, downloads e interações têm limites para evitar pontuação artificial. Não há pontos por doações, ofertas ou práticas espirituais.</p>
+        </div>
+      </section>
+
+      <section id="account-panel-configuracoes" class="tab-panel" role="tabpanel" aria-labelledby="account-tab-configuracoes" data-account-panel="configuracoes" hidden>
+        <div class="settings-grid">
+          <div class="section-card">
+            <h2>Meus dados</h2>
+            <p class="section-lead">Seu nome aparece nas mensagens; telefone e e-mail não são exibidos publicamente.</p>
+            <form id="account-profile-form" class="form-stack">
+              <label for="profile-first">Nome</label>
+              <input id="profile-first" name="first" type="text" autocomplete="given-name" maxlength="40" required>
+              <label for="profile-last">Sobrenome</label>
+              <input id="profile-last" name="last" type="text" autocomplete="family-name" maxlength="40" required>
+              <label for="profile-email">E-mail para entrar</label>
+              <input id="profile-email" name="email" type="email" readonly disabled>
+              <label for="profile-phone">Telefone ou WhatsApp com DDD</label>
+              <input id="profile-phone" name="phone" type="tel" autocomplete="tel-national" inputmode="tel" maxlength="20" placeholder="(21) 99999-9999">
+              <p class="small-help">O contato é privado e serve apenas para comunicação e suporte da igreja. Informá-lo não confirma automaticamente a identidade.</p>
+              <button type="submit" class="btn-primary">Salvar meus dados</button>
+              <p id="profile-status" class="form-message" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+          <div class="section-card">
+            <h2>Senha e segurança</h2>
+            <p class="section-lead">Use uma senha de pelo menos 8 caracteres e não a compartilhe com outras pessoas.</p>
+            <form id="account-password-form" class="form-stack">
+              <label for="new-password">Nova senha</label>
+              <input id="new-password" type="password" autocomplete="new-password" minlength="8" required>
+              <label for="confirm-password">Repetir nova senha</label>
+              <input id="confirm-password" type="password" autocomplete="new-password" minlength="8" required>
+              <button type="submit" class="btn-primary">Alterar minha senha</button>
+              <p id="password-status" class="form-message" role="status" aria-live="polite"></p>
+            </form>
+            <div style="border-top:1px solid #e6ebe5;margin-top:24px;padding-top:18px">
+              <h3>Outros acessos</h3>
+              <a id="account-admin-link" class="action-link ghost" href="administracao.html" hidden>🛡️ Abrir área administrativa</a>
+              <a class="action-link ghost" style="margin-top:8px" href="index.html">← Voltar ao portal</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer class="site-footer">IGJAL · Igreja no Jardim Leal · Sua participação com carinho e responsabilidade</footer>
+  <script defer src="config.js?v=20261103-login-supabase"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script defer src="assets/conta.js?v=20261105-minha-conta-v1"></script>
+</body>
+</html>
