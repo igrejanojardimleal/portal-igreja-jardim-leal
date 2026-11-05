@@ -1315,6 +1315,7 @@
     window.IGREJA_LIVE?.init?.({db:()=>db,isAdmin:()=>isAdmin,hasArea:canArea});
     window.IGREJA_KITS?.init?.({db:()=>db,isAdmin:()=>isAdmin,hasArea:canArea});
     window.IGREJA_ACESSOS?.init?.({db:()=>db,isAdmin:()=>isAdmin,canVerify:()=>isMemberVerifier});
+    window.IGREJA_VERIFICACOES?.init?.({db:()=>db,isAdmin:()=>isAdmin,canVerify:()=>isMemberVerifier,user:()=>user});
     if (window.IGREJA_V4?.init) await window.IGREJA_V4.init({
       db:()=>db,
       isAdmin:()=>isAdmin,
