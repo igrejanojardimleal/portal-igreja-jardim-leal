@@ -11,6 +11,31 @@
     hour:'2-digit',minute:'2-digit',hourCycle:'h23'
   });
   let verses=[],currentSlot=null,currentSelection=null;
+  let dbPromessas=null;
+  function clientePontos(){
+    if(dbPromessas)return dbPromessas;
+    const config=window.IGREJA_CONFIG?.supabase;
+    if(!config?.url||!config?.anonKey||!window.supabase?.createClient)return null;
+    dbPromessas=window.supabase.createClient(config.url,config.anonKey,{
+      auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
+    });
+    return dbPromessas;
+  }
+  async function registrarCompartilhamento(){
+    try{
+      const db=clientePontos();
+      if(!db)return;
+      const {data}=await db.auth.getSession();
+      if(!data?.session?.user)return; // Compartilhamento é livre; pontos exigem login.
+      const {error}=await db.rpc('igjal_registrar_interacao',{
+        p_tipo:'promessa',p_recurso:'promessa:atual'
+      });
+      if(error)throw error;
+    }catch(err){
+      console.warn('[IGJAL] Pontos do compartilhamento indisponíveis:',err.message);
+    }
+  }
+
   function localTime(){
     const p={};for(const part of timezoneParts.formatToParts(new Date()))if(part.type!=='literal')p[part.type]=Number(part.value);
     return p;
@@ -88,6 +113,7 @@
   async function start(){
     if(!$('igjal-promise-text'))return;
     $('igjal-promise-copy')?.addEventListener('click',copyCurrent);
+    $('igjal-promise-whatsapp')?.addEventListener('click',()=>{void registrarCompartilhamento();});
     try{
       const response=await fetch(SOURCE,{cache:'force-cache'});
       if(!response.ok)throw new Error('Arquivo de versículos indisponível');
