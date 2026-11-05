@@ -134,3 +134,13 @@
 .igjal-selo.is-earned{background:#e6f2e7;border-color:#a7c7ae;color:#2d6847;font-weight:750}
 .igjal-contribuicao #igjal-progresso-aviso{font-size:11px;line-height:1.5;margin:12px 0 0}
 @media(max-width:500px){.igjal-contribuicao{padding:13px 12px}.igjal-progresso-topo{font-size:9px}}
+
+/* Selo azul da identidade reconhecida pela liderança, separado do e-mail. */
+.igjal-selo-verificado{
+ display:inline-flex;vertical-align:middle;align-items:center;justify-content:center;
+ width:17px;height:17px;margin-left:6px;border-radius:50%;
+ background:#1f79bd;color:#fff;font-size:11px;font-weight:800;
+ border:1px solid #e3edf6;line-height:1;white-space:nowrap;
+ box-shadow:0 0 0 1px rgba(35,110,170,.06);
+}
+.igjal-contribuicao .igjal-selo.is-earned{border-color:#a7c7ae;background:#e6f2e7;color:#2d6847}
