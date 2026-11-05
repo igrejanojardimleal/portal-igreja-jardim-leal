@@ -1094,7 +1094,7 @@
       db = window.supabase.createClient(url, anonKey, {
         auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true }
       });
-      setText('login-mode-note', 'Para comentar no mural ou nos hinos, entre ou crie sua conta com e-mail confirmado.');
+      setText('login-mode-note', 'Para participar do mural e dos hinos, entre ou crie sua conta com e-mail e senha.');
       const { data: sessionData } = await db.auth.getSession();
       user = sessionData.session?.user || null;
       updateAuthUI();
