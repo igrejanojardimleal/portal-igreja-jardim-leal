@@ -31,8 +31,9 @@
     ['💌','Compartilhar a Caixinha de Promessas',1,'Uma vez por período de promessa; até 2 por dia.'],
     ['💬','Comentário aprovado no hino',5,'Até 2 comentários pontuados por mês, após aprovação.'],
     ['🤍','Mensagem aprovada no Mural',10,'Até 2 mensagens pontuadas por mês, após aprovação.'],
-    ['🎼','Cifra aprovada',50,'Depois de conferida e aprovada pela equipe.'],
-    ['📖','Estudo bíblico aprovado',100,'Depois de conferido e aprovado pela liderança.']
+    ['🎼','Cifra aprovada',30,'Depois de conferida e aprovada pela equipe.'],
+    ['📖','Estudo bíblico aprovado',60,'Depois de conferido e aprovado pela liderança.'],
+    ['🎵','Hino registrado e aprovado',30,'Depois de registrado e reconhecido pela liderança; um crédito por hino.']
   ];
   let db=null,user=null,progress=null;
   let rankingLoadedAt=0,rankingLoading=false;
@@ -279,8 +280,8 @@
     finally{btn.disabled=false;}
   }
   async function maybeEnableAdmin(){
-    const link=$('account-admin-link');
-    if(!link||!db||!user)return;
+    const link=$('account-admin-link'),topLink=$('account-admin-top-link');
+    if((!link&&!topLink)||!db||!user)return;
     // A mesma matriz de permissões do portal: administrador geral ou responsável por alguma área.
     const roles=[
       db.rpc('is_site_admin'),db.rpc('igjal_pode_verificar'),
@@ -292,9 +293,10 @@
     try{
       const responses=await Promise.all(roles);
       const autorizado=responses.some(result=>!result.error&&result.data===true);
-      if(user){link.hidden=!autorizado;}
+      if(user){if(link)link.hidden=!autorizado;if(topLink)topLink.hidden=!autorizado;}
     }catch(error){
-      link.hidden=true;
+      if(link)link.hidden=true;
+      if(topLink)topLink.hidden=true;
       console.warn('[IGJAL] Não foi possível conferir o acesso ao painel:',error.message);
     }
   }
