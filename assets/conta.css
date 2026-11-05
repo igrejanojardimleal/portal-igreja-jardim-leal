@@ -113,3 +113,35 @@ main.shell{padding:29px 0 54px}
 @media(max-width:720px){.summary-stats{grid-template-columns:1fr 1fr}.settings-grid,.level-list,.badge-grid{grid-template-columns:1fr}.welcome{padding:19px 18px}.section-card{padding:17px}.active-grid{grid-template-columns:1fr}}
 @media(max-width:440px){.shell{width:calc(100% - 24px)}.account-header-content{min-height:68px}.brand img{width:35px;height:35px}.brand strong{font-size:10px}.brand small{font-size:9px}.header-links{gap:5px}.header-links a,.header-links button{font-size:10px;padding:7px 8px}.welcome h1{font-size:22px}.welcome-bottom{gap:9px}.level-medallion{width:47px;height:47px;flex-basis:47px;font-size:23px}.level-copy strong{font-size:15px}.account-tabs{gap:3px;padding:5px}.account-tabs button{font-size:11px;padding:9px 3px}.summary-stats{gap:7px}.stat{padding:12px}.stat strong{font-size:18px}.point-row{grid-template-columns:27px 1fr auto;gap:7px}.point-row strong{font-size:11px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* Ranking reservado a membros: três vitrines discretas, sem dados de contato. */
+.ranking-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.ranking-head>div{flex:1 1 240px}
+.ranking-head .section-lead{margin-bottom:8px}
+.ranking-refresh{border:1px solid #d4e3d7;border-radius:10px;background:#f6faf6;color:#376d4f;font-size:12px;font-weight:750;padding:8px 11px;white-space:nowrap;cursor:pointer}
+.ranking-refresh:hover{background:#eaf4ec}
+.ranking-refresh:disabled{opacity:.6;cursor:wait}
+.ranking-note{font-size:11px;color:#61776a;background:#f3f7f2;border:1px solid #e3ebe3;border-radius:11px;padding:10px 12px;margin:11px 0 16px}
+.ranking-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:stretch}
+.ranking-card{min-width:0;border:1px solid #e0e9e1;border-radius:15px;background:#fcfdfa;overflow:hidden}
+.ranking-card-top{display:flex;align-items:center;gap:10px;padding:14px 13px 12px;border-bottom:1px solid #e6eee6;background:#f5f9f4}
+.ranking-card-top>span{display:grid;place-items:center;width:33px;height:33px;border-radius:10px;background:white;font-size:19px;flex:0 0 33px}
+.ranking-card-top h3{margin:0;color:#244f3a;font-size:13px;line-height:1.25}
+.ranking-card-top p{margin:3px 0 0;color:#819083;font-size:10px;line-height:1.3}
+.ranking-list{margin:0;padding:7px 10px;list-style:none;display:grid;gap:1px}
+.ranking-item{display:grid;grid-template-columns:27px minmax(0,1fr) auto;align-items:center;gap:7px;border-radius:10px;padding:10px 6px;min-height:50px}
+.ranking-item + .ranking-item{border-top:1px solid #edf1ec}
+.ranking-item.is-me{background:#e8f5ea;outline:1px solid #d1e6d3}
+.ranking-place{display:grid;place-items:center;width:25px;height:25px;border-radius:8px;background:#eef2ec;color:#658070;font-size:11px;font-weight:850}
+.ranking-item:nth-child(1) .ranking-place{background:#fff0c9;color:#8b6817}
+.ranking-item:nth-child(2) .ranking-place{background:#edf1f4;color:#627787}
+.ranking-item:nth-child(3) .ranking-place{background:#f5e7dd;color:#996d52}
+.ranking-person{font-size:12px;line-height:1.3;color:#354f3f;font-weight:750;min-width:0;overflow-wrap:anywhere}
+.ranking-me-mark{display:block;margin-top:2px;font-size:9px;color:#378052;font-weight:750}
+.ranking-score{color:#427558;font-size:11px;font-weight:850;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ranking-score small{font-size:9px;color:#8a9e8f;font-weight:600}
+.ranking-placeholder{color:#7d9183;font-size:11px;padding:16px 8px;text-align:center;line-height:1.6;list-style:none}
+.ranking-status{font-size:11px;color:#708273;margin:13px 0 4px}
+.ranking-status:empty{display:none}
+@media(max-width:850px){.ranking-grid{grid-template-columns:1fr}.ranking-list{padding:9px 12px}.ranking-item{grid-template-columns:32px 1fr auto;min-height:52px;padding:9px}.ranking-card-top{padding:12px 14px}.ranking-card-top h3{font-size:14px}}
+@media(max-width:440px){.account-tabs button{font-size:10px;padding:9px 3px;line-height:1.2}.ranking-head{gap:8px}.ranking-head .section-lead{margin-bottom:4px}}
