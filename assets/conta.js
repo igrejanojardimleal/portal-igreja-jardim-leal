@@ -279,10 +279,24 @@
     finally{btn.disabled=false;}
   }
   async function maybeEnableAdmin(){
+    const link=$('account-admin-link');
+    if(!link||!db||!user)return;
+    // A mesma matriz de permissões do portal: administrador geral ou responsável por alguma área.
+    const roles=[
+      db.rpc('is_site_admin'),db.rpc('igjal_pode_verificar'),
+      db.rpc('can_manage_events'),db.rpc('can_moderate_mural'),
+      db.rpc('can_review_studies'),
+      ...['cifras','hinos','midias','kits','live','identidade','editor_estudos','comentarios_hinos']
+        .map(p_area=>db.rpc('can_manage_area',{p_area}))
+    ];
     try{
-      const r=await Promise.all([db.rpc('is_site_admin'),db.rpc('igjal_pode_verificar')]);
-      $('account-admin-link').hidden=!(r.some(v=>v.data===true&&!v.error));
-    }catch(_){/* Consulta opcional, a segurança do painel continua no servidor. */}
+      const responses=await Promise.all(roles);
+      const autorizado=responses.some(result=>!result.error&&result.data===true);
+      if(user){link.hidden=!autorizado;}
+    }catch(error){
+      link.hidden=true;
+      console.warn('[IGJAL] Não foi possível conferir o acesso ao painel:',error.message);
+    }
   }
   async function initialize(){
     renderRewards();
