@@ -388,3 +388,21 @@ main.shell{padding-top:32px}
 
 /* A grade sutil fica atrás do conteúdo sem bloquear cliques. */
 main.shell,.site-footer{position:relative;z-index:1}
+
+/* Acabamento de painel tecnológico: foco claro, conforto visual e contraste. */
+.account-tabs button:focus-visible,
+.ranking-refresh:focus-visible,
+.form-stack input:focus-visible,
+.btn-primary:focus-visible,
+.header-links a:focus-visible,
+.header-links button:focus-visible{
+  outline:2px solid #8cebd4;
+  outline-offset:3px;
+}
+.ranking-item.is-me{background:#17423f;outline:1px solid #428f87}
+.ranking-list .ranking-item:first-child{border-top:0}
+.ranking-placeholder{color:#acc3d3}
+.ranking-score small{color:#adc5d4}
+@media (prefers-reduced-motion:reduce){
+  .progress-track span{transition:none}
+}
