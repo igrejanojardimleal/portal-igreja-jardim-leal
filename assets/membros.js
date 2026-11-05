@@ -27,13 +27,14 @@ window.IGREJA_MEMBROS = (() => {
       const inicio=[0,0,25,75,175,350,1500,10001][nivel];
       $('igjal-barra-pontos').style.width=(proximo===null?100:Math.max(0,Math.min(100,(total-inicio)/(proximo-inicio)*100)))+'%';
       const selos=[
-        ['verificado','✓ Conta cadastrada'],
+        ['verificado','✓ Membro verificado pela igreja'],
         ['colaborou_cifra','🎼 Colaborou com cifra'],
-        ['colaborou_hino','🎵 Colaborou com hino'],
+        ['colaborou_hino','🎵 Colaborou com letra/hino'],
         ['colaborou_estudo','📖 Colaborou com estudo'],
         ['membro_ativo','🌿 Membro ativo']
       ];
       const container=$('igjal-selos');container.replaceChildren();
+      const cadastro=document.createElement('span');cadastro.className='igjal-selo is-earned';cadastro.textContent='👤 Conta cadastrada';container.append(cadastro);
       for(const [chave,titulo] of selos){
         const tag=document.createElement('span');
         tag.className='igjal-selo'+(data?.[chave]?' is-earned':'');
@@ -293,5 +294,5 @@ window.IGREJA_MEMBROS = (() => {
     }
     refresh();
   }
-  return {init,refresh,displayName};
+  return {init,refresh,displayName,atualizarProgresso};
 })();
