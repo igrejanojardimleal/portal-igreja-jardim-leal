@@ -53,13 +53,13 @@ window.IGREJA_ACESSOS = (()=>{
    heading.append(make('strong',user.nome_completo||user.email,'access-email'));
    if(user.nome_completo)heading.append(make('p',user.email,'muted'));
    const registered=user.cadastrado_em?new Date(user.cadastrado_em).toLocaleDateString('pt-BR'):'—';
-   heading.append(make('small','Cadastro: '+registered+' · '+(user.email_confirmado?'E-mail confirmado':'Aguardando confirmação'),'muted'));
+   heading.append(make('small','Cadastro: '+registered+' · '+(user.email_confirmado?'Conta habilitada':'Aguardando ativação'),'muted'));
    card.append(heading);
    const hinoReconhecido=hinoUsers.has(user.user_id);
    const botaoHino=make('button',(hinoReconhecido?'✓ Retirar selo: ':'+ Conceder selo: ')+'Colaborou com hino',
      hinoReconhecido?'btn btn-outline btn-sm access-role-button is-granted':'btn btn-outline btn-sm access-role-button');
    botaoHino.type='button';botaoHino.disabled=!user.email_confirmado;
-   botaoHino.title=user.email_confirmado?'Reconhecimento pela colaboração com o hinário, sem conceder acesso de edição.':'Confirme o e-mail antes de atribuir o selo.';
+   botaoHino.title=user.email_confirmado?'Reconhecimento pela colaboração com o hinário, sem conceder acesso de edição.':'A conta precisa estar ativada para receber o selo.';
    botaoHino.addEventListener('click',async()=>{
      if(ctx?.isAdmin?.()!==true||!ctx?.db?.())return;
      if(!window.confirm((hinoReconhecido?'Retirar':'Conceder')+' selo Colaborou com hino para '+(user.nome_completo||user.email)+'?'))return;
@@ -87,7 +87,7 @@ window.IGREJA_ACESSOS = (()=>{
       const label=make('p','Funções atuais: '+active.map(([area,label])=>label).join(' · '),'access-current-roles');
       card.append(label);
     }else card.append(make('p','Nenhuma permissão administrativa atribuída.','muted'));
-    if(!user.email_confirmado)details.append(make('p','Esta conta precisa confirmar o e-mail antes de receber permissões.','muted'));
+    if(!user.email_confirmado)details.append(make('p','Esta conta precisa ser ativada antes de receber permissões.','muted'));
     for(const group of ROLES){
       const section=make('section',undefined,'access-role-section');
       section.append(make('h4',group.title));
@@ -99,7 +99,7 @@ window.IGREJA_ACESSOS = (()=>{
         button.type='button';
         button.disabled=!user.email_confirmado;
         button.setAttribute('aria-pressed',String(enabled));
-        if(!user.email_confirmado)button.title='Confirme o e-mail antes de receber acesso.';
+        if(!user.email_confirmado)button.title='A conta precisa estar ativada antes de receber acesso.';
         button.addEventListener('click',async()=>{
           if(ctx?.isAdmin?.()!==true||!ctx?.db?.())return;
           const verb=enabled?'Retirar':'Conceder';
