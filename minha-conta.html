@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/conta.css?v=20261105-minha-conta-v1">
+  <link rel="stylesheet" href="assets/conta.css?v=20261105-top5-v2">
 </head>
 <body>
   <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
@@ -56,6 +56,7 @@
       <nav class="account-tabs" aria-label="Áreas da minha conta" role="tablist">
         <button type="button" id="account-tab-progresso" data-account-tab="progresso" role="tab" aria-selected="true" aria-controls="account-panel-progresso">Meu progresso</button>
         <button type="button" id="account-tab-niveis" data-account-tab="niveis" role="tab" aria-selected="false" aria-controls="account-panel-niveis">Níveis e selos</button>
+        <button type="button" id="account-tab-ranking" data-account-tab="ranking" role="tab" aria-selected="false" aria-controls="account-panel-ranking">Top 5</button>
         <button type="button" id="account-tab-configuracoes" data-account-tab="configuracoes" role="tab" aria-selected="false" aria-controls="account-panel-configuracoes">Configurações</button>
       </nav>
 
@@ -101,7 +102,7 @@
       <section id="account-panel-niveis" class="tab-panel" role="tabpanel" aria-labelledby="account-tab-niveis" data-account-panel="niveis" hidden>
         <div class="section-card">
           <h2>Seu caminho de níveis</h2>
-          <p class="section-lead">São sete níveis. Toque em cada um para saber o significado e quantos pontos são necessários. Não há ranking entre membros.</p>
+          <p class="section-lead">São sete níveis. Toque em cada um para saber o significado e quantos pontos são necessários. Os pontos reconhecem contribuições ao portal, não a importância de cada irmão.</p>
           <div id="all-levels" class="level-list"></div>
         </div>
         <div class="section-card">
@@ -114,6 +115,35 @@
           <p class="section-lead">As contribuições são registradas automaticamente quando atendem às regras; publicações precisam ser aprovadas.</p>
           <div id="how-to-points" class="points-list"></div>
           <p class="subtle-note">Curtidas, downloads e interações têm limites para evitar pontuação artificial. Não há pontos por doações, ofertas ou práticas espirituais.</p>
+        </div>
+      </section>
+
+      <section id="account-panel-ranking" class="tab-panel" role="tabpanel" aria-labelledby="account-tab-ranking" data-account-panel="ranking" hidden>
+        <div class="section-card">
+          <div class="ranking-head">
+            <div>
+              <h2>🏅 Top 5 da comunidade</h2>
+              <p class="section-lead">Veja os cinco membros com mais pontos em cada período. As listas são atualizadas conforme as contribuições válidas.</p>
+            </div>
+            <button id="ranking-refresh" class="ranking-refresh" type="button" title="Atualizar classificações" aria-label="Atualizar Top 5">↻ Atualizar</button>
+          </div>
+          <p class="ranking-note">Os nomes aparecem abreviados para preservar a privacidade. As listas são acessíveis somente a membros conectados.</p>
+          <div class="ranking-grid">
+            <section class="ranking-card" aria-labelledby="ranking-week-title">
+              <div class="ranking-card-top"><span aria-hidden="true">🗓️</span><div><h3 id="ranking-week-title">Top 5 da semana</h3><p>De segunda-feira até hoje</p></div></div>
+              <ol class="ranking-list" id="ranking-week" aria-live="polite"><li class="ranking-placeholder">Consultando...</li></ol>
+            </section>
+            <section class="ranking-card" aria-labelledby="ranking-month-title">
+              <div class="ranking-card-top"><span aria-hidden="true">📅</span><div><h3 id="ranking-month-title">Top 5 do mês</h3><p>Desde o primeiro dia do mês</p></div></div>
+              <ol class="ranking-list" id="ranking-month" aria-live="polite"><li class="ranking-placeholder">Consultando...</li></ol>
+            </section>
+            <section class="ranking-card" aria-labelledby="ranking-all-title">
+              <div class="ranking-card-top"><span aria-hidden="true">✨</span><div><h3 id="ranking-all-title">Top 5 de todos os tempos</h3><p>Todos os pontos acumulados</p></div></div>
+              <ol class="ranking-list" id="ranking-all" aria-live="polite"><li class="ranking-placeholder">Consultando...</li></ol>
+            </section>
+          </div>
+          <p id="ranking-status" class="ranking-status" role="status" aria-live="polite"></p>
+          <p class="subtle-note">Curtidas e atividades repetidas têm limites. Comentários, letras, cifras e estudos pontuam somente conforme as regras e aprovações da igreja. Isso é uma brincadeira de participação, não uma competição de fé.</p>
         </div>
       </section>
 
@@ -160,6 +190,6 @@
   <footer class="site-footer">IGJAL · Igreja no Jardim Leal · Sua participação com carinho e responsabilidade</footer>
   <script defer src="config.js?v=20261103-login-supabase"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script defer src="assets/conta.js?v=20261105-minha-conta-v1"></script>
+  <script defer src="assets/conta.js?v=20261105-top5-v2"></script>
 </body>
 </html>
