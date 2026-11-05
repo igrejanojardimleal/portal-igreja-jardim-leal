@@ -13,7 +13,7 @@
   const publicKey = String(cfg.supabase?.anonKey||'');
   const publicUrl = String(cfg.supabase?.url||'').replace(/\/$/,'');
   const isValidId = id => /^[A-Za-z0-9_-]{11}$/.test(String(id||''));
-  let blessedMessages=[],blessingTimer=null,mostRecentVideosRefresh=0;
+  let blessedMessages=[],blessingTimer=null,mostRecentVideosRefresh=0,muralFetchId=0;
 
   function saoPauloParts(value){
     const obj={};for(const p of partFormat.formatToParts(value)){if(p.type!=='literal')obj[p.type]=Number(p.value);}
@@ -124,6 +124,7 @@
   }
   async function loadMural(){
     if(!$('igjal-front-mural'))return;
+    const requisicao=++muralFetchId;
     try{
       const query=new URLSearchParams({
         select:'nome,mensagem,criado_em',
@@ -133,10 +134,17 @@
         limit:'15'
       });
       const rows=await publicRows('comentarios',query.toString());
+      if(requisicao!==muralFetchId)return;
       blessedMessages=rows.filter(r=>typeof r.mensagem==='string'&&r.mensagem.trim().length>=3);
-      if(!blessedMessages.length){$('igjal-front-mural').hidden=true;return;}
+      if(blessingTimer){clearInterval(blessingTimer);blessingTimer=null;}
+      if(!blessedMessages.length){
+        const quote=$('igjal-front-mural-text'),author=$('igjal-front-mural-author');
+        if(quote)quote.textContent='';
+        if(author)author.textContent='';
+        $('igjal-front-mural').hidden=true;
+        return;
+      }
       renderBlessing();
-      if(blessingTimer)clearInterval(blessingTimer);
       if(blessedMessages.length>1 && !matchMedia('(prefers-reduced-motion: reduce)').matches){
         blessingTimer=setInterval(()=>{if(!document.hidden)renderBlessing();},14000);
       }
@@ -163,6 +171,8 @@
     mostRecentVideosRefresh=Date.now();
     updateAll();
     setInterval(()=>{if(!document.hidden){updateAll();reloadVideosIfOld();}},5*60000);
+    // A página inicial remove mensagens apagadas do mural sem exigir atualização manual.
+    setInterval(()=>{if(!document.hidden)void loadMural();},60000);
     document.addEventListener('visibilitychange',()=>{if(!document.hidden){updateAll();reloadVideosIfOld();}});
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});
