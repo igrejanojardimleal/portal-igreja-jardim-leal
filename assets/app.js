@@ -1073,9 +1073,20 @@
   function initModeration() {
     const open=$('open-moderation');
     if(open)open.addEventListener('click',()=>{if(canOpenAdmin())location.href='administracao.html';});
-    $('reload-moderation')?.addEventListener('click',loadModeration);
+    $('reload-moderation')?.addEventListener('click',()=>void loadModeration());
     $('reload-cifras')?.addEventListener('click',loadCifraModeration);
     $('admin-login-action')?.addEventListener('click',()=>showDialog('login-dialog'));
+    // Quando o painel está aberto, atualiza a lista de mensagens,
+    // e não apenas o contador de pendências.
+    if($('admin-comments-panel')){
+      const refreshIfVisible=()=>{
+        if(!document.hidden && isMuralModerator && !$('admin-comments-panel').hidden){
+          void loadModeration();
+        }
+      };
+      window.setInterval(refreshIfVisible,45000);
+      document.addEventListener('visibilitychange',refreshIfVisible);
+    }
   }
 
   function updateAdminPanelAccess() {
