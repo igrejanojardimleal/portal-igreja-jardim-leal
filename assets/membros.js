@@ -107,6 +107,12 @@ window.IGREJA_MEMBROS = (() => {
       const {error,data}=await fn(db);
       if(error)throw error;
       status(typeof success==='function'?success(data):success);
+      // Após um login/cadastro concluído, não deixar a antiga janela da conta
+      // aberta sobre o portal: o membro poderá acessar tudo por "Olá, nome".
+      if(data?.session?.access_token){
+        const dialog=$('login-dialog');
+        if(dialog?.open)dialog.close();
+      }
     }catch(error){status('Não foi possível concluir: '+error.message,true);}
   }
   function refresh(){
