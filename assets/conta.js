@@ -70,23 +70,23 @@
     wrapper.setAttribute('aria-valuenow',String(Math.round(p)));
   }
 
-  function renderRankingList(listId,results){
+  function renderRankingList(listId,results,me){
     const list=$(listId);if(!list)return;
     list.replaceChildren();
-    const entries=Array.isArray(results)?results:[];
-    if(!entries.length){
+    const top5=Array.isArray(results)?results.slice(0,5):[];
+    if(!top5.length){
       const empty=document.createElement('li');
       empty.className='ranking-placeholder';
       empty.textContent='Ainda não há pontos registrados neste período.';
       list.append(empty);
-      return;
     }
-    for(const entry of entries.slice(0,5)){
+    const renderItem=(entry,pessoal=false)=>{
       const row=document.createElement('li');
-      row.className='ranking-item'+(entry.eu?' is-me':'');
+      row.className='ranking-item'+(entry.eu?' is-me':'')+(pessoal?' ranking-my-position':'');
       const pos=document.createElement('span');
       pos.className='ranking-place';
-      pos.textContent=String(Number(entry.posicao)||1);
+      pos.textContent=String(Number(entry.posicao)||'—');
+      pos.setAttribute('aria-label',String(entry.posicao||'')+'ª posição');
       const name=document.createElement('span');
       name.className='ranking-person';
       name.textContent=String(entry.nome||'Membro').slice(0,40);
@@ -99,11 +99,19 @@
       const score=document.createElement('span');
       score.className='ranking-score';
       score.textContent=nf(entry.pontos)+' ';
-      const unit=document.createElement('small');
-      unit.textContent='pts';
+      const unit=document.createElement('small');unit.textContent='pts';
       score.append(unit);
       row.append(pos,name,score);
       list.append(row);
+    };
+    top5.forEach(entry=>renderItem(entry));
+    const meuLugar=Number(me?.posicao);
+    if(Number.isInteger(meuLugar)&&meuLugar>5 && !top5.some(entry=>entry.eu===true)){
+      const divider=document.createElement('li');
+      divider.className='ranking-self-separator';
+      divider.textContent='Sua posição';
+      list.append(divider);
+      renderItem(me,true);
     }
   }
   async function refreshRanking(force=false){
@@ -117,9 +125,9 @@
       const {data,error}=await db.rpc('igjal_top5_comunidade');
       if(error)throw error;
       if(!data||typeof data!=='object')throw new Error('Resultado indisponível');
-      renderRankingList('ranking-week',data.semana);
-      renderRankingList('ranking-month',data.mes);
-      renderRankingList('ranking-all',data.geral);
+      renderRankingList('ranking-week',data.semana,data.eu_semana);
+      renderRankingList('ranking-month',data.mes,data.eu_mes);
+      renderRankingList('ranking-all',data.geral,data.eu_geral);
       rankingLoadedAt=Date.now();
       text('ranking-status','Classificações atualizadas com pontos registrados no portal.');
     }catch(error){
