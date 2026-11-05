@@ -48,6 +48,18 @@ window.IGREJA_MEMBROS = (() => {
   }
   const redirect=()=>new URL('index.html',location.href).href;
   const cleanName=value=>String(value||'').trim().replace(/\s+/g,' ');
+  // Telefone é contato privado, não é verificação de identidade nem usado para permissões.
+  function normalizarTelefone(value){
+    const digits=String(value||'').replace(/\D/g,'');
+    const nacional=digits.startsWith('55')&&[12,13].includes(digits.length)?digits.slice(2):digits;
+    return /^[1-9]{2}[2-9]\d{7,8}$/.test(nacional)?'+55'+nacional:'';
+  }
+  function mostrarTelefone(value){
+    const tel=normalizarTelefone(value);
+    if(!tel)return '';
+    const n=tel.slice(3);
+    return '('+n.slice(0,2)+') '+(n.length===11?n.slice(2,7)+'-'+n.slice(7):n.slice(2,6)+'-'+n.slice(6));
+  }
   function displayName(u){
     const meta=u?.user_metadata||{};
     const first=cleanName(meta.first_name),last=cleanName(meta.last_name);
@@ -95,6 +107,7 @@ window.IGREJA_MEMBROS = (() => {
         const split=saved ? saved.split(' ') : [];
         $('member-profile-first').value=cleanName(meta.first_name)||split[0]||'';
         $('member-profile-last').value=cleanName(meta.last_name)||split.slice(1).join(' ');
+        if($('member-profile-phone'))$('member-profile-phone').value=mostrarTelefone(meta.telefone_contato);
       }
       const note=$('member-profile-note');
       if(note)note.textContent=user&&!saved?'Complete seu nome e sobrenome para publicar mensagens e comentários.':'Seu nome cadastrado será usado automaticamente no mural e nos comentários.';
@@ -125,6 +138,9 @@ window.IGREJA_MEMBROS = (() => {
         <label for="member-signup-first">Nome</label><input id="member-signup-first" type="text" autocomplete="given-name" maxlength="40" required placeholder="Seu nome">
         <label for="member-signup-last">Sobrenome</label><input id="member-signup-last" type="text" autocomplete="family-name" maxlength="40" required placeholder="Seu sobrenome">
         <label for="member-signup-email">E-mail</label><input id="member-signup-email" type="email" autocomplete="email" required>
+        <label for="member-signup-phone">Telefone ou WhatsApp com DDD</label>
+        <input id="member-signup-phone" type="tel" inputmode="tel" autocomplete="tel-national" maxlength="20" placeholder="(21) 99999-9999" required>
+        <small>Seu telefone será usado somente para contato da igreja e suporte ao cadastro. Não aparecerá publicamente.</small>
         <label for="member-signup-password">Crie uma senha (mínimo 8 caracteres)</label>
         <input id="member-signup-password" type="password" autocomplete="new-password" required minlength="8">
         <label for="member-signup-password-confirm">Repita a senha</label>
@@ -163,11 +179,13 @@ window.IGREJA_MEMBROS = (() => {
       const first=cleanName($('member-signup-first').value),last=cleanName($('member-signup-last').value);
       const full=cleanName(first+' '+last);
       if(!first||!last||full.length>60){status('Informe nome e sobrenome válidos (até 60 caracteres no total).',true);return;}
+      const telefone=normalizarTelefone($('member-signup-phone').value);
+      if(!telefone){status('Informe um telefone com DDD válido, como (21) 99999-9999.',true);return;}
       const password=$('member-signup-password').value;
       if(password!==$('member-signup-password-confirm').value){status('As senhas precisam ser iguais.',true);return;}
-      await submit(db=>db.auth.signUp({email,password,options:{emailRedirectTo:redirect(),data:{first_name:first,last_name:last,full_name:full}}}),
+      await submit(db=>db.auth.signUp({email,password,options:{emailRedirectTo:redirect(),data:{first_name:first,last_name:last,full_name:full,telefone_contato:telefone}}}),
         'Preparando seu cadastro...',
-        'Confira seu e-mail e confirme o cadastro antes de entrar. Se a conta já existir, use Recuperar senha.');
+        data=>data?.session?'Cadastro concluído e acesso liberado. Seu telefone foi registrado com privacidade.':'Cadastro recebido. Seu telefone foi registrado. Se a confirmação de e-mail estiver habilitada, confirme o link recebido para entrar.');
       $('member-signup-password').value='';
       $('member-signup-password-confirm').value='';
     });
@@ -196,7 +214,7 @@ window.IGREJA_MEMBROS = (() => {
         <details class="member-registration-details" id="member-registration-details">
           <summary class="member-registration-summary">
             <span class="member-registration-icon" aria-hidden="true">👤</span>
-            <span><strong>Cadastro</strong><small>Nome, sobrenome e senha da conta</small></span>
+            <span><strong>Cadastro</strong><small>Nome, sobrenome, telefone e senha da conta</small></span>
             <span class="member-registration-arrow" aria-hidden="true">⌄</span>
           </summary>
           <div class="member-registration-content">
@@ -205,6 +223,9 @@ window.IGREJA_MEMBROS = (() => {
           <p class="muted" id="member-profile-note"></p>
           <label for="member-profile-first">Nome</label><input type="text" id="member-profile-first" autocomplete="given-name" required maxlength="40">
           <label for="member-profile-last">Sobrenome</label><input type="text" id="member-profile-last" autocomplete="family-name" required maxlength="40">
+          <label for="member-profile-phone">Telefone ou WhatsApp (privado)</label>
+          <input type="tel" id="member-profile-phone" autocomplete="tel-national" inputmode="tel" maxlength="20" placeholder="(21) 99999-9999">
+          <small>Este telefone é usado apenas para contato da igreja e suporte à conta. Não será publicado nos comentários.</small>
           <button class="btn btn-outline" type="submit">Salvar nome e sobrenome</button>
           <p class="form-status" id="member-profile-status" role="status"></p>
         </form>
@@ -232,12 +253,15 @@ window.IGREJA_MEMBROS = (() => {
       heading.textContent='🪪 Cadastro e configurações';
       const explanation=document.createElement('p');
       explanation.className='muted';
-      explanation.textContent='Atualize seu nome, sobrenome ou senha quando precisar.';
+      explanation.textContent='Atualize seu nome, telefone ou senha quando precisar.';
       const content=document.createElement('div');
       content.className='member-registration-content';
       content.append(explanation,$('member-profile-form'),$('member-password-change'));
       section.append(heading,content);
       loggedIn.append(section);
+      // A seção antiga servia apenas como recipiente inicial dos formulários.
+      // Ela deve sair para evitar dois menus de Cadastro com o mesmo ID.
+      document.querySelectorAll('#member-registration-details').forEach(node=>{if(node!==section)node.remove();});
       // O botão de saída permanece visível, abaixo das ações principais.
       const logout=$('logout-button');
       if(logout)loggedIn.append(logout);
@@ -245,12 +269,15 @@ window.IGREJA_MEMBROS = (() => {
         event.preventDefault();
         const first=cleanName($('member-profile-first').value),last=cleanName($('member-profile-last').value);
         const full=cleanName(first+' '+last),info=$('member-profile-status');
+        const telefoneEntrada=$('member-profile-phone').value.trim();
+        const telefone=telefoneEntrada?normalizarTelefone(telefoneEntrada):'';
+        if(telefoneEntrada&&!telefone){info.textContent='Telefone inválido. Informe DDD e número ou deixe vazio.';return;}
         if(!first||!last||full.length>60){info.textContent='Informe nome e sobrenome válidos (até 60 caracteres no total).';return;}
         const db=context?.db?.();
         if(!db){info.textContent='Serviço indisponível.';return;}
         info.textContent='Salvando seus dados...';
-        const {error}=await db.auth.updateUser({data:{first_name:first,last_name:last,full_name:full}});
-        info.textContent=error?'Não foi possível salvar: '+error.message:'Nome e sobrenome salvos. Suas próximas mensagens usarão esse nome.';
+        const {error}=await db.auth.updateUser({data:{first_name:first,last_name:last,full_name:full,telefone_contato:telefone}});
+        info.textContent=error?'Não foi possível salvar: '+error.message:'Dados e telefone salvos. Seu número não aparece publicamente.';
         if(!error)refresh();
       });
       $('member-password-change').addEventListener('submit',async event=>{
