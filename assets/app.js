@@ -20,6 +20,14 @@
   let lastMobileHino=null;
   let db = null;
   let user = null;
+  async function registrarInteracao(tipo,recurso){
+    if(!db||!user)return;
+    try{
+      const {data,error}=await db.rpc('igjal_registrar_interacao',{p_tipo:tipo,p_recurso:recurso});
+      if(error)throw error;
+      if(data===true)void window.IGREJA_MEMBROS?.atualizarProgresso?.(true);
+    }catch(error){console.warn('[IGJAL] Interação não registrada:',error.message);}
+  }
   let refreshingComments = false;
   let isAdmin = false;
   let isMemberVerifier = false;
@@ -470,10 +478,12 @@
       const play=el('span','youtube-play','▶');
       play.setAttribute('aria-hidden','true');
       cover.append(image,play);
+      cover.addEventListener('click',()=>{void registrarInteracao('video','video:'+id);});
       const body=el('div','youtube-video-body');
       const kind=el('span','youtube-category-tag',labels[videoCategory(video)]);
       const watch=el('a','youtube-link-label','Assistir no YouTube ↗');
       watch.href='https://www.youtube.com/watch?v='+id;
+      watch.addEventListener('click',()=>{void registrarInteracao('video','video:'+id);});
       watch.target='_blank';watch.rel='noopener noreferrer';
       body.append(kind,el('h3','',video.title||'Vídeo da igreja'),el('p','',videoDate(video.published)),watch);
       card.append(cover,body);grid.append(card);
@@ -714,8 +724,9 @@
       pdfLink.hidden=!published;
       if(published){
         pdfLink.href=published;
+        pdfLink.onclick=()=>{void registrarInteracao('download','hino:'+hino);};
         pdfLink.textContent='Abrir cifra oficial em PDF ('+VOCAL_LABELS[publishedKind]+') ↗';
-      }else pdfLink.removeAttribute('href');
+      }else {pdfLink.removeAttribute('href');pdfLink.onclick=null;}
     }
     const mediaHost=$('song-media-content');
     if(mediaHost){
@@ -726,6 +737,7 @@
         const play=el('button','btn btn-primary','▶ Reproduzir vídeo aqui');
         play.type='button';
         play.addEventListener('click',()=>{
+          void registrarInteracao('video','video:'+entry.youtubeId);
           const frame=document.createElement('iframe');
           frame.src=`https://www.youtube-nocookie.com/embed/${entry.youtubeId}?autoplay=1`;
           frame.title=`Vídeo do hino ${selectedSong.title}`;
@@ -790,6 +802,7 @@
 
   // Mural de bênçãos: mensagens independentes, sem respostas e com uma curtida por conta.
   let minhasCurtidas=new Set();
+  let verificacoesMural=new Set();
   const curtidasPendentes=new Set();
   async function carregarMinhasCurtidas(){
     minhasCurtidas=new Set();
@@ -825,7 +838,10 @@
     const head=el('div','comment-head');
     const person=el('div','comment-person');
     const avatar=el('span','comment-avatar',initials(comment.nome));avatar.setAttribute('aria-hidden','true');
-    const info=el('div');info.append(el('strong','',comment.nome),el('small','',formatDate(comment.criado_em)));
+    const info=el('div');
+    info.append(el('strong','',comment.nome));
+    if(verificacoesMural.has(Number(comment.id))){const selo=el('span','igjal-selo-verificado','✓');selo.title='Membro verificado pela liderança da igreja';selo.setAttribute('aria-label','Membro verificado pela igreja');info.append(selo);}
+    info.append(el('small','',formatDate(comment.criado_em)));
     person.append(avatar,info);head.append(person);
     card.append(head,el('p','comment-message',comment.mensagem));
     const likes=Math.max(0,Number(comment.curtidas)||0);
@@ -893,7 +909,10 @@
         .select('id,nome,mensagem,criado_em,parent_id,status,curtidas')
         .eq('status','aprovado').is('parent_id',null).order('criado_em',{ascending:false}).limit(250);
       if(error)throw error;
-      if($('comments-list'))await carregarMinhasCurtidas();
+      if($('comments-list')){
+        const [curtidas,certificados]=await Promise.all([carregarMinhasCurtidas(),db.rpc('igjal_mural_verificados')]);
+        verificacoesMural=new Set((certificados.error?[]:certificados.data||[]).map(Number));
+      }
       renderComments(rows||[]);
       updateFaithMessages(rows||[]);
       setText('comment-mode','Compartilhe testemunhos e palavras de bênção. As mensagens são aprovadas antes de aparecer no mural.');
