@@ -25,7 +25,7 @@ window.IGREJA_ACESSOS = (()=>{
   ]}
  ];
  const allRoles=ROLES.flatMap(g=>g.items);
- let ctx=null,rows=[],opened=new Set();
+ let ctx=null,rows=[],opened=new Set(),hinoUsers=new Set();
  const make=(tag,value,cls)=>{
    const el=document.createElement(tag);
    if(value!==undefined)el.textContent=String(value);
@@ -55,6 +55,20 @@ window.IGREJA_ACESSOS = (()=>{
    const registered=user.cadastrado_em?new Date(user.cadastrado_em).toLocaleDateString('pt-BR'):'—';
    heading.append(make('small','Cadastro: '+registered+' · '+(user.email_confirmado?'E-mail confirmado':'Aguardando confirmação'),'muted'));
    card.append(heading);
+   const hinoReconhecido=hinoUsers.has(user.user_id);
+   const botaoHino=make('button',(hinoReconhecido?'✓ Retirar selo: ':'+ Conceder selo: ')+'Colaborou com hino',
+     hinoReconhecido?'btn btn-outline btn-sm access-role-button is-granted':'btn btn-outline btn-sm access-role-button');
+   botaoHino.type='button';botaoHino.disabled=!user.email_confirmado;
+   botaoHino.title=user.email_confirmado?'Reconhecimento pela colaboração com o hinário, sem conceder acesso de edição.':'Confirme o e-mail antes de atribuir o selo.';
+   botaoHino.addEventListener('click',async()=>{
+     if(ctx?.isAdmin?.()!==true||!ctx?.db?.())return;
+     if(!window.confirm((hinoReconhecido?'Retirar':'Conceder')+' selo Colaborou com hino para '+(user.nome_completo||user.email)+'?'))return;
+     botaoHino.disabled=true;
+     const {error}=await ctx.db().rpc('igjal_admin_definir_hino',{p_usuario:user.user_id,p_conceder:!hinoReconhecido,p_observacao:'Contribuição no hinário reconhecida pela liderança'});
+     if(error){status('Falha ao atualizar selo: '+error.message,true);botaoHino.disabled=false;return;}
+     await refresh();status('Selo de colaboração com hino atualizado.');
+   });
+   card.append(botaoHino);
    if(user.administrador_geral){
     card.append(make('p','🛡️ Administrador Geral — todas as áreas autorizadas, conta protegida','access-role'));
    }else{
@@ -114,9 +128,10 @@ window.IGREJA_ACESSOS = (()=>{
   show();
   if(ctx?.isAdmin?.()!==true||!ctx?.db?.())return;
   status('Consultando usuários e suas permissões...');
-  const {data,error}=await ctx.db().rpc('admin_listar_usuarios_v4');
+  const [{data,error},{data:selos,error:erroSelos}]=await Promise.all([ctx.db().rpc('admin_listar_usuarios_v4'),ctx.db().rpc('igjal_admin_listar_hinos')]);
   if(error){status('Falha ao carregar permissões: '+error.message,true);return;}
-  rows=data||[];
+  if(erroSelos){status('Falha ao carregar selos do hinário: '+erroSelos.message,true);return;}
+  rows=data||[];hinoUsers=new Set(selos||[]);
   render();
   status(rows.length+' usuário(s) encontrados. Cada função dá acesso somente à área correspondente. Histórico e Usuários e Acessos são exclusivos do administrador geral.');
  }
