@@ -775,7 +775,11 @@
         if (event.target === dialog) dialog.close();
       });
     });
-    $('login-button').addEventListener('click', () => showDialog('login-dialog'));
+    $('login-button').addEventListener('click', () => {
+      // A saudação de quem está conectado abre uma página completa de conta.
+      if(user){location.href='minha-conta.html';return;}
+      showDialog('login-dialog');
+    });
     if ($('song-donate-link')) $('song-donate-link').addEventListener('click',()=> $('song-dialog').close());
   }
 
@@ -1092,7 +1096,7 @@
       ? String(user.user_metadata?.first_name || memberDisplayName().split(/\s+/)[0] || '').trim().slice(0,18)
       : '';
     setText('login-button-text', user ? (nomeConta?'Olá, '+nomeConta:'Olá!') : 'Entrar');
-    if($('login-button'))$('login-button').setAttribute('aria-label',user?'Abrir Minha Conta e acompanhar meu nível':'Entrar ou criar conta');
+    if($('login-button'))$('login-button').setAttribute('aria-label',user?'Abrir a página Minha Conta, com progresso, níveis e configurações':'Entrar ou criar conta');
     // O primeiro nome já aparece no topo; não repetimos um texto extenso no painel.
     if($('logged-in-user'))$('logged-in-user').hidden=Boolean(user);
     const send=$('send-comment');if(send)send.disabled=!user;
