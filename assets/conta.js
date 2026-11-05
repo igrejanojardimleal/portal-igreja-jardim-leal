@@ -338,15 +338,28 @@
       }
       user=data.user;
       fillSettings(user);
-      const {data:stats,error:progressError}=await db.rpc('igjal_meu_progresso');
-      if(progressError)throw progressError;
-      if(!stats||typeof stats!=='object')throw new Error('Resposta de progresso indisponível');
-      renderProgress(stats);
+      // Acesso a dados, senha e área administrativa não depende da disponibilidade do placar.
       $('account-main').hidden=false;
       $('account-signout').hidden=false;
       $('account-loading').hidden=true;
       setTab(location.hash.slice(1),false);
       void maybeEnableAdmin();
+      try{
+        const {data:stats,error:progressError}=await db.rpc('igjal_meu_progresso');
+        if(progressError)throw progressError;
+        if(!stats||typeof stats!=='object')throw new Error('Resposta de progresso indisponível');
+        renderProgress(stats);
+      }catch(progressError){
+        console.warn('[IGJAL] Pontuação indisponível:',progressError.message);
+        text('account-level-name','Progresso temporariamente indisponível');
+        text('account-total-points','Seus dados e configurações continuam acessíveis.');
+        text('account-xp-current','—');
+        text('account-xp-to-next','');
+        ['stat-total','stat-next','stat-30','active-remaining'].forEach(id=>text(id,'—'));
+        text('active-description','Não foi possível consultar os pontos agora. Tente atualizar a página.');
+        const levels=$('all-levels');
+        if(levels)levels.textContent='Níveis indisponíveis no momento; suas contribuições continuam registradas.';
+      }
       db.auth.onAuthStateChange(event=>{
         if(event==='SIGNED_OUT'){
           $('account-main').hidden=true;
