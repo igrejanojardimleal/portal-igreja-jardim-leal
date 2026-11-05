@@ -3,6 +3,49 @@ window.IGREJA_MEMBROS = (() => {
   'use strict';
   const $=id=>document.getElementById(id);
   let context;
+  let progressUserId=null,progressLastCheck=0,progressLoading=false;
+  const LEVEL_NAMES=['','Semente','Participante','Colaborador','Cooperador','Contribuidor','Contribuidor Experiente','Legado de Contribuição'];
+  async function atualizarProgresso(forcar=false){
+    const usuario=context?.user?.(),db=context?.db?.(),painel=$('igjal-contribuicao');
+    if(!painel||!usuario||!db){if(painel)painel.hidden=true;return;}
+    if(progressLoading||(!forcar&&progressUserId===usuario.id&&Date.now()-progressLastCheck<15000))return;
+    progressLoading=true;progressUserId=usuario.id;progressLastCheck=Date.now();
+    painel.hidden=false;
+    const aviso=$('igjal-progresso-aviso');aviso.textContent='Consultando suas contribuições...';
+    try{
+      const {data,error}=await db.rpc('igjal_meu_progresso');
+      if(error)throw error;
+      if(context?.user?.()?.id!==usuario.id)return;
+      const total=Math.max(0,Number(data?.total)||0);
+      const recentes=Math.max(0,Number(data?.ultimos30)||0);
+      const nivel=Math.max(1,Math.min(7,Number(data?.nivel)||1));
+      const proximo=data?.proximo_nivel==null?null:Number(data.proximo_nivel);
+      $('igjal-nivel-atual').textContent='Nível '+nivel+' — '+LEVEL_NAMES[nivel];
+      $('igjal-total-pontos').textContent=total.toLocaleString('pt-BR')+' pontos acumulados';
+      $('igjal-pontos-30').textContent=recentes+' pontos nos últimos 30 dias';
+      $('igjal-proximo-nivel').textContent=proximo===null?'Você alcançou o Nível 7!':'Faltam '+Math.max(0,proximo-total).toLocaleString('pt-BR')+' pontos para o próximo nível.';
+      const inicio=[0,0,25,75,175,350,1500,10001][nivel];
+      $('igjal-barra-pontos').style.width=(proximo===null?100:Math.max(0,Math.min(100,(total-inicio)/(proximo-inicio)*100)))+'%';
+      const selos=[
+        ['verificado','✓ Conta verificada'],
+        ['colaborou_cifra','🎼 Colaborou com cifra'],
+        ['colaborou_hino','🎵 Colaborou com hino'],
+        ['colaborou_estudo','📖 Colaborou com estudo'],
+        ['membro_ativo','🌿 Membro ativo']
+      ];
+      const container=$('igjal-selos');container.replaceChildren();
+      for(const [chave,titulo] of selos){
+        const tag=document.createElement('span');
+        tag.className='igjal-selo'+(data?.[chave]?' is-earned':'');
+        tag.textContent=titulo+(data?.[chave]?'':' · não conquistado');
+        container.append(tag);
+      }
+      aviso.textContent='Membro Ativo: pelo menos 30 pontos nos últimos 30 dias. Sem rankings públicos.';
+    }catch(error){
+      aviso.textContent='Não foi possível consultar o progresso agora. Reabra Minha Conta para tentar novamente.';
+      console.warn('[IGJAL] Progresso indisponível:',error.message);
+    }finally{progressLoading=false;}
+  }
   const redirect=()=>new URL('index.html',location.href).href;
   const cleanName=value=>String(value||'').trim().replace(/\s+/g,' ');
   function displayName(u){
@@ -34,6 +77,8 @@ window.IGREJA_MEMBROS = (() => {
     }catch(error){status('Não foi possível concluir: '+error.message,true);}
   }
   function refresh(){
+    if(context?.user?.()&&$('igjal-contribuicao'))void atualizarProgresso();
+    else if($('igjal-contribuicao')){$('igjal-contribuicao').hidden=true;progressUserId=null;}
     const user=context?.user?.();
     const link=$('member-admin-link');
     if(link)link.hidden=!user||!(context?.hasPanelAccess?.()||context?.isAdmin?.()||context?.isEventManager?.()||context?.isMuralModerator?.()||context?.isStudyReviewer?.());
@@ -137,6 +182,17 @@ window.IGREJA_MEMBROS = (() => {
       loggedIn.insertAdjacentHTML('beforeend',`
         <a class="btn btn-primary" href="administracao.html" id="member-admin-link" hidden>🛡️ Abrir painel administrativo</a>
         <a class="btn btn-outline" href="estudos-biblicos.html#study-teacher-panel" id="member-study-link" hidden>📖 Enviar estudo bíblico</a>
+        <section id="igjal-contribuicao" class="igjal-contribuicao" hidden aria-label="Meu progresso de contribuição">
+          <div class="igjal-progresso-topo"><span>🌿 SUA PARTICIPAÇÃO NA IGREJA</span><button type="button" id="igjal-atualizar-pontos" class="btn btn-outline btn-sm">Atualizar</button></div>
+          <h3 id="igjal-nivel-atual">Carregando nível...</h3>
+          <strong id="igjal-total-pontos">—</strong>
+          <div class="igjal-progresso-trilho" role="presentation"><span id="igjal-barra-pontos"></span></div>
+          <p id="igjal-proximo-nivel" class="muted"></p>
+          <p id="igjal-pontos-30" class="igjal-pontos-recentes"></p>
+          <h4>Seus selos</h4>
+          <div id="igjal-selos" class="igjal-selos"></div>
+          <p id="igjal-progresso-aviso" class="muted"></p>
+        </section>
         <details class="member-registration-details" id="member-registration-details">
           <summary class="member-registration-summary">
             <span class="member-registration-icon" aria-hidden="true">👤</span>
@@ -160,6 +216,7 @@ window.IGREJA_MEMBROS = (() => {
         </form>
           </div>
         </details>`);
+      $('igjal-atualizar-pontos')?.addEventListener('click',()=>void atualizarProgresso(true));
       const registrationLogout=$('logout-button');
       if(registrationLogout)loggedIn.append(registrationLogout);
       const registration=$('member-registration-details');
