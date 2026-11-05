@@ -187,7 +187,7 @@ window.IGREJA_V4 = (() => {
     if(name==='comments'){ctx.loadModeration?.();return;}
     if(name==='hino-comentarios'){await window.IGREJA_COMUNIDADE?.loadModeration?.();return;}
     if(name==='usuarios'){await window.IGREJA_ACESSOS?.refresh?.();return;}
-    if(name==='verificacoes'){await window.IGREJA_ACESSOS?.refreshVerificacoes?.();return;}
+    if(name==='verificacoes'){await window.IGREJA_VERIFICACOES?.refresh?.();return;}
     if(name==='kits'){await window.IGREJA_KITS?.refresh?.();return;}
     if(name==='live'){await window.IGREJA_LIVE?.refreshAdmin?.();return;}
     if(name==='estudos'){await window.IGREJA_ESTUDOS?.refreshAdmin?.(ctx);return;}
