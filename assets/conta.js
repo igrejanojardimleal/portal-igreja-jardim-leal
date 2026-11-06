@@ -25,12 +25,12 @@
   const REWARDS=[
     ['👤','Criar cadastro',10,'Uma vez, ao criar a conta.'],
     ['🪪','Completar nome e sobrenome',5,'Uma vez, com os dados completos.'],
-    ['♡','Curtir mensagem do mural',1,'Uma vez por mensagem; até 10 curtidas pontuadas por dia.'],
-    ['▶','Abrir vídeo pelo portal',1,'Até 3 vídeos diferentes por dia. Abrir o vídeo não comprova que foi assistido inteiro.'],
+    ['♡','Curtir mensagem do mural',1,'Uma curtida por mensagem, sem limite diário de mensagens diferentes curtidas.'],
+    ['▶','Abrir vídeo pelo portal',1,'Cada clique em vídeo pelo portal pontua, sem limite diário ou por vídeo. O clique não comprova que foi assistido inteiro.'],
     ['📄','Baixar hino ou cifra',1,'Uma vez por hino a cada dia; até 5 hinos diferentes por dia.'],
     ['💌','Compartilhar a Caixinha de Promessas',1,'Uma vez por período de promessa; até 2 por dia.'],
-    ['💬','Comentário aprovado no hino',5,'Pontua após aprovação. Limite de 10 comentários por dia, somando hinos e Mural.'],
-    ['🤍','Mensagem aprovada no Mural',10,'Pontua após aprovação. Limite de 10 comentários por dia, somando hinos e Mural.'],
+    ['💬','Comentário aprovado no hino',5,'Sem limite diário. Membros verificados publicam na hora; os demais pontuam após aprovação.'],
+    ['🤍','Mensagem aprovada no Mural',10,'Sem limite diário. Cada mensagem aprovada soma pontos.'],
     ['🎼','Cifra aprovada',30,'Depois de conferida e aprovada pela equipe.'],
     ['📖','Estudo bíblico aprovado',60,'Depois de conferido e aprovado pela liderança.'],
     ['🎵','Hino registrado e aprovado',30,'Depois de registrado e reconhecido pela liderança; um crédito por hino.']

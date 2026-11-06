@@ -93,6 +93,7 @@ window.IGREJA_COMUNIDADE = (()=>{
           if(error)throw error;
           $('hino-comment-body').value='';
           await refreshOwnVerification(ctx.user().id);
+          void window.IGREJA_MEMBROS?.atualizarProgresso?.(true);
           if(ownVerified){
             status('hino-comment-status','Comentário publicado! Obrigado por participar.');
             $('hino-comments-feed')?.removeAttribute('data-loaded-hino');

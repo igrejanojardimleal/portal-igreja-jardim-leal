@@ -830,6 +830,7 @@
         : await db.from('mural_curtidas').insert({comentario_id:mensagem.id,usuario_id:user.id});
       if(resposta.error)throw resposta.error;
       await loadComments();
+      void window.IGREJA_MEMBROS?.atualizarProgresso?.(true);
     }catch(err){
       console.warn('Erro ao curtir mensagem:',err.message);
       setText('comment-mode','Não foi possível registrar sua curtida. Confira sua conexão e tente novamente.');
