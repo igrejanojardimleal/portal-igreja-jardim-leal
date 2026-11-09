@@ -4,7 +4,7 @@
 (() => {
   'use strict';
   const ZONE='America/Sao_Paulo';
-  const SOURCE='https://igrejanojardimleal.github.io/portal-igreja-jardim-leal/assets/promessas-arc1911.json?v=20261105-ortografia-joao1623-v2';
+  const SOURCE='https://igrejanojardimleal.github.io/portal-igreja-jardim-leal/assets/promessas-arc1911.json?v=20261109-salmos5110-reto-v3';
   const $=id=>document.getElementById(id);
   const timezoneParts=new Intl.DateTimeFormat('en-GB',{
     timeZone:ZONE,year:'numeric',month:'2-digit',day:'2-digit',
