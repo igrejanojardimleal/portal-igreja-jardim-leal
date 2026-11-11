@@ -187,7 +187,7 @@ window.IGREJA_V4 = (() => {
       return {kind:'music',label:'MÚSICA E ADORAÇÃO',main:'#123749',mid:'#285c72',end:'#327d79',accent:'#ffe0a5',light:'#cbe9e4'};
     if(/batism/.test(name))
       return {kind:'water',label:'CELEBRAÇÃO DE FÉ',main:'#123e62',mid:'#327a9d',end:'#60aaad',accent:'#dbf5fa',light:'#cfefff'};
-    if(/joven|jovem|adolesc|crianca|infantil/.test(name))
+    if(/jovens?|juventude|mocidade|adolesc|crianca|infantil/.test(name))
       return {kind:'youth',label:'ENCONTRO ESPECIAL',main:'#392e67',mid:'#655598',end:'#ad6796',accent:'#ffcfbd',light:'#f0ddff'};
     if(/orac|vigilia|intercess/.test(name))
       return {kind:'prayer',label:'FÉ E COMUNHÃO',main:'#3f374e',mid:'#675c77',end:'#9b7d76',accent:'#ffe6b8',light:'#f3e3eb'};
