@@ -149,6 +149,192 @@ window.IGREJA_V4 = (() => {
       window.prompt('Copie o link para compartilhar:',url);
     }
   }
+
+  // Convite de evento em PNG 1080x1920 (9:16), gerado com dados oficiais da agenda.
+  function inviteRounded(g,x,y,w,h,r,fill){
+    const d=Math.min(r,w/2,h/2);
+    g.beginPath();g.moveTo(x+d,y);g.lineTo(x+w-d,y);
+    g.quadraticCurveTo(x+w,y,x+w,y+d);g.lineTo(x+w,y+h-d);
+    g.quadraticCurveTo(x+w,y+h,x+w-d,y+h);g.lineTo(x+d,y+h);
+    g.quadraticCurveTo(x,y+h,x,y+h-d);g.lineTo(x,y+d);
+    g.quadraticCurveTo(x,y,x+d,y);g.closePath();
+    g.fillStyle=fill;g.fill();
+  }
+  function inviteWrap(g,value,maxWidth){
+    const words=String(value||'').replace(/\s+/g,' ').trim().split(' ').filter(Boolean);
+    const lines=[];let line='';
+    for(const word of words){
+      const candidate=line?line+' '+word:word;
+      if(!line||g.measureText(candidate).width<=maxWidth){line=candidate;continue;}
+      lines.push(line);line=word;
+    }
+    if(line)lines.push(line);
+    return lines;
+  }
+  function inviteText(g,value,x,y,maxWidth,font,lineHeight,color,maxLines=2,align='left'){
+    g.fillStyle=color;g.font=font;g.textAlign=align;
+    const lines=inviteWrap(g,value,maxWidth);
+    for(let i=0;i<Math.min(maxLines,lines.length);i++){
+      const line=lines[i];
+      g.fillText(line,x,y+i*lineHeight,maxWidth);
+    }
+    g.textAlign='left';
+    return Math.min(maxLines,lines.length);
+  }
+  function inviteIsChurch(item){
+    const venue=normalized(item.local||'');
+    return /^(igjal|igreja no jardim leal|igreja do jardim leal|templo( da igreja| igjal)?|sede da igreja)$/.test(venue);
+  }
+  function inviteLogo(){
+    return new Promise(resolve=>{
+      const img=new Image();
+      img.onload=()=>resolve(img);
+      img.onerror=()=>resolve(null);
+      img.src=new URL('assets/fotos/logo-igreja-oficial.png',window.location.href).href;
+    });
+  }
+  async function createEventInvitationPNG(item){
+    if(!item||!item.titulo)throw new Error('Evento sem título.');
+    try{await document.fonts?.ready;}catch(_){/* fonte padrão disponível */}
+    const canvas=document.createElement('canvas');
+    canvas.width=1080;canvas.height=1920;
+    const g=canvas.getContext('2d');
+    if(!g)throw new Error('O navegador não conseguiu criar a imagem.');
+    const green='#155362',ink='#143849',muted='#70828a';
+    g.fillStyle='#f4f8f7';g.fillRect(0,0,1080,1920);
+    const header=g.createLinearGradient(0,0,1080,1130);
+    header.addColorStop(0,'#093142');header.addColorStop(.58,'#146073');header.addColorStop(1,'#2b8278');
+    g.fillStyle=header;g.fillRect(0,0,1080,1100);
+    g.save();g.globalAlpha=.11;g.strokeStyle='#dafbf1';g.lineWidth=3;
+    for(let i=0;i<5;i++){
+      g.beginPath();g.arc(995,120,130+i*47,0,Math.PI*2);g.stroke();
+    }
+    g.fillStyle='#d2fff1';
+    g.beginPath();g.arc(-60,940,300,0,Math.PI*2);g.fill();
+    g.restore();
+
+    const logo=await inviteLogo();
+    if(logo){
+      const size=193,cx=540,cy=205;
+      g.save();g.beginPath();g.arc(cx,cy,size/2,0,Math.PI*2);g.clip();
+      g.fillStyle='#fff';g.fillRect(cx-size/2,cy-size/2,size,size);
+      const scale=Math.min(174/logo.width,174/logo.height);
+      const w=logo.width*scale,h=logo.height*scale;
+      g.drawImage(logo,cx-w/2,cy-h/2,w,h);
+      g.restore();
+      g.beginPath();g.arc(cx,cy,103,0,Math.PI*2);g.lineWidth=4;g.strokeStyle='#b9e4d9';g.stroke();
+    }else{
+      g.beginPath();g.arc(540,205,100,0,Math.PI*2);g.fillStyle='#fff';g.fill();
+      inviteText(g,'IGJAL',540,224,166,'800 48px Manrope, Arial, sans-serif',56,green,1,'center');
+    }
+    inviteText(g,'IGREJA NO JARDIM LEAL',540,368,900,'800 30px Manrope, Arial, sans-serif',38,'#ffffff',1,'center');
+    inviteText(g,'MINISTÉRIO OBRA DA RESTAURAÇÃO',540,412,900,'600 22px Manrope, Arial, sans-serif',28,'#cceae5',1,'center');
+
+    inviteRounded(g,351,476,378,68,34,'rgba(255,255,255,.16)');
+    inviteText(g,'CONVITE ESPECIAL',540,520,334,'800 27px Manrope, Arial, sans-serif',31,'#fff3dd',1,'center');
+
+    const title=String(item.titulo).replace(/\s+/g,' ').trim();
+    let size=93,titleLines=[];
+    for(;size>=46;size-=3){
+      g.font='800 '+size+'px Manrope, Arial, sans-serif';
+      titleLines=inviteWrap(g,title,890);
+      if(titleLines.length<=4 && titleLines.every(v=>g.measureText(v).width<=890))break;
+    }
+    size=Math.max(46,size);
+    const lineHeight=size*1.14;
+    const titleStart=664+(4-titleLines.length)*lineHeight*.24;
+    g.font='800 '+size+'px Manrope, Arial, sans-serif';
+    g.fillStyle='#ffffff';g.textAlign='center';
+    titleLines.slice(0,4).forEach((line,i)=>g.fillText(line,540,titleStart+i*lineHeight,895));
+    g.textAlign='left';
+    inviteText(g,'VOCÊ E SUA FAMÍLIA SÃO NOSSOS CONVIDADOS!',540,1016,910,
+      '700 25px Manrope, Arial, sans-serif',32,'#d9efea',1,'center');
+
+    // Cartão central: só as informações essenciais, sem descrição longa.
+    g.shadowColor='rgba(11,59,62,.18)';g.shadowBlur=30;g.shadowOffsetY=13;
+    inviteRounded(g,80,1127,920,542,35,'#ffffff');
+    g.shadowBlur=0;g.shadowOffsetY=0;
+
+    const date=new Date(item.inicio_em),valid=!Number.isNaN(date.getTime());
+    const dateLabel=valid?new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'long',year:'numeric',timeZone:'America/Sao_Paulo'}).format(date):'Confira na agenda';
+    const weekday=valid?new Intl.DateTimeFormat('pt-BR',{weekday:'long',timeZone:'America/Sao_Paulo'}).format(date):'';
+    const timeLabel=valid?new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'America/Sao_Paulo'}).format(date).replace(':','h'):'Consulte';
+    inviteText(g,'DATA',143,1209,450,'800 23px Manrope, Arial, sans-serif',30,green,1);
+    inviteText(g,'HORÁRIO',646,1209,290,'800 23px Manrope, Arial, sans-serif',30,green,1);
+    inviteText(g,dateLabel,143,1270,470,'800 37px Manrope, Arial, sans-serif',44,ink,1);
+    inviteText(g,timeLabel,646,1270,290,'800 45px Manrope, Arial, sans-serif',48,ink,1);
+    if(weekday)inviteText(g,weekday.toUpperCase(),143,1316,470,'600 21px Manrope, Arial, sans-serif',26,muted,1);
+    g.fillStyle='#e4eeeb';g.fillRect(143,1362,794,2);
+
+    inviteText(g,'LOCAL',143,1425,760,'800 22px Manrope, Arial, sans-serif',30,green,1);
+    const venue=String(item.local||'').trim()||'Consulte a agenda da igreja';
+    inviteText(g,venue,143,1484,780,'800 36px Manrope, Arial, sans-serif',43,ink,2);
+    const church=inviteIsChurch(item);
+    const locationDetail=church?'Rua João Clementino, 831 — Jardim Leal, Duque de Caxias/RJ':'Consulte os detalhes e a localização na agenda.';
+    inviteText(g,church?'ENDEREÇO':'INFORMAÇÕES',143,1570,760,'800 21px Manrope, Arial, sans-serif',26,green,1);
+    inviteText(g,locationDetail,143,1619,790,'500 28px Manrope, Arial, sans-serif',34,muted,2);
+
+    inviteText(g,'Esperamos você!',540,1781,920,'800 50px Manrope, Arial, sans-serif',58,green,1,'center');
+    inviteText(g,'PARTICIPE, CELEBRE E COMPARTILHE',540,1830,950,
+      '700 23px Manrope, Arial, sans-serif',30,muted,1,'center');
+    inviteText(g,'igrejanojardimleal.github.io',540,1876,950,
+      '600 25px Manrope, Arial, sans-serif',30,'#557780',1,'center');
+
+    return await new Promise((resolve,reject)=>{
+      canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('Falha ao salvar o PNG.')),'image/png');
+    });
+  }
+  function eventInviteFilename(item){
+    const base=normalized(item.titulo||'evento').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,50)||'evento';
+    return 'IGJAL-convite-'+base+'.png';
+  }
+  function saveEventInvitePNG(blob,item){
+    const objectUrl=URL.createObjectURL(blob);
+    const anchor=document.createElement('a');
+    anchor.href=objectUrl;anchor.download=eventInviteFilename(item);
+    document.body.append(anchor);anchor.click();anchor.remove();
+    window.setTimeout(()=>URL.revokeObjectURL(objectUrl),30000);
+  }
+  async function eventInvitationAction(item,link,mode,button,feedback){
+    const actionGroup=button.closest('.event-share-actions');
+    const imageButtons=actionGroup?Array.from(actionGroup.querySelectorAll('[data-event-image]')):[button];
+    imageButtons.forEach(b=>{b.disabled=true;});
+    const oldLabel=button.textContent;
+    button.textContent='Preparando imagem...';
+    if(feedback)feedback.textContent='';
+    try{
+      const blob=await createEventInvitationPNG(item);
+      if(mode==='share'&&typeof navigator.share==='function'){
+        const file=new File([blob],eventInviteFilename(item),{type:'image/png'});
+        const canShare=typeof navigator.canShare!=='function'||navigator.canShare({files:[file]});
+        if(canShare){
+          try{
+            await navigator.share({
+              files:[file],
+              title:'Convite IGJAL — '+String(item.titulo||'Evento'),
+              text:'Você e sua família são convidados! Veja a programação:\n'+link
+            });
+            if(feedback)feedback.textContent='Convite disponibilizado para compartilhar.';
+            return;
+          }catch(err){
+            if(err.name==='AbortError'){
+              if(feedback)feedback.textContent='Compartilhamento cancelado.';
+              return;
+            }
+            // Alguns navegadores bloqueiam o compartilhamento de arquivos; oferece PNG.
+          }
+        }
+      }
+      saveEventInvitePNG(blob,item);
+      if(feedback)feedback.textContent='Convite PNG baixado! Envie como foto no WhatsApp. Use “Copiar link” para incluir o acesso à agenda.';
+    }catch(err){
+      console.warn('[IGJAL] Erro ao criar convite em imagem:',err);
+      if(feedback)feedback.textContent='Não foi possível criar a imagem agora. Tente novamente ou compartilhe o texto.';
+    }finally{
+      button.textContent=oldLabel;
+      imageButtons.forEach(b=>{b.disabled=false;});
+    }
+  }
   function renderEvents(){
     const host=$('agenda-events');if(!host)return;
     host.replaceChildren();
@@ -174,16 +360,27 @@ window.IGREJA_V4 = (() => {
       if(r.id!==null&&r.id!==undefined){
         const url=eventLink(r);
         const actions=E('div','event-share-actions');
-        const whatsapp=E('a','event-share-whatsapp','Compartilhar no WhatsApp ↗');
+        const feedback=E('p','event-share-feedback','');
+        feedback.setAttribute('role','status');
+        feedback.setAttribute('aria-live','polite');
+        const shareImage=E('button','event-share-image','Compartilhar imagem 9:16');
+        shareImage.type='button';shareImage.dataset.eventImage='share';
+        shareImage.setAttribute('aria-label','Compartilhar convite em imagem de '+r.titulo);
+        shareImage.addEventListener('click',()=>void eventInvitationAction(r,url,'share',shareImage,feedback));
+        const downloadImage=E('button','event-share-download','Baixar PNG');
+        downloadImage.type='button';downloadImage.dataset.eventImage='download';
+        downloadImage.setAttribute('aria-label','Baixar convite em PNG de '+r.titulo);
+        downloadImage.addEventListener('click',()=>void eventInvitationAction(r,url,'download',downloadImage,feedback));
+        const whatsapp=E('a','event-share-whatsapp','Compartilhar texto');
         whatsapp.href='https://wa.me/?text='+encodeURIComponent(eventShareText(r,url));
         whatsapp.target='_blank';whatsapp.rel='noopener noreferrer';
-        whatsapp.setAttribute('aria-label','Compartilhar '+r.titulo+' no WhatsApp');
+        whatsapp.setAttribute('aria-label','Compartilhar texto do convite de '+r.titulo+' no WhatsApp');
         const copy=E('button','event-share-copy','Copiar link');
         copy.type='button';
         copy.setAttribute('aria-label','Copiar link de '+r.titulo);
         copy.addEventListener('click',()=>void copyEventLink(copy,url));
-        actions.append(whatsapp,copy);
-        body.append(actions);
+        actions.append(shareImage,downloadImage,whatsapp,copy);
+        body.append(actions,feedback);
       }
       card.append(date,body);host.append(card);
     }
