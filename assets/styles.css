@@ -1350,3 +1350,8 @@ body[data-page="louvores"] .songs-panel{
   #agenda-page .celebrations-poster-toolbar button{flex:1 1 170px}
   .home-celebrations-head .home-celebrations-head-actions{align-items:stretch;width:100%}
 }
+
+/* Logotipo oficial no rodapé: substitui o símbolo decorativo por um selo redondo. */
+.footer-brand .footer-symbol{display:grid;place-items:center;width:56px;height:56px;margin-bottom:15px;padding:4px;box-sizing:border-box;border:1px solid #cbded9;border-radius:50%;background:#fff;box-shadow:0 5px 18px rgba(27,96,104,.11);overflow:hidden}
+.footer-brand .footer-symbol img{display:block;width:100%;height:100%;object-fit:contain;border-radius:50%}
+@media(max-width:600px){.footer-brand .footer-symbol{width:51px;height:51px}}
