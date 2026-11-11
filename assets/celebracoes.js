@@ -177,30 +177,42 @@ window.IGREJA_CELEBRACOES = (() => {
     g.lineTo(x,y+rad);g.quadraticCurveTo(x,y,x+rad,y);
     g.closePath();g.fillStyle=fill;g.fill();
   }
-  function posterTextLines(g,text,maxWidth,maxLines=4){
-    const lines=[],words=clean(text).split(' ');
+  function posterTextLines(g,text,maxWidth,maxLines=3){
+    const words=clean(text).split(' ').filter(Boolean),lines=[];
     let line='';
     for(const word of words){
-      const next=line?line+' '+word:word;
-      if(g.measureText(next).width<=maxWidth || !line){line=next;continue;}
+      const attempt=line?line+' '+word:word;
+      if(!line||g.measureText(attempt).width<=maxWidth){line=attempt;continue;}
       lines.push(line);line=word;
+      if(lines.length===maxLines-1)break;
     }
-    if(line)lines.push(line);
-    if(lines.length<=maxLines)return lines;
-    // Reduzimos o tamanho da fonte no chamador antes de limitar nomes.
+    // Preserve every part of the name: the last line may be compressed by fillText.
+    const consumed=lines.join(' ').split(' ').filter(Boolean).length;
+    if(lines.length===maxLines-1){
+      lines.push(words.slice(consumed).join(' '));
+    }else if(line)lines.push(line);
     return lines;
   }
-  function drawPosterName(g,name,x,y,maxWidth){
+  function posterGenderColors(person){
+    const gender=normalize(person.genero_exibicao);
+    if(gender==='masculino')return {ink:'#2269b9',background:'#eaf3ff',date:'#d6e8ff'};
+    if(gender==='feminino')return {ink:'#ca4786',background:'#fff0f6',date:'#ffe0ed'};
+    return {ink:'#244558',background:'#f0f4f6',date:'#e5eff2'};
+  }
+  function drawPosterName(g,name,x,y,maxWidth,maxHeight){
     const text=clean(name);
-    let font=30,lines=[];
-    do{
+    let font=28,lines=[];
+    const lineHeight=28;
+    for(;font>=19;font--){
       g.font='700 '+font+'px Manrope, Arial, sans-serif';
-      lines=posterTextLines(g,text,maxWidth);
-      if(lines.length<=3)break;
-      font-=2;
-    }while(font>=16);
-    g.fillStyle='#1b3445';
-    for(let n=0;n<lines.length;n++)g.fillText(lines[n],x,y+n*(font+8),maxWidth);
+      lines=posterTextLines(g,text,maxWidth,3);
+      if(lines.length*lineHeight<=maxHeight &&
+         lines.every(line=>g.measureText(line).width<=maxWidth*1.23))break;
+    }
+    g.font='700 '+Math.max(19,font)+'px Manrope, Arial, sans-serif';
+    for(let n=0;n<Math.min(lines.length,3);n++){
+      g.fillText(lines[n],x,y+n*lineHeight,maxWidth);
+    }
   }
   async function posterLogo(){
     return new Promise(resolve=>{
@@ -211,20 +223,26 @@ window.IGREJA_CELEBRACOES = (() => {
     });
   }
   async function createMonthlyPoster(month){
-    const groups=posterGroups(month);
-    if(!groups.some(x=>x.items.length))throw new Error('Não há datas públicas com autorização neste mês.');
-    try{await document.fonts?.ready;}catch(_){/* fontes locais são suficientes */}
-    const width=1080, rowH=170,sectionGap=22,top=420;
-    const heightFor=items=>112+Math.max(1,Math.ceil(items.length/2))*rowH+20;
-    const sectionsHeight=groups.reduce((sum,x)=>sum+heightFor(x.items)+sectionGap,0);
-    const height=Math.max(1520,top+sectionsHeight+176);
+    // Stories, Status e TikTok usam imagem vertical 9:16, sem seções vazias.
+    const groups=posterGroups(month).filter(group=>group.items.length>0);
+    if(!groups.length)throw new Error('Não há datas públicas com autorização neste mês.');
+    try{await document.fonts?.ready;}catch(_){/* fontes disponíveis serão usadas */}
+    const width=1080,height=1920;
+    const top=420,bottom=1784,sectionGap=24;
+    const totalRows=groups.reduce((sum,group)=>sum+Math.ceil(group.items.length/2),0);
+    const headerRoom=groups.length*129+(groups.length-1)*sectionGap;
+    const rowH=Math.min(164,Math.floor((bottom-top-headerRoom)/Math.max(1,totalRows)));
+    if(rowH<112)throw new Error('O mês tem muitas datas para um único cartaz legível. Divida os registros em mais de uma arte.');
+    const cardH=rowH-11,cardW=449;
+    const heightFor=group=>129+Math.ceil(group.items.length/2)*rowH;
+    const totalHeight=groups.reduce((sum,group)=>sum+heightFor(group),0)+sectionGap*(groups.length-1);
     const canvas=document.createElement('canvas');
     canvas.width=width;canvas.height=height;
     const g=canvas.getContext('2d');
     if(!g)throw new Error('Este navegador não permite criar imagens.');
     g.fillStyle='#f4f9f7';g.fillRect(0,0,width,height);
-    // Cabeçalho editorial com formas orgânicas e tipografia de alto contraste.
-    const grad=g.createLinearGradient(0,0,width,420);
+    // Cabeçalho com identidade IGJAL, produzido diretamente em alta resolução.
+    const grad=g.createLinearGradient(0,0,width,415);
     grad.addColorStop(0,'#103c4d');grad.addColorStop(.64,'#1c6070');grad.addColorStop(1,'#347d77');
     g.fillStyle=grad;g.fillRect(0,0,width,390);
     g.globalAlpha=.10;g.fillStyle='#d7fff0';
@@ -246,54 +264,49 @@ window.IGREJA_CELEBRACOES = (() => {
       if(logo){
         g.save();g.beginPath();g.arc(942,191,76,0,2*Math.PI);g.clip();
         g.fillStyle='#fff';g.fillRect(866,115,152,152);
-        // Mantém o logo completo, sem esticar proporções.
         const scale=Math.min(130/logo.width,130/logo.height);
         const w=logo.width*scale,h=logo.height*scale;
-        g.drawImage(logo,942-w/2,191-h/2,w,h);
-        g.restore();
+        g.drawImage(logo,942-w/2,191-h/2,w,h);g.restore();
         g.strokeStyle='#aedfd7';g.lineWidth=5;
         g.beginPath();g.arc(942,191,77,0,2*Math.PI);g.stroke();
       }
-    }catch(_){/* marca em texto continua presente */}
-    let y=top;
+    }catch(_){/* título mantém a identidade sem imagem */}
+    let y=top+Math.max(0,Math.floor((bottom-top-totalHeight)*.18));
     for(const group of groups){
-      const sectionH=heightFor(group.items);
+      const sectionH=heightFor(group);
       g.shadowColor='rgba(23,65,77,.08)';g.shadowBlur=22;g.shadowOffsetY=6;
       posterRoundRect(g,54,y,972,sectionH,30,'#ffffff');
       g.shadowBlur=0;g.shadowOffsetY=0;
-      posterRoundRect(g,74,y+23,12,48,6,group.accent);
+      posterRoundRect(g,74,y+22,12,48,6,group.accent);
       g.fillStyle='#17374a';g.font='800 30px Manrope, Arial, sans-serif';
-      g.fillText(group.title,105,y+53,735);
+      g.fillText(group.title,105,y+52,735);
       g.fillStyle='#6a7b83';g.font='500 19px Manrope, Arial, sans-serif';
-      g.fillText(group.subtitle,106,y+84);
+      g.fillText(group.subtitle,106,y+82);
       posterRoundRect(g,930,y+27,69,47,17,group.tint);
       g.fillStyle=group.accent;g.font='800 27px Manrope, Arial, sans-serif';
       g.textAlign='center';g.fillText(String(group.items.length),965,y+59);g.textAlign='left';
-      if(!group.items.length){
-        g.fillStyle='#8a989e';g.font='500 25px Manrope, Arial, sans-serif';
-        g.fillText('Nenhuma data cadastrada para este mês.',100,y+162);
-      }else{
-        group.items.forEach((item,i)=>{
-          const col=i%2,row=Math.floor(i/2);
-          const px=79+col*468,py=y+104+row*rowH;
-          posterRoundRect(g,px,py,448,155,20,group.tint);
-          posterRoundRect(g,px+17,py+19,67,65,17,'#ffffff');
-          g.fillStyle=group.accent;g.font='800 34px Manrope, Arial, sans-serif';
-          g.textAlign='center';g.fillText(numDay(item.dia),px+50,py+62);g.textAlign='left';
-          drawPosterName(g,item.nome,px+101,py+46,320);
-          if(item.tipo!=='aniversario'){
-            g.fillStyle=group.accent;g.font='600 18px Manrope, Arial, sans-serif';
-            const detail=item.tipo==='batismo'
-              ?(item.ano_referencia?'Batismo em '+item.ano_referencia:'Batismo')
-              :(kinds[item.tipo]||'Data ministerial');
-            g.fillText(detail,px+101,py+140,322);
-          }
-        });
-      }
+      group.items.forEach((item,i)=>{
+        const col=i%2,row=Math.floor(i/2);
+        const px=79+col*466,py=y+101+row*rowH;
+        const pal=posterGenderColors(item);
+        posterRoundRect(g,px,py,cardW,cardH,20,pal.background);
+        posterRoundRect(g,px+15,py+17,67,65,17,'#ffffff');
+        g.fillStyle=pal.ink;g.font='800 34px Manrope, Arial, sans-serif';
+        g.textAlign='center';g.fillText(numDay(item.dia),px+48,py+60);g.textAlign='left';
+        g.fillStyle=pal.ink;
+        drawPosterName(g,item.nome,px+99,py+44,326,item.tipo==='aniversario'?Math.max(55,cardH-43):Math.max(40,cardH-75));
+        if(item.tipo!=='aniversario'){
+          g.fillStyle='#667e8a';g.font='600 18px Manrope, Arial, sans-serif';
+          const detail=item.tipo==='batismo'
+            ?(item.ano_referencia?'Batismo em '+item.ano_referencia:'Batismo')
+            :(kinds[item.tipo]||'Data ministerial');
+          g.fillText(detail,px+100,py+cardH-18,325);
+        }
+      });
       y+=sectionH+sectionGap;
     }
-    const foot=height-117;
-    g.fillStyle='#ddeae5';g.fillRect(65,foot-45,950,2);
+    const foot=height-118;
+    g.fillStyle='#dbe9e4';g.fillRect(65,foot-45,950,2);
     g.fillStyle='#2a5560';g.font='800 25px Manrope, Arial, sans-serif';
     g.fillText('IGREJA NO JARDIM LEAL',65,foot);
     g.fillStyle='#738c90';g.font='500 19px Manrope, Arial, sans-serif';
