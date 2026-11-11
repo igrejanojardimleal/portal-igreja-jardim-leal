@@ -152,6 +152,206 @@ window.IGREJA_CELEBRACOES = (() => {
       people.append(personCard(item));
     }
   }
+  // Cartaz mensal PNG: usa apenas registros publicados com consentimento.
+  const publishedForPoster=month=>rows.filter(item=>
+    item.publicado===true &&
+    item.consentimento_confirmado===true &&
+    Number(item.mes)===Number(month) &&
+    Object.hasOwn(kinds,item.tipo)
+  ).sort(sortDates);
+  const posterGroups=month=>{
+    const approved=publishedForPoster(month);
+    return [
+      {title:'ANIVERSÁRIOS DE NASCIMENTO',subtitle:'Celebramos o dom da vida',accent:'#ad627d',tint:'#fff0f4',items:approved.filter(x=>x.tipo==='aniversario')},
+      {title:'ANIVERSÁRIOS DE BATISMO',subtitle:'Uma caminhada de fé',accent:'#397b93',tint:'#eaf6fa',items:approved.filter(x=>x.tipo==='batismo')},
+      {title:'DATAS MINISTERIAIS',subtitle:'Servindo com amor e propósito',accent:'#3e7867',tint:'#edf7ee',items:approved.filter(x=>x.tipo!=='aniversario'&&x.tipo!=='batismo')}
+    ];
+  };
+  function posterRoundRect(g,x,y,w,h,r,fill){
+    const rad=Math.min(r,w/2,h/2);
+    g.beginPath();
+    g.moveTo(x+rad,y);g.lineTo(x+w-rad,y);
+    g.quadraticCurveTo(x+w,y,x+w,y+rad);
+    g.lineTo(x+w,y+h-rad);g.quadraticCurveTo(x+w,y+h,x+w-rad,y+h);
+    g.lineTo(x+rad,y+h);g.quadraticCurveTo(x,y+h,x,y+h-rad);
+    g.lineTo(x,y+rad);g.quadraticCurveTo(x,y,x+rad,y);
+    g.closePath();g.fillStyle=fill;g.fill();
+  }
+  function posterTextLines(g,text,maxWidth,maxLines=4){
+    const lines=[],words=clean(text).split(' ');
+    let line='';
+    for(const word of words){
+      const next=line?line+' '+word:word;
+      if(g.measureText(next).width<=maxWidth || !line){line=next;continue;}
+      lines.push(line);line=word;
+    }
+    if(line)lines.push(line);
+    if(lines.length<=maxLines)return lines;
+    // Reduzimos o tamanho da fonte no chamador antes de limitar nomes.
+    return lines;
+  }
+  function drawPosterName(g,name,x,y,maxWidth){
+    const text=clean(name);
+    let font=30,lines=[];
+    do{
+      g.font='700 '+font+'px Manrope, Arial, sans-serif';
+      lines=posterTextLines(g,text,maxWidth);
+      if(lines.length<=3)break;
+      font-=2;
+    }while(font>=20);
+    g.fillStyle='#1b3445';
+    for(let n=0;n<lines.length;n++)g.fillText(lines[n],x,y+n*(font+8),maxWidth);
+  }
+  async function posterLogo(){
+    return new Promise(resolve=>{
+      const img=new Image();
+      img.onload=()=>resolve(img);
+      img.onerror=()=>resolve(null);
+      img.src=new URL('assets/fotos/logo-igreja-oficial.png',location.href).href;
+    });
+  }
+  async function createMonthlyPoster(month){
+    const groups=posterGroups(month);
+    if(!groups.some(x=>x.items.length))throw new Error('Não há datas públicas com autorização neste mês.');
+    try{await document.fonts?.ready;}catch(_){/* fontes locais são suficientes */}
+    const width=1080, rowH=142,sectionGap=22,top=420;
+    const heightFor=items=>112+Math.max(1,Math.ceil(items.length/2))*rowH+20;
+    const sectionsHeight=groups.reduce((sum,x)=>sum+heightFor(x.items)+sectionGap,0);
+    const height=Math.max(1520,top+sectionsHeight+176);
+    const canvas=document.createElement('canvas');
+    canvas.width=width;canvas.height=height;
+    const g=canvas.getContext('2d');
+    if(!g)throw new Error('Este navegador não permite criar imagens.');
+    g.fillStyle='#f4f9f7';g.fillRect(0,0,width,height);
+    // Cabeçalho editorial com formas orgânicas e tipografia de alto contraste.
+    const grad=g.createLinearGradient(0,0,width,420);
+    grad.addColorStop(0,'#103c4d');grad.addColorStop(.64,'#1c6070');grad.addColorStop(1,'#347d77');
+    g.fillStyle=grad;g.fillRect(0,0,width,390);
+    g.globalAlpha=.10;g.fillStyle='#d7fff0';
+    g.beginPath();g.arc(1030,-55,290,0,2*Math.PI);g.fill();
+    g.beginPath();g.arc(860,380,190,0,2*Math.PI);g.fill();
+    g.globalAlpha=.11;g.strokeStyle='#ffffff';g.lineWidth=2;
+    for(let i=0;i<5;i++){g.beginPath();g.arc(925,83,130+i*26,.5,4.2);g.stroke();}
+    g.globalAlpha=1;
+    g.fillStyle='#bce5d8';g.font='700 23px Manrope, Arial, sans-serif';
+    g.fillText('IGJAL  /  OBRA DA RESTAURAÇÃO',65,75);
+    g.fillStyle='#ffffff';g.font='800 78px Manrope, Arial, sans-serif';
+    g.fillText('CELEBRAÇÕES',65,181);
+    g.fillStyle='#e9f5f2';g.font='600 56px Manrope, Arial, sans-serif';
+    g.fillText(nameOfMonth(month),67,266);
+    g.fillStyle='#cbebe5';g.font='500 25px Manrope, Arial, sans-serif';
+    g.fillText('Cada vida e cada jornada são especiais.',68,329);
+    try{
+      const logo=await posterLogo();
+      if(logo){
+        g.save();g.beginPath();g.arc(942,191,76,0,2*Math.PI);g.clip();
+        g.fillStyle='#fff';g.fillRect(866,115,152,152);
+        // Mantém o logo completo, sem esticar proporções.
+        const scale=Math.min(130/logo.width,130/logo.height);
+        const w=logo.width*scale,h=logo.height*scale;
+        g.drawImage(logo,942-w/2,191-h/2,w,h);
+        g.restore();
+        g.strokeStyle='#aedfd7';g.lineWidth=5;
+        g.beginPath();g.arc(942,191,77,0,2*Math.PI);g.stroke();
+      }
+    }catch(_){/* marca em texto continua presente */}
+    let y=top;
+    for(const group of groups){
+      const sectionH=heightFor(group.items);
+      g.shadowColor='rgba(23,65,77,.08)';g.shadowBlur=22;g.shadowOffsetY=6;
+      posterRoundRect(g,54,y,972,sectionH,30,'#ffffff');
+      g.shadowBlur=0;g.shadowOffsetY=0;
+      posterRoundRect(g,74,y+23,12,48,6,group.accent);
+      g.fillStyle='#17374a';g.font='800 30px Manrope, Arial, sans-serif';
+      g.fillText(group.title,105,y+53,735);
+      g.fillStyle='#6a7b83';g.font='500 19px Manrope, Arial, sans-serif';
+      g.fillText(group.subtitle,106,y+84);
+      posterRoundRect(g,930,y+27,69,47,17,group.tint);
+      g.fillStyle=group.accent;g.font='800 27px Manrope, Arial, sans-serif';
+      g.textAlign='center';g.fillText(String(group.items.length),965,y+59);g.textAlign='left';
+      if(!group.items.length){
+        g.fillStyle='#8a989e';g.font='500 25px Manrope, Arial, sans-serif';
+        g.fillText('Nenhuma data cadastrada para este mês.',100,y+162);
+      }else{
+        group.items.forEach((item,i)=>{
+          const col=i%2,row=Math.floor(i/2);
+          const px=79+col*468,py=y+104+row*rowH;
+          posterRoundRect(g,px,py,448,127,20,group.tint);
+          posterRoundRect(g,px+17,py+19,67,65,17,'#ffffff');
+          g.fillStyle=group.accent;g.font='800 34px Manrope, Arial, sans-serif';
+          g.textAlign='center';g.fillText(numDay(item.dia),px+50,py+62);g.textAlign='left';
+          drawPosterName(g,item.nome,px+101,py+46,320);
+          if(item.tipo!=='aniversario'){
+            g.fillStyle=group.accent;g.font='600 18px Manrope, Arial, sans-serif';
+            const detail=item.tipo==='batismo'
+              ?(item.ano_referencia?'Batismo em '+item.ano_referencia:'Batismo')
+              :(kinds[item.tipo]||'Data ministerial');
+            g.fillText(detail,px+101,py+109,322);
+          }
+        });
+      }
+      y+=sectionH+sectionGap;
+    }
+    const foot=height-117;
+    g.fillStyle='#ddeae5';g.fillRect(65,foot-45,950,2);
+    g.fillStyle='#2a5560';g.font='800 25px Manrope, Arial, sans-serif';
+    g.fillText('IGREJA NO JARDIM LEAL',65,foot);
+    g.fillStyle='#738c90';g.font='500 19px Manrope, Arial, sans-serif';
+    g.fillText('Participe, celebre e compartilhe o amor de Deus.',65,foot+38);
+    g.textAlign='right';g.fillText('igrejanojardimleal.github.io',1015,foot+40);g.textAlign='left';
+    const blob=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error('Não foi possível salvar a imagem.')),'image/png'));
+    return blob;
+  }
+  const posterFilename=month=>'IGJAL-celebracoes-'+nameOfMonth(month).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()+'.png';
+  function savePoster(blob,month){
+    const address=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=address;a.download=posterFilename(month);
+    document.body.append(a);a.click();a.remove();
+    window.setTimeout(()=>URL.revokeObjectURL(address),30000);
+  }
+  async function posterAction(mode,month,button){
+    if(button?.disabled)return;
+    const original=button?.textContent;
+    if(button){button.disabled=true;button.textContent='Preparando imagem...';}
+    const message=$('celebracoes-poster-status');
+    if(message)message.textContent='';
+    try{
+      const blob=await createMonthlyPoster(month);
+      if(mode==='share'&&typeof navigator.share==='function'){
+        const file=new File([blob],posterFilename(month),{type:'image/png'});
+        if(typeof navigator.canShare!=='function'||navigator.canShare({files:[file]})){
+          try{
+            await navigator.share({files:[file],title:'Celebrações de '+nameOfMonth(month)+' — IGJAL',text:'Datas especiais da nossa igreja'});
+            if(message)message.textContent='Imagem compartilhada.';
+            return;
+          }catch(error){
+            if(error.name==='AbortError')return;
+            // Em navegadores sem envio de arquivos, entrega o PNG para anexar no WhatsApp.
+          }
+        }
+      }
+      savePoster(blob,month);
+      if(message)message.textContent='Cartaz PNG salvo. No WhatsApp, envie como foto pela galeria ou pelos arquivos.';
+    }catch(err){
+      if(message)message.textContent='Não foi possível gerar o cartaz: '+(err.message||'tente novamente.');
+      console.warn('[IGJAL] Não foi possível gerar cartaz de celebrações:',err);
+    }finally{
+      if(button){button.disabled=false;button.textContent=original;}
+    }
+  }
+  function updatePosterButtons(){
+    const month=monthSelected();
+    const available=posterGroups(month).some(group=>group.items.length);
+    for(const id of ['celebracoes-compartilhar-cartaz','celebracoes-baixar-cartaz']){
+      const button=$(id);
+      if(button)button.disabled=!available;
+    }
+    const home=$('home-celebracoes-baixar-cartaz');
+    if(home)home.disabled=!posterGroups(new Date().getMonth()+1).some(group=>group.items.length);
+    const message=$('celebracoes-poster-status');
+    if(message)message.textContent=available?'':'Sem datas publicadas e autorizadas neste mês para gerar o cartaz.';
+  }
   function renderAgenda(){
     const selected=monthSelected();
     const label=$('celebracoes-mes-nome');
@@ -164,6 +364,7 @@ window.IGREJA_CELEBRACOES = (() => {
     const total=$('celebracoes-resumo');
     if(total)total.textContent=born.length+' aniversariante(s) • '+ministry.length+
       ' data(s) de batismo e ministério em '+nameOfMonth(selected)+'.';
+    updatePosterButtons();
   }
   function renderHome(){
     const host=$('home-celebrations');
@@ -200,6 +401,7 @@ window.IGREJA_CELEBRACOES = (() => {
     renderMiniList(ministry,'home-celebrations-ministry','Nenhum batismo ou chamado neste mês.');
     const count=$('home-celebrations-count');
     if(count)count.textContent=birthdays.length+' aniversário(s) pessoais • '+ministry.length+' data(s) de batismo ou ministério.';
+    updatePosterButtons();
   }
   async function load(){
     const db=ctx?.db?.();if(!db)return null;
@@ -337,6 +539,9 @@ window.IGREJA_CELEBRACOES = (() => {
       month.value=String(new Date().getMonth()+1);
       month.addEventListener('change',renderAgenda);
     }
+    $('celebracoes-compartilhar-cartaz')?.addEventListener('click',ev=>void posterAction('share',monthSelected(),ev.currentTarget));
+    $('celebracoes-baixar-cartaz')?.addEventListener('click',ev=>void posterAction('download',monthSelected(),ev.currentTarget));
+    $('home-celebracoes-baixar-cartaz')?.addEventListener('click',ev=>void posterAction('download',new Date().getMonth()+1,ev.currentTarget));
     $('celebracoes-mes-atual')?.addEventListener('click',()=>{
       if(month)month.value=String(new Date().getMonth()+1);
       renderAgenda();
