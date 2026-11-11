@@ -205,7 +205,7 @@ window.IGREJA_CELEBRACOES = (() => {
     const lineHeight=28;
     for(;font>=19;font--){
       g.font='700 '+font+'px Manrope, Arial, sans-serif';
-      lines=posterTextLines(g,text,maxWidth,3);
+      lines=posterTextLines(g,text,maxWidth,2);
       if(lines.length*lineHeight<=maxHeight &&
          lines.every(line=>g.measureText(line).width<=maxWidth*1.23))break;
     }
@@ -228,7 +228,7 @@ window.IGREJA_CELEBRACOES = (() => {
     if(!groups.length)throw new Error('Não há datas públicas com autorização neste mês.');
     try{await document.fonts?.ready;}catch(_){/* fontes disponíveis serão usadas */}
     const width=1080,height=1920;
-    const top=420,bottom=1784,sectionGap=24;
+    const top=420,bottom=1735,sectionGap=24;
     const totalRows=groups.reduce((sum,group)=>sum+Math.ceil(group.items.length/2),0);
     const headerRoom=groups.length*129+(groups.length-1)*sectionGap;
     const rowH=Math.min(164,Math.floor((bottom-top-headerRoom)/Math.max(1,totalRows)));
@@ -294,7 +294,7 @@ window.IGREJA_CELEBRACOES = (() => {
         g.fillStyle=pal.ink;g.font='800 34px Manrope, Arial, sans-serif';
         g.textAlign='center';g.fillText(numDay(item.dia),px+48,py+60);g.textAlign='left';
         g.fillStyle=pal.ink;
-        drawPosterName(g,item.nome,px+99,py+44,326,item.tipo==='aniversario'?Math.max(55,cardH-43):Math.max(40,cardH-75));
+        drawPosterName(g,item.nome,px+99,py+44,326,64);
         if(item.tipo!=='aniversario'){
           g.fillStyle='#667e8a';g.font='600 18px Manrope, Arial, sans-serif';
           const detail=item.tipo==='batismo'
