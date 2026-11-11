@@ -198,7 +198,7 @@ window.IGREJA_CELEBRACOES = (() => {
       lines=posterTextLines(g,text,maxWidth);
       if(lines.length<=3)break;
       font-=2;
-    }while(font>=20);
+    }while(font>=16);
     g.fillStyle='#1b3445';
     for(let n=0;n<lines.length;n++)g.fillText(lines[n],x,y+n*(font+8),maxWidth);
   }
@@ -214,7 +214,7 @@ window.IGREJA_CELEBRACOES = (() => {
     const groups=posterGroups(month);
     if(!groups.some(x=>x.items.length))throw new Error('Não há datas públicas com autorização neste mês.');
     try{await document.fonts?.ready;}catch(_){/* fontes locais são suficientes */}
-    const width=1080, rowH=142,sectionGap=22,top=420;
+    const width=1080, rowH=170,sectionGap=22,top=420;
     const heightFor=items=>112+Math.max(1,Math.ceil(items.length/2))*rowH+20;
     const sectionsHeight=groups.reduce((sum,x)=>sum+heightFor(x.items)+sectionGap,0);
     const height=Math.max(1520,top+sectionsHeight+176);
@@ -276,7 +276,7 @@ window.IGREJA_CELEBRACOES = (() => {
         group.items.forEach((item,i)=>{
           const col=i%2,row=Math.floor(i/2);
           const px=79+col*468,py=y+104+row*rowH;
-          posterRoundRect(g,px,py,448,127,20,group.tint);
+          posterRoundRect(g,px,py,448,155,20,group.tint);
           posterRoundRect(g,px+17,py+19,67,65,17,'#ffffff');
           g.fillStyle=group.accent;g.font='800 34px Manrope, Arial, sans-serif';
           g.textAlign='center';g.fillText(numDay(item.dia),px+50,py+62);g.textAlign='left';
@@ -286,7 +286,7 @@ window.IGREJA_CELEBRACOES = (() => {
             const detail=item.tipo==='batismo'
               ?(item.ano_referencia?'Batismo em '+item.ano_referencia:'Batismo')
               :(kinds[item.tipo]||'Data ministerial');
-            g.fillText(detail,px+101,py+109,322);
+            g.fillText(detail,px+101,py+140,322);
           }
         });
       }
