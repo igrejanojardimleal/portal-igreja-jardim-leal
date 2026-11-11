@@ -97,39 +97,27 @@ window.IGREJA_V4 = (() => {
     }
   }
   function eventShareText(item,link){
-    // Texto simples: evita emojis/caracteres que apareciam como quadrados ou � no WhatsApp.
+    // Convite breve para acompanhar o cartaz em imagem; usa caracteres compatíveis com WhatsApp.
     const title=String(item.titulo||'Encontro da igreja').trim();
     const location=String(item.local||'').trim();
     const churchEvent=/^(?:igjal|igreja no jardim leal|igreja do jardim leal|templo(?: da igreja| igjal)?|sede da igreja)$/i.test(normalized(location));
-    const address='Rua João Clementino, 831 - Jardim Leal, Duque de Caxias/RJ';
-    const maps='https://www.google.com/maps/search/?api=1&query=Rua%20Jo%C3%A3o%20Clementino%20831%2C%20Jardim%20Leal%2C%20Duque%20de%20Caxias%2C%20RJ';
     const date=new Date(item.inicio_em);
     const validDate=!Number.isNaN(date.getTime());
-    const when=validDate
-      ?new Intl.DateTimeFormat('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric',timeZone:'America/Sao_Paulo'}).format(date)
+    const day=validDate
+      ?new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'America/Sao_Paulo'}).format(date)
       :formatDate(item.inicio_em);
     const time=validDate
       ?new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'America/Sao_Paulo'}).format(date).replace(':','h')
       :'';
     const parts=[
-      '*CONVITE ESPECIAL - IGJAL*',
-      '',
-      '*'+title+'*',
-      '',
+      '*'+title+' | IGJAL*',
       'Você e sua família são nossos convidados!',
       '',
-      '*Data:* '+when
+      '*Quando:* '+day+(time?' às '+time:''),
+      '*Local:* '+(location||'Consulte a agenda')
     ];
-    if(time)parts.push('*Horário:* '+time);
-    parts.push('*Local:* '+(location||'Consulte a programação da IGJAL'));
-    if(churchEvent){
-      parts.push('*Endereço:* '+address);
-      parts.push('','*Como chegar:*',maps);
-    }
-    const description=String(item.descricao||'').replace(/\uFFFD/g,'').trim();
-    if(description)parts.push('','*Sobre o evento:*',description);
-    parts.push('','*Confira o evento na agenda:*',link);
-    parts.push('','Compartilhe este convite com amigos e familiares. Esperamos você!');
+    if(churchEvent)parts.push('*Endereço:* Rua João Clementino, 831 - Jardim Leal');
+    parts.push('','*Detalhes e localização:*',link,'','Esperamos você!');
     return parts.join('\n');
   }
   function eventLink(item){
