@@ -181,96 +181,150 @@ window.IGREJA_V4 = (() => {
       img.src=new URL('assets/fotos/logo-igreja-oficial.png',window.location.href).href;
     });
   }
-  async function createEventInvitationPNG(item){
-    if(!item||!item.titulo)throw new Error('Evento sem título.');
-    try{await document.fonts?.ready;}catch(_){/* fonte padrão disponível */}
-    const canvas=document.createElement('canvas');
-    canvas.width=1080;canvas.height=1920;
-    const g=canvas.getContext('2d');
-    if(!g)throw new Error('O navegador não conseguiu criar a imagem.');
-    const green='#155362',ink='#143849',muted='#70828a';
-    g.fillStyle='#f4f8f7';g.fillRect(0,0,1080,1920);
-    const header=g.createLinearGradient(0,0,1080,1130);
-    header.addColorStop(0,'#093142');header.addColorStop(.58,'#146073');header.addColorStop(1,'#2b8278');
-    g.fillStyle=header;g.fillRect(0,0,1080,1100);
-    g.save();g.globalAlpha=.11;g.strokeStyle='#dafbf1';g.lineWidth=3;
-    for(let i=0;i<5;i++){
-      g.beginPath();g.arc(995,120,130+i*47,0,Math.PI*2);g.stroke();
+  function eventVisualTheme(item){
+    const name=normalized(String(item.titulo||'')+' '+String(item.tipo||''));
+    if(/musica|orquestra|instrument|coral|louvor|adorac|ensaio/.test(name))
+      return {kind:'music',label:'MÚSICA E ADORAÇÃO',main:'#123749',mid:'#285c72',end:'#327d79',accent:'#ffe0a5',light:'#cbe9e4'};
+    if(/batism/.test(name))
+      return {kind:'water',label:'CELEBRAÇÃO DE FÉ',main:'#123e62',mid:'#327a9d',end:'#60aaad',accent:'#dbf5fa',light:'#cfefff'};
+    if(/joven|jovem|adolesc|crianca|infantil/.test(name))
+      return {kind:'youth',label:'ENCONTRO ESPECIAL',main:'#392e67',mid:'#655598',end:'#ad6796',accent:'#ffcfbd',light:'#f0ddff'};
+    if(/orac|vigilia|intercess/.test(name))
+      return {kind:'prayer',label:'FÉ E COMUNHÃO',main:'#3f374e',mid:'#675c77',end:'#9b7d76',accent:'#ffe6b8',light:'#f3e3eb'};
+    if(/mission|evangel|congresso/.test(name))
+      return {kind:'mission',label:'ENCONTRO DA IGREJA',main:'#254b4c',mid:'#427566',end:'#8f9364',accent:'#ffebb4',light:'#e2f1d5'};
+    return {kind:'church',label:'PROGRAMAÇÃO DA IGJAL',main:'#0c3947',mid:'#235e70',end:'#34847b',accent:'#ffe2aa',light:'#d6f0e8'};
+  }
+  function eventMotif(g,theme){
+    g.save();g.globalAlpha=.16;g.strokeStyle=theme.light;g.lineWidth=3;
+    for(let n=0;n<5;n++){
+      g.beginPath();g.arc(1040,70,155+n*38,0,Math.PI*2);g.stroke();
     }
-    g.fillStyle='#d2fff1';
-    g.beginPath();g.arc(-60,940,300,0,Math.PI*2);g.fill();
+    if(theme.kind==='music'){
+      g.lineWidth=3;
+      for(let row=0;row<5;row++){
+        g.beginPath();g.moveTo(690,650+row*25);g.lineTo(1130,650+row*25);g.stroke();
+      }
+      for(const [x,y] of [[760,680],[965,740]]){
+        g.fillStyle=theme.light;g.beginPath();g.ellipse(x,y,17,12,-.32,0,2*Math.PI);g.fill();
+        g.beginPath();g.moveTo(x+16,y);g.lineTo(x+16,y-88);g.stroke();
+      }
+    }else if(theme.kind==='water'){
+      for(let i=0;i<5;i++){
+        g.beginPath();g.ellipse(890,790,125+i*67,28+i*23,0,0,2*Math.PI);g.stroke();
+      }
+    }else if(theme.kind==='youth'){
+      for(let i=0;i<12;i++){
+        g.beginPath();g.arc(760+i*24,775+Math.sin(i*.7)*36,10+i%3*4,0,Math.PI*2);g.stroke();
+      }
+    }else{
+      for(let i=0;i<4;i++){
+        g.beginPath();g.moveTo(760+i*62,800);g.lineTo(960+i*62,560);g.stroke();
+      }
+    }
     g.restore();
+  }
+  async function createEventInvitationPNG(item){
+    if(!item?.titulo)throw new Error('Evento sem título.');
+    try{await document.fonts?.ready;}catch(_){/* preserva fonte alternativa */}
+    const canvas=document.createElement('canvas');
+    canvas.width=1080;canvas.height=1920; // Stories, Status e TikTok: formato vertical 9:16.
+    const g=canvas.getContext('2d');
+    if(!g)throw new Error('Não foi possível criar a imagem.');
+    const theme=eventVisualTheme(item),ink='#173d4b',muted='#647f88';
+    g.fillStyle='#f5f8f6';g.fillRect(0,0,1080,1920);
+    const bg=g.createLinearGradient(0,0,1080,1130);
+    bg.addColorStop(0,theme.main);bg.addColorStop(.55,theme.mid);bg.addColorStop(1,theme.end);
+    g.fillStyle=bg;g.fillRect(0,0,1080,1140);
+    g.save();g.globalAlpha=.12;
+    g.fillStyle='#ffffff';g.beginPath();g.arc(1160,1010,415,0,Math.PI*2);g.fill();
+    g.beginPath();g.arc(-150,1040,300,0,Math.PI*2);g.fill();
+    g.restore();
+    eventMotif(g,theme);
 
+    // Logotipo discreto, sem disputar espaço com o nome do evento.
     const logo=await inviteLogo();
     if(logo){
-      const size=193,cx=540,cy=205;
-      g.save();g.beginPath();g.arc(cx,cy,size/2,0,Math.PI*2);g.clip();
-      g.fillStyle='#fff';g.fillRect(cx-size/2,cy-size/2,size,size);
-      const scale=Math.min(174/logo.width,174/logo.height);
+      const cx=143,cy=166,radius=70;
+      g.save();g.beginPath();g.arc(cx,cy,radius,0,2*Math.PI);g.clip();
+      g.fillStyle='#fff';g.fillRect(cx-radius,cy-radius,radius*2,radius*2);
+      const scale=Math.min(123/logo.width,123/logo.height);
       const w=logo.width*scale,h=logo.height*scale;
       g.drawImage(logo,cx-w/2,cy-h/2,w,h);
       g.restore();
-      g.beginPath();g.arc(cx,cy,103,0,Math.PI*2);g.lineWidth=4;g.strokeStyle='#b9e4d9';g.stroke();
+      g.strokeStyle=theme.light;g.lineWidth=4;
+      g.beginPath();g.arc(cx,cy,radius+2,0,2*Math.PI);g.stroke();
     }else{
-      g.beginPath();g.arc(540,205,100,0,Math.PI*2);g.fillStyle='#fff';g.fill();
-      inviteText(g,'IGJAL',540,224,166,'800 48px Manrope, Arial, sans-serif',56,green,1,'center');
+      inviteRounded(g,84,106,118,118,59,'#ffffff');
+      inviteText(g,'IGJAL',143,174,105,'800 25px Manrope, Arial, sans-serif',30,theme.main,1,'center');
     }
-    inviteText(g,'IGREJA NO JARDIM LEAL',540,368,900,'800 30px Manrope, Arial, sans-serif',38,'#ffffff',1,'center');
-    inviteText(g,'MINISTÉRIO OBRA DA RESTAURAÇÃO',540,412,900,'600 22px Manrope, Arial, sans-serif',28,'#cceae5',1,'center');
+    inviteText(g,'IGREJA NO JARDIM LEAL',248,149,755,'800 31px Manrope, Arial, sans-serif',38,'#ffffff',1);
+    inviteText(g,'MINISTÉRIO OBRA DA RESTAURAÇÃO',248,195,755,
+      '600 21px Manrope, Arial, sans-serif',29,theme.light,1);
+    inviteRounded(g,80,310,333,64,32,'rgba(255,255,255,.15)');
+    inviteText(g,'CONVITE ESPECIAL',246,352,296,'800 26px Manrope, Arial, sans-serif',32,'#ffffff',1,'center');
+    inviteText(g,theme.label,82,446,875,'700 27px Manrope, Arial, sans-serif',32,theme.accent,1);
 
-    inviteRounded(g,351,476,378,68,34,'rgba(255,255,255,.16)');
-    inviteText(g,'CONVITE ESPECIAL',540,520,334,'800 27px Manrope, Arial, sans-serif',31,'#fff3dd',1,'center');
-
+    // Título é o ponto focal, mesmo quando o evento possui nome longo.
     const title=String(item.titulo).replace(/\s+/g,' ').trim();
-    let size=93,titleLines=[];
-    for(;size>=46;size-=3){
-      g.font='800 '+size+'px Manrope, Arial, sans-serif';
-      titleLines=inviteWrap(g,title,890);
-      if(titleLines.length<=4 && titleLines.every(v=>g.measureText(v).width<=890))break;
+    let font=96,lines=[];
+    for(;font>=45;font-=3){
+      g.font='800 '+font+'px Manrope, Arial, sans-serif';
+      lines=inviteWrap(g,title,885);
+      if(lines.length<=4)break;
     }
-    size=Math.max(46,size);
-    const lineHeight=size*1.14;
-    const titleStart=664+(4-titleLines.length)*lineHeight*.24;
-    g.font='800 '+size+'px Manrope, Arial, sans-serif';
-    g.fillStyle='#ffffff';g.textAlign='center';
-    titleLines.slice(0,4).forEach((line,i)=>g.fillText(line,540,titleStart+i*lineHeight,895));
+    if(lines.length>4)lines=[...lines.slice(0,3),lines.slice(3).join(' ')];
+    g.font='800 '+Math.max(45,font)+'px Manrope, Arial, sans-serif';
+    g.fillStyle='#ffffff';g.textAlign='left';
+    const lineHeight=Math.max(45,font)*1.18;
+    let titleY=548+Math.max(0,(4-lines.length)*24);
+    lines.forEach((line,i)=>g.fillText(line,82,titleY+i*lineHeight,900));
     g.textAlign='left';
-    inviteText(g,'VOCÊ E SUA FAMÍLIA SÃO NOSSOS CONVIDADOS!',540,1016,910,
-      '700 25px Manrope, Arial, sans-serif',32,'#d9efea',1,'center');
+    inviteRounded(g,82,960,118,5,2,theme.accent);
+    inviteText(g,'Você e sua família são nossos convidados!',82,1030,870,
+      '700 34px Manrope, Arial, sans-serif',43,'#eefaf6',2);
 
-    // Cartão central: só as informações essenciais, sem descrição longa.
-    g.shadowColor='rgba(11,59,62,.18)';g.shadowBlur=30;g.shadowOffsetY=13;
-    inviteRounded(g,80,1127,920,542,35,'#ffffff');
+    // Data e horário com alto contraste: leitura imediata num celular.
+    g.shadowColor='rgba(11,51,56,.16)';g.shadowBlur=32;g.shadowOffsetY=12;
+    inviteRounded(g,73,1110,934,295,32,'#ffffff');
     g.shadowBlur=0;g.shadowOffsetY=0;
+    const date=new Date(item.inicio_em);
+    const valid=Number.isFinite(date.getTime());
+    const fmt=(parts)=>new Intl.DateTimeFormat('pt-BR',{...parts,timeZone:'America/Sao_Paulo'}).format(date);
+    const day=valid?fmt({day:'2-digit'}):'--';
+    const month=valid?fmt({month:'long'}).toUpperCase():'CONFIRME';
+    const year=valid?fmt({year:'numeric'}):'NA AGENDA';
+    const weekday=valid?fmt({weekday:'long'}).toUpperCase():'';
+    const time=valid?fmt({hour:'2-digit',minute:'2-digit',hour12:false}).replace(':','H'):'--';
+    inviteText(g,'DATA',125,1172,420,'800 23px Manrope, Arial, sans-serif',30,theme.mid,1);
+    inviteText(g,'HORÁRIO',655,1172,280,'800 23px Manrope, Arial, sans-serif',30,theme.mid,1);
+    inviteText(g,day,125,1297,160,'800 96px Manrope, Arial, sans-serif',100,ink,1);
+    inviteText(g,month,296,1261,320,'800 35px Manrope, Arial, sans-serif',42,ink,1);
+    inviteText(g,year+' · '+weekday,296,1313,331,
+      '700 20px Manrope, Arial, sans-serif',27,muted,1);
+    g.fillStyle='#e2ece8';g.fillRect(620,1165,2,169);
+    inviteText(g,time,652,1278,307,'800 72px Manrope, Arial, sans-serif',78,ink,1);
+    inviteText(g,'HORÁRIO LOCAL',654,1319,260,'600 19px Manrope, Arial, sans-serif',26,muted,1);
 
-    const date=new Date(item.inicio_em),valid=!Number.isNaN(date.getTime());
-    const dateLabel=valid?new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'long',year:'numeric',timeZone:'America/Sao_Paulo'}).format(date):'Confira na agenda';
-    const weekday=valid?new Intl.DateTimeFormat('pt-BR',{weekday:'long',timeZone:'America/Sao_Paulo'}).format(date):'';
-    const timeLabel=valid?new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'America/Sao_Paulo'}).format(date).replace(':','h'):'Consulte';
-    inviteText(g,'DATA',143,1209,450,'800 23px Manrope, Arial, sans-serif',30,green,1);
-    inviteText(g,'HORÁRIO',646,1209,290,'800 23px Manrope, Arial, sans-serif',30,green,1);
-    inviteText(g,dateLabel,143,1270,470,'800 37px Manrope, Arial, sans-serif',44,ink,1);
-    inviteText(g,timeLabel,646,1270,290,'800 45px Manrope, Arial, sans-serif',48,ink,1);
-    if(weekday)inviteText(g,weekday.toUpperCase(),143,1316,470,'600 21px Manrope, Arial, sans-serif',26,muted,1);
-    g.fillStyle='#e4eeeb';g.fillRect(143,1362,794,2);
+    inviteRounded(g,73,1440,934,244,30,'#ffffff');
+    inviteRounded(g,104,1474,10,51,5,theme.end);
+    inviteText(g,'LOCAL DO EVENTO',138,1507,790,'800 25px Manrope, Arial, sans-serif',33,theme.mid,1);
+    const venue=String(item.local||'').trim()||'Consulte a programação da igreja';
+    inviteText(g,venue,106,1574,850,'800 35px Manrope, Arial, sans-serif',41,ink,2);
+    const locationDetail=inviteIsChurch(item)
+      ?'Rua João Clementino, 831 — Jardim Leal, Duque de Caxias/RJ'
+      :'Confira o endereço completo na agenda da igreja.';
+    inviteText(g,locationDetail,106,1640,848,'600 24px Manrope, Arial, sans-serif',32,muted,2);
 
-    inviteText(g,'LOCAL',143,1425,760,'800 22px Manrope, Arial, sans-serif',30,green,1);
-    const venue=String(item.local||'').trim()||'Consulte a agenda da igreja';
-    inviteText(g,venue,143,1484,780,'800 36px Manrope, Arial, sans-serif',43,ink,2);
-    const church=inviteIsChurch(item);
-    const locationDetail=church?'Rua João Clementino, 831 — Jardim Leal, Duque de Caxias/RJ':'Consulte os detalhes e a localização na agenda.';
-    inviteText(g,church?'ENDEREÇO':'INFORMAÇÕES',143,1570,760,'800 21px Manrope, Arial, sans-serif',26,green,1);
-    inviteText(g,locationDetail,143,1619,790,'500 28px Manrope, Arial, sans-serif',34,muted,2);
-
-    inviteText(g,'Esperamos você!',540,1781,920,'800 50px Manrope, Arial, sans-serif',58,green,1,'center');
-    inviteText(g,'PARTICIPE, CELEBRE E COMPARTILHE',540,1830,950,
-      '700 23px Manrope, Arial, sans-serif',30,muted,1,'center');
-    inviteText(g,'igrejanojardimleal.github.io',540,1876,950,
-      '600 25px Manrope, Arial, sans-serif',30,'#557780',1,'center');
-
-    return await new Promise((resolve,reject)=>{
-      canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('Falha ao salvar o PNG.')),'image/png');
-    });
+    inviteText(g,'Esperamos você!',540,1791,906,
+      '800 54px Manrope, Arial, sans-serif',60,theme.main,1,'center');
+    inviteText(g,'COMPARTILHE ESTE CONVITE',540,1840,930,
+      '700 24px Manrope, Arial, sans-serif',30,muted,1,'center');
+    inviteText(g,'igrejanojardimleal.github.io',540,1884,930,
+      '600 23px Manrope, Arial, sans-serif',28,theme.mid,1,'center');
+    return await new Promise((resolve,reject)=>canvas.toBlob(
+      blob=>blob?resolve(blob):reject(new Error('Falha ao salvar o PNG.')),'image/png'
+    ));
   }
   function eventInviteFilename(item){
     const base=normalized(item.titulo||'evento').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,50)||'evento';
