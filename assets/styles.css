@@ -1318,3 +1318,35 @@ body[data-page="louvores"] .songs-panel{
 .library-top-references[hidden]{display:none!important}
 #study-teacher-form label small,
 #admin-estudo-form label small{display:block;font-size:12px;line-height:1.5;color:#5c6871;margin:5px 0 0;font-weight:500}
+
+
+/* IGJAL — compartilhamento de eventos e cartazes mensais (2026-11). */
+#agenda-page .agenda-columns .event-info{flex:1;min-width:0}
+#agenda-page .event-share-actions{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-top:16px;padding-top:12px;border-top:1px solid #eee7e1}
+#agenda-page .event-share-actions a,
+#agenda-page .event-share-actions button{
+  display:inline-flex;align-items:center;justify-content:center;min-height:40px;
+  padding:10px 13px;max-width:100%;border-radius:10px;
+  font:700 12px/1.3 'DM Sans',sans-serif;text-decoration:none;cursor:pointer;
+  transition:background-color .2s,transform .2s
+}
+#agenda-page .event-share-whatsapp{background:#e9f5ed;border:1px solid #b5dec6;color:#255e43}
+#agenda-page .event-share-whatsapp:hover{background:#d8ecdf;transform:translateY(-1px)}
+#agenda-page .event-share-copy{background:#fff;border:1px solid #d9d5d1;color:#51626a}
+#agenda-page .event-share-copy:hover{background:#f7f8f8}
+#agenda-page .event-shared-target{border-color:#70ae91;box-shadow:0 0 0 4px rgba(81,154,115,.16),0 8px 22px #3530400a}
+#agenda-page .event-shared-missing{background:#fff9ec;border:1px solid #e9d8b5;padding:12px 16px;border-radius:12px;color:#745b2e;font-size:13px}
+#agenda-page .celebrations-poster-toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+#agenda-page .celebrations-poster-toolbar button{min-height:43px;border-radius:11px;font-size:13px}
+#agenda-page .celebrations-poster-toolbar button:disabled,
+.home-poster-button:disabled{opacity:.55;cursor:not-allowed}
+#agenda-page .celebrations-poster-status{flex-basis:100%;margin:0;min-height:0;color:#42765e;font-size:12px;line-height:1.45}
+#agenda-page .celebrations-poster-status:empty{display:none}
+.home-celebrations-head .home-celebrations-head-actions{display:flex;align-items:center;flex-wrap:wrap;gap:13px}
+.home-celebrations-head .home-poster-button{min-height:38px;border-radius:10px;font-size:12px}
+@media(max-width:650px){
+  #agenda-page .event-share-actions a,#agenda-page .event-share-actions button{font-size:12px}
+  #agenda-page .celebrations-poster-toolbar{width:100%}
+  #agenda-page .celebrations-poster-toolbar button{flex:1 1 170px}
+  .home-celebrations-head .home-celebrations-head-actions{align-items:stretch;width:100%}
+}

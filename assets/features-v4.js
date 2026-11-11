@@ -96,8 +96,77 @@ window.IGREJA_V4 = (() => {
       for(const r of visible){const card=E('article','notice-card');card.append(E('span','overline','AVISO OFICIAL'),E('h3','',r.titulo),E('p','',r.mensagem));if(r.valido_ate)card.append(E('small','','Válido até '+formatDate(r.valido_ate)));node.append(card);}
     }
   }
-  function renderEvents(){const host=$('agenda-events');if(!host)return;host.replaceChildren();const now=Date.now()-6e7;const limit=Date.now()+90*86400000;const arr=eventAll.filter(x=>x.publicado && new Date(x.inicio_em).getTime()>=now && new Date(x.inicio_em).getTime()<=limit).sort((a,b)=>new Date(a.inicio_em)-new Date(b.inicio_em));if(!arr.length){host.append(E('div','empty-state','A igreja ainda não publicou os próximos horários e encontros.'));return;}
-    for(const r of arr){const card=E('article','event-card');const date=E('div','event-date');date.append(E('span','',new Intl.DateTimeFormat('pt-BR',{day:'2-digit'}).format(new Date(r.inicio_em))),E('small','',new Intl.DateTimeFormat('pt-BR',{month:'short'}).format(new Date(r.inicio_em))));const body=E('div','event-info');body.append(E('h4','',r.titulo),E('strong','',formatDate(r.inicio_em,true)),E('p','',r.descricao||''));if(r.local)body.append(E('small','','Local: '+r.local));card.append(date,body);host.append(card);}
+  function eventShareText(item,link){
+    const parts=[
+      '📅 *'+String(item.titulo||'Encontro da igreja')+'*',
+      '*IGJAL · Igreja no Jardim Leal*',
+      '🗓 '+formatDate(item.inicio_em,true)
+    ];
+    if(item.local)parts.push('📍 '+String(item.local));
+    if(item.descricao)parts.push('',String(item.descricao).trim());
+    parts.push('','Confira o evento na agenda: '+link);
+    return parts.join('\n');
+  }
+  function eventLink(item){
+    const url=new URL('agenda.html',window.location.href);
+    url.searchParams.set('evento',String(item.id));
+    return url.href;
+  }
+  async function copyEventLink(button,url){
+    try{
+      if(!navigator.clipboard?.writeText)throw new Error('Navegador sem área de transferência');
+      await navigator.clipboard.writeText(url);
+      button.textContent='✓ Link copiado';
+      window.setTimeout(()=>{
+        if(button.isConnected)button.textContent='Copiar link';
+      },2000);
+    }catch(_){
+      window.prompt('Copie o link para compartilhar:',url);
+    }
+  }
+  function renderEvents(){
+    const host=$('agenda-events');if(!host)return;
+    host.replaceChildren();
+    const now=Date.now()-6e7,limit=Date.now()+90*86400000;
+    const arr=eventAll.filter(x=>x.publicado && new Date(x.inicio_em).getTime()>=now && new Date(x.inicio_em).getTime()<=limit)
+      .sort((a,b)=>new Date(a.inicio_em)-new Date(b.inicio_em));
+    if(!arr.length){host.append(E('div','empty-state','A igreja ainda não publicou os próximos horários e encontros.'));return;}
+    const requested=new URLSearchParams(window.location.search).get('evento');
+    let focus=null;
+    for(const r of arr){
+      const card=E('article','event-card');
+      if(r.id!==null&&r.id!==undefined){
+        card.id='evento-'+String(r.id).replace(/[^0-9a-z_-]/gi,'');
+        if(requested===String(r.id))focus=card;
+      }
+      const date=E('div','event-date');
+      const when=new Date(r.inicio_em);
+      date.append(E('span','',new Intl.DateTimeFormat('pt-BR',{day:'2-digit'}).format(when)),
+        E('small','',new Intl.DateTimeFormat('pt-BR',{month:'short'}).format(when)));
+      const body=E('div','event-info');
+      body.append(E('h4','',r.titulo),E('strong','',formatDate(r.inicio_em,true)),E('p','',r.descricao||''));
+      if(r.local)body.append(E('small','','Local: '+r.local));
+      if(r.id!==null&&r.id!==undefined){
+        const url=eventLink(r);
+        const actions=E('div','event-share-actions');
+        const whatsapp=E('a','event-share-whatsapp','Compartilhar no WhatsApp ↗');
+        whatsapp.href='https://wa.me/?text='+encodeURIComponent(eventShareText(r,url));
+        whatsapp.target='_blank';whatsapp.rel='noopener noreferrer';
+        whatsapp.setAttribute('aria-label','Compartilhar '+r.titulo+' no WhatsApp');
+        const copy=E('button','event-share-copy','Copiar link');
+        copy.type='button';
+        copy.setAttribute('aria-label','Copiar link de '+r.titulo);
+        copy.addEventListener('click',()=>void copyEventLink(copy,url));
+        actions.append(whatsapp,copy);
+        body.append(actions);
+      }
+      card.append(date,body);host.append(card);
+    }
+    if(requested&&focus){
+      focus.classList.add('event-shared-target');
+      requestAnimationFrame(()=>focus.scrollIntoView({behavior:'smooth',block:'center'}));
+    }
+    if(requested&&!focus)host.prepend(E('p','event-shared-missing','Este evento não está mais na programação dos próximos 90 dias. Confira os encontros atuais.'));
   }
   function renderIdentity(){
     const intro=identity.get('history_intro'),detail=identity.get('history_detail');
