@@ -177,44 +177,108 @@ window.IGREJA_CELEBRACOES = (() => {
     g.lineTo(x,y+rad);g.quadraticCurveTo(x,y,x+rad,y);
     g.closePath();g.fillStyle=fill;g.fill();
   }
-  function posterTextLines(g,text,maxWidth,maxLines=3){
-    const words=clean(text).split(' ').filter(Boolean),lines=[];
-    let line='';
-    for(const word of words){
-      const attempt=line?line+' '+word:word;
-      if(!line||g.measureText(attempt).width<=maxWidth){line=attempt;continue;}
-      lines.push(line);line=word;
-      if(lines.length===maxLines-1)break;
-    }
-    // Preserve every part of the name: the last line may be compressed by fillText.
-    const consumed=lines.join(' ').split(' ').filter(Boolean).length;
-    if(lines.length===maxLines-1){
-      lines.push(words.slice(consumed).join(' '));
-    }else if(line)lines.push(line);
-    return lines;
-  }
+  // Mostra apenas dados autorizados, agrupando pessoas pelo dia.
   function posterGenderColors(person){
     const gender=normalize(person.genero_exibicao);
-    if(gender==='masculino')return {ink:'#2269b9',background:'#eaf3ff',date:'#d6e8ff'};
-    if(gender==='feminino')return {ink:'#ca4786',background:'#fff0f6',date:'#ffe0ed'};
-    return {ink:'#244558',background:'#f0f4f6',date:'#e5eff2'};
+    if(gender==='masculino')return {ink:'#2464b1',mark:'#79ade3'};
+    if(gender==='feminino')return {ink:'#c84981',mark:'#e7a0bf'};
+    return {ink:'#294b5a',mark:'#9cb5be'};
   }
-  function drawPosterName(g,name,x,y,maxWidth,maxHeight,maxFont=28){
-    const text=clean(name);
-    let font=maxFont,lines=[];
-    for(;font>=16;font--){
-      g.font='700 '+font+'px Manrope, Arial, sans-serif';
-      lines=posterTextLines(g,text,maxWidth,2);
-      if(lines.length*(font+3)<=maxHeight &&
-         lines.every(line=>g.measureText(line).width<=maxWidth*1.25))break;
+  function posterDays(items){
+    const days=[];
+    for(const item of [...items].sort(sortDates)){
+      let last=days[days.length-1];
+      if(!last||Number(last.dia)!==Number(item.dia)){
+        last={dia:Number(item.dia),items:[]};
+        days.push(last);
+      }
+      last.items.push(item);
     }
-    font=Math.max(16,font);
-    g.font='700 '+font+'px Manrope, Arial, sans-serif';
-    for(let n=0;n<Math.min(lines.length,2);n++){
-      g.fillText(lines[n],x,y+n*(font+3),maxWidth);
+    // Se uma única data tiver muitas pessoas, repete o dia na imagem seguinte.
+    return days.flatMap(day=>{
+      const chunks=[];
+      for(let offset=0;offset<day.items.length;offset+=12){
+        chunks.push({dia:day.dia,items:day.items.slice(offset,offset+12),continued:offset>0});
+      }
+      return chunks;
+    });
+  }
+  const POSTER_PAGE_HEIGHT=1236;
+  const posterDayHeight=day=>46+Math.ceil(day.items.length/2)*92;
+  const posterSectionHeight=days=>92+days.reduce((sum,d)=>sum+posterDayHeight(d)+13,0);
+  function posterPages(month){
+    const active=posterGroups(month).filter(group=>group.items.length>0);
+    const pages=[];
+    let current={sections:[],used:0};
+    const flush=()=>{
+      if(current.sections.length)pages.push(current);
+      current={sections:[],used:0};
+    };
+    for(const group of active){
+      const allDays=posterDays(group.items);
+      let selected=[],part=0;
+      const addSection=()=>{
+        if(!selected.length)return;
+        const required=posterSectionHeight(selected)+(current.sections.length?22:0);
+        if(current.sections.length&&current.used+required>POSTER_PAGE_HEIGHT)flush();
+        current.sections.push({group,days:selected,continued:part>0});
+        current.used+=posterSectionHeight(selected)+(current.sections.length>1?22:0);
+        part++;selected=[];
+      };
+      for(const day of allDays){
+        const required=posterSectionHeight([...selected,day]);
+        if(required>POSTER_PAGE_HEIGHT){
+          if(selected.length){addSection();flush();}
+          if(posterSectionHeight([day])>POSTER_PAGE_HEIGHT)throw new Error('Não foi possível distribuir os aniversários desta data.');
+        }
+        const sectionGap=current.sections.length?22:0;
+        if(selected.length && current.used+sectionGap+required>POSTER_PAGE_HEIGHT){
+          addSection();flush();
+        }else if(!selected.length&&current.sections.length&&
+          current.used+sectionGap+posterSectionHeight([day])>POSTER_PAGE_HEIGHT){
+          flush();
+        }
+        selected.push(day);
+      }
+      addSection();
+    }
+    flush();
+    return pages;
+  }
+  function posterName(g,person,x,y,maxWidth,withDetail){
+    const color=posterGenderColors(person);
+    g.fillStyle=color.mark;g.beginPath();g.arc(x-14,y-9,5,0,Math.PI*2);g.fill();
+    let font=29;
+    g.font='800 '+font+'px Manrope, Arial, sans-serif';
+    const words=clean(person.nome).split(' ').filter(Boolean);
+    const lines=[];let line='';
+    for(const word of words){
+      const trial=line?line+' '+word:word;
+      if(line&&g.measureText(trial).width>maxWidth){
+        lines.push(line);line=word;
+      }else line=trial;
+    }
+    if(line)lines.push(line);
+    g.fillStyle=color.ink;
+    if(lines.length>2)font=25;
+    g.font='800 '+font+'px Manrope, Arial, sans-serif';
+    if(lines.length<=2){
+      for(let i=0;i<lines.length;i++)g.fillText(lines[i],x,y+i*29,maxWidth);
+    }else{
+      // Não omite sobrenomes: reduz proporcionalmente, em até duas linhas.
+      const halfway=Math.ceil(words.length/2);
+      g.fillText(words.slice(0,halfway).join(' '),x,y,maxWidth);
+      g.fillText(words.slice(halfway).join(' '),x,y+29,maxWidth);
+    }
+    if(withDetail){
+      const note=person.tipo==='batismo'
+        ?(person.ano_referencia?'Batismo em '+person.ano_referencia:'Batismo')
+        :(kinds[person.tipo]||'Data ministerial');
+      g.font='600 18px Manrope, Arial, sans-serif';g.fillStyle='#6c838b';
+      g.fillText(note,x,y+55,maxWidth);
     }
   }
-  async function posterLogo(){
+  function posterLogo(){
     return new Promise(resolve=>{
       const img=new Image();
       img.onload=()=>resolve(img);
@@ -222,143 +286,146 @@ window.IGREJA_CELEBRACOES = (() => {
       img.src=new URL('assets/fotos/logo-igreja-oficial.png',location.href).href;
     });
   }
-  async function createMonthlyPoster(month){
-    // Stories, Status e TikTok usam imagem vertical 9:16, sem seções vazias.
-    const groups=posterGroups(month).filter(group=>group.items.length>0);
-    if(!groups.length)throw new Error('Não há datas públicas com autorização neste mês.');
-    try{await document.fonts?.ready;}catch(_){/* fontes disponíveis serão usadas */}
-    const width=1080,height=1920;
-    const top=420,bottom=1735,sectionGap=24;
-    const headerRoom=groups.length*129+(groups.length-1)*sectionGap;
-    const rowsFor=cols=>groups.reduce((sum,group)=>sum+Math.ceil(group.items.length/cols),0);
-    // Com muitos registros, três colunas mantêm todas as datas dentro do Story.
-    let columns=2;
-    let rowH=Math.min(164,Math.floor((bottom-top-headerRoom)/Math.max(1,rowsFor(columns))));
-    if(rowH<126){
-      columns=3;
-      rowH=Math.min(151,Math.floor((bottom-top-headerRoom)/Math.max(1,rowsFor(columns))));
-    }
-    if(rowH<93)throw new Error('Muitas datas para uma única imagem legível de 9:16. É necessário criar mais de um cartaz para o mês.');
-    const colGap=14,cardW=Math.floor((924-colGap*(columns-1))/columns),cardH=rowH-10;
-    const heightFor=group=>129+Math.ceil(group.items.length/columns)*rowH;
-    const totalHeight=groups.reduce((sum,group)=>sum+heightFor(group),0)+sectionGap*(groups.length-1);
+  async function createMonthlyPosterPage(month,page,pageNumber,totalPages,logo){
     const canvas=document.createElement('canvas');
-    canvas.width=width;canvas.height=height;
+    canvas.width=1080;canvas.height=1920; // 9:16, sem cortes em Stories e Status.
     const g=canvas.getContext('2d');
-    if(!g)throw new Error('Este navegador não permite criar imagens.');
-    g.fillStyle='#f4f9f7';g.fillRect(0,0,width,height);
-    // Cabeçalho com identidade IGJAL, produzido diretamente em alta resolução.
-    const grad=g.createLinearGradient(0,0,width,415);
-    grad.addColorStop(0,'#103c4d');grad.addColorStop(.64,'#1c6070');grad.addColorStop(1,'#347d77');
-    g.fillStyle=grad;g.fillRect(0,0,width,390);
-    g.globalAlpha=.10;g.fillStyle='#d7fff0';
-    g.beginPath();g.arc(1030,-55,290,0,2*Math.PI);g.fill();
-    g.beginPath();g.arc(860,380,190,0,2*Math.PI);g.fill();
-    g.globalAlpha=.11;g.strokeStyle='#ffffff';g.lineWidth=2;
-    for(let i=0;i<5;i++){g.beginPath();g.arc(925,83,130+i*26,.5,4.2);g.stroke();}
+    if(!g)throw new Error('O navegador não permite gerar imagens.');
+    g.fillStyle='#f4f8f6';g.fillRect(0,0,1080,1920);
+    const bg=g.createLinearGradient(0,0,1080,450);
+    bg.addColorStop(0,'#0c3947');bg.addColorStop(.65,'#236677');bg.addColorStop(1,'#438777');
+    g.fillStyle=bg;g.fillRect(0,0,1080,390);
+    g.globalAlpha=.11;g.strokeStyle='#d2fff4';g.lineWidth=2;
+    for(let i=0;i<5;i++){g.beginPath();g.arc(960,70,150+i*30,0,2*Math.PI);g.stroke();}
     g.globalAlpha=1;
-    g.fillStyle='#bce5d8';g.font='700 23px Manrope, Arial, sans-serif';
-    g.fillText('IGJAL  /  OBRA DA RESTAURAÇÃO',65,75);
-    g.fillStyle='#ffffff';g.font='800 78px Manrope, Arial, sans-serif';
-    g.fillText('CELEBRAÇÕES',65,181);
-    g.fillStyle='#e9f5f2';g.font='600 56px Manrope, Arial, sans-serif';
-    g.fillText(nameOfMonth(month),67,266);
-    g.fillStyle='#cbebe5';g.font='500 25px Manrope, Arial, sans-serif';
-    g.fillText('Cada vida e cada jornada são especiais.',68,329);
-    try{
-      const logo=await posterLogo();
-      if(logo){
-        g.save();g.beginPath();g.arc(942,191,76,0,2*Math.PI);g.clip();
-        g.fillStyle='#fff';g.fillRect(866,115,152,152);
-        const scale=Math.min(130/logo.width,130/logo.height);
-        const w=logo.width*scale,h=logo.height*scale;
-        g.drawImage(logo,942-w/2,191-h/2,w,h);g.restore();
-        g.strokeStyle='#aedfd7';g.lineWidth=5;
-        g.beginPath();g.arc(942,191,77,0,2*Math.PI);g.stroke();
-      }
-    }catch(_){/* título mantém a identidade sem imagem */}
-    let y=top+Math.max(0,Math.floor((bottom-top-totalHeight)*.18));
-    for(const group of groups){
-      const sectionH=heightFor(group);
-      g.shadowColor='rgba(23,65,77,.08)';g.shadowBlur=22;g.shadowOffsetY=6;
-      posterRoundRect(g,54,y,972,sectionH,30,'#ffffff');
-      g.shadowBlur=0;g.shadowOffsetY=0;
-      posterRoundRect(g,74,y+22,12,48,6,group.accent);
-      g.fillStyle='#17374a';g.font='800 30px Manrope, Arial, sans-serif';
-      g.fillText(group.title,105,y+52,735);
-      g.fillStyle='#6a7b83';g.font='500 19px Manrope, Arial, sans-serif';
-      g.fillText(group.subtitle,106,y+82);
-      posterRoundRect(g,930,y+27,69,47,17,group.tint);
-      g.fillStyle=group.accent;g.font='800 27px Manrope, Arial, sans-serif';
-      g.textAlign='center';g.fillText(String(group.items.length),965,y+59);g.textAlign='left';
-      group.items.forEach((item,i)=>{
-        const col=i%columns,row=Math.floor(i/columns);
-        const px=79+col*(cardW+colGap),py=y+101+row*rowH;
-        const compact=columns===3||rowH<118;
-        const nameOffset=compact?75:99;
-        const nameWidth=cardW-nameOffset-13;
-        const pal=posterGenderColors(item);
-        posterRoundRect(g,px,py,cardW,cardH,19,pal.background);
-        const dateW=compact?48:67,dateH=compact?53:65;
-        posterRoundRect(g,px+15,py+15,dateW,dateH,15,'#ffffff');
-        g.fillStyle=pal.ink;g.font='800 '+(compact?26:34)+'px Manrope, Arial, sans-serif';
-        g.textAlign='center';g.fillText(numDay(item.dia),px+15+dateW/2,py+(compact?49:60));g.textAlign='left';
-        g.fillStyle=pal.ink;
-        drawPosterName(g,item.nome,px+nameOffset,py+(compact?35:44),nameWidth,compact?51:64,compact?23:28);
-        if(item.tipo!=='aniversario'){
-          g.fillStyle='#667e8a';g.font='600 '+(compact?15:18)+'px Manrope, Arial, sans-serif';
-          const detail=item.tipo==='batismo'
-            ?(item.ano_referencia?'Batismo em '+item.ano_referencia:'Batismo')
-            :(kinds[item.tipo]||'Data ministerial');
-          g.fillText(detail,px+nameOffset,py+cardH-15,nameWidth);
-        }
-      });
-      y+=sectionH+sectionGap;
+    g.fillStyle='#cdece7';g.font='700 23px Manrope, Arial, sans-serif';
+    g.fillText('IGJAL  /  OBRA DA RESTAURAÇÃO',64,79);
+    g.fillStyle='#ffffff';g.font='800 77px Manrope, Arial, sans-serif';
+    g.fillText('CELEBRAÇÕES',64,172);
+    g.fillStyle='#edf7f4';g.font='600 56px Manrope, Arial, sans-serif';
+    g.fillText(nameOfMonth(month),66,256);
+    g.fillStyle='#c5e3dd';g.font='500 23px Manrope, Arial, sans-serif';
+    g.fillText('Cada vida e cada caminhada são especiais.',67,321);
+    if(logo){
+      const cx=944,cy=190,radius=75;
+      g.save();g.beginPath();g.arc(cx,cy,radius,0,Math.PI*2);g.clip();
+      g.fillStyle='#fff';g.fillRect(cx-radius,cy-radius,radius*2,radius*2);
+      const scale=Math.min(132/logo.width,132/logo.height);
+      const w=logo.width*scale,h=logo.height*scale;
+      g.drawImage(logo,cx-w/2,cy-h/2,w,h);g.restore();
+      g.beginPath();g.arc(cx,cy,radius+2,0,Math.PI*2);g.strokeStyle='#a8dad2';g.lineWidth=4;g.stroke();
     }
-    const foot=height-118;
-    g.fillStyle='#dbe9e4';g.fillRect(65,foot-45,950,2);
-    g.fillStyle='#2a5560';g.font='800 25px Manrope, Arial, sans-serif';
-    g.fillText('IGREJA NO JARDIM LEAL',65,foot);
-    g.fillStyle='#738c90';g.font='500 19px Manrope, Arial, sans-serif';
-    g.fillText('Participe, celebre e compartilhe o amor de Deus.',65,foot+38);
-    g.textAlign='right';g.fillText('igrejanojardimleal.github.io',1015,foot+40);g.textAlign='left';
-    const blob=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error('Não foi possível salvar a imagem.')),'image/png'));
-    return blob;
+    if(totalPages>1){
+      posterRoundRect(g,826,334,185,35,17,'rgba(255,255,255,.18)');
+      g.font='700 18px Manrope, Arial, sans-serif';g.textAlign='center';
+      g.fillStyle='#ffffff';g.fillText('PARTE '+pageNumber+' DE '+totalPages,919,357);
+      g.textAlign='left';
+    }
+    // Não invade o topo/rodapé reservados pelas interfaces do WhatsApp.
+    let y=449+Math.min(92,Math.floor((POSTER_PAGE_HEIGHT-page.used)*.13));
+    for(const section of page.sections){
+      const h=posterSectionHeight(section.days);
+      g.shadowColor='rgba(24,76,82,.09)';g.shadowBlur=24;g.shadowOffsetY=8;
+      posterRoundRect(g,50,y,980,h,27,'#ffffff');g.shadowBlur=0;g.shadowOffsetY=0;
+      posterRoundRect(g,75,y+24,11,43,5,section.group.accent);
+      g.fillStyle='#193c4c';g.font='800 29px Manrope, Arial, sans-serif';
+      const label=section.group.title+(section.continued?' (CONTINUAÇÃO)':'');
+      g.fillText(label,108,y+53,760);
+      g.font='500 18px Manrope, Arial, sans-serif';g.fillStyle='#6f848a';
+      g.fillText(section.group.subtitle,108,y+80,750);
+      posterRoundRect(g,938,y+27,66,44,16,section.group.tint);
+      g.font='800 25px Manrope, Arial, sans-serif';g.fillStyle=section.group.accent;
+      g.textAlign='center';g.fillText(String(section.days.reduce((n,day)=>n+day.items.length,0)),971,y+57);
+      g.textAlign='left';
+      let cy=y+92;
+      for(const day of section.days){
+        const dayH=posterDayHeight(day);
+        posterRoundRect(g,75,cy,930,dayH,19,'#f6f9f8');
+        posterRoundRect(g,93,cy+18,91,92,18,'#e3eeee');
+        g.fillStyle='#24586a';g.font='800 42px Manrope, Arial, sans-serif';
+        g.textAlign='center';g.fillText(numDay(day.dia),138,cy+68);
+        g.font='700 16px Manrope, Arial, sans-serif';
+        g.fillText(nameOfMonth(month).slice(0,3).toUpperCase(),138,cy+93);
+        g.textAlign='left';
+        if(day.continued){
+          g.font='700 15px Manrope, Arial, sans-serif';g.fillStyle='#778e95';
+          g.fillText('CONT.',96,cy+127,85);
+        }
+        day.items.forEach((person,i)=>{
+          const col=i%2,row=Math.floor(i/2);
+          const tx=232+col*370,ty=cy+52+row*92;
+          posterName(g,person,tx,ty,340,person.tipo!=='aniversario');
+        });
+        cy+=dayH+13;
+      }
+      y+=h+22;
+    }
+    const footer=1787;
+    g.fillStyle='#d2e3df';g.fillRect(63,footer-54,955,2);
+    g.fillStyle='#285761';g.font='800 25px Manrope, Arial, sans-serif';
+    g.fillText('IGREJA NO JARDIM LEAL',65,footer);
+    g.fillStyle='#6b888c';g.font='500 21px Manrope, Arial, sans-serif';
+    g.fillText('Que Deus abençoe cada vida e cada família!',65,footer+43);
+    g.textAlign='right';g.font='600 17px Manrope, Arial, sans-serif';
+    g.fillText('igrejanojardimleal.github.io',1015,footer+43);g.textAlign='left';
+    return await new Promise((resolve,reject)=>canvas.toBlob(
+      blob=>blob?resolve(blob):reject(new Error('Não foi possível salvar o cartaz.')),'image/png'
+    ));
   }
-  const posterFilename=month=>'IGJAL-celebracoes-'+nameOfMonth(month).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()+'.png';
-  function savePoster(blob,month){
+  async function createMonthlyPosters(month){
+    const pages=posterPages(month);
+    if(!pages.length)throw new Error('Não há datas publicadas e autorizadas para este mês.');
+    try{await document.fonts?.ready;}catch(_){/* preserva fonte alternativa */}
+    const logo=await posterLogo();
+    const blobs=[];
+    for(let n=0;n<pages.length;n++){
+      blobs.push(await createMonthlyPosterPage(month,pages[n],n+1,pages.length,logo));
+    }
+    return blobs;
+  }
+  function posterFilename(month,index,total){
+    const slug=nameOfMonth(month).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    return 'IGJAL-celebracoes-'+slug+(total>1?'-parte-'+index:'')+'.png';
+  }
+  function savePoster(blob,month,index,total){
     const address=URL.createObjectURL(blob);
-    const a=document.createElement('a');
-    a.href=address;a.download=posterFilename(month);
-    document.body.append(a);a.click();a.remove();
+    const anchor=document.createElement('a');
+    anchor.href=address;anchor.download=posterFilename(month,index,total);
+    document.body.append(anchor);anchor.click();anchor.remove();
     window.setTimeout(()=>URL.revokeObjectURL(address),30000);
   }
   async function posterAction(mode,month,button){
     if(button?.disabled)return;
     const original=button?.textContent;
-    if(button){button.disabled=true;button.textContent='Preparando imagem...';}
+    if(button){button.disabled=true;button.textContent='Preparando cartaz...';}
     const message=$('celebracoes-poster-status');
     if(message)message.textContent='';
     try{
-      const blob=await createMonthlyPoster(month);
+      const blobs=await createMonthlyPosters(month);
+      const files=blobs.map((blob,i)=>new File([blob],posterFilename(month,i+1,blobs.length),{type:'image/png'}));
       if(mode==='share'&&typeof navigator.share==='function'){
-        const file=new File([blob],posterFilename(month),{type:'image/png'});
-        if(typeof navigator.canShare!=='function'||navigator.canShare({files:[file]})){
+        if(typeof navigator.canShare!=='function'||navigator.canShare({files})){
           try{
-            await navigator.share({files:[file],title:'Celebrações de '+nameOfMonth(month)+' — IGJAL',text:'Datas especiais da nossa igreja'});
-            if(message)message.textContent='Imagem compartilhada.';
+            await navigator.share({
+              files,
+              title:'Celebrações de '+nameOfMonth(month)+' — IGJAL',
+              text:'Datas especiais da nossa igreja'
+            });
+            if(message)message.textContent=blobs.length>1?'Cartazes compartilhados.':'Cartaz compartilhado.';
             return;
-          }catch(error){
-            if(error.name==='AbortError')return;
-            // Em navegadores sem envio de arquivos, entrega o PNG para anexar no WhatsApp.
+          }catch(err){
+            if(err.name==='AbortError')return;
           }
         }
       }
-      savePoster(blob,month);
-      if(message)message.textContent='Cartaz PNG salvo. No WhatsApp, envie como foto pela galeria ou pelos arquivos.';
+      blobs.forEach((blob,i)=>savePoster(blob,month,i+1,blobs.length));
+      const notice=blobs.length>1
+        ?'Foram gerados '+blobs.length+' cartazes 9:16 numerados. Se o navegador pedir, permita vários downloads para receber todas as partes.'
+        :'Cartaz PNG 9:16 salvo. Envie como foto no WhatsApp ou publique no Status.';
+      if(message)message.textContent=notice;
     }catch(err){
-      if(message)message.textContent='Não foi possível gerar o cartaz: '+(err.message||'tente novamente.');
-      console.warn('[IGJAL] Não foi possível gerar cartaz de celebrações:',err);
+      if(message)message.textContent='Não foi possível gerar a imagem: '+(err.message||'tente novamente.');
+      console.warn('[IGJAL] Erro ao gerar celebrações:',err);
     }finally{
       if(button){button.disabled=false;button.textContent=original;}
     }
