@@ -12,7 +12,8 @@ permissions:
   id-token: write
 concurrency:
   group: github-pages
-  cancel-in-progress: false
+  # Prioriza a versão mais nova e evita uma fila de publicações antigas.
+  cancel-in-progress: true
 jobs:
   publicar:
     runs-on: ubuntu-latest
