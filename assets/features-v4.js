@@ -36,12 +36,15 @@ window.IGREJA_V4 = (() => {
   function studyReviewer(){return admin() || ctx?.isStudyReviewer?.()===true;}
   function areaAllowed(area){return admin() || ctx?.hasArea?.(area)===true;}
   const tabAreas={cifras:'cifras',hinos:'hinos',midias:'midias',kits:'kits',live:'live',identidade:'identidade'};
+  const catalogoBase=new Map();
   function tabAllowed(name){
     if(admin())return true;
     if(name==='agenda')return eventAdmin();
     if(name==='comments')return muralAdmin();
     if(name==='hino-comentarios')return areaAllowed('comentarios_hinos');
     if(name==='verificacoes')return ctx?.canVerify?.()===true;
+    if(name==='hinos'||name==='cifras')return areaAllowed('hinos')||areaAllowed('cifras');
+    if(name==='historico')return admin()||eventAdmin()||areaAllowed('hinos')||areaAllowed('cifras')||areaAllowed('midias')||areaAllowed('kits')||areaAllowed('live')||areaAllowed('identidade')||areaAllowed('editor_estudos');
     if(name==='estudos')return studyReviewer()||areaAllowed('editor_estudos');
     return Boolean(tabAreas[name]&&areaAllowed(tabAreas[name]));
   }
@@ -452,13 +455,21 @@ window.IGREJA_V4 = (() => {
     ['site_eventos','id,titulo,inicio_em,local,descricao,publicado'],
     ['site_avisos','id,titulo,mensagem,valido_ate,publicado,criado_em'],
     ['site_midias','hino_numero,tipo,youtube_id,audio_url'],
-    ['site_identidade','chave,valor']
+    ['site_identidade','chave,valor'],
+    ['hinos_ocultos','numero']
   ];
     const got=await Promise.all(jobs.map(async([table,cols])=>{const {data,error}=await db.from(table).select(cols);if(error){console.warn('Módulo '+table+' indisponível:',error.message);return [];}return data||[];}));
+    for(const [numero,original] of catalogoBase){
+      if(!ctx.songs.some(x=>x.number===numero))ctx.songs.push({...original});
+    }
     for(const r of got[0]){
       if(!Number.isInteger(r.numero))continue;const existing=ctx.songs.find(x=>x.number===r.numero);
       const next={number:r.numero,title:r.titulo,lyrics:r.letra,chords:r.cifra||'',key:r.tom||'',author:r.autor||''};
       if(existing)Object.assign(existing,next);else ctx.songs.push(next);
+    }
+    const ocultos=new Set(got[5].map(row=>row.numero));
+    for(let index=ctx.songs.length-1;index>=0;index--){
+      if(ocultos.has(ctx.songs[index].number))ctx.songs.splice(index,1);
     }
     ctx.songs.sort((a,b)=>a.number-b.number);
     eventAll=got[1];noticeAll=got[2];
@@ -526,10 +537,12 @@ window.IGREJA_V4 = (() => {
     if(name==='estudos'){await window.IGREJA_ESTUDOS?.refreshAdmin?.(ctx);return;}
     if(!client())return;
     if(name==='cifras')ctx.loadCifras?.();
+    if(name==='cifras'||name==='hinos')void window.IGREJA_GESTAO?.refresh?.(name);
     if(name==='agenda')await refreshAgendaAdmin();
     if(name==='midias')await refreshMediaAdmin();
     if(name==='identidade')refreshIdentityForm();
     if(name==='historico')await loadAudit();
+    if(name==='historico')void window.IGREJA_GESTAO?.refresh?.('historico');
   }
   function initAdminTabs(){document.querySelectorAll('[data-admin-view]').forEach(b=>b.addEventListener('click',()=>loadPanel(b.dataset.adminView)));updateAdminTabs();}
   function readSongForm(){const num=Number(fieldVal('edit-song-number'));return {numero:num,titulo:fieldVal('edit-song-title'),autor:fieldVal('edit-song-author'),tom:fieldVal('edit-song-key'),letra:fieldVal('edit-song-lyrics'),cifra:fieldVal('edit-song-chords')};}
@@ -601,6 +614,6 @@ window.IGREJA_V4 = (() => {
       lastPending=null;
     }
   }
-  async function init(context){ctx=context;initCulto();initPixQR();initAdminEditors();await fetchPublic();await onAuthChange();}
-  return {init,keepSong,getMedia,onSongRendered,onAuthChange,loadPanel,isCulto:()=>culto};
+  async function init(context){ctx=context;for(const s of ctx?.songs||[])catalogoBase.set(s.number,{...s});initCulto();initPixQR();initAdminEditors();await fetchPublic();await onAuthChange();}
+  return {init,keepSong,getMedia,onSongRendered,onAuthChange,loadPanel,reloadPublic:fetchPublic,isCulto:()=>culto};
 })();
