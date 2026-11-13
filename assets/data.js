@@ -1,5 +1,5 @@
 /* Conteúdo do hinário da igreja. Publicação externa sujeita à autorização dos compositores e responsáveis. */
-window.IGREJA_DATA = {
+window.IGREJA_DATA =  {
   "history": {
     "intro": "Igreja no Jardim Leal — Ministério de Igrejas na Obra da Restauração. Um espaço para nossa história, os louvores e a comunhão da comunidade.",
     "detail": "O Hinário Pedacinho do Céu (Volume 1) foi apresentado em novembro de 2021 com dedicatória do pastor Gilmar Calegário Murro e trabalho do departamento de música. Vamos ampliar esta seção com a trajetória e os registros oficiais da igreja.",
@@ -973,18 +973,9 @@ window.IGREJA_DATA = {
       "time": "",
       "author": "Isabela de Jesus Oliveira Murro",
       "lyrics": "I\nNós queremos mostrar\nQue existe um Deus que habita o céu e o ar\nTe dá uma chance de ser mais um na multidão\nDe ser escolhido por Ele, pra morar na mansão\n\nCORO\n\nPor isso nós vamos te dizer, irmão\nNão pense duas vezes, cante a canção\nQuando o poder de Deus descer deixe envolver você.\n\nII\nNão desperdice, oh não!!!\nA chance é de ouro e você vai ficar sem salvação.\nPra que se lembrar que aqui é o nosso lugar?\nSe existe uma morada no céu, que Ele de graça dá.\n\nIII\nAgora, se você já achou\nDivida com quem não tem ainda esse grande amor\nVai ver que em dobro você vai do céu ganhar\nJesus vai olhar com olhos lindos, pra você cantar.",
-      "chords": "",
+      "chords": "I\nC                 Am\nNós queremos mostrar\n      C                                Am\nQue existe um Deus que habita o céu e o ar\n    G                                Am\nTe dá uma chance de ser mais um na multidão\n    G                               Am\nDe ser escolhido por Ele, pra morar na mansão\n\nCORO\n\n                                 F                   G\n                             Por isso nós vamos te dizer, irmão\n                                E                      Am\n                            Não pense duas vezes, cante a canção\n                           Dm                      G                  C\n                      Quando o poder de Deus descer deixe envolver você.\n\nII\nC                  Am\nNão desperdice, oh não!!!\n    C                                        Am\nA chance é de ouro e você vai ficar sem salvação.\n     G                              Am\nPra que se lembrar que aqui é o nosso lugar?\n    G                                     Am\nSe existe uma morada no céu, que Ele de graça dá.\n\nIII\n  C                Am\nAgora, se você já achou\n  C                                           Am\nDivida com quem não tem ainda esse grande amor\n    G                              Am\nVai ver que em dobro você vai do céu ganhar\n   G                                    Am\nJesus vai olhar com olhos lindos, pra você cantar.",
       "source": "Hinário Pedacinho do Céu — Vol. 1 (2021)",
-      "voiceVariants": {
-        "tenor_baixo_contralto": {
-          "key": "C",
-          "chords": ""
-        },
-        "baritono_soprano": {
-          "key": "E",
-          "chords": ""
-        }
-      }
+      "voiceVariants": {}
     },
     {
       "id": "hino-46",
