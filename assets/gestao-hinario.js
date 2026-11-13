@@ -292,7 +292,7 @@ window.IGREJA_GESTAO = (()=>{
      $('admin-hino-form').insertAdjacentText('beforebegin','Você pode consultar todas as letras e cifras, mas somente revisores do Hinário podem editar esse conteúdo.');
    }
    if(maySee())void Promise.all([loadHymns(),loadPdfs()]);
-   if(ctx?.isAdmin?.()||ctx?.isEventsAdmin?.())void readHistory();
+   if(ctx?.isAdmin?.()||ctx?.isEventsAdmin?.())void annotateEvents();
  }
  async function refresh(which){
    if(!maySee())return;
