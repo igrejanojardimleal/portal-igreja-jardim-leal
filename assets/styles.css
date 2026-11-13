@@ -1388,3 +1388,36 @@ body[data-page="louvores"] .songs-panel{
  #agenda-page .event-share-actions .event-share-whatsapp,
  #agenda-page .event-share-actions .event-share-copy{flex:1 1 110px}
 }
+
+
+/* IGJAL biblioteca administrativa e rastreabilidade */
+.igjal-library-controls{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px;margin:16px 0}
+.igjal-library-controls label{display:flex;flex-direction:column;gap:7px;flex:1 1 290px;font-size:13px;font-weight:700;color:#344e56}
+.igjal-library-controls input{width:100%;padding:12px 14px;border:1px solid #ccdbd8;border-radius:12px;font:inherit;background:#fff;color:#183844;box-sizing:border-box}
+.igjal-library-list{display:grid;grid-template-columns:minmax(0,1fr);gap:11px;margin:18px 0 24px}
+.igjal-library-item{display:flex;flex-direction:column;gap:10px;padding:15px 17px;border-radius:16px;border:1px solid #dfe9e5;background:#fff;box-shadow:0 3px 10px rgba(20,65,72,.03);min-width:0}
+.igjal-library-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.igjal-library-head div{display:grid;gap:5px;min-width:0}
+.igjal-library-item strong{font-size:14px;color:#22444b;line-height:1.4;overflow-wrap:anywhere}
+.igjal-library-item small{font-size:12px;line-height:1.6;color:#657b81;overflow-wrap:anywhere}
+.igjal-library-badge{font-size:11px;font-weight:800;padding:6px 10px;border-radius:999px;background:#eaf5f2;color:#347768;white-space:nowrap}
+.igjal-library-actions{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.igjal-library-actions .btn{font-size:12px;min-height:36px;padding:8px 13px;border-radius:10px}
+.igjal-library-details{min-width:0;border-top:1px solid #edf1ef;padding-top:10px}
+.igjal-library-details summary,.igjal-library-digital summary{cursor:pointer;color:#286879;font-weight:700;font-size:13px}
+.igjal-library-details h4{margin:18px 0 8px;font-size:14px;color:#203f49}
+.igjal-library-details label{display:grid;gap:7px;margin-top:12px;font-weight:700;font-size:13px}
+.igjal-library-details input,.igjal-library-details textarea{box-sizing:border-box;width:100%;max-width:100%;border:1px solid #d3dedb;padding:10px;border-radius:9px;font:inherit}
+.igjal-library-pre{max-height:400px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;background:#f6faf9;border:1px solid #e5efec;border-radius:12px;padding:15px;color:#294550;font:500 13px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace}
+.igjal-library-item .igjal-danger{color:#a13d3d;border-color:#e5c3c3;background:#fff8f8}
+.igjal-library-item .igjal-danger:hover{background:#fce8e8}
+.igjal-audit-byline{font:600 12px/1.6 'DM Sans',sans-serif;color:#4b7770;margin:12px 0 0;padding:10px 12px;border-radius:9px;background:#f0f8f5}
+.igjal-audit-byline span{color:#6b7779}
+#igjal-historico-list .igjal-library-item{border-left:4px solid #579c90}
+@media(max-width:650px){
+  .igjal-library-head{flex-direction:column;gap:8px}
+  .igjal-library-badge{white-space:normal}
+  .igjal-library-actions{gap:7px}
+  .igjal-library-actions .btn{flex:1 1 120px}
+  .igjal-library-item{padding:14px}
+}
