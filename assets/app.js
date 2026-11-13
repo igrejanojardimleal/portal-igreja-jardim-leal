@@ -700,13 +700,48 @@
   function renderSongDialog() {
     if (!selectedSong) return;
     if(lastMobileHino!==selectedSong.number){mobilePanelExpanded=false;lastMobileHino=selectedSong.number;}
+    const approvedPdfs=cifrasPublicadas.get(selectedSong.number)?._all||[];
+    const inlineApproved=dialogMode==='cifra'&&approvedPdfs.length>0;
     const activeCifra=getActiveChordVersion(selectedSong);
     setText('song-dialog-title', `${String(selectedSong.number).padStart(2,'0')} — ${selectedSong.title}`);
     setText('song-dialog-eyebrow', dialogMode === 'cifra' ? 'CIFRA DO LOUVOR' : 'LETRA DO LOUVOR');
-    setText('song-dialog-subtitle', dialogMode === 'cifra' ? (activeCifra.chords ? `Tom ${activeCifra.key || 'a confirmar'} • ${selectedSong.author}` : (cifrasPublicadas.has(selectedSong.number) ? 'PDF aprovado pela equipe da igreja' : 'Cifra em preparação • envie a cifra para a equipe')) : `Hinário Pedacinho do Céu • ${selectedSong.author}`);
-    renderSongContent( dialogMode === 'cifra' ? activeCifra.chords || (cifrasPublicadas.has(selectedSong.number) ? 'A cifra aprovada está disponível no PDF original abaixo. Para mudar de tom, a equipe precisa cadastrar a cifra digital revisada.' : 'Ainda não recebemos a cifra deste hino.\n\nA letra está disponível na aba “Letra”.\n\nAs cifras serão adicionadas gradualmente pela equipe da igreja.') : selectedSong.lyrics || 'Letra ainda não cadastrada.');
+    setText('song-dialog-subtitle', inlineApproved ? `Cifra oficial aprovada • ${selectedSong.author}` : (dialogMode === 'cifra' ? (activeCifra.chords ? `Tom ${activeCifra.key || 'a confirmar'} • ${selectedSong.author}` : 'Cifra em preparação • envie a cifra para a equipe') : `Hinário Pedacinho do Céu • ${selectedSong.author}`));
+    renderSongContent(inlineApproved ? '' : (dialogMode==='cifra' ? (activeCifra.chords || 'Ainda não recebemos a cifra deste hino.\\n\\nA letra está disponível na aba “Letra”.') : (selectedSong.lyrics || 'Letra ainda não cadastrada.')));
     applyToneToDialog();
-    $('song-dialog-content').classList.toggle('is-chords', dialogMode === 'cifra');
+    if(inlineApproved){
+      const transpose=$('transpose-panel');
+      if(transpose)transpose.hidden=true;
+      const content=$('song-dialog-content');
+      content.replaceChildren();
+      content.style.width='100%';
+      const picker=approvedPdfs.length>1?el('select','igjal-approved-picker'):null;
+      const frame=el('iframe','igjal-inline-pdf');
+      frame.title='Cifra oficial do louvor '+selectedSong.number;
+      frame.loading='lazy';
+      frame.style.cssText='display:block;width:100%;height:min(74vh,960px);min-height:520px;border:1px solid #ddd;border-radius:10px;background:white';
+      frame.setAttribute('referrerpolicy','no-referrer');
+      const showPdf=(idx)=>{
+        const entry=approvedPdfs[idx]||approvedPdfs[0];
+        frame.src=entry.url+'#view=FitH';
+      };
+      if(picker){
+        picker.setAttribute('aria-label','Escolha a cifra');
+        picker.style.cssText='display:block;width:100%;padding:12px;margin:0 0 14px;border-radius:8px';
+        approvedPdfs.forEach((item,index)=>{
+          const option=document.createElement('option');
+          option.value=String(index);
+          option.textContent='Cifra '+(index+1)+' — '+(VOCAL_LABELS[item.voice]||'PDF oficial');
+          picker.append(option);
+        });
+        picker.addEventListener('change',()=>showPdf(Number(picker.value)));
+        content.append(picker);
+      }
+      const notice=el('p','', 'Cifra aprovada, exibida no formato original para preservar a posição dos acordes sobre as sílabas.');
+      notice.style.cssText='margin:0 0 12px;font-size:0.9em';
+      content.append(notice,frame);
+      showPdf(0);
+    }
+    $('song-dialog-content').classList.toggle('is-chords', dialogMode === 'cifra'&&!inlineApproved);
     const chordOnMobile=dialogMode==='cifra'&&mobileCifraMedia?.matches;
     $('song-dialog-content').style.fontSize = `${chordOnMobile
       ? Math.min(Math.max(readingFont,12),22)
