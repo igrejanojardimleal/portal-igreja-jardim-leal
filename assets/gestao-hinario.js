@@ -12,7 +12,7 @@ window.IGREJA_GESTAO = (()=>{
  const stamp=raw=>{try{return new Intl.DateTimeFormat('pt-BR',{dateStyle:'short',timeStyle:'short',timeZone:'America/Sao_Paulo'}).format(new Date(raw));}catch(_){return '';}};
  const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
  const status=(id,message,bad=false)=>{const el=$(id);if(el){el.textContent=message;el.classList.toggle('error',bad);}};
- let ctx=null,hidden=new Set(),history=[],pdfRows=[],sendRows=[];
+ let ctx=null,hidden=new Set(),history=[],pdfRows=[],sendRows=[],dbEdits=[];
  const db=()=>ctx?.db?.();
  const can=area=>ctx?.hasArea?.(area)===true;
  const logged=()=>Boolean(ctx?.user?.()?.id);
@@ -24,7 +24,7 @@ window.IGREJA_GESTAO = (()=>{
    const b=make('button',text,cls);b.type='button';b.addEventListener('click',cb);return b;
  };
  function hymnSnapshot(){
-   const map=new Map([...base(),...names()].map(row=>[row.number,row]));
+   const map=new Map([...base(),...dbEdits,...names()].map(row=>[row.number,row]));
    return [...map.values()].sort((a,b)=>a.number-b.number);
  }
  function renderHymns(){
@@ -68,9 +68,17 @@ window.IGREJA_GESTAO = (()=>{
  }
  async function loadHymns(){
    if(!maySee()||!db())return;
-   const {data,error}=await db().from('hinos_ocultos').select('numero');
-   if(error){status('igjal-hinos-status','Falha ao consultar hinos excluídos: '+error.message,true);return;}
-   hidden=new Set((data||[]).map(x=>Number(x.numero)));
+   const [removed,edits]=await Promise.all([
+     db().from('hinos_ocultos').select('numero'),
+     db().from('hinos_edicoes').select('numero,titulo,letra,cifra,tom,autor')
+   ]);
+   if(removed.error||edits.error){
+      status('igjal-hinos-status','Falha ao consultar o Hinário: '+(removed.error||edits.error).message,true);return;
+   }
+   hidden=new Set((removed.data||[]).map(x=>Number(x.numero)));
+   dbEdits=(edits.data||[]).map(x=>({
+      number:x.numero,title:x.titulo,lyrics:x.letra,chords:x.cifra||'',key:x.tom||'',author:x.autor||''
+   }));
    renderHymns();
  }
  async function hideHymn(song){
@@ -91,7 +99,7 @@ window.IGREJA_GESTAO = (()=>{
    status('igjal-hinos-status','Hino '+song.number+' restaurado.');
    window.IGREJA_V4?.reloadPublic?.();
  }
- function isPdf(file){return file&&file.type==='application/pdf'&&file.size<=5*1024*1024&&file.size>=16;}
+ function isPdf(file){return file&&/\.pdf$/i.test(file.name||'')&&file.size<=5*1024*1024&&file.size>=16;}
  async function pdfHeader(file){
    const bytes=new Uint8Array(await file.slice(0,5).arrayBuffer());
    return String.fromCharCode(...bytes)==='%PDF-';
@@ -155,9 +163,7 @@ window.IGREJA_GESTAO = (()=>{
          actions.append(actionButton('Substituir PDF',()=>upload.click()),upload);
          actions.append(actionButton('Excluir PDF',()=>void deletePdf(item,true),'btn btn-outline btn-sm igjal-danger'));
        }else{
-         if(item.status!=='aprovado'){
-           actions.append(actionButton('Excluir envio',()=>void deletePdf(item,false),'btn btn-outline btn-sm igjal-danger'));
-         }
+         actions.append(actionButton('Excluir envio',()=>void deletePdf(item,false),'btn btn-outline btn-sm igjal-danger'));
        }
        if(source){
           const form=make('details',null,'igjal-library-details');
