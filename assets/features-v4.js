@@ -575,7 +575,25 @@ window.IGREJA_V4 = (() => {
     $('admin-preview-key')?.addEventListener('change',previewSong);
     $('admin-load-hino')?.addEventListener('click',loadSongForm);
     $('admin-hino-form')?.addEventListener('submit',async(ev)=>{ev.preventDefault();const s=readSongForm();if(!Number.isInteger(s.numero)||s.numero<1||s.numero>9999||!s.titulo||!s.letra)return status('admin-hino-status','Informe número, título e letra completa.',true);if(s.cifra && !tr?.keyInfo(s.tom))return status('admin-hino-status','Para salvar cifra digital, informe um tom original válido (C, C#, D, Am, Bb etc.).',true);if(s.cifra && !tr.countChords(s.cifra))return status('admin-hino-status','Nenhum acorde reconhecido. Use linhas só de acordes ou [C] inline e confira a prévia.',true);try{await adminUpsert('hinos_edicoes',s,'numero');status('admin-hino-status','Hino salvo e publicado.');await fetchPublic();}catch(err){status('admin-hino-status','Erro ao salvar: '+err.message,true);}});
-    $('admin-event-form')?.addEventListener('submit',async ev=>{ev.preventDefault();const t=fieldVal('edit-event-title'),raw=fieldVal('edit-event-date');if(!t||!raw)return status('admin-event-status','Informe título e data.',true);try{await adminUpsert('site_eventos',{titulo:t,inicio_em:new Date(raw).toISOString(),local:fieldVal('edit-event-location'),descricao:fieldVal('edit-event-description'),publicado:$('edit-event-published').checked});$('admin-event-form').reset();status('admin-event-status','Evento cadastrado.');await fetchPublic();await refreshAgendaAdmin();}catch(err){status('admin-event-status','Erro: '+err.message,true);}});
+    $('admin-event-cancel')?.addEventListener('click',()=>{clearEventEditor();status('admin-event-status','Edição cancelada.');});
+    $('admin-event-form')?.addEventListener('submit',async ev=>{
+      ev.preventDefault();
+      const title=fieldVal('edit-event-title'),date=fieldVal('edit-event-date');
+      if(!title||!date)return status('admin-event-status','Informe título e data.',true);
+      const row={titulo:title,inicio_em:new Date(date).toISOString(),
+        local:fieldVal('edit-event-location'),descricao:fieldVal('edit-event-description'),
+        publicado:$('edit-event-published').checked};
+      const id=Number(fieldVal('edit-event-id'));
+      try{
+        if(Number.isInteger(id)&&id>0){
+          const {data,error}=await client().from('site_eventos').update(row).eq('id',id).select('id');
+          if(error||!data?.length)throw error||new Error('Edição não autorizada.');
+        }else await adminUpsert('site_eventos',row);
+        clearEventEditor();
+        status('admin-event-status',id>0?'Evento atualizado. Responsável registrado no histórico.':'Evento cadastrado. Responsável registrado no histórico.');
+        await fetchPublic();await refreshAgendaAdmin();
+      }catch(err){status('admin-event-status','Erro: '+err.message,true);}
+    });
     $('admin-notice-form')?.addEventListener('submit',async ev=>{ev.preventDefault();if(!fieldVal('edit-notice-title')||!fieldVal('edit-notice-body'))return status('admin-notice-status','Preencha título e aviso.',true);try{await adminUpsert('site_avisos',{titulo:fieldVal('edit-notice-title'),mensagem:fieldVal('edit-notice-body'),valido_ate:fieldVal('edit-notice-until')||null,publicado:$('edit-notice-published').checked});$('admin-notice-form').reset();status('admin-notice-status','Aviso cadastrado.');await fetchPublic();await refreshAgendaAdmin();}catch(err){status('admin-notice-status','Erro: '+err.message,true);}});
     $('admin-media-form')?.addEventListener('submit',async ev=>{ev.preventDefault();const number=Number(fieldVal('edit-media-hino')),type=fieldVal('edit-media-type'),value=fieldVal('edit-media-value');const yt=/^[\w-]{11}$/.test(value)?value:(value.match(/(?:youtu\.be\/|[?&]v=|youtube\.com\/shorts\/)([\w-]{11})/)||[])[1];if(type==='youtube'&&!yt)return status('admin-media-status','Informe um ID/link válido de vídeo do YouTube.',true);if(type==='audio'&&!safeAudio(value))return status('admin-media-status','Informe URL HTTPS de arquivo MP3/OGG/M4A ou caminho assets/audio/...',true);
       try{await adminUpsert('site_midias',{hino_numero:number,tipo:type,youtube_id:type==='youtube'?yt:null,audio_url:type==='audio'?value:null},'hino_numero');status('admin-media-status','Gravação vinculada ao hino.');await fetchPublic();await refreshMediaAdmin();}catch(err){status('admin-media-status','Erro: '+err.message,true);}
@@ -586,10 +604,62 @@ window.IGREJA_V4 = (() => {
     });
   }
   function moderationLine(title,subtitle,content,btnLabel,onClick){const box=E('article','moderation-item');box.append(E('h3','',title));if(subtitle)box.append(E('small','',subtitle));if(content)box.append(E('p','',content));if(btnLabel){const b=E('button','btn btn-outline',btnLabel);b.type='button';b.addEventListener('click',onClick);box.append(b);}return box;}
-  async function refreshAgendaAdmin(){if(!eventEditorEnabled()||!$('admin-event-list'))return;for(const [table,hostId,title,describe] of [['site_eventos','admin-event-list',r=>r.titulo,r=>formatDate(r.inicio_em,true)+' • '+(r.publicado?'Publicado':'Rascunho')],['site_avisos','admin-notice-list',r=>r.titulo,r=>r.mensagem.slice(0,100)+' • '+(r.publicado?'Publicado':'Rascunho')]]){
-    const {data,error}=await client().from(table).select('*').order('criado_em',{ascending:false}).limit(100);const host=$(hostId);host.replaceChildren();if(error){host.append(E('p','','Não foi possível carregar os registros.'));continue;}
-    for(const row of data||[]){const node=moderationLine(title(row),describe(row),'','Excluir',async()=>{if(!confirm('Excluir este registro definitivamente?'))return;try{await adminDelete(table,row.id);await fetchPublic();await refreshAgendaAdmin();}catch(err){alert('Erro ao excluir: '+err.message);}});host.append(node);}
-  }}
+  function eventDateLocal(value){
+    const date=new Date(value);
+    if(!Number.isFinite(date.getTime()))return '';
+    const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{
+      timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',
+      day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'
+    }).formatToParts(date).filter(p=>p.type!=='literal').map(p=>[p.type,p.value]));
+    return parts.year+'-'+parts.month+'-'+parts.day+'T'+parts.hour+':'+parts.minute;
+  }
+  function clearEventEditor(){
+    const form=$('admin-event-form');
+    form?.reset();
+    if($('edit-event-id'))$('edit-event-id').value='';
+    if($('admin-event-save'))$('admin-event-save').textContent='Adicionar evento';
+    if($('admin-event-cancel'))$('admin-event-cancel').hidden=true;
+  }
+  async function refreshAgendaAdmin(){
+    if(!eventEditorEnabled()||!$('admin-event-list'))return;
+    for(const [table,hostId,title,describe] of [
+       ['site_eventos','admin-event-list',r=>r.titulo,r=>formatDate(r.inicio_em,true)+' • '+(r.publicado?'Publicado':'Rascunho')],
+       ['site_avisos','admin-notice-list',r=>r.titulo,r=>r.mensagem.slice(0,100)+' • '+(r.publicado?'Publicado':'Rascunho')]
+    ]){
+      const {data,error}=await client().from(table).select('*').order('criado_em',{ascending:false}).limit(150);
+      const host=$(hostId);host.replaceChildren();
+      if(error){host.append(E('p','','Não foi possível carregar os registros.'));continue;}
+      for(const row of data||[]){
+        const node=moderationLine(title(row),describe(row),'','Excluir',async()=>{
+          if(!confirm('Excluir este registro definitivamente?'))return;
+          try{
+            await adminDelete(table,row.id);
+            await fetchPublic();await refreshAgendaAdmin();
+          }catch(err){alert('Erro ao excluir: '+err.message);}
+        });
+        if(table==='site_eventos'){
+          node.dataset.igjalEventId=String(row.id);
+          const edit=E('button','btn btn-outline btn-sm','Editar evento');
+          edit.type='button';
+          edit.addEventListener('click',()=>{
+            $('edit-event-id').value=String(row.id);
+            $('edit-event-title').value=row.titulo||'';
+            $('edit-event-date').value=eventDateLocal(row.inicio_em);
+            $('edit-event-location').value=row.local||'';
+            $('edit-event-description').value=row.descricao||'';
+            $('edit-event-published').checked=Boolean(row.publicado);
+            $('admin-event-save').textContent='Salvar alterações';
+            $('admin-event-cancel').hidden=false;
+            status('admin-event-status','Editando evento: '+row.titulo+'. As alterações ficarão registradas com o responsável.');
+            $('admin-event-form').scrollIntoView({behavior:'smooth',block:'start'});
+          });
+          node.append(edit);
+        }
+        host.append(node);
+      }
+      if(table==='site_eventos')void window.IGREJA_GESTAO?.annotateEvents?.();
+    }
+  }
   async function refreshMediaAdmin(){const host=$('admin-media-list');if(!host||!tableAllowed('site_midias'))return;const {data,error}=await client().from('site_midias').select('*').order('hino_numero');host.replaceChildren();if(error){host.append(E('p','','Não foi possível carregar mídias.'));return;}for(const r of data||[]){const box=moderationLine(`Hino ${r.hino_numero} — ${r.tipo==='youtube'?'Vídeo YouTube':'Áudio'}`,'Mídia oficial vinculada',r.youtube_id||r.audio_url,'Remover mídia',async()=>{if(!confirm('Remover mídia deste hino?'))return;const {error}=await client().from('site_midias').delete().eq('hino_numero',r.hino_numero);if(error)return alert('Erro: '+error.message);await fetchPublic();await refreshMediaAdmin();});host.append(box);}}
   function refreshIdentityForm(){
     for(const [key,id] of [['history_intro','edit-history-intro'],['history_detail','edit-history-detail'],['logo_url','edit-logo-url'],['hero_photo_url','edit-hero-url'],['history_photo_url','edit-history-url'],['contact','edit-contact']]){
