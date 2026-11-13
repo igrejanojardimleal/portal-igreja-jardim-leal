@@ -18,7 +18,7 @@ window.IGREJA_GESTAO = (()=>{
  const logged=()=>Boolean(ctx?.user?.()?.id);
  const maySee=()=>logged()&&(can('hinos')||can('cifras'));
  const names=()=>ctx?.songs?.()||[];
- const base=()=>window.IGREJA_DATA?.songs||[];
+ const base=()=>window.IGREJA_CATALOGO_ORIGINAL||window.IGREJA_DATA?.songs||[];
  const titleFor=n=>(names().find(x=>x.number===n)||base().find(x=>x.number===n))?.title||'Hino '+n;
  const actionButton=(text,cb,cls='btn btn-outline btn-sm')=>{
    const b=make('button',text,cls);b.type='button';b.addEventListener('click',cb);return b;
@@ -264,7 +264,7 @@ window.IGREJA_GESTAO = (()=>{
  }
  async function annotateEvents(){
    if(!logged())return;
-   if(!history.length)await readHistory();
+   await readHistory();
    const panel=$('admin-event-list');if(!panel)return;
    const cards=[...panel.querySelectorAll('[data-igjal-event-id]')];
    for(const card of cards){
