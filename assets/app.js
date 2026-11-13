@@ -11,6 +11,8 @@
   const data = window.IGREJA_DATA || { songs: [], history: { timeline: [] } };
   const $ = (id) => document.getElementById(id);
   const songs = Array.isArray(data.songs) ? data.songs : [];
+  // Cópia do catálogo original para restaurar hinos retirados sem apagar letras e créditos.
+  window.IGREJA_CATALOGO_ORIGINAL=songs.map(song=>({...song}));
   let songMode = 'letra';
   let category = 'Todos';
   let readingFont = 16;
@@ -967,6 +969,7 @@
     if(!db||!user){
       window.IGREJA_V4?.onAuthChange?.();
       window.IGREJA_CELEBRACOES?.onAuthChange?.();
+      window.IGREJA_GESTAO?.onAuthChange?.();
       updateAdminPanelAccess();
       refreshAdminLinks();
       window.IGREJA_LIVE?.onAuthChange?.();
@@ -994,6 +997,7 @@
       window.IGREJA_V4?.onAuthChange?.();
       window.IGREJA_CELEBRACOES?.onAuthChange?.();
       window.IGREJA_ESTUDOS?.onAuthChange?.();
+      window.IGREJA_GESTAO?.onAuthChange?.();
       $('open-moderation').hidden=true;
       if($('open-moderation'))$('open-moderation').textContent=isAdmin?'🛡️ Administração geral':isMemberVerifier?'✓ Verificação de membros':isEventManager?'📅 Gerenciar eventos':isMuralModerator?'💬 Moderar mural':'🛠️ Gerenciar minha área';
       updateAdminPanelAccess();
@@ -1209,6 +1213,8 @@
     }catch(error){console.warn('Não foi possível consultar cifras oficiais:',error.message);}
   }
 
+  window.IGREJA_RELOAD_PUBLISHED_CIFRAS=loadPublishedCifras;
+
   // Validação de PDF no cliente é conveniência: produção exige verificação no servidor.
   async function validPdf(file) {
     if(!file||!file.name.toLowerCase().endsWith('.pdf'))return false;
@@ -1368,6 +1374,7 @@
       loadModeration,
       loadCifras:loadCifraModeration
     });
+    window.IGREJA_GESTAO?.init?.({db:()=>db,user:()=>user,isAdmin:()=>isAdmin,isEventsAdmin:()=>isEventManager,hasArea:canArea,songs:()=>songs});
     if (window.IGREJA_CELEBRACOES?.init) await window.IGREJA_CELEBRACOES.init({db:()=>db,isAdmin:()=>isAdmin,isEventsAdmin:()=>isEventManager});
     if (window.IGREJA_ESTUDOS?.init) await window.IGREJA_ESTUDOS.init({db:()=>db,isAdmin:()=>isAdmin,isStudyTeacher:()=>isStudyTeacher,isStudyReviewer:()=>isStudyReviewer,hasArea:canArea,user:()=>user});
   }
