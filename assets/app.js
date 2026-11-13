@@ -715,18 +715,22 @@
     const submit=$('song-submit-chord');
     if (submit) submit.href=`enviar-cifra.html?hino=${encodeURIComponent(hino)}`;
     const versions=cifrasPublicadas.get(hino)||{};
-    const preferred=chosenVocalVersions.get(hino)||'tenor_baixo_contralto';
-    const publishedKind=versions[preferred]?preferred
-      : ['sem_definicao','tenor_baixo_contralto','baritono_soprano'].find(k=>versions[k]);
-    const published=publishedKind?versions[publishedKind]:'';
+    const allPdfs=versions._all||[];
     const pdfLink=$('song-pdf-link');
     if(pdfLink){
-      pdfLink.hidden=!published;
-      if(published){
-        pdfLink.href=published;
-        pdfLink.onclick=()=>{void registrarInteracao('download','hino:'+hino);};
-        pdfLink.textContent='Abrir cifra oficial em PDF ('+VOCAL_LABELS[publishedKind]+') ↗';
-      }else {pdfLink.removeAttribute('href');pdfLink.onclick=null;}
+      const parent=pdfLink.parentNode;
+      parent.querySelectorAll('.additional-cifra-pdf').forEach(node=>node.remove());
+      pdfLink.hidden=!allPdfs.length;
+      allPdfs.forEach((item,index)=>{
+        const link=index===0?pdfLink:el('a','additional-cifra-pdf');
+        link.href=item.url;
+        link.target='_blank';
+        link.rel='noopener noreferrer';
+        link.textContent='Cifra '+(index+1)+' — '+(VOCAL_LABELS[item.voice]||'PDF oficial')+' (PDF) ↗';
+        link.addEventListener('click',()=>{void registrarInteracao('download','hino:'+hino);});
+        if(index>0)parent.append(link);
+      });
+      if(!allPdfs.length)pdfLink.removeAttribute('href');
     }
     const mediaHost=$('song-media-content');
     if(mediaHost){
@@ -1194,7 +1198,7 @@
   async function loadPublishedCifras() {
     if(!db)return;
     try{
-      const {data:rows,error}=await db.from('cifras_publicadas').select('hino_numero,storage_path,voz_confortavel');
+      const {data:rows,error}=await db.from('cifras_publicadas').select('hino_numero,storage_path,voz_confortavel,versao').order('versao',{ascending:true});
       if(error)throw error;
       cifrasPublicadas=new Map();
       for(const row of rows||[]){
@@ -1204,7 +1208,8 @@
         const {data:published}=db.storage.from(cifraBucketPublic).getPublicUrl(row.storage_path);
         if(published?.publicUrl){
           const versions=cifrasPublicadas.get(row.hino_numero)||{};
-          versions[kind]=published.publicUrl;
+          versions[kind] ||= published.publicUrl;
+          (versions._all ||= []).push({url:published.publicUrl,voice:kind,versao:row.versao});
           cifrasPublicadas.set(row.hino_numero,versions);
         }
       }
@@ -1319,7 +1324,11 @@
               const path=`hino-${row.hino_numero}-${row.id}.pdf`;
               const {error:upErr}=await db.storage.from(cifraBucketPublic).upload(path,download,{contentType:'application/pdf',upsert:false});
               if(upErr)throw upErr;
-              const {error:pubErr}=await db.from('cifras_publicadas').upsert({hino_numero:row.hino_numero,storage_path:path,origem_envio:row.id,voz_confortavel:row.voz_confortavel||'sem_definicao'},{onConflict:'hino_numero,voz_confortavel'});
+              const voice=row.voz_confortavel||'sem_definicao';
+              const {data:existing,error:listErr}=await db.from('cifras_publicadas').select('versao').eq('hino_numero',row.hino_numero).eq('voz_confortavel',voice).order('versao',{ascending:false}).limit(1);
+              if(listErr)throw listErr;
+              const nextVersion=(existing?.[0]?.versao||0)+1;
+              const {error:pubErr}=await db.from('cifras_publicadas').insert({hino_numero:row.hino_numero,storage_path:path,origem_envio:row.id,voz_confortavel:voice,versao:nextVersion});
               if(pubErr)throw pubErr;
             }
             const {error:statusErr}=await db.from('cifra_envios').update({status:accept?'aprovado':'rejeitado'}).eq('id',row.id);
