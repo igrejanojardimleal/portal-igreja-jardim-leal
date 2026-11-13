@@ -701,7 +701,7 @@
     if (!selectedSong) return;
     if(lastMobileHino!==selectedSong.number){mobilePanelExpanded=false;lastMobileHino=selectedSong.number;}
     const approvedPdfs=cifrasPublicadas.get(selectedSong.number)?._all||[];
-    const inlineApproved=dialogMode==='cifra'&&approvedPdfs.length>0;
+    const inlineApproved=dialogMode==='cifra'&&approvedPdfs.length>0&&!getActiveChordVersion(selectedSong).chords.trim();
     const activeCifra=getActiveChordVersion(selectedSong);
     setText('song-dialog-title', `${String(selectedSong.number).padStart(2,'0')} — ${selectedSong.title}`);
     setText('song-dialog-eyebrow', dialogMode === 'cifra' ? 'CIFRA DO LOUVOR' : 'LETRA DO LOUVOR');
@@ -1064,7 +1064,7 @@
         const box=el('article','moderation-item');
         box.append(el('h3','',item.nome),el('small','',formatDate(item.criado_em)),el('p','',item.mensagem));
         const acts=el('div','moderation-actions');
-        const approve=el('button','btn btn-primary','Aprovar e publicar');approve.type='button';
+        const approve=el('button','btn btn-primary','Aprovar contribuição (+30 pontos)');approve.type='button';
         const reject=el('button','btn moderation-reject','Rejeitar');reject.type='button';
         const decide=async status=>{
           approve.disabled=reject.disabled=true;
@@ -1349,27 +1349,13 @@
         const approve=el('button','btn btn-primary','Aprovar e publicar');approve.type='button';
         const reject=el('button','btn moderation-reject','Rejeitar');reject.type='button';
         const decision=async (accept)=>{
-          if(accept&&!window.confirm('Você conferiu o PDF, a autoria e autoriza sua publicação pública neste hino?'))return;
+          if(accept&&!window.confirm('Você conferiu o PDF e deseja aprovar a contribuição? O colaborador receberá os pontos, mas a cifra NÃO será publicada automaticamente.'))return;
           view.disabled=approve.disabled=reject.disabled=true;
           try{
-            if(accept){
-              const {data:download,error:downErr}=await db.storage.from(cifraBucketPrivate).download(row.storage_path);
-              if(downErr||!download)throw downErr||new Error('Falha download');
-              if(!(await validPdf(new File([download], 'cifra.pdf',{type:'application/pdf'}))))throw new Error('PDF inválido');
-              const path=`hino-${row.hino_numero}-${row.id}.pdf`;
-              const {error:upErr}=await db.storage.from(cifraBucketPublic).upload(path,download,{contentType:'application/pdf',upsert:false});
-              if(upErr)throw upErr;
-              const voice=row.voz_confortavel||'sem_definicao';
-              const {data:existing,error:listErr}=await db.from('cifras_publicadas').select('versao').eq('hino_numero',row.hino_numero).eq('voz_confortavel',voice).order('versao',{ascending:false}).limit(1);
-              if(listErr)throw listErr;
-              const nextVersion=(existing?.[0]?.versao||0)+1;
-              const {error:pubErr}=await db.from('cifras_publicadas').insert({hino_numero:row.hino_numero,storage_path:path,origem_envio:row.id,voz_confortavel:voice,versao:nextVersion});
-              if(pubErr)throw pubErr;
-            }
             const {error:statusErr}=await db.from('cifra_envios').update({status:accept?'aprovado':'rejeitado'}).eq('id',row.id);
             if(statusErr)throw statusErr;
             card.remove();
-            setStatus('cifra-admin-status',accept?'Cifra aprovada e publicada no hino.':'Cifra rejeitada; permanece privada.');
+            setStatus('cifra-admin-status',accept?'Contribuição aprovada! Os pontos serão contabilizados. O PDF continua reservado para digitalização e publicação manual.':'Cifra rejeitada; permanece privada.');
             await Promise.all([loadCifraModeration(),loadPublishedCifras()]);
           }catch(error){
             console.warn('Falha revisão PDF:',error.message);
